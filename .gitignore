@@ -11,6 +11,9 @@
 # production
 /build
 
+#
+/img/gimp-edit
+
 # misc
 .DS_Store
 .env.local
