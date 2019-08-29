@@ -1,0 +1,23 @@
+button {
+    font-size: 3.5em;
+    background-color: rgb(141, 22, 60);
+    color: rgb(255, 255, 255);
+    margin-top: 10px;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+h4 {
+    word-wrap: break-word;
+    max-width: 150px;
+}
+
+img  {
+    width:100%;
+    height:100%;
+    object-fit: contain;
+}
+
+p {
+    font-size: 2em;
+}
