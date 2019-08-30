@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "08bdc9cf37f0edc153981c0aaa534f3b",
+    "revision": "bca01a383342972517eea1c066e9727a",
     "url": "/ecommerce_babadoo-pt/index.html"
   },
   {
-    "revision": "22564987d2435f783c41",
+    "revision": "9ce14d5f05a4d633f5f1",
     "url": "/ecommerce_babadoo-pt/static/css/2.31dafeb2.chunk.css"
   },
   {
-    "revision": "1f21126ff55daa930ba4",
-    "url": "/ecommerce_babadoo-pt/static/css/main.6e6ae062.chunk.css"
+    "revision": "6537906658801d75f2a9",
+    "url": "/ecommerce_babadoo-pt/static/css/main.7f9ba652.chunk.css"
   },
   {
-    "revision": "22564987d2435f783c41",
-    "url": "/ecommerce_babadoo-pt/static/js/2.88976a44.chunk.js"
+    "revision": "9ce14d5f05a4d633f5f1",
+    "url": "/ecommerce_babadoo-pt/static/js/2.41089a1b.chunk.js"
   },
   {
-    "revision": "1f21126ff55daa930ba4",
-    "url": "/ecommerce_babadoo-pt/static/js/main.9306d15b.chunk.js"
+    "revision": "6537906658801d75f2a9",
+    "url": "/ecommerce_babadoo-pt/static/js/main.26d736c7.chunk.js"
   },
   {
     "revision": "d78b4919d2177cded9d3",
