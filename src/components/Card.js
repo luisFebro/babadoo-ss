@@ -3,7 +3,7 @@ import './Card.css'
 
 const Card = ({img, category, name, price, refer}) => {
     return(
-        <div className="tc shadow-hover bg-white black dib br3 pa2 ma2 grow bw2 shadow-3">
+        <div style={{zIndex: 30}} className="tc shadow-hover bg-white black dib br3 pa2 ma2 bw2 shadow-3">
             <div className="ma1">
                 <img src={img} alt=""/>
             </div>

@@ -26,18 +26,6 @@ img {
     width: 100%;
 }
 
-.fixed {
-    position: relative;
-    top: 5px;
-    left: 55px;
-    z-index: 45;
-}
-
-.logoTweaks {
-    margin-top: 70px;
-    z-index: 100;
-}
-
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;

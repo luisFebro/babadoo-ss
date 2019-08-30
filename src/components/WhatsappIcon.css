@@ -1,0 +1,30 @@
+.link-whatsapp-web {
+    position: fixed;
+    display: inline-block;
+    right: 10px;
+    bottom: 10px;
+
+    height: 60px;
+    width: 60px;
+
+    background: url(https://imgur.com/2RhqZyw.png);
+    background-size: contain;
+    opacity: .7;
+
+    z-index: 99;
+
+    -webkit-transition: opacity .3s 0s, visibility 0s .3s;
+    -moz-transition: opacity .3s 0s, visibility 0s .3s;
+    transition: opacity .3s 0s, visibility 0s .3s;
+}
+
+.link-whatsapp-web:hover {
+    opacity: 1;
+}
+
+.text-hide {
+    color: transparent;
+    text-shadow: none;
+    background-color: transparent;
+    border: 0;
+}

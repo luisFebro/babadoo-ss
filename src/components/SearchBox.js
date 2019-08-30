@@ -1,21 +1,19 @@
 import React from 'react';
+import LogoSlogon from './LogoSlogon';
 
 const SearchBox = ({searchChange}) => {
     return (
-        <div>
-            <div className="fixed">
+        <div style= {{display: 'inline-block'}}>
+            <div>
                 <input
-                    style = {{width: '150%'}}
+                    style = {{marginRight: 'auto', marginLeft: '0px', width: '70%', position: 'fixed', zIndex:40}}
                     className="br2 ma2 pa3 ba b--light-red bg-near-white"
                     type="search"
-                    placeholder="Qual acessório você procura?"
+                    placeholder="O que você procura?"
                     onChange={searchChange}
                 />
             </div>
-            <div>
-                <img className="logoTweaks animated pulse" style={{animationDelay: '10s', animationIterationCount: '10', width: '170px', height: '170px'}} src="https://imgur.com/9GjtAiW.png"/>
-            </div>
-            <h1>Lingeries e Acessórios Eróticos</h1>
+            <LogoSlogon />
         </div>
     )
 }

@@ -1,11 +1,35 @@
 button {
-    font-size: 3.5em;
+    display: inline-block;
+    outline: none;
+
+    padding: 15px 25px;
+
+    border: none;
+    border-radius: 15px;
     background-color: rgb(141, 22, 60);
-    color: rgb(255, 255, 255);
-    margin-top: 10px;
-    padding: 10px 15px;
+    box-shadow: 0 9px #999;
+    outline: none;
+    color: #fff;
+
+    text-align: center;
+    text-decoration: none;
+    font-size: 24px;
+
     cursor: pointer;
+    margin-bottom: 20px;
 }
+
+button:hover {
+    background-color: red;
+}
+
+button:active {
+    background-color: red;
+    box-shadow: 0 5px #666;
+
+    transform: translateY(4.5px);
+}
+
 
 h4 {
     word-wrap: break-word;

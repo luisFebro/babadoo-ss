@@ -1,9 +1,11 @@
+
 {
   "name": "ecommerce_babadoo-pt",
   "version": "0.1.0",
   "private": true,
   "homepage": "https://luisFebro.github.io/ecommerce_babadoo-pt",
   "dependencies": {
+    "@material-ui/core": "^4.3.3",
     "gh-pages": "^2.1.1",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
