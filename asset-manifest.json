@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/ecommerce_babadoo-pt/static/css/main.7f9ba652.chunk.css",
-    "main.js": "/ecommerce_babadoo-pt/static/js/main.3ee9097e.chunk.js",
-    "main.js.map": "/ecommerce_babadoo-pt/static/js/main.3ee9097e.chunk.js.map",
+    "main.css": "/ecommerce_babadoo-pt/static/css/main.518a2b8b.chunk.css",
+    "main.js": "/ecommerce_babadoo-pt/static/js/main.5bd26906.chunk.js",
+    "main.js.map": "/ecommerce_babadoo-pt/static/js/main.5bd26906.chunk.js.map",
     "runtime~main.js": "/ecommerce_babadoo-pt/static/js/runtime~main.79700e99.js",
     "runtime~main.js.map": "/ecommerce_babadoo-pt/static/js/runtime~main.79700e99.js.map",
     "static/css/2.31dafeb2.chunk.css": "/ecommerce_babadoo-pt/static/css/2.31dafeb2.chunk.css",
-    "static/js/2.41089a1b.chunk.js": "/ecommerce_babadoo-pt/static/js/2.41089a1b.chunk.js",
-    "static/js/2.41089a1b.chunk.js.map": "/ecommerce_babadoo-pt/static/js/2.41089a1b.chunk.js.map",
+    "static/js/2.9a460be8.chunk.js": "/ecommerce_babadoo-pt/static/js/2.9a460be8.chunk.js",
+    "static/js/2.9a460be8.chunk.js.map": "/ecommerce_babadoo-pt/static/js/2.9a460be8.chunk.js.map",
     "index.html": "/ecommerce_babadoo-pt/index.html",
-    "precache-manifest.574173c5effcebe256ed5122ccdbfdde.js": "/ecommerce_babadoo-pt/precache-manifest.574173c5effcebe256ed5122ccdbfdde.js",
+    "precache-manifest.2bfa9d698199bd32751b523891289fe2.js": "/ecommerce_babadoo-pt/precache-manifest.2bfa9d698199bd32751b523891289fe2.js",
     "service-worker.js": "/ecommerce_babadoo-pt/service-worker.js",
     "static/css/2.31dafeb2.chunk.css.map": "/ecommerce_babadoo-pt/static/css/2.31dafeb2.chunk.css.map",
-    "static/css/main.7f9ba652.chunk.css.map": "/ecommerce_babadoo-pt/static/css/main.7f9ba652.chunk.css.map",
+    "static/css/main.518a2b8b.chunk.css.map": "/ecommerce_babadoo-pt/static/css/main.518a2b8b.chunk.css.map",
     "static/media/App.css": "/ecommerce_babadoo-pt/static/media/Organica 90.28b21f32.woff"
   }
 }

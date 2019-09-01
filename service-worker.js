@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/ecommerce_babadoo-pt/precache-manifest.574173c5effcebe256ed5122ccdbfdde.js"
+  "/ecommerce_babadoo-pt/precache-manifest.2bfa9d698199bd32751b523891289fe2.js"
 );
 
 self.addEventListener('message', (event) => {
