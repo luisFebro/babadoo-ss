@@ -9,9 +9,9 @@ const CardList = ({ products }) => {
                     return (
                         <Card
                             key={i}
-                            img = {products[i].img}
-                            category={products[i].category}
-                            name={products[i].name}
+                            image = {products[i].image} //img
+                            title={products[i].title} //category
+                            description={products[i].description} //product
                             price={products[i].price}
                             // refer={products[i].ref}
                         />

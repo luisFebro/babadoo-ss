@@ -1,0 +1,11 @@
+@font-face {
+    font-family: 'Organica 90 Regular';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Organica 90 Regular'), url('Organica 90.woff') format('woff');
+}
+
+h1 {
+    font-family: 'Organica 90 Regular';
+    letter-spacing: .1em;
+}

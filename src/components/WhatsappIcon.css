@@ -13,12 +13,11 @@
 
     z-index: 99;
 
-    -webkit-transition: opacity .3s 0s, visibility 0s .3s;
-    -moz-transition: opacity .3s 0s, visibility 0s .3s;
-    transition: opacity .3s 0s, visibility 0s .3s;
+    transition: opacity .5s 0s, visibility 0s .3s;
 }
 
 .link-whatsapp-web:hover {
+    transform: scale(1.1);
     opacity: 1;
 }
 

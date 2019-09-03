@@ -6,11 +6,13 @@ const WhatsappIcon = () => {
         <div>
             <a
                 target="_blank"
+                rel="noopener noreferrer"
                 className="link-whatsapp-web text-hide"
                 title="Clique aqui para enviar uma mensagem em nosso WhatsApp"
-                href="https://web.whatsapp.com/send?phone=+5592995066603&amp;text=Ol%C3%A1,%20gostaria%20de%20uma%20ajuda%20para%20comprar,%20pode%20me%20ajudar?"> (92) 99506.6603 </a>
+                href="http://linkwhatsapp.com.br/go/9tL">
+            </a>
         </div>
     )
 }
-
+/*(92) 99506-6603*/
 export default WhatsappIcon;

@@ -3,8 +3,8 @@ import LogoSlogon from './LogoSlogon';
 
 const SearchBox = ({searchChange}) => {
     return (
-        <div style= {{display: 'inline-block'}}>
-            <div>
+        <div>
+            <div style= {{display: 'none'}}>
                 <input
                     style = {{marginRight: 'auto', marginLeft: '0px', width: '70%', position: 'fixed', zIndex:40}}
                     className="br2 ma2 pa3 ba b--light-red bg-near-white"
