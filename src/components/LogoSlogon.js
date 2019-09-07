@@ -2,9 +2,13 @@ import React from 'react';
 
 const LogoSlogon = () => {
     return (
-        <div style={{marginTop: '5px', zIndex: 50}}>
-            <img className="animated pulse" style={{position: 'relative', zIndex: 150, animationIterationCount: '10', width: '190px', height: '190px'}} src="https://imgur.com/9GjtAiW.png" alt="logo-babadoo"/>
-            <h1>Lingeries e Acessórios Eróticos</h1>
+        <div className="container">
+            <div className="row">
+                <div style={{zIndex: 50}}  className="col-10 mx-auto text-center text-title text-uppercase pt-5">
+                    <img className="animated pulse mb-3" style={{position: 'relative', zIndex: 150, animationIterationCount: '5', width: '190px', height: '190px'}} src="img/babadoo-logo_no-slogon.png" alt="logo-babadoo"/>
+                    <h1><strong>lingeries e acessórios eróticos</strong></h1>
+                </div>
+            </div>
         </div>
     )
 }

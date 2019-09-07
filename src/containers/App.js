@@ -1,48 +1,30 @@
-import React, { Component } from 'react';
-import { products } from '../products';
-import SearchBox from '../components/SearchBox';
+import React from 'react';
+import {Switch, Route} from
+'react-router-dom';
 import './App.css';
-import CardList from "../components/CardList";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Navbar from '../components/Navbar';
+import ProductList from '../components/ProductList';
+import Details from '../components/Details';
+import Cart from '../components/cart';
+import Default from '../components/Default';
+import Modal from '../components/Modal';
 import WhatsappIcon from "../components/WhatsappIcon";
 import Footer from '../components/Footer';
-import SearchBoxFilterImg from '../components/SearchBoxFilterImg'
-// import MainNavDiv from '../components/MainNavDiv'
 
-class App extends Component {
-    constructor() {
-        super();
-        this.state = {
-            products: products,
-            searchfield: ''
-        }
-    }
-
-    componentDidMount() {
-        this.setState({ products: products });
-    }
-
-    onSearchChange = (event) => {
-        this.setState({ searchfield: event.target.value });
-    }
-
-    render() {
-        const { products, searchfield } = this.state;
-        const filteredProducts = products.filter((item) => {
-            return item.description.toLowerCase().includes(searchfield.toLowerCase());
-
-        });
-
-        return (
-            <div className="tc">
-                <SearchBoxFilterImg />
-                <SearchBox searchChange={this.onSearchChange}/>
-                <CardList products={filteredProducts}/>
-                <WhatsappIcon />
-                <Footer />
-            </div>
-        );
-    }
-
+export default function App() {
+    return (
+        <React.Fragment>
+            <Navbar />
+            <Switch>
+                <Route exact path="/" component={ProductList} /> {/*This will be routed first*/}
+                <Route path ="/details" component={Details} />
+                <Route path="/cart" component={Cart} />
+                <Route component={Default} />
+            </Switch>
+            <Modal />
+            <Footer />
+            <WhatsappIcon />
+        </React.Fragment>
+    );
 }
-
-export default App;

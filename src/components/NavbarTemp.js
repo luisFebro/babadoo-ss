@@ -1,7 +1,6 @@
 import React from 'react';
-import './MainNavDiv.css';
 
-const MainNavDiv = () => {
+export default function Navbar() {
     return (
         // resource: https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_collapse_sidebar
         <div className="navPosition">
@@ -19,9 +18,5 @@ const MainNavDiv = () => {
                 <button class="openbtn" onClick={openNav}>☰</button>
             </div>
         </div>
-
-
     )
 }
-
-export default MainNavDiv;
