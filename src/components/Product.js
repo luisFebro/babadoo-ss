@@ -24,7 +24,8 @@ export default class Product extends Component {
                                     />
                                 </Link>
                                 <button className="cart-fav">
-                                    <i className="fas fa-heart"></i>
+                                    <img src="img/icons/heart-no-fill.png" width="28px" height="28px" alt="heart icon no fill"/>
+                                    {/*<i className="fas fa-heart"></i>*/}
                                 </button>
                                 <button
                                     className="cart-btn"
@@ -127,12 +128,21 @@ const ProductWrapper = styled.div`
         position: absolute;
         top: 10px;
         right: 10px;
-        color: var(--mainRed);
         background: transparent;
         border: none;
-        width: 44px !important;
-        height: 44px !important;
     }
+
+    .cart-fav img {
+        color: var(--mainRed);
+        opacity: .3;
+        transition: .5s;
+    }
+
+    .cart-fav img:hover {
+        opacity: 1;
+        transform: scale(1.1);
+    }
+
     fas .fa-heart {
     }
 
