@@ -4,10 +4,9 @@ import React, { Component } from 'react'
 import Search from '@bit/semantic-org.semantic-ui-react.search'
 import styled from 'styled-components';
 import { ProductConsumer } from "../context";
-// const style = <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/semantic-ui@2.4.1/dist/semantic.min.css'/>
+const style = <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/semantic-ui@2.4.1/dist/semantic.min.css'/>
 
 const source = storeProducts;
-console.log("source", source);
 
 class Search_completeWithImg extends Component {
     componentWillMount() {
@@ -26,11 +25,9 @@ class Search_completeWithImg extends Component {
 
             const re = new RegExp(_.escapeRegExp(this.state.value), 'i')
             const isMatch = result => re.test(result.title)
-            const source2 = this.props.products;
-            console.log("source2", source2);
             this.setState({
                 isLoading: false,
-                results: _.filter(source2, isMatch),
+                results: _.filter(source, isMatch),
             })
         }, 300)
     }
@@ -52,7 +49,9 @@ class Search_completeWithImg extends Component {
     }
 }
 
-export default (()=> <DivContainer><Search_completeWithImg /></DivContainer>)
+export default () => (
+    <div>{style}<Search_completeWithImg/></div>
+);
 
 const DivContainer = styled.div`
     .ui.input>input {

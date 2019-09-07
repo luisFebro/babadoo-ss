@@ -23,6 +23,9 @@ export default class Product extends Component {
                                         alt="product"
                                     />
                                 </Link>
+                                <button className="cart-fav">
+                                    <i className="fas fa-heart"></i>
+                                </button>
                                 <button
                                     className="cart-btn"
                                     disabled={inCart ? true : false}
@@ -120,12 +123,25 @@ const ProductWrapper = styled.div`
         transition: all 1s linear;
     }
 
+    .cart-fav {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        color: var(--mainRed);
+        background: transparent;
+        border: none;
+        width: 44px !important;
+        height: 44px !important;
+    }
+    fas .fa-heart {
+    }
+
     .cart-btn:hover {
         color: var(--mainBlue);
         cursor: pointer;
     }
 
-    .cart-btn:focus {
+    .cart-btn:focus, .cart-fav:focus {
         outline: none;
     }
 

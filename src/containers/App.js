@@ -11,11 +11,13 @@ import Default from '../components/Default';
 import Modal from '../components/Modal';
 import WhatsappIcon from "../components/WhatsappIcon";
 import Footer from '../components/Footer';
+import Search_completeWithImg from '../components/Search_completeWithImg'
 
 export default function App() {
     return (
         <React.Fragment>
             <Navbar />
+            <Search_completeWithImg />
             <Switch>
                 <Route exact path="/" component={ProductList} /> {/*This will be routed first*/}
                 <Route path ="/details" component={Details} />

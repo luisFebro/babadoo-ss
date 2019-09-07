@@ -25,6 +25,7 @@ body {
   margin: 0;
   background: var(--mainWhite) !important;
   color: var(--mainDark) !important;
+  user-select: none;
 }
 
 footer {

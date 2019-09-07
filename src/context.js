@@ -49,8 +49,6 @@ class ProductProvider extends Component {
             obj.title += ` (código: ${categoriesAbbrev[i]}${++i})`;
         });
         this.getRandomArray(productProps);
-        console.log("productProps", productProps);
-
 
         // const countCategories = categoriesAbbrev.map(each => {
         //     let cat = {"ling": 0 , "cosm": 0, "come": 0,"sado": 0}
