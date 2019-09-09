@@ -35,7 +35,7 @@ footer {
 
 .text-title {
     font-weight: bolder;
-    font-family: 'Organica 90 Regular', cursive;
+    font-family: 'Organica 90 Regular', cursive !important;
     letter-spacing: .2rem;
     text-transform: uppercase;
 }

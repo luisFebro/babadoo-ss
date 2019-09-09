@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { ProductConsumer } from '../context';
-import { ButtonContainer_pressedEffect2, ButtonContainer_pressedEffectYellow } from './Button';
+import { ButtonContainerPressedEffectDark as DarkBtn, ButtonContainerPressedEffectYellow as YellowBtn} from './Button';
 import { Link } from 'react-router-dom';
 
 export default class Modal extends Component {
@@ -22,7 +22,7 @@ export default class Modal extends Component {
                                             id="modal"
                                             className="col-8 col-md-6 col-lg-4 mx-auto text-center text-capitalize p-5"
                                         >
-                                            <h3 className="mb-5 text-title">Item adicionado ao carinho!</h3>
+                                            <h3 className="animated flip zoomIn slow mb-5 text-title"><strong>Item adicionado ao carrinho!</strong></h3>
                                             <img src={image} alt="product" className="img-fluid"/>
                                             <section className="my-2">
                                                 <h5>{title}</h5>
@@ -30,14 +30,14 @@ export default class Modal extends Component {
                                             </section>
                                             <div className="d-flex flex-row justify-content-center align-items-center mt-2">
                                                 <Link to="/">
-                                                    <ButtonContainer_pressedEffect2 onClick={()=> closeModal()}>
+                                                    <DarkBtn onClick={()=> closeModal()}>
                                                         Vitrine
-                                                    </ButtonContainer_pressedEffect2>
+                                                    </DarkBtn>
                                                 </Link>
-                                                <Link to="/cart">
-                                                    <ButtonContainer_pressedEffectYellow onClick={()=> closeModal()}>
+                                                <Link to="/seu-carrinho">
+                                                    <YellowBtn onClick={()=> closeModal()}>
                                                         Carinho
-                                                    </ButtonContainer_pressedEffectYellow>
+                                                    </YellowBtn>
                                                 </Link>
                                             </div>
 

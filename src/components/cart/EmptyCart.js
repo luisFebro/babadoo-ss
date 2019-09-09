@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ButtonContainer_pressedEffect2 } from '../Button';
+import { ButtonContainerPressedEffectDark } from '../Button';
 
 export default function EmptyCart() {
     return (
@@ -9,9 +9,9 @@ export default function EmptyCart() {
                 <div className="col-10 mx-auto text-center">
                     <h1 className="text-title"><strong>Oops! Seu carrinho está vazio</strong></h1>
                     <Link to='/'>
-                        <ButtonContainer_pressedEffect2 className="text-capitalize">
+                        <ButtonContainerPressedEffectDark className="text-capitalize">
                             voltar para a vitrine
-                        </ButtonContainer_pressedEffect2>
+                        </ButtonContainerPressedEffectDark>
                     </Link>
                 </div>
             </div>

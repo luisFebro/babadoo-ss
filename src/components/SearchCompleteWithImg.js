@@ -8,7 +8,7 @@ const style = <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/semantic
 
 const source = storeProducts;
 
-class Search_completeWithImg extends Component {
+class SearchCompleteWithImg extends Component {
     componentWillMount() {
         this.resetComponent()
     }
@@ -50,13 +50,25 @@ class Search_completeWithImg extends Component {
 }
 
 export default () => (
-    <div>{style}<Search_completeWithImg/></div>
+    <div>
+        {style}
+        <DivContainer>
+            <p>Procurar Item</p>
+            <SearchCompleteWithImg style={{position: 'absolute', top: '6em', left: '1rem'}}/>
+        </DivContainer>
+    </div>
 );
 
 const DivContainer = styled.div`
-    .ui.input>input {
-        margin: 0;
-        max-width: 30px;
+    & p {
+        position: relative;
+        z-index: 100;
+        left: 70px
+        top: -15px;
+        color: var(--mainWhite);
+    }
+    input {
+        max-width: 5rem;
         -webkit-box-flex: 1;
         -ms-flex: 1 0 auto;
         flex: 1 0 auto;
@@ -78,7 +90,7 @@ const DivContainer = styled.div`
         box-shadow: none;
     }
 
-    .ui.search>.results .result:last-child {
+    results .result:last-child {
         border-bottom: none !important;
     }
 
@@ -94,11 +106,12 @@ const DivContainer = styled.div`
     }
 
     .image {
+        margin-left: 3em;
         float: right;
         overflow: hidden;
         background: 0 0;
-        width: 5em;
-        height: 3em;
+        width: 7em;
+        height: 5em;
         border-radius: .25em;
     }
 
@@ -108,20 +121,25 @@ const DivContainer = styled.div`
 
     .ui.search>.results .result .price {
         float: right;
+        font-size: 1rem;
+        font-weight: bold;
         color: #21ba45;
+    }
+    .price::before {
+        content: 'R$ '
     }
 
     .ui.search>.results .result .title {
-        margin: -.14285714em 0 0;
+        margin: -.3em 0 0;
         font-family: Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif;
         font-weight: 700;
-        font-size: 1em;
+        font-size: 1.2em;
         color: rgba(0, 0, 0, .85);
     }
 
     .ui.search>.results .result .description {
         margin-top: 0;
-        font-size: .92857143em;
+        font-size: 1.1em;
         color: rgba(0, 0, 0, .4);
     }
 `;

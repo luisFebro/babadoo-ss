@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { ProductConsumer } from '../context';
-import { ButtonContainer_pressedEffect2 } from './Button';
+import { ButtonContainerPressedEffectDark } from './Button';
 import { Link } from 'react-router-dom';
 
 export default class UnderConstruction extends Component {
@@ -9,9 +9,9 @@ export default class UnderConstruction extends Component {
         return (
             <ProductConsumer>
                 {(value) => {
-                    const { modalOpen , closeModal } = value;
+                    const { modalOpenOnly , closeModal } = value;
 
-                    if(!modalOpen) {
+                    if(!modalOpenOnly) {
                         return null;
                     } else {
                         return (
@@ -23,14 +23,14 @@ export default class UnderConstruction extends Component {
                                             className="col-8 mx-auto col-md-6 col-lg-4 text-center text-capitalize p-5"
                                         >
                                             <section>
-                                                <img src="" alt=""/>
-                                                <h2>Ainda estamos trabalhando nesta seção.</h2>
-                                                <h2>Logo estará disponível.</h2>
+                                                <h2>Ainda estamos trabalhando aqui.</h2>
+                                                <h2>Logo estará disponível! (=</h2>
+                                                <img className="img-fluid mb-5" src="img/under-construction.png" alt="funcionalidade em construção"/>
                                             </section>
                                             <Link to="/">
-                                                <ButtonContainer_pressedEffect2 onClick={()=> closeModal()}>
+                                                <ButtonContainerPressedEffectDark onClick={()=> closeModal()}>
                                                     voltar para vitrine
-                                                </ButtonContainer_pressedEffect2>
+                                                </ButtonContainerPressedEffectDark>
                                             </Link>
                                         </div>
                                     </div>

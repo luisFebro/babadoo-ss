@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 import styled from 'styled-components';
-import Search_completeWithImg from './Search_completeWithImg';
-import { ButtonContainer_pressedEffectYellow } from './Button';
+import SearchCompleteWithImg from './SearchCompleteWithImg';
+import { ButtonContainerPressedEffectYellow } from './Button';
 
 export default class Navbar extends Component {
     render() {
@@ -34,13 +34,13 @@ export default class Navbar extends Component {
                        </Link>
                    </li>
                </ul>
-               <Link to="/cart" className="">
-                   <ButtonContainer_pressedEffectYellow className="ml-auto ml-1 mr-2 text-capitalize">
+               <Link to="/seu-carrinho" className="">
+                   <ButtonContainerPressedEffectYellow className="ml-auto ml-1 mr-2 text-capitalize">
                         <span>
                            <i className="fas fa-cart-plus"> </i>
                         </span>
-                       carinho
-                   </ButtonContainer_pressedEffectYellow>
+                       carrinho
+                   </ButtonContainerPressedEffectYellow>
                </Link>
             </NavWrapper>
         );

@@ -16,14 +16,14 @@ export default class Product extends Component {
                                 className="img-container p-3"
                                 onClick={()=> value.handleDetail(id)}
                             >
-                                <Link to="/details">
+                                <Link to="/detalhes-do-produto">
                                     <img
                                         className="card-img-top"
                                         src={image}
                                         alt="product"
                                     />
                                 </Link>
-                                <button className="cart-fav">
+                                <button className="cart-fav" onClick={() => { value.openModalOnly() }}>
                                     <img src="img/icons/heart-no-fill.png" width="28px" height="28px" alt="heart icon no fill"/>
                                     {/*<i className="fas fa-heart"></i>*/}
                                 </button>
@@ -79,6 +79,7 @@ Product.propTypes = {
 
 const ProductWrapper = styled.div`
     .card {
+        box-shadow: 0 19px 38px rgba(0,0,0,0.20), 0 15px 12px rgba(0,0,0,0.12);
         border-color: transparent;
         transition: all 1s linear;
     }
@@ -89,8 +90,8 @@ const ProductWrapper = styled.div`
     }
     &:hover {
         .card{
+            box-shadow: 0 19px 38px rgba(0,0,0,0.40), 0 15px 12px rgba(250,0,0,0.32)
             border: .04rem solid rgba(0, 0, 0, .2);
-            box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, .2);
         }
         .card-footer {
             background: rgba(247, 247, 247);

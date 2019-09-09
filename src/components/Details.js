@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { ProductConsumer } from '../context';
 import { Link } from 'react-router-dom';
-import { ButtonContainer_pressedEffect2, ButtonContainer_pressedEffectYellow } from './Button';
+import { ButtonContainerPressedEffectDark, ButtonContainerPressedEffectYellow } from './Button';
 
 export default class Details extends Component {
     render() {
@@ -20,7 +20,7 @@ export default class Details extends Component {
                             {/* end title */}
                             {/*product info*/}
                             <div className="row">
-                                <div className="col-5 mx-auto col-md-6 my-3 text-title">
+                                <div className="d-flex justify-content-center align-items-center col-5 mx-auto col-md-6 my-3 text-title">
                                     <img src={image} className="img-fluid" alt="product"/>
                                 </div>
                                 {/* product text */}
@@ -43,10 +43,10 @@ export default class Details extends Component {
                                     {/* buttons */}
                                     <div className="d-flex flex-row mr-2 mt-5">
                                         <Link to="/">
-                                            <ButtonContainer_pressedEffect2>
+                                            <ButtonContainerPressedEffectDark>
                                                 Vitrine
-                                            </ButtonContainer_pressedEffect2>
-                                            <ButtonContainer_pressedEffectYellow
+                                            </ButtonContainerPressedEffectDark>
+                                            <ButtonContainerPressedEffectYellow
                                                 cart
                                                 disabled={inCart ? true:false}
                                                 onClick = {() => {
@@ -54,8 +54,8 @@ export default class Details extends Component {
                                                     value.openModal(id);
                                                 }}
                                             >
-                                                {inCart ? "No carrinho" : "adicionar no carinho"}
-                                            </ButtonContainer_pressedEffectYellow>
+                                                {inCart ? "No carrinho" : "adicionar no carrinho"}
+                                            </ButtonContainerPressedEffectYellow>
                                         </Link>
                                     </div>
 

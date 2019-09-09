@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const ButtonContainer_lightBlue = styled.button`
+export const ButtonContainerNoFillLightBlue = styled.button `
     :root {
         --mainBlue: #2a2a72;
         --mainYellow: #ffa400;
@@ -28,7 +28,7 @@ export const ButtonContainer_lightBlue = styled.button`
 `;
 
 // Pressed Effect - Collection
-export const ButtonContainer_pressedEffectYellow = styled.button`
+export const ButtonContainerPressedEffectYellow = styled.button `
     outline: none;
 
     padding: .5rem .9rem;
@@ -64,7 +64,8 @@ export const ButtonContainer_pressedEffectYellow = styled.button`
     }
 `;
 
-export const ButtonContainer_pressedEffect2 = styled(ButtonContainer_pressedEffectYellow)`
+export const ButtonContainerPressedEffectDark = styled(ButtonContainerPressedEffectYellow)
+`
     background-color: black;
     &:hover {
         background-color: var(--mainDark);

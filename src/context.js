@@ -3,20 +3,24 @@ import { storeProducts, detailProduct } from './data';
 
 //Provider
 class ProductProvider extends Component {
-    state = {
+    constructor(props) {
+        super(props)
+        this.state = {
         products: [],
         detailProduct: detailProduct,
         cart: [],
-        underConstructionOpen: false,
+        modalOpenOnly: false,
         modalOpen: false,
         modalProduct: detailProduct,
         cartSubtotal: 0,
         cartTax: 10,
         cartTotal: 0,
+        }
+        this.generateRef = this.generateRef.bind(this);
     }
 
     componentDidMount() {
-        this.generateRef();
+        //this.generateRef();
         this.setProducts();
     }
     // copying the array elements to not being only references
@@ -116,9 +120,17 @@ class ProductProvider extends Component {
         })
     }
 
+    openModalOnly = () => {
+        this.setState(() => {
+            return {
+                modalOpenOnly: true,
+            };
+        })
+    }
+
     closeModal = () => {
         this.setState(() => {
-            return { modalOpen: false }
+            return { modalOpen: false, modalOpenOnly: false }
         });
     }
     // CART METHODS
@@ -220,6 +232,7 @@ class ProductProvider extends Component {
                     handleDetail: this.handleDetail,
                     addToCart: this.addToCart,
                     openModal: this.openModal,
+                    openModalOnly: this.openModalOnly,
                     closeModal: this.closeModal,
                     increment: this.increment,
                     decrement: this.decrement,
