@@ -3,6 +3,7 @@ import Product from './Product';
 import Title from './Title';
 import { ProductConsumer } from '../context';
 import LogoSlogon from './LogoSlogon';
+import ButtonCart from './ButtonCart';
 
 export default class ProductList extends Component {
     render() {
@@ -23,8 +24,8 @@ export default class ProductList extends Component {
                             </ProductConsumer>
                         </div>
                     </div>
-
                 </div>
+                <ButtonCart />
             </React.Fragment>
         );
     }

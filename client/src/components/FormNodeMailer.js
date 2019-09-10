@@ -66,7 +66,7 @@ export default class FormNodeMailer extends Component {
         return (
             <React.Fragment>
                 <DivContainer className="container">
-                    <h1 style={{margin: '4rem 0'}} className="brand bt-5">Quase lá!</h1>
+                    <h2 style={{margin: '4rem 0'}} className="brand bt-5"><strong>Quase lá!</strong></h2>
                     <ProductConsumer>
                         {value => {
                             const { cart } = value;

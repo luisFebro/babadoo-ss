@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { ProductConsumer } from '../context';
-import { ButtonContainerPressedEffectDark } from './Button';
+import { ButtonContainerPressedEffectDark as YellowDark } from './Button';
 import { Link } from 'react-router-dom';
 
 export default class UnderConstruction extends Component {
@@ -28,9 +28,9 @@ export default class UnderConstruction extends Component {
                                                 <img className="img-fluid mb-5" src="img/under-construction.png" alt="funcionalidade em construção"/>
                                             </section>
                                             <Link to="/">
-                                                <ButtonContainerPressedEffectDark onClick={()=> closeModal()}>
+                                                <YellowDark onClick={()=> closeModal()}>
                                                     voltar para vitrine
-                                                </ButtonContainerPressedEffectDark>
+                                                </YellowDark>
                                             </Link>
                                         </div>
                                     </div>
@@ -54,6 +54,7 @@ const ModalContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 999;
     #modal {
         background: var(--mainWhite);
     }
