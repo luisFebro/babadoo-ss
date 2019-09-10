@@ -12,14 +12,14 @@ import Modal from '../components/Modal';
 import UnderConstruction from '../components/UnderConstruction';
 import WhatsappIcon from "../components/WhatsappIcon";
 import Footer from '../components/Footer';
-import SearchCompleteWithImg from '../components/SearchCompleteWithImg'
+// import SearchCompleteWithImg from '../components/SearchCompleteWithImg'
 import FormNodeMailer from '../components/FormNodeMailer';
 
 export default function App() {
     return (
         <React.Fragment>
             <Navbar />
-            <SearchCompleteWithImg />
+            {/*<SearchCompleteWithImg />*/}
             <Switch>
                 <Route exact path="/" component={ProductList} /> {/*This will be routed first*/}
                 <Route path ="/detalhes-do-produto" component={Details} />
