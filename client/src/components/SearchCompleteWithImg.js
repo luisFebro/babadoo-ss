@@ -3,7 +3,6 @@ import { storeProducts } from '../data'
 import React, { Component } from 'react'
 import Search from '@bit/semantic-org.semantic-ui-react.search'
 import styled from 'styled-components';
-import { ProductConsumer } from "../context";
 const style = <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/semantic-ui@2.4.1/dist/semantic.min.css'/>
 
 const source = storeProducts;
