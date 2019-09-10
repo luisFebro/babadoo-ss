@@ -1,0 +1,92 @@
+:root {
+    --mainRed: #ed213a;
+    --lightRed: #ed213a; /* change */
+    --mainWhite: #f3f3f3;
+    --mainDark: #232528;
+    --mainDegrade: linear-gradient(to right, #ed213a, #93291e);
+    --mainYellow: #ffa400;
+    /*temp*/
+    --mainBlue: #2a2a72;
+    --lightBlue: #009ffd;
+}
+
+@font-face {
+    font-family: 'Organica 90 Regular';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Organica 90 Regular'), url('Organica 90.woff') format('woff');
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--mainWhite) !important;
+  color: var(--mainDark) !important;
+  user-select: none;
+}
+
+footer {
+    background: var(--mainRed);
+    color: var(--mainWhite);
+}
+
+.text-title {
+    font-weight: bolder;
+    font-family: 'Organica 90 Regular', cursive !important;
+    letter-spacing: .2rem;
+    text-transform: uppercase;
+}
+
+.text-sub-title {
+    font: normal 1.3rem "Comic Sans MS", cursive, sans-serif;
+    text-transform: uppercase;
+}
+
+.text-nav-items {
+    font: normal 1.3rem "Comic Sans MS", cursive, sans-serif;
+}
+
+.text-product-title {
+    font: normal 1.3rem "Comic Sans MS", cursive, sans-serif;
+}
+
+.text-default {
+
+}
+
+.text-red {
+    color: var(--mainRed);
+}
+
+.text-yellow {
+    color: var(--mainYellow);
+}
+
+.text-light {
+    color: var(--lightBlue);
+}
+
+/*CART BUTTON*/
+.btn-black {
+    background: transparent;
+    text-transform: capitalize;
+    font-size: 1.1rem !important;
+    color: var(--mainDark);
+    border-radius: 0 !important;
+    border: .1rem solid var(--mainDark) !important;
+}
+
+.btn-black:hover {
+    cursor: pointer;
+    background: var(--mainDark) !important;
+    color: var(--mainWhite) !important;
+}
+
+.cart-icon {
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: var(--mainYellow);
+}
