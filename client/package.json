@@ -4,7 +4,6 @@
   "private": true,
   "proxy": "http://localhost:5000",
   "dependencies": {
-    "@bit/semantic-org.semantic-ui-react.search": "^0.86.0",
     "@material-ui/core": "^4.3.3",
     "axios": "^0.19.0",
     "bootstrap": "^4.3.1",
