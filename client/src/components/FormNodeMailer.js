@@ -79,9 +79,9 @@ export default class FormNodeMailer extends Component {
                                 <section style={{padding: "15px", background: "green", color: "white", marginBottom: "15px"}}>
                                     <h3 className="text-center text-uppercase">Resumo do seu Pedido</h3>
                                     <ul>
-                                        <li id="items"><h4>Items: {listTemp}</h4></li>
+                                        <li id="items"><h4>Items:<br />{listTemp}</h4></li>
                                         <br/>
-                                        <li id="total"><h4>Valor Total com Frete: R$ {value.cartTotal}</h4></li>
+                                        <li id="total"><h4>Valor Total com Frete:<br />R$ {value.cartTotal}</h4></li>
                                     </ul>
                                 </section>
                             );

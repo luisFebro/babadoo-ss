@@ -33,7 +33,7 @@ app.post('/api/form', (req, res) => {
         <ul>
           <li>Quantidades e Items(ref): <br/>${req.body.itemDescription}</li>
           <br/>
-          <li>Valor Total: ${req.body.totalPay}</li>
+          <li><h3> >> ${req.body.totalPay}</h3></li>
         </ul>
         <footer>
             <strong>Relatório de compra gerado pelo site Babadoo web</strong>

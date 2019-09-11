@@ -22,7 +22,7 @@ export default class Modal extends Component {
                                             id="modal"
                                             className="col-8 col-md-6 col-lg-4 mx-auto text-center text-capitalize p-5"
                                         >
-                                            <h2 className="animated bounce fast mb-2" style={{animationIterationCount: '2'}}>Item adicionado no carrinho!</h2>
+                                            <h2 className="animated bounce fast mb-2" style={{animationIterationCount: '2'}}>Item adicionado!</h2>
                                             <img src={image} alt="product" className="img-fluid"/>
                                             <section className="my-2">
                                                 <h5>{title}</h5>
