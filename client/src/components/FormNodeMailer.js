@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import { ProductConsumer } from '../context';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { ButtonContainerPressedEffectDark as DarkBtn} from './Button';
 
 export default class FormNodeMailer extends Component {
     constructor() {
@@ -118,6 +119,14 @@ export default class FormNodeMailer extends Component {
                         </div>
                     </div>
                 </DivContainer>
+                <div className="container">
+                    <div className="row">
+                        <DarkBtn className="col-10 mx-auto">
+                            Voltar para Vitrine
+                        </DarkBtn>
+                    </div>
+                </div>
+
             </React.Fragment>
         );
     }
