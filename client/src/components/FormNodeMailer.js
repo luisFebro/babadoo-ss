@@ -95,11 +95,11 @@ export default class FormNodeMailer extends Component {
                         </div>
                         <div className="contact">
                             <form id="contactForm" onChange={this.handleChange} onSubmit={this.handleSubmit} method="POST" action="send">
-                                <p>
+                                <p className="full">
                                     <label>Seu Nome</label>
                                     <input type="text" name="name"/>
                                 </p>
-                                <p>
+                                <p className="full">
                                     <label>Telefone/Whatsapp</label>
                                     <input type="tel" name="phone"/>
                                 </p>
@@ -121,9 +121,11 @@ export default class FormNodeMailer extends Component {
                 </DivContainer>
                 <div className="container">
                     <div className="row">
-                        <DarkBtn className="col-10 mx-auto">
-                            Voltar para Vitrine
-                        </DarkBtn>
+                        <Link to="/" className="col-10 mx-auto text-uppercase my-4">
+                            <DarkBtn>
+                                Voltar para Vitrine
+                            </DarkBtn>
+                        </Link>
                     </div>
                 </div>
 
