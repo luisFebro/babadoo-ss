@@ -20,10 +20,10 @@ export default class Modal extends Component {
                                     <div className="row">
                                         <div
                                             id="modal"
-                                            className="col-8 col-md-6 col-lg-4 mx-auto text-center text-capitalize p-5"
+                                            className="col-10 col-md-6 col-lg-4 mx-auto text-center text-capitalize p-5"
                                         >
-                                            <h2 className="animated bounce fast mb-2" style={{animationIterationCount: '2'}}>Item adicionado!</h2>
-                                            <img src={image} alt="product" className="img-fluid"/>
+                                            <h2 className="animated bounce fast mb-2" style={{animationIterationCount: '3'}}>Item adicionado!</h2>
+                                            <img src={image} alt="product" className="img-fluid shadow-elevation"/>
                                             <section className="my-2">
                                                 <h5>{title}</h5>
                                                 <h5 className="text-yellow">preço: R$ {price}</h5>

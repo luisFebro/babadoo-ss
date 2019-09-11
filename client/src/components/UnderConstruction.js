@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { ProductConsumer } from '../context';
-import { ButtonContainerPressedEffectDark as YellowDark } from './Button';
+import { ButtonContainerPressedEffectDark as DarkBtn } from './Button';
 import { Link } from 'react-router-dom';
 
 export default class UnderConstruction extends Component {
@@ -20,17 +20,17 @@ export default class UnderConstruction extends Component {
                                     <div className="row">
                                         <div
                                             id="modal"
-                                            className="col-8 mx-auto col-md-6 col-lg-4 text-center text-capitalize p-5"
+                                            className="col-10 mx-auto col-md-6 col-lg-4 text-center text-capitalize p-1"
                                         >
                                             <section>
-                                                <h2>Ainda estamos trabalhando aqui.</h2>
-                                                <h2>Logo estará disponível! (=</h2>
-                                                <img className="img-fluid mb-5" src="img/under-construction.png" alt="funcionalidade em construção"/>
+                                                <img className="img-fluid mx-auto my-2 shadow-elevation" src="img/under-construction.png" alt="funcionalidade em construção"/>
+                                                <h2>Em Manutenção.</h2>
+                                                <h2>Logo ficará disponível! :)</h2>
                                             </section>
                                             <Link to="/">
-                                                <YellowDark onClick={()=> closeModal()}>
+                                                <DarkBtn className="my-4" onClick={()=> closeModal()}>
                                                     voltar para vitrine
-                                                </YellowDark>
+                                                </DarkBtn>
                                             </Link>
                                         </div>
                                     </div>

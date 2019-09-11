@@ -116,12 +116,12 @@ const ProductWrapper = styled.div`
         bottom: 0;
         right: 0;
         padding: .2rem .4rem;
-        background: var(--lightBlue);
+        background: var(--mainYellow);
         border: none;
         color: var(--mainWhite);
         font-size: 1.4rem;
         border-radius: .5rem 0 0 0;
-        transform: translate(100%, 100%);
+        transform: translate(0, 0); /*translate(100%, 100%)*/
         transition: all 1s linear;
     }
 

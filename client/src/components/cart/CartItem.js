@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 
 export default function CartItem({item, value}) {
     const { id, title, image, price, total, count } = item;
@@ -6,15 +7,14 @@ export default function CartItem({item, value}) {
     return (
         <div className="row my-4 text-capitalize text-center">
             <div className="col-10 mx-auto col-lg-2">
-                <img
-                    className="img-fluid"
-                    style={{width: "5rem", height: "5rem"}}
+                <ImgContainer
+                    className="img-fluid shadow-elevation"
                     src={image}
                     alt="product"
                 />
             </div>
             <div className="col-10 mx-auto col-lg-2">
-                <span className="d-lg-none">produto:  </span>
+                <h4><span className="d-lg-none">produto:  </span></h4>
                 <p className="text-sub-title">{title}</p>
             </div>
             <div className="col-10 mx-auto col-lg-2 text-yellow">
@@ -49,3 +49,18 @@ export default function CartItem({item, value}) {
 
     );
 }
+
+const ImgContainer = styled.img`
+    /*NOT WORKING*/
+    /*Tablet RWD*/
+    @media only screen and (min-width: 380px) {
+        width: 5rem,
+        height: 5rem
+    }
+
+    /*NoteBook/Desktop RWD*/
+    @media only screen and (min-width: 792px) {
+        width: 8rem,
+        height: 8rem
+    }
+`;

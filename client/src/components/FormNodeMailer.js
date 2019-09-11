@@ -113,7 +113,7 @@ export default class FormNodeMailer extends Component {
                                 </p>
                                 <h3>Pronto!</h3>
                                 <p className="full">
-                                    <button type="submit" onClick={this.resetForm}>Concluir Comprar</button>
+                                    <button type="submit" style={{color: "var(--mainWhite)", background: "var(--mainYellow)"}} onClick={this.resetForm}>Concluir Comprar</button>
                                 </p>
                             </form>
                         </div>
