@@ -52,7 +52,7 @@ export default class Product extends Component {
                     </ProductConsumer>
                     {/*card footer*/}
                     <div className="text-product-title p-1 card-footer d-flex flex-column text-center justify-content-between">
-                        <p className="mb-0">
+                        <p className="mb-0 text-capitalize">
                             {title}
                         </p>
                         <h5 className="mt-2 text-right mb-2 mr-2">
