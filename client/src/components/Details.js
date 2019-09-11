@@ -14,14 +14,14 @@ export default class Details extends Component {
                             {/* title */}
                             <div className="row">
                                 <div className="col-10 mx-auto text-center text-slanted my-3">
-                                    <h1><strong>{title}</strong></h1>
+                                    <h2><strong>{title}</strong></h2>
                                 </div>
                             </div>
                             {/* end title */}
                             {/*product info*/}
                             <div className="row">
-                                <div className="d-flex justify-content-center align-items-center col-5 mx-auto col-md-6 my-3 text-title">
-                                    <img src={image} className="img-fluid" alt="product"/>
+                                <div className="d-flex justify-content-center align-items-center col-12 mx-auto col-md-6 my-3 text-title">
+                                    <img src={image} className="img-fluid shadow-elevation" alt="product"/>
                                 </div>
                                 {/* product text */}
                                 <div className="col-10 mx-auto col-md-6 my-3 text-capitalize">
@@ -41,13 +41,14 @@ export default class Details extends Component {
                                     </h5>
                                     <p className="text-muted lead text-justify">{info}</p>
                                     {/* buttons */}
-                                    <div className="d-flex flex-row mr-2 mt-5">
+                                    <div className="d-flex flex-row mr-2">
                                         <Link to="/">
                                             <DarkBtn>
                                                 Vitrine
                                             </DarkBtn>
                                             <YellowBtn
                                                 cart
+                                                className="mt-3"
                                                 disabled={inCart ? true:false}
                                                 onClick = {() => {
                                                     value.addToCart(id);

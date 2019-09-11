@@ -69,6 +69,11 @@ footer {
     color: var(--lightBlue);
 }
 
+/*PICTURES*/
+.shadow-elevation {
+    box-shadow: 0 19px 38px rgba(0,0,0,0.20), 0 15px 12px rgba(0,0,0,0.12);
+}
+
 /*CART BUTTON*/
 .btn-black {
     background: transparent;
