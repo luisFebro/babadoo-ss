@@ -22,7 +22,13 @@ export default class Modal extends Component {
                                             id="modal"
                                             className="col-10 col-md-6 col-lg-4 mx-auto text-center text-capitalize p-5"
                                         >
-                                            <h2 className="animated bounce fast mb-2" style={{animationIterationCount: '3'}}>Item adicionado!</h2>
+                                            <h2
+                                                className="animated bounce fast mb-2"
+                                                style={{animationIterationCount: '3'}}
+                                            >
+                                                <span><i className="fas fa-cart-plus"></i></span>
+                                                Item adicionado!
+                                            </h2>
                                             <img src={image} alt="product" className="img-fluid shadow-elevation"/>
                                             <section className="my-2">
                                                 <h5>{title}</h5>
@@ -66,5 +72,10 @@ const ModalContainer = styled.div`
     z-index: 1000;
     #modal {
         background: var(--mainWhite);
+    }
+    .fa-cart-plus {
+        margin-right: 10px;
+        color: var(--mainYellow);
+        font-size: 2.2rem;
     }
 `;

@@ -38,7 +38,8 @@ app.post('/api/form', (req, res) => {
           <li><h3>${req.body.totalPay}</h3></li>
         </ul>
         <footer>
-            <strong>Relatório gerado após conclusão de compra por ${owner} online</strong>
+            <h4><strong>Relatório gerado após conclusão de compra pela ${owner} online</strong></h4>
+            <h4><strong>Visite sua loja <a href="https://babadoo.herokuapp.com">AQUI</a></strong></h4>
         </footer>
     `;
 
@@ -57,7 +58,7 @@ app.post('/api/form', (req, res) => {
 
     let mailOptions = {
         from: `"${owner} - Pedidos de Compra" babadooweb@gmail.com`, // sender address
-        to: ['luis.felipe.bruno@hotmail.com','babadooweb@gmail.com'], // 'babadoo.sexyshop.lingeries@gmail.com' list of receivers babadoo.sexyshop.lingeries@gmail.com
+        to: ["babadoo.sexyshop.lingeries@gmail.com", 'babadooweb@gmail.com'], // '' list of receivers babadoo.sexyshop.lingeries@gmail.com
         subject: `Opa! Novo Pedido de ${client}`, // Subject line
         text: 'no-message-sent-ignore-here', // plain text body
         html: htmlEmail // html body

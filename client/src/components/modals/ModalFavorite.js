@@ -74,6 +74,7 @@ const ModalContainer = styled.div`
         background: var(--mainWhite);
     }
     .fa-heart {
+        margin-right: 10px;
         color: var(--mainRed);
         font-size: 2.2rem;
     }
