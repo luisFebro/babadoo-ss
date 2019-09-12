@@ -102,7 +102,7 @@ export const storeProducts = [
         "image": "img/products/oleo-soft-love-para-massagem-fire-ice.jpg",
         "price": 40,
         "company": "soft love",
-        "info": "óleo soft love para massagem fire ice jatos 15 g",
+        "info": "óleo soft love para massagem fire ice jatos 15 ml",
         "inCart": false,
         "count": 0,
         "total": 0
@@ -119,18 +119,18 @@ export const storeProducts = [
         "count": 0,
         "total": 0
     },
-    {
-        "id": 11,
-        "title": "calcinhas cordão dourado temáticas",
-        "description": "lingerie",
-        "image": "img/products/calcinhas-cordao-dourado-tematicas.jpg",
-        "price": 40,
-        "company": "diversos",
-        "info": "calcinhas na cor preta e vermelha com cordão dourado",
-        "inCart": false,
-        "count": 0,
-        "total": 0
-    },
+    // {
+    //     "id": 11,
+    //     "title": "calcinhas cordão dourado temáticas",
+    //     "description": "lingerie",
+    //     "image": "img/products/calcinhas-cordao-dourado-tematicas.jpg",
+    //     "price": 40,
+    //     "company": "diversos",
+    //     "info": "calcinhas na cor preta e vermelha com cordão dourado",
+    //     "inCart": false,
+    //     "count": 0,
+    //     "total": 0
+    // },
     {
         "id": 12,
         "title": "calcinhas temáticas gostosa delicia pirigueti",

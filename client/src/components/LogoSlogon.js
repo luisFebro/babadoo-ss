@@ -5,7 +5,7 @@ const LogoSlogon = () => {
         <div className="container">
             <div className="row">
                 <div style={{zIndex: 50}}  className="col-10 mx-auto text-center text-title text-uppercase pt-5">
-                    <img className="animated pulse mt-5 mb-3" style={{position: 'relative', zIndex: 150, animationIterationCount: '4', width: '190px', height: '190px'}} src="img/babadoo-logo_no-slogon.png" alt="logo-babadoo"/>
+                    <img style={{position: 'relative', zIndex: 150, width: '190px', height: '190px'}} src="img/babadoo-logo_no-slogon.png" alt="logo-babadoo"/>
                     <h1><strong>lingeries e acessórios eróticos</strong></h1>
                 </div>
             </div>

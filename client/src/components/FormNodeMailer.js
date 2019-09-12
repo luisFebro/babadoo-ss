@@ -97,7 +97,7 @@ export default class FormNodeMailer extends Component {
                                         <br/>
                                         <li id="total"><h4>Valor Total com Frete:<br />R$ {value.cartTotal}</h4></li>
                                     </ul>
-                                </section>
+                                  </section>
                             );
 
                         }}

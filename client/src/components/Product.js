@@ -5,8 +5,29 @@ import { ProductConsumer } from "../context";
 import PropTypes from 'prop-types';
 
 export default class Product extends Component {
+    constructor() {
+        super();
+        this.state = {
+            isFav: false,
+        }
+    }
+
+    toggleFav() {
+        this.setState((currentState) => {
+            return {
+                isFav: !currentState.isFav,
+            };
+        });
+    }
+
+    truncate(input) {
+        return (input.length > 45) ?
+        input.substring(0,45) + '...' : input;
+    };
+
     render() {
         const { id, title, image, price, inCart } = this.props.product;
+        const { isFav } = this.state;
         return (
             <ProductWrapper className="col-6 col-md-4 col-lg-3 mx-auto my-2">
                 <div className="card">
@@ -23,9 +44,12 @@ export default class Product extends Component {
                                         alt="product"
                                     />
                                 </Link>
-                                <button className="cart-fav" onClick={() => { value.openModalOnly() }}>
-                                    <img src="img/icons/heart-no-fill.png" width="28px" height="28px" alt="heart icon no fill"/>
-                                    {/*<i className="fas fa-heart"></i>*/}
+                                <button className="cart-fav" onClick={() => { this.toggleFav() }}>
+                                    {isFav ?
+                                        (<i className="filledHeart fas fa-heart animated heartBeat fast" style={{'animationIterationCount': 2}}></i>) :
+                                        (<i className="emptyHeart far fa-heart"></i>)
+                                    }
+
                                 </button>
                                 <button
                                     className="cart-btn"
@@ -51,9 +75,9 @@ export default class Product extends Component {
                         )}
                     </ProductConsumer>
                     {/*card footer*/}
-                    <div className="text-product-title p-1 card-footer d-flex flex-column text-center justify-content-between">
+                    <div className="text-product-title p-1 card-footer d-flex flex-column text-left justify-content-between">
                         <p className="mb-0 text-capitalize">
-                            {title}
+                            {this.truncate(title)}
                         </p>
                         <h5 className="mt-2 text-right mb-2 mr-2">
                             <span>R$</span>
@@ -133,18 +157,24 @@ const ProductWrapper = styled.div`
         border: none;
     }
 
-    .cart-fav img {
+    .cart-fav i {
         color: var(--mainRed);
-        opacity: .3;
+        font-size: 1.7rem;
         transition: .5s;
     }
 
-    .cart-fav img:hover {
+    .cart-fav .emptyHeart {
+        opacity: .3;
+    }
+
+    .cart-fav .filledHeart {
         opacity: 1;
         transform: scale(1.1);
     }
 
-    fas .fa-heart {
+    .cart-fav .emptyHeart:hover {
+        opacity: 1;
+        transform: scale(1.1);
     }
 
     .cart-btn:hover {
