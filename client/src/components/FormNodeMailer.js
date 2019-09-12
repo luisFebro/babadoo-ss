@@ -37,7 +37,12 @@ export default class FormNodeMailer extends Component {
 
     async handleSubmit(e) {
        e.preventDefault();
+       document.getElementById('wait').innerHTML = "ENVIANDO! Aguarde um instante..."
 
+       setTimeout(() => {
+           alert("PEDIDO ENVIADO!\nENTRAREMOS EM CONTATO O MAIS BREVE POSSÍVEL\nAGRADECEMOS SUA PREFERÊNCIA!");
+           document.getElementById('wait').innerHTML = ""
+       }, 4000);
        const { name, phone, address, additional, itemDescription, totalPay } = this.state;
 
        await axios.post('/api/form', {
@@ -48,6 +53,7 @@ export default class FormNodeMailer extends Component {
             itemDescription,
             totalPay
        })
+
     }
 
     setInfoProducts() {
@@ -56,12 +62,19 @@ export default class FormNodeMailer extends Component {
         this.setState({itemDescription: items, totalPay: totalPay});
     }
 
-    resetForm(){
-        alert("ENVIANDO... UM MOMENTO.")
-        setTimeout(() => {
-            document.getElementById('contactForm').reset();
-            alert("PEDIDO ENVIADO!\nENTRAREMOS EM CONTATO O MAIS BREVE POSSÍVEL\nAGRADECEMOS SUA PREFERÊNCIA!");
-        }, 4000);
+    // validateForm() {
+    //     let x = document.forms["contactForm"]["address"].value;
+    //         if (x == "") {
+    //             alert("Endereço deve ser preenchido");
+    //             return false;
+    //         } else {
+    //             return this.handleSubmit
+    //         }
+    // }
+
+    resetForm(e){
+        e.preventDefault(); //only allow one click
+        document.getElementById('contactForm').reset();
     }
 
     render() {
@@ -98,23 +111,23 @@ export default class FormNodeMailer extends Component {
                             <form id="contactForm" onChange={this.handleChange} onSubmit={this.handleSubmit} method="POST" action="send">
                                 <p className="full">
                                     <label>Seu Nome</label>
-                                    <input type="text" name="name"/>
+                                    <input type="text" name="name" required/>
                                 </p>
                                 <p className="full">
                                     <label>Telefone/Whatsapp</label>
-                                    <input type="tel" name="phone"/>
+                                    <input type="tel" name="phone" required/>
                                 </p>
                                 <p className="full">
                                     <label onMouseOver={this.showReady}>Endereço para Entrega<br /> (Rua/Avenida, Número, Bairro, Referência) </label>
-                                    <textarea name="address" rows="8"></textarea>
+                                    <textarea name="address" rows="8" required></textarea>
                                 </p>
                                 <p className="full">
                                     <label>Alguma Informação Adicional? (Opcional)</label>
                                     <textarea name="additional" rows="8"></textarea>
                                 </p>
-                                <h3>Pronto!</h3>
+                                <h3 id="wait"></h3>
                                 <p className="full">
-                                    <button type="submit" style={{color: "var(--mainWhite)", background: "var(--mainYellow)"}} onClick={this.resetForm}>Concluir Comprar</button>
+                                    <button type="submit" style={{color: "var(--mainWhite)", background: "var(--mainYellow)"}}>Concluir Comprar</button>
                                 </p>
                             </form>
                         </div>
