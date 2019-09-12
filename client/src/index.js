@@ -5,11 +5,14 @@ import * as serviceWorker from './serviceWorker';
 import {BrowserRouter as Router} from
 'react-router-dom';
 import { ProductProvider } from './context';
+import ScrollToTop from 'react-router-scroll-top';
 
 ReactDOM.render(
     <ProductProvider>
         <Router>
-            <App />
+            <ScrollToTop>
+                <App />
+            </ScrollToTop>
         </Router>
     </ProductProvider>,
     document.getElementById('root')
