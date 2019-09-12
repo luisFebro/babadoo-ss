@@ -57,6 +57,7 @@ export default class FormNodeMailer extends Component {
     }
 
     resetForm(){
+        alert("ENVIANDO... UM MOMENTO.")
         setTimeout(() => {
             document.getElementById('contactForm').reset();
             alert("PEDIDO ENVIADO!\nENTRAREMOS EM CONTATO O MAIS BREVE POSSÍVEL\nAGRADECEMOS SUA PREFERÊNCIA!");
@@ -89,7 +90,7 @@ export default class FormNodeMailer extends Component {
                         }}
                     </ProductConsumer>
 
-                    <div className="wrapper animated bounceInLeft">
+                    <div className="wrapper animated rotateInDownLeft slower delay-3s">
                         <div className="company-info text-capitalize">
                             <h3>precisamos identificar você para o envio</h3>
                         </div>
@@ -121,9 +122,9 @@ export default class FormNodeMailer extends Component {
                 </DivContainer>
                 <div className="container">
                     <div className="row">
-                        <Link to="/" className="col-10 mx-auto text-uppercase my-4">
+                        <Link to="/seu-carrinho" className="col-10 mx-auto text-uppercase my-4">
                             <DarkBtn>
-                                Voltar para Vitrine
+                                Voltar Carrinho
                             </DarkBtn>
                         </Link>
                     </div>
