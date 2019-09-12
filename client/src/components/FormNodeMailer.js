@@ -42,6 +42,7 @@ export default class FormNodeMailer extends Component {
        setTimeout(() => {
            alert("PEDIDO ENVIADO!\nENTRAREMOS EM CONTATO O MAIS BREVE POSSÍVEL\nAGRADECEMOS SUA PREFERÊNCIA!");
            document.getElementById('wait').innerHTML = ""
+           this.resetForm();
        }, 4000);
        const { name, phone, address, additional, itemDescription, totalPay } = this.state;
 
