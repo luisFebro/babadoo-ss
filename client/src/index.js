@@ -4,12 +4,15 @@ import App from './containers/App'
 import * as serviceWorker from './serviceWorker';
 import {BrowserRouter as Router} from
 'react-router-dom';
+import ScrollToTop from 'react-router-scroll-top';
 import { ProductProvider } from './context';
 
 ReactDOM.render(
     <ProductProvider>
         <Router>
-            <App />
+            <ScrollToTop>
+                <App />
+            </ScrollToTop>
         </Router>
     </ProductProvider>,
     document.getElementById('root')

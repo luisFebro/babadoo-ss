@@ -1,0 +1,49 @@
+{
+  "_from": "@bit/semantic-org.semantic-ui-react.search",
+  "_id": "@bit/semantic-org.semantic-ui-react.search@0.86.0",
+  "_inBundle": false,
+  "_integrity": "sha1-X9q55JWQo6D866xNhxeRSW/QhUY=",
+  "_location": "/@bit/semantic-org.semantic-ui-react.search",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "@bit/semantic-org.semantic-ui-react.search",
+    "name": "@bit/semantic-org.semantic-ui-react.search",
+    "escapedName": "@bit%2fsemantic-org.semantic-ui-react.search",
+    "scope": "@bit",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://node.bit.dev/semantic-org.semantic-ui-react.search/-/semantic-org.semantic-ui-react.search-0.86.0.tgz",
+  "_shasum": "5fdab9e49590a3a0fcebac4d871791496fd08546",
+  "_spec": "@bit/semantic-org.semantic-ui-react.search",
+  "_where": "C:\\_github-projects\\ecommerce\\babadoo-ss",
+  "bundleDependencies": false,
+  "componentRootFolder": ".",
+  "dependencies": {
+    "@bit/semantic-org.semantic-ui-react.input": "0.86.0",
+    "@bit/semantic-org.semantic-ui-react.internal.genericd": "0.86.0",
+    "@bit/semantic-org.semantic-ui-react.internal.utils.index": "0.86.0",
+    "classnames": "^2.2.6",
+    "keyboard-key": "^1.0.4",
+    "lodash": "^4.17.11",
+    "prop-types": "^15.6.2",
+    "shallowequal": "^1.1.0"
+  },
+  "deprecated": false,
+  "devDependencies": {},
+  "homepage": "https://bitsrc.io/semantic-org/semantic-ui-react/search",
+  "license": "SEE LICENSE IN LICENSE",
+  "main": "dist/modules/Search/index.js",
+  "name": "@bit/semantic-org.semantic-ui-react.search",
+  "peerDependencies": {
+    "react": "^16.3.0"
+  },
+  "version": "0.86.0"
+}
