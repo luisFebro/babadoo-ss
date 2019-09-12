@@ -122,7 +122,7 @@ export const storeProducts = [
     {
         "id": 11,
         "title": "calcinhas cordão dourado temáticas",
-        "description": "cosméticos",
+        "description": "lingerie",
         "image": "img/products/calcinhas-cordao-dourado-tematicas.jpg",
         "price": 40,
         "company": "diversos",
@@ -134,7 +134,7 @@ export const storeProducts = [
     {
         "id": 12,
         "title": "calcinhas temáticas gostosa delicia pirigueti",
-        "description": "cosméticos",
+        "description": "lingerie",
         "image": "img/products/calcinhas-tematicas-gostosa-delicia-pirigueti.jpg",
         "price": 40,
         "company": "diversos",

@@ -55,7 +55,7 @@ app.post('/api/form', (req, res) => {
 
     let mailOptions = {
         from: '"Babadoo loja web - novo pedido" Babadoo Web', // sender address
-        to: 'babadooweb@gmail.com', // 'babadoo.sexyshop.lingeries@gmail.com' list of receivers babadoo.sexyshop.lingeries@gmail.com
+        to: ['babadooweb@gmail.com', 'babadoo.sexyshop.lingeries@gmail.com'] // 'babadoo.sexyshop.lingeries@gmail.com' list of receivers babadoo.sexyshop.lingeries@gmail.com
         subject: 'Babadoo loja web - novo pedido de compra', // Subject line
         text: 'no-message-sent-ignore-here', // plain text body
         html: htmlEmail // html body
