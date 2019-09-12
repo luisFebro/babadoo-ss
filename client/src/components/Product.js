@@ -10,6 +10,7 @@ export default class Product extends Component {
         this.state = {
             isFav: false,
         }
+        this.toggleFav = this.toggleFav.bind(this);
     }
 
     toggleFav() {
@@ -44,10 +45,16 @@ export default class Product extends Component {
                                         alt="product"
                                     />
                                 </Link>
-                                <button className="cart-fav" onClick={() => { this.toggleFav() }}>
+                                <button className="cart-fav"
+                                        onClick={() => {this.toggleFav()}}
+                                >
                                     {isFav ?
                                         (<i className="filledHeart fas fa-heart animated heartBeat fast" style={{'animationIterationCount': 2}}></i>) :
-                                        (<i className="emptyHeart far fa-heart"></i>)
+                                        (<i
+                                            className="emptyHeart far fa-heart"
+                                            onClick={() => {value.openModalFavorite(id)}}
+                                        >
+                                        </i>)
                                     }
 
                                 </button>

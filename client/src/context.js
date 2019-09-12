@@ -11,6 +11,7 @@ class ProductProvider extends Component {
         cart: [],
         modalOpenOnly: false,
         modalOpen: false,
+        isModalFavoriteOpen: false,
         modalProduct: detailProduct,
         cartSubtotal: 0,
         cartTax: 10,
@@ -129,9 +130,16 @@ class ProductProvider extends Component {
         })
     }
 
+    openModalFavorite = id => {
+        const product = this.getItem(id);
+        setTimeout(() => {
+            this.setState({modalProduct: product, isModalFavoriteOpen: true })
+        }, 1900);
+    }
+
     closeModal = () => {
         this.setState(() => {
-            return { modalOpen: false, modalOpenOnly: false }
+            return { modalOpen: false, modalOpenOnly: false, isModalFavoriteOpen: false }
         });
     }
     // CART METHODS
@@ -234,6 +242,7 @@ class ProductProvider extends Component {
                     addToCart: this.addToCart,
                     openModal: this.openModal,
                     openModalOnly: this.openModalOnly,
+                    openModalFavorite: this.openModalFavorite,
                     closeModal: this.closeModal,
                     increment: this.increment,
                     decrement: this.decrement,

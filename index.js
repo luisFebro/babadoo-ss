@@ -24,9 +24,10 @@ app.post('/api/form', (req, res) => {
                  <img style="box-shadow: 0 19px 38px rgba(0,0,0,0.20), 0 15px 12px rgba(0,0,0,0.12);" src="https://imgur.com/9GjtAiW.png" width="200px" height="200px"/>
             </header>
         </center>
-        <h1>Descrição de compra de <strong>${client}</strong></h1>
-        <h3>Informações de Cadastro:</h3>
+        <h1><center>Relatório Descritivo</center></h1>
+        <h3>Informações do Cliente:</h3>
         <ul>
+          <li>Nome: ${client}</li>
           <li>Contato/Whatsapp: ${req.body.phone}</li>
           <li>Endereço para Entrega: ${req.body.address}</li>
           <li>Informações Adicionais: ${req.body.additional}</li>
@@ -37,7 +38,7 @@ app.post('/api/form', (req, res) => {
           <li><h3>${req.body.totalPay}</h3></li>
         </ul>
         <footer>
-            <strong>Relatório de compra gerado por ${owner} online</strong>
+            <strong>Relatório gerado após conclusão de compra por ${owner} online</strong>
         </footer>
     `;
 

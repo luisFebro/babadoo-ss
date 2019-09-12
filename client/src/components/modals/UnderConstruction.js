@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { ProductConsumer } from '../context';
-import { ButtonContainerPressedEffectDark as DarkBtn } from './Button';
 import { Link } from 'react-router-dom';
+import { ProductConsumer } from '../../context';
+import { ButtonContainerPressedEffectDark as DarkBtn } from '../Button';
 
 export default class UnderConstruction extends Component {
     render() {
@@ -50,7 +50,7 @@ const ModalContainer = styled.div`
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, .3);
+    background: rgba(0, 0, 0, .8);
     display: flex;
     align-items: center;
     justify-content: center;

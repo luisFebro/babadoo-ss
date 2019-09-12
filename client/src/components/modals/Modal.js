@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { ProductConsumer } from '../context';
-import { ButtonContainerPressedEffectDark as DarkBtn, ButtonContainerPressedEffectYellow as YellowBtn} from './Button';
 import { Link } from 'react-router-dom';
+import { ButtonContainerPressedEffectDark as DarkBtn, ButtonContainerPressedEffectYellow as YellowBtn} from '../Button';
+import { ProductConsumer } from '../../context';
 
 export default class Modal extends Component {
     render() {

@@ -21,7 +21,7 @@ export default class Navbar extends Component {
                            <ul className="navbar-nav ml-auto">
                                <li className="nav-item mr-3 align-items-center" onClick={value.openModalOnly}>
                                    <Link to="/" className="nav-link">
-                                    <span style={{width: '25px', height: '25px'}}>
+                                    <span>
                                         <i className="fas fa-heart"></i>
                                     </span>
                                    </Link>
@@ -32,6 +32,15 @@ export default class Navbar extends Component {
                                    <Link to="/" className="nav-link">
                                     <span>
                                         <i className="fas fa-user-friends"></i>
+                                    </span>
+                                   </Link>
+                               </li>
+                           </ul>
+                           <ul className="navbar-nav">
+                               <li className="nav-item mr-1 align-items-center" onClick={value.openModalOnly}>
+                                   <Link to="/" className="nav-link">
+                                    <span>
+                                        <i className="fas fa-search"></i>
                                     </span>
                                    </Link>
                                </li>
@@ -47,6 +56,9 @@ export default class Navbar extends Component {
 
 // STYLES
 const NavWrapper = styled.nav`
+    .navbar-nav span i {
+        font-size: 1.9rem;
+    }
     background: var(--mainRed);
     .nav-link {
         color: var(--mainWhite) !important;

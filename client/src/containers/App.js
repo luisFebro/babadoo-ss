@@ -8,12 +8,15 @@ import ProductList from '../components/ProductList';
 import Details from '../components/Details';
 import Cart from '../components/cart/Cart';
 import Default from '../components/Default';
-import Modal from '../components/Modal';
-import UnderConstruction from '../components/UnderConstruction';
+import FormNodeMailer from '../components/FormNodeMailer';
+// MODALS
+import Modal from '../components/modals/Modal';
+import ModalFavorite from '../components/modals/ModalFavorite';
+import UnderConstruction from '../components/modals/UnderConstruction';
+//
 import WhatsappIcon from "../components/WhatsappIcon";
 import Footer from '../components/Footer';
 // import SearchCompleteWithImg from '../components/SearchCompleteWithImg'
-import FormNodeMailer from '../components/FormNodeMailer';
 
 export default function App() {
     return (
@@ -28,6 +31,7 @@ export default function App() {
                 <Route component={Default} />
             </Switch>
             <Modal />
+            <ModalFavorite />
             <UnderConstruction />
             <Footer />
             <WhatsappIcon />
