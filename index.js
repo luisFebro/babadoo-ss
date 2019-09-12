@@ -15,28 +15,29 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.post('/api/form', (req, res) => {
+    const owner = 'Babadoo';
+    const client = req.body.name
+    client.charAt(0).toUpperCase() + client.slice(1);
     const htmlEmail = `
         <center>
             <header">
                  <img style="box-shadow: 0 19px 38px rgba(0,0,0,0.20), 0 15px 12px rgba(0,0,0,0.12);" src="https://imgur.com/9GjtAiW.png" width="200px" height="200px"/>
             </header>
         </center>
-        <h1>A Babadoo tem um novo pedido!</h1>
-        <h3>Descrição a seguir:</h3>
+        <h1>Descrição de compra de <strong>${client}</strong></h1>
+        <h3>Informações de Cadastro:</h3>
         <ul>
-          <li>Nome Cliente: ${req.body.name}</li>
           <li>Contato/Whatsapp: ${req.body.phone}</li>
           <li>Endereço para Entrega: ${req.body.address}</li>
           <li>Informações Adicionais: ${req.body.additional}</li>
         </ul>
-        <h3>Encomenda:</h3>
+        <h3>Informações do Pedido:</h3>
         <ul>
           <li>Quantidades e Items(ref): <br/>${req.body.itemDescription}</li>
-          <br/>
-          <li><h3> >> ${req.body.totalPay}</h3></li>
+          <li><h3>${req.body.totalPay}</h3></li>
         </ul>
         <footer>
-            <strong>Relatório de compra gerado pelo site Babadoo web</strong>
+            <strong>Relatório de compra gerado por ${owner} online</strong>
         </footer>
     `;
 
@@ -54,9 +55,9 @@ app.post('/api/form', (req, res) => {
     });
 
     let mailOptions = {
-        from: '"Babadoo loja web - novo pedido" Babadoo Web', // sender address
-        to: ['babadooweb@gmail.com', 'babadoo.sexyshop.lingeries@gmail.com'] // 'babadoo.sexyshop.lingeries@gmail.com' list of receivers babadoo.sexyshop.lingeries@gmail.com
-        subject: 'Babadoo loja web - novo pedido de compra', // Subject line
+        from: `"${owner} - Pedidos de Compra" babadooweb@gmail.com`, // sender address
+        to: ['luis.felipe.bruno@hotmail.com','babadooweb@gmail.com'], // 'babadoo.sexyshop.lingeries@gmail.com' list of receivers babadoo.sexyshop.lingeries@gmail.com
+        subject: `Opa! Novo Pedido de ${client}`, // Subject line
         text: 'no-message-sent-ignore-here', // plain text body
         html: htmlEmail // html body
     };
