@@ -128,7 +128,12 @@ export default class FormNodeMailer extends Component {
                                 </p>
                                 <h3 id="wait"></h3>
                                 <p className="full">
-                                    <button type="submit" style={{color: "var(--mainWhite)", background: "var(--mainYellow)"}}>Concluir Comprar</button>
+                                    <button
+                                        type="submit"
+                                        style={{color: "var(--mainWhite)", background: "var(--mainYellow)"}}
+                                    >
+                                        Concluir Compra
+                                    </button>
                                 </p>
                             </form>
                         </div>

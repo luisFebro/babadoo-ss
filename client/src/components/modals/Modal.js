@@ -26,7 +26,7 @@ export default class Modal extends Component {
                                                 className="animated bounce fast mb-2"
                                                 style={{animationIterationCount: '3'}}
                                             >
-                                                <span><i className="fas fa-cart-plus"></i></span>
+                                                <span><i className="fas fa-shopping-cart"></i></span>
                                                 Item adicionado!
                                             </h2>
                                             <img src={image} alt="product" className="img-fluid shadow-elevation"/>
@@ -42,7 +42,14 @@ export default class Modal extends Component {
                                                 </Link>
                                                 <Link to="/seu-carrinho">
                                                     <YellowBtn onClick={()=> closeModal()}>
-                                                        Carrinho
+                                                        Ver
+                                                        <span>
+                                                            <i
+                                                                style={{fontSize: "1.7rem", color: "var(--mainWhite)"}}
+                                                                className="fas fa-shopping-cart ml-1">
+                                                            </i>
+                                                        </span>
+
                                                     </YellowBtn>
                                                 </Link>
                                             </div>
@@ -73,7 +80,7 @@ const ModalContainer = styled.div`
     #modal {
         background: var(--mainWhite);
     }
-    .fa-cart-plus {
+    .fa-shopping-cart {
         margin-right: 10px;
         color: var(--mainYellow);
         font-size: 2.2rem;

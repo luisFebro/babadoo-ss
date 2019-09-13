@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 export default function CartItem({item, value}) {
     const { id, title, image, price, total, count } = item;
-    const { increment, decrement, removeItem} = value;
+    const { increment, decrement, removeItem } = value;
     return (
         <div className="row my-4 text-capitalize text-center">
             <div className="col-10 mx-auto col-lg-2">
@@ -13,7 +13,7 @@ export default function CartItem({item, value}) {
                     alt="product"
                 />
             </div>
-            <div className="col-10 mx-auto col-lg-2">
+            <div className="col-10 mx-auto col-lg-2 mt-4 mt-lg-0">
                 <h4><span className="d-lg-none">produto:  </span></h4>
                 <p className="text-sub-title">{title}</p>
             </div>
@@ -35,9 +35,9 @@ export default function CartItem({item, value}) {
                 </div>
             </div>
             {/* */}
-            <div className="col-10 mx-auto col-lg-2">
+            <div className="col-10 mx-auto col-lg-2 my-3">
                 <div className="cart-icon" onClick={()=> removeItem(id)}>
-                    <i className="fas fa-trash"></i>
+                    <i style={{fontSize: "1.7rem"}} className="fas fa-trash"></i>
                 </div>
             </div>
             <div className="col-10 mx-auto col-lg-2">
