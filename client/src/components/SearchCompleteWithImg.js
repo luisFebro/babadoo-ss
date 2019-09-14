@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import { storeProducts } from '../data'
 import React, { Component } from 'react'
-import Search from '@bit/semantic-org.semantic-ui-react.search'
+import { Search } from 'semantic-ui-react';
 import styled from 'styled-components';
 const style = <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/semantic-ui@2.4.1/dist/semantic.min.css'/>
 
