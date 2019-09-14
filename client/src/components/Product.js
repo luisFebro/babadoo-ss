@@ -35,7 +35,7 @@ export default class Product extends Component {
                     <ProductConsumer>
                         {value => (
                             <div
-                                className="img-container p-3"
+                                className="img-container p-1 p-sm-3"
                                 onClick={()=> value.handleDetail(id)}
                             >
                                 <Link to="/detalhes-do-produto">
@@ -83,7 +83,7 @@ export default class Product extends Component {
                     </ProductConsumer>
                     {/*card footer*/}
                     <div className="text-product-title p-1 card-footer d-flex flex-column text-center justify-content-between">
-                        <p style={{height: "4em"}} className="mb-0 text-capitalize">
+                        <p style={{height: "4em", overflow: "hidden"}} className="mb-0 text-capitalize">
                             {this.truncate(title)}
                         </p>
                         <h5 className="mt-2 text-right mb-2 mr-2">
