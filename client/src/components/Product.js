@@ -22,8 +22,8 @@ export default class Product extends Component {
     }
 
     truncate(input) {
-        return (input.length > 45) ?
-        input.substring(0,45) + '...' : input;
+        return input.length > 50 ?
+        (input.substring(0,50) + '...') : input;
     };
 
     render() {
@@ -82,8 +82,8 @@ export default class Product extends Component {
                         )}
                     </ProductConsumer>
                     {/*card footer*/}
-                    <div className="text-product-title p-1 card-footer d-flex flex-column text-left justify-content-between">
-                        <p className="mb-0 text-capitalize">
+                    <div className="text-product-title p-1 card-footer d-flex flex-column text-center justify-content-between">
+                        <p style={{height: "4em"}} className="mb-0 text-capitalize">
                             {this.truncate(title)}
                         </p>
                         <h5 className="mt-2 text-right mb-2 mr-2">
