@@ -33,9 +33,12 @@ class SearchCompleteWithImg extends Component {
 
     render() {
         const { isLoading, value, results } = this.state
-
         return (
             <Search
+                category={true}
+                input={{placeholder: "Procure um item..."}}
+                noResultsMessage={"Oops! Nenhum item encontrado."}
+                noResultsDescription={"Sugestões: óleos, lingeries, gels..."}
                 loading={isLoading}
                 onResultSelect={this.handleResultSelect}
                 onSearchChange={_.debounce(this.handleSearchChange, 500, { leading: true })}
@@ -107,8 +110,8 @@ const DivContainer = styled.div`
         float: right;
         overflow: hidden;
         background: 0 0;
-        width: 7em;
-        height: 5em;
+        width: 11em;
+        height: 9em;
         border-radius: .25em;
     }
 
@@ -124,20 +127,6 @@ const DivContainer = styled.div`
     }
     .price::before {
         content: 'R$ '
-    }
-
-    .ui.search>.results .result .title {
-        margin: -.3em 0 0;
-        font-family: Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif;
-        font-weight: 700;
-        font-size: 1.2em;
-        color: rgba(0, 0, 0, .85);
-    }
-
-    .ui.search>.results .result .description {
-        margin-top: 0;
-        font-size: 1.1em;
-        color: rgba(0, 0, 0, .4);
     }
 `;
 
