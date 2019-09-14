@@ -22,8 +22,8 @@ export default class Product extends Component {
     }
 
     truncate(input) {
-        return input.length > 50 ?
-        (input.substring(0,50) + '...') : input;
+        return input.length > 40 ?
+        (input.substring(0,40) + '...') : input;
     };
 
     render() {

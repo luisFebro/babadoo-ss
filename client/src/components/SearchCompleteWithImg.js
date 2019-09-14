@@ -13,7 +13,7 @@ class SearchCompleteWithImg extends Component {
 
     resetComponent = () => this.setState({ isLoading: false, results: [], value: '' })
 
-    handleResultSelect = (e, { result }) => this.setState({ value: result.title })
+    // handleResultSelect = (e, { result }) => this.setState({ value: result.title })
 
     handleSearchChange = (e, { value }) => {
         this.setState({ isLoading: true, value })
@@ -35,15 +35,15 @@ class SearchCompleteWithImg extends Component {
         const { isLoading, value, results } = this.state
         return (
             <Search
-                category={true}
+                onResultSelect={this.handleResultSelect}
+                onSearchChange={_.debounce(this.handleSearchChange, 500, { leading: true })}
+                loading={isLoading}
+                results={results}
+                value={value}
+                //
                 input={{placeholder: "Procure um item..."}}
                 noResultsMessage={"Oops! Nenhum item encontrado."}
                 noResultsDescription={"Sugestões: óleos, lingeries, gels..."}
-                loading={isLoading}
-                onResultSelect={this.handleResultSelect}
-                onSearchChange={_.debounce(this.handleSearchChange, 500, { leading: true })}
-                results={results}
-                value={value}
                 {...this.props}
             />
         )
@@ -51,15 +51,20 @@ class SearchCompleteWithImg extends Component {
 }
 
 export default () => (
-    <div>
         <DivContainer>
-            <p></p> {/*Procurar Item*/}
-            <SearchCompleteWithImg style={{position: 'absolute', top: '5.5em', right: '1rem'}}/>
+            <SearchCompleteWithImg
+                className="animated zoomIn slow"
+            />
         </DivContainer>
-    </div>
 );
 
 const DivContainer = styled.div`
+    position: fixed;
+    top: 5rem;
+    right: 10%;
+    filter: drop-shadow(.001em .1em .1em var(--mainDark));
+    z-index: 999;
+
     & p {
         position: relative;
         z-index: 100;

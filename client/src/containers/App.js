@@ -17,14 +17,12 @@ import UnderConstruction from '../components/modals/UnderConstruction';
 import WhatsappIcon from "../components/WhatsappIcon";
 import Footer from '../components/Footer';
 // import TestSemantic from '../components/TestSemantic';
-import SearchCompleteWithImg from '../components/SearchCompleteWithImg'
 
 export default function App() {
     return (
         <React.Fragment>
             {/*<TestSemantic />*/}
             <Navbar />
-            <SearchCompleteWithImg />
             <Switch>
                 <Route exact path="/" component={ProductList} /> {/*This will be routed first*/}
                 <Route path ="/detalhes-do-produto" component={Details} />
