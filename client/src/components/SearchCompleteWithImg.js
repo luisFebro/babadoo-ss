@@ -3,7 +3,6 @@ import { storeProducts } from '../data'
 import React, { Component } from 'react'
 import { Search } from 'semantic-ui-react';
 import styled from 'styled-components';
-const style = <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/semantic-ui@2.4.1/dist/semantic.min.css'/>
 
 const source = storeProducts;
 
@@ -50,7 +49,6 @@ class SearchCompleteWithImg extends Component {
 
 export default () => (
     <div>
-        {style}
         <DivContainer>
             <p></p> {/*Procurar Item*/}
             <SearchCompleteWithImg style={{position: 'absolute', top: '5.5em', right: '1rem'}}/>
