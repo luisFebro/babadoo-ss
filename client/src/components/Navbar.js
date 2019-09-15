@@ -65,17 +65,16 @@ export default class Navbar extends Component {
                                    </Link>
                                </li>
                            </ul>
-                           <ul className="navbar-nav fixed z-index-top">
-                               <li className="nav-item">
-                                   <Link to="/" className="nav-link">
-                                    <span>
-                                        <i
-                                            id="searchIcon"
-                                            className="fas fa-search" onClick={() => this.addZoomout()}></i>
-                                    </span>
-                                   </Link>
-                               </li>
-                           </ul>
+                           <div className="fixed z-index-top">
+                                <span>
+                                    <i
+                                        id="searchIcon"
+                                        className="fas fa-search"
+                                        onClick={() => this.addZoomout()}
+                                    >
+                                    </i>
+                                </span>
+                           </div>
                            {isSearchOpen ?
                             (<div className="backdrop-medium">
                                 <SearchCompleteWithImg
@@ -91,7 +90,6 @@ export default class Navbar extends Component {
                                 </span>
                             </div>) :
                             null}
-
                         </NavWrapper>
                     );
                 }}
@@ -104,6 +102,7 @@ export default class Navbar extends Component {
 // STYLES
 const NavWrapper = styled.nav`
     #searchIcon {
+        top: 3.2rem;
         font-size: 2.1rem;
         z-index: 1200;
     }
@@ -123,12 +122,12 @@ const NavWrapper = styled.nav`
         right: 1rem;
         top: 1.5rem;
     }
-    & .navbar-nav span i {
+    & .navbar-nav span i, #searchIcon {
         font-size: 1.9rem;
         filter: drop-shadow(.001em .1em .1em var(--mainDark));
     }
     background: var(--mainRed);
-    .nav-link {
+    .nav-link, #searchIcon {
         color: var(--mainWhite) !important;
         text-transform: capitalize;
     }

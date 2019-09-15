@@ -16,6 +16,7 @@ class ProductProvider extends Component {
         cartSubtotal: 0,
         cartTax: 10,
         cartTotal: 0,
+        cartTotalItems: 0,
         }
         this.generateRef = this.generateRef.bind(this);
     }
@@ -106,6 +107,7 @@ class ProductProvider extends Component {
             };
         }, () => {
             this.addTotals();
+            this.countItems();
         });
         /*
         Insert this chunk of code (( } HERE );)) for testing and check the current state which is being rendered.
@@ -115,6 +117,7 @@ class ProductProvider extends Component {
         */
     }
 
+    // MODALS
     openModal = id => {
         const product = this.getItem(id);
         this.setState(() => {
@@ -123,11 +126,13 @@ class ProductProvider extends Component {
     }
 
     openModalOnly = () => {
-        this.setState(() => {
-            return {
-                modalOpenOnly: true,
-            };
-        })
+        setTimeout(() => {
+            this.setState(() => {
+                return {
+                    modalOpenOnly: true,
+                };
+            })
+        }, 1000);
     }
 
     openModalFavorite = id => {
@@ -142,8 +147,10 @@ class ProductProvider extends Component {
             return { modalOpen: false, modalOpenOnly: false, isModalFavoriteOpen: false }
         });
     }
+    // END MODALS
+
     // CART METHODS
-    increment = (id) => {
+    increment = id => {
         let tempCart = [...this.state.cart];
         const selectedProduct = tempCart.find(item => item.id === id);
 
@@ -159,6 +166,7 @@ class ProductProvider extends Component {
             };
         }, () => {
             this.addTotals();
+            this.countItems();
         });
     }
 
@@ -181,6 +189,7 @@ class ProductProvider extends Component {
                 };
             }, () => {
                 this.addTotals();
+                this.countItems();
             });
         }
     }
@@ -231,6 +240,21 @@ class ProductProvider extends Component {
                 cartTotal:total,
             }
         });
+    }
+
+    countItems = () => {
+        const { cart } = this.state;
+        let finalCount;
+        let totalItems = cart.map(item => {
+            return item.count;
+        });
+
+        if(totalItems.length !==0) {
+            finalCount = totalItems.reduce((cur, next) => {
+                return cur + next;
+            });
+        }
+        this.setState({ cartTotalItems: finalCount});
     }
 
     render() {
