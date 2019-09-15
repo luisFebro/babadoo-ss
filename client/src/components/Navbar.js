@@ -15,7 +15,9 @@ export default class Navbar extends Component {
         const icon = document.getElementById("searchIcon");
 
         icon.className += " animated zoomOut slow";
-        this.setState({isSearchOpen: true});
+        setTimeout(()=> {
+            this.setState({isSearchOpen: true});
+        }, 1000);
     }
 
     closeBtn() {
@@ -26,7 +28,9 @@ export default class Navbar extends Component {
         closeBtn.className = "fas fa-times-circle animated rotateOut";
         // searchComplete.className = "animated zoomOut delay-2s";
         icon.className = "fas fa-search animated zoomIn slow"
-        this.setState({isSearchOpen: false});
+        setTimeout(()=> {
+            this.setState({isSearchOpen: false});
+        }, 1000);
     }
     render() {
         return (
@@ -43,8 +47,8 @@ export default class Navbar extends Component {
                                     <Link to="/" className="nav-link">categorias</Link>
                                 </li>
                             </ul>
-                           <ul className="navbar-nav ml-auto">
-                               <li className="nav-item mr-4 align-items-center" onClick={value.openModalOnly}>
+                           <ul className="navbar-nav ml-3 ml-md-auto">
+                               <li className="nav-item mr-2 align-items-center" onClick={value.openModalOnly}>
                                    <Link to="/" className="nav-link">
                                     <span>
                                         <i className="fas fa-heart"></i>
@@ -52,7 +56,7 @@ export default class Navbar extends Component {
                                    </Link>
                                </li>
                            </ul>
-                           <ul className="navbar-nav mr-4 align-items-center" onClick={value.openModalOnly}>
+                           <ul className="navbar-nav mr-5 align-items-center" onClick={value.openModalOnly}>
                                <li className="nav-item">
                                    <Link to="/" className="nav-link">
                                     <span>
@@ -61,20 +65,19 @@ export default class Navbar extends Component {
                                    </Link>
                                </li>
                            </ul>
-                           <ul className="navbar-nav fixed">
+                           <ul className="navbar-nav fixed z-index-top">
                                <li className="nav-item">
                                    <Link to="/" className="nav-link">
                                     <span>
                                         <i
                                             id="searchIcon"
-                                            style={{fontSize: "2.1rem"}}
                                             className="fas fa-search" onClick={() => this.addZoomout()}></i>
                                     </span>
                                    </Link>
                                </li>
                            </ul>
                            {isSearchOpen ?
-                            (<div>
+                            (<div className="backdrop-medium">
                                 <SearchCompleteWithImg
                                     style={{transition: ".5s"}}
                                     className="animated zoomIn" />
@@ -100,6 +103,10 @@ export default class Navbar extends Component {
 
 // STYLES
 const NavWrapper = styled.nav`
+    #searchIcon {
+        font-size: 2.1rem;
+        z-index: 1200;
+    }
     #closeBtn {
         position: fixed;
         cursor: pointer;

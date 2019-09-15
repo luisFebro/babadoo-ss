@@ -62,7 +62,7 @@ const DivContainer = styled.div`
     position: fixed;
     top: 5rem;
     right: 10%;
-    filter: drop-shadow(.001em .1em .1em var(--mainDark));
+    filter: drop-shadow(.001em .1em .1em var(--mainYellow));
     z-index: 999;
 
     & p {
