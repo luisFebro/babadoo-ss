@@ -3,6 +3,17 @@ import Slider from "react-slick";
 import "./_slick.css";
 import "./_slickTheme.css";
 import { Link } from "react-router-dom";
+
+function SampleNextArrow(props) {
+      const { className, style, onClick } = props;
+      return (
+        <div
+          className={className}
+          style={{ ...style, display: "block", background: "red" }}
+          onClick={onClick}
+        />
+      );
+}
 export default class CenterMode extends Component {
     render() {
         const settings = {
@@ -44,7 +55,7 @@ export default class CenterMode extends Component {
         };
 
         return (
-        <div style={{backgroundColor: "rgba(242, 38, 19, .7)"}}>
+        <div style={{   backgroundColor: "rgba(242, 38, 19, .7)"}}>
             <h3 className="title-carousel text-center text-capitalize bg-danger">Categorias</h3>
             <Slider {...settings}>
                 <div className="card-carousel">

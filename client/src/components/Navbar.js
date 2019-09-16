@@ -103,7 +103,6 @@ export default class Navbar extends Component {
 const NavWrapper = styled.nav`
     #searchIcon {
         cursor: pointer;
-        top: 3.2rem;
         font-size: 2.1rem;
         z-index: 1200;
     }
@@ -120,8 +119,8 @@ const NavWrapper = styled.nav`
     }
     & .fixed {
         position: fixed;
-        right: 1rem;
-        top: 1.5rem;
+        right: 1.2rem;
+        top: 1.9rem;
     }
     & .navbar-nav span i, #searchIcon {
         font-size: 1.9rem;
