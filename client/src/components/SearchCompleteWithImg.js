@@ -3,6 +3,8 @@ import { storeProducts } from '../data'
 import React, { Component } from 'react'
 import { Search } from 'semantic-ui-react';
 import styled from 'styled-components';
+import { ProductConsumer } from '../context';
+import { Link } from 'react-router-dom';
 
 const source = storeProducts;
 
@@ -11,9 +13,22 @@ class SearchCompleteWithImg extends Component {
         this.resetComponent()
     }
 
+    goToDetailsPageDiv(e, result) {
+        {console.log(result)}
+        return (
+            <Link to="/detalhes-do-produto" onClick={()=> console.log("clicked")}>
+                <ui>
+                    <li>result.title</li>
+                    <li>result.description</li>
+                    <li>result.image</li>
+                </ui>
+            </Link>
+        );
+    }
+
     resetComponent = () => this.setState({ isLoading: false, results: [], value: '' })
 
-    // handleResultSelect = (e, { result }) => this.setState({ value: result.title })
+    handleResultSelect = (e, { result }) => this.goToDetailsPageDiv(e, result);
 
     handleSearchChange = (e, { value }) => {
         this.setState({ isLoading: true, value })

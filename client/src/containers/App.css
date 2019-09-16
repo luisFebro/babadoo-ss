@@ -124,3 +124,14 @@ footer {
 .z-index-top2 {
     z-index: 989;
 }
+
+/*MAIN SHADOW AND HOVER*/
+.main-letters-shadow {
+    font-size: 1.9rem;
+    filter: drop-shadow(.001em .1em .1em var(--mainDark));
+}
+
+.main-letters-shadow:hover {
+    transform: scale(1.1);
+    filter: drop-shadow(.001em .1em .1em var(--mainYellow));
+}

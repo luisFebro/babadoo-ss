@@ -44,7 +44,7 @@ export default class Navbar extends Component {
                             </Link>
                             <ul className="navbar-nav align-items-center" onClick={value.openModalOnly}>
                                 <li className="nav-item">
-                                    <Link to="/" className="nav-link">categorias</Link>
+                                    <Link to="/" className="nav-link">loja</Link>
                                 </li>
                             </ul>
                            <ul className="navbar-nav ml-3 ml-md-auto">
@@ -102,6 +102,7 @@ export default class Navbar extends Component {
 // STYLES
 const NavWrapper = styled.nav`
     #searchIcon {
+        cursor: pointer;
         top: 3.2rem;
         font-size: 2.1rem;
         z-index: 1200;
@@ -132,7 +133,7 @@ const NavWrapper = styled.nav`
         text-transform: capitalize;
     }
 
-    & .nav-link:hover, & .navbar-nav span i:hover  {
+    & .nav-link:hover, & .navbar-nav span i:hover, #searchIcon:hover {
         transform: scale(1.1);
         filter: drop-shadow(.001em .1em .1em var(--mainYellow));
     }

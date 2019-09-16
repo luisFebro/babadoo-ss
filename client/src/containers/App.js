@@ -2,6 +2,9 @@ import React from 'react';
 import {Switch, Route} from
 'react-router-dom';
 import './App.css';
+// REACT SLICK CAROUSEL
+import CenterMode from '../components/carousels/CategorySlider';
+// END REACT SLICK CAROUSEL
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from '../components/Navbar';
 import ProductList from '../components/ProductList';
@@ -23,6 +26,7 @@ export default function App() {
         <React.Fragment>
             {/*<TestSemantic />*/}
             <Navbar />
+            <CenterMode />
             <Switch>
                 <Route exact path="/" component={ProductList} /> {/*This will be routed first*/}
                 <Route path ="/detalhes-do-produto" component={Details} />
