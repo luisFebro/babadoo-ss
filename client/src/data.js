@@ -1,13 +1,13 @@
 export const categories = [
     {
         id: 1,
-        link: "lingeries",
+        link: "/lingeries#inicio",
         "title-alt": "lingeries",
         "img-name": "lingerie-corset-128.png",
     },
     {
         id: 2,
-        link: "cosmeticos",
+        link: "/cosmeticos#inicio",
         "title-alt": "cosméticos",
         "img-name": "cosmetics.png",
     },
@@ -19,7 +19,7 @@ export const categories = [
     },
     {
         id: 4,
-        link: "comestiveis",
+        link: "/comestiveis#inicio",
         "title-alt": "comestíveis",
         "img-name": "whipped-cream.png",
     },

@@ -77,7 +77,7 @@ export default class CategorySlider extends Component {
                 {categories.map(card => {
                     return(
                         <div key={card.id} className="card-carousel">
-                            <HashLink smooth to={`/${card.link}#inicio`}>
+                            <HashLink smooth to={`${card.link}`}>
                                 <button className="categoryBtn shadow-elevation">
                                     <div className="main-letters-shadow">
                                         <span>
