@@ -3,7 +3,7 @@ import Title from '../Title';
 import Product from '../Product';
 import { ProductConsumer } from '../../context';
 
-export default function cosmetics() {
+export default function Edibles() {
     return (
         <React.Fragment>
             <Title name="" title="Comestíveis" />
