@@ -2,19 +2,18 @@ import React, { Component } from "react";
 import Slider from "react-slick";
 import "./_slick.css";
 import "./_slickTheme.css";
-import { Link } from "react-router-dom";
+import { HashLink } from "react-router-hash-link";
+import { categories } from "../../data";
+import { floatIt } from '../keyframes/floatIt';
+import styled from 'styled-components';
 
-function SampleNextArrow(props) {
-      const { className, style, onClick } = props;
-      return (
-        <div
-          className={className}
-          style={{ ...style, display: "block", background: "red" }}
-          onClick={onClick}
-        />
-      );
-}
-export default class CenterMode extends Component {
+export default class CategorySlider extends Component {
+    constructor() {
+        super();
+        this.state = {
+            isCarouselOpen: false,
+        }
+    }
     render() {
         const settings = {
             dots: true,
@@ -54,76 +53,55 @@ export default class CenterMode extends Component {
             ]
         };
 
+        const { isCarouselOpen } = this.state;
+
         return (
-        <div style={{   backgroundColor: "rgba(242, 38, 19, .7)"}}>
-            <h3 className="title-carousel text-center text-capitalize bg-danger">Categorias</h3>
-            <Slider {...settings}>
-                <div className="card-carousel">
-                    <button className="categoryBtn shadow-elevation">
-                        <div className="main-letters-shadow">
-                            <span><img src="img/icons/lingerie-corset-128.png" alt="categoria lingeries"></img></span>
-                            <h3>Lingeries</h3>
+        <div style={{ backgroundColor: "rgba(242, 38, 19, .7)"}}>
+            <h3
+                className="title-carousel text-center text-capitalize bg-danger"
+            >
+            Categorias
+            <SpanWrapper
+                style={{backgroundColor: "var(--mainYellow)"}}
+                className="ml-3 shadow-elevation badge badge-pill"
+                onClick={() => this.setState({isCarouselOpen: !isCarouselOpen})}
+            >
+            {isCarouselOpen ? "x" : "abrir"}
+          </SpanWrapper>
+            </h3>
+            <Slider
+                style={{transition: ".5s", display: isCarouselOpen ? "block" : "none"}}
+                {...settings}
+            >
+
+                {categories.map(card => {
+                    return(
+                        <div key={card.id} className="card-carousel">
+                            <HashLink smooth to={`/${card.link}#inicio`}>
+                                <button className="categoryBtn shadow-elevation">
+                                    <div className="main-letters-shadow">
+                                        <span>
+                                            <img
+                                                className="img-fluid"
+                                                src={`img/icons/${card["img-name"]}`}
+                                                alt={`categoria ${card["title-alt"]}`}
+                                            >
+                                            </img>
+                                        </span>
+                                        <h3 className="text-capitalize">{card["title-alt"]}</h3>
+                                    </div>
+                                </button>
+                            </HashLink>
                         </div>
-                    </button>
-                </div>
-                <div className="card-carousel">
-                    <button className="categoryBtn shadow-elevation">
-                        <div className="main-letters-shadow">
-                            <span><img src="img/icons/cosmetics.png" alt="categoria cosméticos"></img></span>
-                            <h3>Cosméticos</h3>
-                        </div>
-                    </button>
-                </div>
-                <div className="card-carousel">
-                    <button className="categoryBtn shadow-elevation">
-                        <div className="main-letters-shadow">
-                            <span><img className="img-fluid" src="img/icons/handcuffs.png" alt="categoria sadomasoquismo"></img></span>
-                            <h3>Sado</h3>
-                        </div>
-                    </button>
-                </div>
-                <div>
-                    <button className="categoryBtn shadow-elevation">
-                        <div className="main-letters-shadow">
-                            <span><img className="img-fluid" src="img/icons/whipped-cream.png" alt="categoria comestíveis"></img></span>
-                            <h3>Comestíveis</h3>
-                        </div>
-                    </button>
-                </div>
-                <div>
-                    <button className="categoryBtn shadow-elevation">
-                        <div className="main-letters-shadow">
-                            <span><img className="img-fluid" src="img/icons/hair-brush.png" alt="categoria acessórios"></img></span>
-                            <h3>Acessórios</h3>
-                        </div>
-                    </button>
-                </div>
-                <div>
-                    <button className="categoryBtn shadow-elevation">
-                        <div className="main-letters-shadow">
-                            <span><img className="img-fluid" src="img/icons/games.png" alt="categoria jogos"></img></span>
-                            <h3>Jogos</h3>
-                        </div>
-                    </button>
-                </div>
-                <div>
-                    <button className="categoryBtn shadow-elevation">
-                        <div className="main-letters-shadow">
-                            <span><img className="img-fluid" src="img/icons/fantasies.png" alt="categoria fantasias"></img></span>
-                            <h3>Fantasias</h3>
-                        </div>
-                    </button>
-                </div>
-                <div>
-                    <button className="categoryBtn shadow-elevation">
-                        <div className="main-letters-shadow">
-                            <span><img className="img-fluid" src="img/icons/miscelleneous.png" alt="categoria variados"></img></span>
-                            <h3>Variados</h3>
-                        </div>
-                    </button>
-                </div>
+                    );
+                })}
             </Slider>
       </div>
     );
     }
 }
+
+const SpanWrapper = styled.span`
+    margin-bottom: 5px;
+    animation: ${floatIt} 1s linear 0s 10;
+`;

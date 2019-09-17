@@ -46,7 +46,9 @@ footer {
 }
 
 .text-nav-items {
-    font: normal 1.3rem "Comic Sans MS", cursive, sans-serif;
+    color: var(--mainWhite);
+    font-size: 1.7rem;
+    margin: 0;
 }
 
 .text-product-title {

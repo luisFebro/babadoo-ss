@@ -6,17 +6,31 @@ import styled from 'styled-components';
 import { ProductConsumer } from '../context';
 import { Link } from 'react-router-dom';
 
-const source = storeProducts;
-
 class SearchCompleteWithImg extends Component {
+    constructor() {
+        super();
+        this.state = {
+            source: storeProducts,
+        }
+    }
     componentWillMount() {
         this.resetComponent()
     }
 
-    goToDetailsPageDiv(e, result) {
-        {console.log(result)}
+    getDataWithRef() {
         return (
-            <Link to="/detalhes-do-produto" onClick={()=> console.log("clicked")}>
+            <ProductConsumer>
+                {value => {
+                    this.setState({source: value.products});
+                    console.log(this.state.source);
+                }}
+            </ProductConsumer>
+        );
+    }
+
+    goToDetailsPageDiv(e, result) {
+        return (
+            <Link to="/detalhes-do-produto">
                 <ui>
                     <li>result.title</li>
                     <li>result.description</li>
@@ -28,7 +42,7 @@ class SearchCompleteWithImg extends Component {
 
     resetComponent = () => this.setState({ isLoading: false, results: [], value: '' })
 
-    handleResultSelect = (e, { result }) => this.goToDetailsPageDiv(e, result);
+    handleResultSelect = (e, { result }) => this.goToDetailsPageDiv(e, result)
 
     handleSearchChange = (e, { value }) => {
         this.setState({ isLoading: true, value })
@@ -40,7 +54,7 @@ class SearchCompleteWithImg extends Component {
             const isMatch = result => re.test(result.title)
             this.setState({
                 isLoading: false,
-                results: _.filter(source, isMatch),
+                results: _.filter(this.state.source, isMatch),
             })
         }, 300)
     }
@@ -48,6 +62,7 @@ class SearchCompleteWithImg extends Component {
 
     render() {
         const { isLoading, value, results } = this.state
+        this.getDataWithRef();
         return (
             <Search
                 onResultSelect={this.handleResultSelect}
@@ -57,8 +72,8 @@ class SearchCompleteWithImg extends Component {
                 value={value}
                 //
                 input={{placeholder: "Procure um item..."}}
-                noResultsMessage={"Oops! Nenhum item encontrado."}
-                noResultsDescription={"Sugestões: óleos, lingeries, gels..."}
+                noResultsMessage={""}
+                noResultsDescription={"Oops! Nenhum item babadoo encontrado..."}
                 {...this.props}
             />
         )
@@ -114,6 +129,10 @@ const DivContainer = styled.div`
         border-bottom: none !important;
     }
 
+    results {
+        overflow: scroll;
+    }
+
     .ui.search>.results .result {
         cursor: pointer;
         display: block;
@@ -126,12 +145,11 @@ const DivContainer = styled.div`
     }
 
     .image {
-        margin-left: 3em;
         float: right;
         overflow: hidden;
         background: 0 0;
-        width: 11em;
-        height: 9em;
+        width: 7em;
+        height: 5em;
         border-radius: .25em;
     }
 
@@ -141,12 +159,13 @@ const DivContainer = styled.div`
 
     .ui.search>.results .result .price {
         float: right;
-        font-size: 1rem;
+        font-size: 1.4rem;
         font-weight: bold;
         color: #21ba45;
     }
     .price::before {
-        content: 'R$ '
+        font-size: 1.4rem;
+        content: 'R$ ';
     }
 `;
 

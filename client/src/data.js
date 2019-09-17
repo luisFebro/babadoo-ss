@@ -1,3 +1,54 @@
+export const categories = [
+    {
+        id: 1,
+        link: "lingeries",
+        "title-alt": "lingeries",
+        "img-name": "lingerie-corset-128.png",
+    },
+    {
+        id: 2,
+        link: "cosmeticos",
+        "title-alt": "cosméticos",
+        "img-name": "cosmetics.png",
+    },
+    {
+        id: 3,
+        link: "",
+        "title-alt": "sado",
+        "img-name": "handcuffs.png",
+    },
+    {
+        id: 4,
+        link: "comestiveis",
+        "title-alt": "comestíveis",
+        "img-name": "whipped-cream.png",
+    },
+    {
+        id: 5,
+        link: "",
+        "title-alt": "acessórios",
+        "img-name": "hair-brush.png",
+    },
+    {
+        id: 6,
+        link: "",
+        "title-alt": "jogos",
+        "img-name": "games.png",
+    },
+    {
+        id: 7,
+        link: "",
+        "title-alt": "fantasias",
+        "img-name": "fantasies.png",
+    },
+    {
+        id: 8,
+        link: "",
+        "title-alt": "diversos",
+        "img-name": "miscelleneous.png",
+    }
+]
+
 export const storeProducts = [
     {
         "id": 1, //this gets reference code. e.g sodo1
@@ -37,7 +88,7 @@ export const storeProducts = [
     },
     {
         "id": 4,
-        "title": "oleo soft love corporal para massagem menta",
+        "title": "óleo soft love corporal para massagem menta",
         "description": "cosméticos",
         "image": "img/products/oleo-soft-love-corporal-para-massagem-menta-soft-ball-funcional.jpg",
         "price": 40,
@@ -61,24 +112,24 @@ export const storeProducts = [
     },
     {
         "id": 6,
-        "title": "oleo facilit para massagem em spray",
+        "title": "óleo facilit para massagem em spray",
         "description": "cosméticos",
         "image": "img/products/oleo-facilit-para-massagem-em-spray.jpg",
         "price": 40,
         "company": "facilit",
-        "info": "oleo facilit para massagem em spray - 15ml",
+        "info": "óleo facilit para massagem em spray - 15ml",
         "inCart": false,
         "count": 0,
         "total": 0
     },
     {
         "id": 7,
-        "title": "top gula soft love vegan",
+        "title": "top gula leite condensado soft love vegan",
         "description": "comestíveis",
         "image": "img/products/top-gula-soft-love-vegan.jpg",
         "price": 40,
         "company": "soft love",
-        "info": "top gula soft love vegan - 15ml",
+        "info": "top gula com leite condensado soft love vegan - 15ml",
         "inCart": false,
         "count": 0,
         "total": 0
@@ -122,7 +173,7 @@ export const storeProducts = [
     // {
     //     "id": 11,
     //     "title": "calcinhas cordão dourado temáticas",
-    //     "description": "lingerie",
+    //     "description": "lingeries",
     //     "image": "img/products/calcinhas-cordao-dourado-tematicas.jpg",
     //     "price": 40,
     //     "company": "diversos",
@@ -134,7 +185,7 @@ export const storeProducts = [
     {
         "id": 12,
         "title": "calcinhas temáticas gostosa delicia pirigueti",
-        "description": "lingerie",
+        "description": "lingeries",
         "image": "img/products/calcinhas-tematicas-gostosa-delicia-pirigueti.jpg",
         "price": 40,
         "company": "diversos",
@@ -153,14 +204,14 @@ export const storeProducts = [
 ];
 
 export const detailProduct = {
-    "id": 9,
-    "title": "Kit Dominatrix",
-    "description": "sadomasoquismo",
-    "image": "img/products/gel-black-ice.jpg",
-    "price": 45,
-    "company": "Popular",
-    "info": "Lorem ipsum dolor amet offal butcher quinoa sustainable gastropub, echo park actually green juice sriracha paleo. Brooklyn sriracha semiotics, DIY coloring book mixtape craft beer sartorial hella blue bottle. Tote bag wolf authentic try-hard put a bird on it mumblecore. Unicorn lumbersexual master cleanse blog hella VHS, vaporware sartorial church-key cardigan single-origin coffee lo-fi organic asymmetrical. Taxidermy semiotics celiac stumptown scenester normcore, ethical helvetica photo booth gentrify.",
-    "inCart": false,
-    "count": 0,
-    "total": 0
+    "id": 1, //this gets reference code. e.g sodo1
+    "title": "Óleo retard massagem em spray",
+   "description": "cosméticos",
+   "image": "img/products/oleo-retard-soft-love-para-massagem-em-spray.png",
+   "price": 40,
+   "company": "Retard",
+   "info": "Óleo retard soft love para Massagem em Spray - 15 ml",
+   "inCart": false,
+   "count": 0,
+   "total": 0
 };

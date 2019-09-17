@@ -22,9 +22,7 @@ class ProductProvider extends Component {
     }
 
     componentDidMount() {
-        //this.generateRef();
         this.setProducts();
-        window.scrollTo(0, 0); //not workinng
     }
     // copying the array elements to not being only references
     setProducts = () => {
@@ -38,7 +36,7 @@ class ProductProvider extends Component {
             return { products: tempProducts }
         }, () => {
             this.generateRef();
-        })
+        });
 
     }
 

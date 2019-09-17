@@ -44,7 +44,7 @@ export default class Navbar extends Component {
                             </Link>
                             <ul className="navbar-nav align-items-center" onClick={value.openModalOnly}>
                                 <li className="nav-item">
-                                    <Link to="/" className="nav-link">loja</Link>
+                                    <Link to="/" className="nav-link text-nav-items">loja</Link>
                                 </li>
                             </ul>
                            <ul className="navbar-nav ml-3 ml-md-auto">
