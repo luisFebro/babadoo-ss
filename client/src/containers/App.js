@@ -9,7 +9,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from '../components/Navbar';
 //CATEGORY PAGES
 import ProductList from '../components/ProductList';
-import Lingeries from '../components/category-pages/Lingeries';
+import Lingeries from '../components/category-pages/Lingerie';
 import Cosmetics from '../components/category-pages/Cosmetics';
 import Edibles from '../components/category-pages/Edibles';
 //END CATEGORY PAGES

@@ -3,7 +3,7 @@ import Title from '../Title';
 import Product from '../Product';
 import { ProductConsumer } from '../../context';
 
-export default function Lingeries() {
+export default function Lingerie() {
     return (
         <React.Fragment>
             <Title name="" title="Lingeries" />
