@@ -8,7 +8,7 @@ export default function WhatsappIcon() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="link-whatsapp-web text-hide animated rubberBand fast"
-                style={{animationDelay: '5s', animationIterationCount: '3'}}
+                style={{animationDelay: '15s', animationIterationCount: '3'}}
                 title="Clique aqui para enviar uma mensagem em nosso WhatsApp"
                 href="http://linkwhatsapp.com.br/go/9tL"> {/*(92) 99506-6603*/}
             </a>

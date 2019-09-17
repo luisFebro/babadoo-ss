@@ -9,9 +9,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from '../components/Navbar';
 //CATEGORY PAGES
 import ProductList from '../components/ProductList';
-import Lingeries from '../components/category-pages/Lingerie';
-import Cosmetics from '../components/category-pages/Cosmetics';
-import Edibles from '../components/category-pages/Edibles';
+import Lingerie from '../components/category-pages/Lingerie';
+import Cosmetic from '../components/category-pages/Cosmetic';
+import Edible from '../components/category-pages/Edible';
 //END CATEGORY PAGES
 import Details from '../components/Details';
 import Cart from '../components/cart/Cart';
@@ -35,9 +35,9 @@ export default function App() {
             <Switch>
                 {/*Categories Pages*/}
                 <Route exact path="/" component={ProductList} /> {/*This will be routed first*/}
-                <Route path="/lingeries" component={Lingeries} />
-                <Route path="/cosmeticos" component={Cosmetics} />
-                <Route path="/comestiveis" component={Edibles} />
+                <Route path="/lingeries" component={Lingerie} />
+                <Route path="/cosmeticos" component={Cosmetic} />
+                <Route path="/comestiveis" component={Edible} />
                 {/*End Categories Pages*/}
                 <Route path ="/detalhes-do-produto" component={Details} />
                 <Route path="/seu-carrinho" component={Cart} />
