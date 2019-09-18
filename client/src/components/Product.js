@@ -49,7 +49,7 @@ export default class Product extends Component {
                                         onClick={() => {this.toggleFav()}}
                                 >
                                     {isFav ?
-                                        (<i className="filledHeart fas fa-heart animated heartBeat fast" style={{'animationIterationCount': 2}}></i>) :
+                                        (<i className="filledHeart fas fa-heart animated heartBeat fast" style={{'animationIterationCount': 3}}></i>) :
                                         (<i
                                             className="emptyHeart far fa-heart"
                                             onClick={() => {value.openModalFavorite(id)}}

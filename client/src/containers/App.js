@@ -2,11 +2,15 @@ import React from 'react';
 import { Switch, Route } from
 'react-router-dom';
 import './App.css';
-// REACT SLICK CAROUSELS
-import CenterMode from '../components/carousels/CategorySlider';
-// END REACT SLICK CAROUSELS
-import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from '../components/Navbar';
+import CategorySlider from '../components/carousels/CategorySlider';
+import WhatsappIcon from "../components/WhatsappIcon";
+import Footer from '../components/Footer';
+//GENERAL COMPONENTS
+import StoreMap from '../components/StoreMap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import "animate.css/animate.min.css";
+//END GENERAL COMPONENTS
 //CATEGORY PAGES
 import ProductList from '../components/ProductList';
 import Lingerie from '../components/category-pages/Lingerie';
@@ -22,8 +26,6 @@ import Modal from '../components/modals/Modal';
 import ModalFavorite from '../components/modals/ModalFavorite';
 import UnderConstruction from '../components/modals/UnderConstruction';
 // END MODALS
-import WhatsappIcon from "../components/WhatsappIcon";
-import Footer from '../components/Footer';
 // import TestSemantic from '../components/TestSemantic';
 
 export default function App() {
@@ -31,7 +33,7 @@ export default function App() {
         <React.Fragment>
             {/*<TestSemantic />*/}
             <Navbar />
-            <CenterMode />
+            <CategorySlider />
             <Switch>
                 {/*Categories Pages*/}
                 <Route exact path="/" component={ProductList} /> {/*This will be routed first*/}

@@ -8,7 +8,7 @@ export default function ButtonCart() {
         <ProductConsumer>
             {value => {
                  return(
-                    <Link style={{zIndex: 100}} to="/seu-carrinho" className="ml-2 fixed-bottom m-3">
+                    <Link to="/seu-carrinho" className="ml-2 fixed-bottom m-3" style={{zIndex: 100}}>
                        <ButtonYellow className="animated tada slower" style={{padding: "7px", position: 'relative', zIndex: 150, animationDelay: "20s", animationIterationCount: 2}} >
                             <span>
                                <i className="fas fa-cart-plus p-2">
