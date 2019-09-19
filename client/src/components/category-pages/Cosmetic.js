@@ -2,7 +2,7 @@ import React from 'react';
 import Title from '../Title';
 import Product from '../Product';
 import { ProductConsumer } from '../../context';
-
+import ButtonCart from '../ButtonCart';
 export default function Cosmetic() {
     return (
         <React.Fragment>
@@ -25,6 +25,7 @@ export default function Cosmetic() {
                     </div>
                 </div>
             </div>
+            <ButtonCart />
         </React.Fragment>
     );
 }

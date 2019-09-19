@@ -2,6 +2,7 @@ import React from 'react';
 import Title from '../Title';
 import Product from '../Product';
 import { ProductConsumer } from '../../context';
+import ButtonCart from '../ButtonCart';
 
 export default function Edible() {
     return (
@@ -25,6 +26,7 @@ export default function Edible() {
                     </div>
                 </div>
             </div>
+            <ButtonCart />
         </React.Fragment>
     );
 }
