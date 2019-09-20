@@ -14,13 +14,10 @@ export default function Edible() {
                         <ProductConsumer>
                             {value => {
                                 return value.products.map(product => {
-                                    return product.description === "comestíveis" ?
-                                        (<Product
-                                            key={product.id}
-                                            product={product} />
-                                        ) :
-                                        null
-                                })
+                                    return product.description === 'comestíveis' ? (
+                                        <Product key={product.id} product={product} />
+                                    ) : null;
+                                });
                             }}
                         </ProductConsumer>
                     </div>

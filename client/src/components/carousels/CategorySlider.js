@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import Slider from "react-slick";
-import "./_slick.css";
-import "./_slickTheme.css";
-import { HashLink } from "react-router-hash-link";
-import { categories } from "../../data";
+import React, { Component } from 'react';
+import Slider from 'react-slick';
+import './_slick.css';
+import './_slickTheme.css';
+import { HashLink } from 'react-router-hash-link';
+import { categories } from '../../data';
 import { floatIt } from '../keyframes/floatIt';
 import styled from 'styled-components';
 
@@ -11,25 +11,26 @@ export default class CategorySlider extends Component {
     constructor() {
         super();
         this.state = {
-            isCarouselOpen: false,
-        }
+            isCarouselOpen: false
+        };
     }
     render() {
         const settings = {
             dots: true,
             infinite: true,
-            className: "center",
-            centerPadding: "60px",
+            className: 'center',
+            centerPadding: '60px',
             slidesToShow: 5,
             autoplay: true,
             speed: 600,
             autoplaySpeed: 5000,
-            responsive: [{
+            responsive: [
+                {
                     breakpoint: 1024,
                     settings: {
                         slidesToShow: 4,
                         slidesToScroll: 4,
-                        centerPadding: "60px",
+                        centerPadding: '60px',
                         infinite: true,
                         dots: true
                     }
@@ -37,9 +38,9 @@ export default class CategorySlider extends Component {
                 {
                     breakpoint: 600,
                     settings: {
-                        centerPadding: "60px",
+                        centerPadding: '60px',
                         slidesToShow: 3,
-                        slidesToScroll: 3,
+                        slidesToScroll: 3
                     }
                 },
                 {
@@ -47,7 +48,7 @@ export default class CategorySlider extends Component {
                     settings: {
                         slidesToShow: 2,
                         slidesToScroll: 2,
-                        infinite: true,
+                        infinite: true
                     }
                 }
             ]
@@ -56,48 +57,47 @@ export default class CategorySlider extends Component {
         const { isCarouselOpen } = this.state;
 
         return (
-        <div style={{ backgroundColor: "rgba(242, 38, 19, .7)"}}>
-            <h3
-                className="title-carousel text-center text-capitalize bg-danger"
-            >
-            Categorias
-            <SpanWrapper
-                style={{backgroundColor: "var(--mainYellow)"}}
-                className="ml-3 shadow-elevation badge badge-pill"
-                onClick={() => this.setState({isCarouselOpen: !isCarouselOpen})}
-            >
-            {isCarouselOpen ? "x" : "abrir"}
-          </SpanWrapper>
-            </h3>
-            <Slider
-                style={{transition: ".5s", display: isCarouselOpen ? "block" : "none"}}
-                {...settings}
-            >
-
-                {categories.map(card => {
-                    return(
-                        <div key={card.id} className="card-carousel">
-                            <HashLink smooth to={`${card.link}`}>
-                                <button className="categoryBtn shadow-elevation">
-                                    <div className="main-letters-shadow">
-                                        <span>
-                                            <img
-                                                className="img-fluid"
-                                                src={`img/icons/${card["img-name"]}`}
-                                                alt={`categoria ${card["title-alt"]}`}
-                                            >
-                                            </img>
-                                        </span>
-                                        <h3 className="text-capitalize">{card["title-alt"]}</h3>
-                                    </div>
-                                </button>
-                            </HashLink>
-                        </div>
-                    );
-                })}
-            </Slider>
-      </div>
-    );
+            <div style={{ backgroundColor: 'rgba(242, 38, 19, .7)' }}>
+                <h3 className="title-carousel text-center text-capitalize bg-danger">
+                    Categorias
+                    <SpanWrapper
+                        style={{ backgroundColor: 'var(--mainYellow)' }}
+                        className="ml-3 shadow-elevation badge badge-pill"
+                        onClick={() => this.setState({ isCarouselOpen: !isCarouselOpen })}
+                    >
+                        {isCarouselOpen ? 'x' : 'abrir'}
+                    </SpanWrapper>
+                </h3>
+                <Slider
+                    style={{
+                        transition: '.5s',
+                        display: isCarouselOpen ? 'block' : 'none'
+                    }}
+                    {...settings}
+                >
+                    {categories.map(card => {
+                        return (
+                            <div key={card.id} className="card-carousel">
+                                <HashLink smooth to={`${card.link}`}>
+                                    <button className="categoryBtn shadow-elevation">
+                                        <div className="main-letters-shadow">
+                                            <span>
+                                                <img
+                                                    className="img-fluid"
+                                                    src={`img/icons/${card['img-name']}`}
+                                                    alt={`categoria ${card['title-alt']}`}
+                                                ></img>
+                                            </span>
+                                            <h3 className="text-capitalize">{card['title-alt']}</h3>
+                                        </div>
+                                    </button>
+                                </HashLink>
+                            </div>
+                        );
+                    })}
+                </Slider>
+            </div>
+        );
     }
 }
 

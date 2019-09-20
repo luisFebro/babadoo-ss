@@ -1,6 +1,6 @@
-import _ from 'lodash'
-import { storeProducts } from '../data'
-import React, { Component } from 'react'
+import _ from 'lodash';
+import { storeProducts } from '../data';
+import React, { Component } from 'react';
 import { Search } from 'semantic-ui-react';
 import styled from 'styled-components';
 import { ProductConsumer } from '../context';
@@ -10,18 +10,18 @@ class SearchCompleteWithImg extends Component {
     constructor() {
         super();
         this.state = {
-            source: storeProducts,
-        }
+            source: storeProducts
+        };
     }
     componentWillMount() {
-        this.resetComponent()
+        this.resetComponent();
     }
 
     getDataWithRef() {
         return (
             <ProductConsumer>
                 {value => {
-                    this.setState({source: value.products});
+                    this.setState({ source: value.products });
                     console.log(this.state.source);
                 }}
             </ProductConsumer>
@@ -40,59 +40,58 @@ class SearchCompleteWithImg extends Component {
         );
     }
 
-    resetComponent = () => this.setState({ isLoading: false, results: [], value: '' })
+    resetComponent = () => this.setState({ isLoading: false, results: [], value: '' });
 
-    handleResultSelect = (e, { result }) => this.goToDetailsPageDiv(e, result)
+    handleResultSelect = (e, { result }) => this.goToDetailsPageDiv(e, result);
 
     handleSearchChange = (e, { value }) => {
-        this.setState({ isLoading: true, value })
+        this.setState({ isLoading: true, value });
 
         setTimeout(() => {
-            if (this.state.value.length < 1) return this.resetComponent()
+            if (this.state.value.length < 1) return this.resetComponent();
 
-            const re = new RegExp(_.escapeRegExp(this.state.value), 'i')
-            const isMatch = result => re.test(result.title)
+            const re = new RegExp(_.escapeRegExp(this.state.value), 'i');
+            const isMatch = result => re.test(result.title);
             this.setState({
                 isLoading: false,
-                results: _.filter(this.state.source, isMatch),
-            })
-        }, 300)
-    }
-
+                results: _.filter(this.state.source, isMatch)
+            });
+        }, 300);
+    };
 
     render() {
-        const { isLoading, value, results } = this.state
+        const { isLoading, value, results } = this.state;
         this.getDataWithRef();
         return (
             <Search
                 onResultSelect={this.handleResultSelect}
-                onSearchChange={_.debounce(this.handleSearchChange, 500, { leading: true })}
+                onSearchChange={_.debounce(this.handleSearchChange, 500, {
+                    leading: true
+                })}
                 loading={isLoading}
                 results={results}
                 value={value}
                 //
-                input={{placeholder: "Procure um item..."}}
-                noResultsMessage={""}
-                noResultsDescription={"Oops! Nenhum item babadoo encontrado..."}
+                input={{ placeholder: 'Procure um item...' }}
+                noResultsMessage={''}
+                noResultsDescription={'Oops! Nenhum item babadoo encontrado...'}
                 {...this.props}
             />
-        )
+        );
     }
 }
 
 export default () => (
-        <DivContainer>
-            <SearchCompleteWithImg
-                className="animated zoomIn slow"
-            />
-        </DivContainer>
+    <DivContainer>
+        <SearchCompleteWithImg className="animated zoomIn slow" />
+    </DivContainer>
 );
 
 const DivContainer = styled.div`
     position: fixed;
     top: 5rem;
     right: 10%;
-    filter: drop-shadow(.001em .1em .1em var(--mainYellow));
+    filter: drop-shadow(0.001em 0.1em 0.1em var(--mainYellow));
     z-index: 999;
 
     & p {
@@ -112,15 +111,15 @@ const DivContainer = styled.div`
         text-align: left;
         line-height: 1.21428571em;
         font-family: Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif;
-        padding: .67857143em 1em;
+        padding: 0.67857143em 1em;
         background: #fff;
-        border: 1px solid rgba(34, 36, 38, .15);
-        color: rgba(0, 0, 0, .87);
-        border-radius: .28571429rem;
-        -webkit-transition: border-color .1s ease, -webkit-box-shadow .1s ease;
-        transition: border-color .1s ease, -webkit-box-shadow .1s ease;
-        transition: box-shadow .1s ease, border-color .1s ease;
-        transition: box-shadow .1s ease, border-color .1s ease, -webkit-box-shadow .1s ease;
+        border: 1px solid rgba(34, 36, 38, 0.15);
+        color: rgba(0, 0, 0, 0.87);
+        border-radius: 0.28571429rem;
+        -webkit-transition: border-color 0.1s ease, -webkit-box-shadow 0.1s ease;
+        transition: border-color 0.1s ease, -webkit-box-shadow 0.1s ease;
+        transition: box-shadow 0.1s ease, border-color 0.1s ease;
+        transition: box-shadow 0.1s ease, border-color 0.1s ease, -webkit-box-shadow 0.1s ease;
         -webkit-box-shadow: none;
         box-shadow: none;
     }
@@ -133,15 +132,15 @@ const DivContainer = styled.div`
         overflow: scroll;
     }
 
-    .ui.search>.results .result {
+    .ui.search > .results .result {
         cursor: pointer;
         display: block;
         overflow: hidden;
         font-size: 1em;
-        padding: .85714286em 1.14285714em;
-        color: rgba(0, 0, 0, .87);
+        padding: 0.85714286em 1.14285714em;
+        color: rgba(0, 0, 0, 0.87);
         line-height: 1.33;
-        border-bottom: 1px solid rgba(34, 36, 38, .1);
+        border-bottom: 1px solid rgba(34, 36, 38, 0.1);
     }
 
     .image {
@@ -150,14 +149,14 @@ const DivContainer = styled.div`
         background: 0 0;
         width: 7em;
         height: 5em;
-        border-radius: .25em;
+        border-radius: 0.25em;
     }
 
-    .ui.search>.results .result .image+.content {
+    .ui.search > .results .result .image + .content {
         margin: 0 6em 0 0;
     }
 
-    .ui.search>.results .result .price {
+    .ui.search > .results .result .price {
         float: right;
         font-size: 1.4rem;
         font-weight: bold;

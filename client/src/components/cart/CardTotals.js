@@ -1,9 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ButtonContainerPressedEffectDark as DarkBtn, ButtonContainerPressedEffectYellow as YellowBtn} from '../Button';
+import {
+    ButtonContainerPressedEffectDark as DarkBtn,
+    ButtonContainerPressedEffectYellow as YellowBtn
+} from '../Button';
 
-export default function CardTotals({value}) {
-const { cartSubtotal, cartTax, cartTotal, clearCart} = value;
+export default function CardTotals({ value }) {
+    const { cartSubtotal, cartTax, cartTotal, clearCart } = value;
     return (
         <React.Fragment>
             <div className="container">
@@ -17,18 +20,15 @@ const { cartSubtotal, cartTax, cartTotal, clearCart} = value;
                             limpar carrinho
                         </button>
                         <h5>
-                            <span className="text-sub-title">
-                            subtotal:  </span>
+                            <span className="text-sub-title">subtotal: </span>
                             <strong>R$ {cartSubtotal}</strong>
                         </h5>
                         <h5>
-                            <span className="text-sub-title">
-                            frete:  </span>
+                            <span className="text-sub-title">frete: </span>
                             <strong>R$ {cartTax}</strong>
                         </h5>
                         <h5>
-                            <span className="text-sub-title">
-                            total final:  </span>
+                            <span className="text-sub-title">total final: </span>
                             <strong>R$ {cartTotal}</strong>
                         </h5>
                         <div className="d-flex flex-row justify-content-between">

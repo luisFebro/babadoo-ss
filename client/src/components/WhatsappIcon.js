@@ -8,9 +8,12 @@ export default function WhatsappIcon() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="link-whatsapp-web text-hide animated rubberBand fast"
-                style={{animationDelay: '15s', animationIterationCount: '3'}}
+                style={{ animationDelay: '15s', animationIterationCount: '3' }}
                 title="Clique aqui para enviar uma mensagem em nosso WhatsApp"
-                href="http://linkwhatsapp.com.br/go/9tL"> {/*(92) 99506-6603*/}
+                href="http://linkwhatsapp.com.br/go/9tL"
+            >
+                {' '}
+                {/*(92) 99506-6603*/}
             </a>
         </DivWrapper>
     );
@@ -28,11 +31,11 @@ const DivWrapper = styled.div`
 
         background: url(https://imgur.com/2RhqZyw.png);
         background-size: contain;
-        opacity: .7;
+        opacity: 0.7;
 
         z-index: 99;
 
-        transition: opacity .5s 0s, visibility 0s .3s;
+        transition: opacity 0.5s 0s, visibility 0s 0.3s;
     }
 
     .link-whatsapp-web:hover {

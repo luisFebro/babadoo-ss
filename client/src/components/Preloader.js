@@ -44,7 +44,7 @@ const DivWrapper = styled.div`
     z-index: 999;
 
     & img {
-        transition: .5s;
+        transition: 0.5s;
         animation: ${pulse} 1s linear infinite;
     }
 

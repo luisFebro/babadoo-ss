@@ -11,7 +11,9 @@ export default class Default extends Component {
                         <h1>Oops! Página não encontrada!</h1>
                         <h3>
                             O pedido para a
-                            <br /><span className="text-danger">URL{this.props.location.pathname}</span><br />
+                            <br />
+                            <span className="text-danger">URL{this.props.location.pathname}</span>
+                            <br />
                             não foi encontrado!
                         </h3>
                     </div>

@@ -1,30 +1,29 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { ProductConsumer } from "../context";
+import { ProductConsumer } from '../context';
 import PropTypes from 'prop-types';
 
 export default class Product extends Component {
     constructor() {
         super();
         this.state = {
-            isFav: false,
-        }
+            isFav: false
+        };
         this.toggleFav = this.toggleFav.bind(this);
     }
 
     toggleFav() {
-        this.setState((currentState) => {
+        this.setState(currentState => {
             return {
-                isFav: !currentState.isFav,
+                isFav: !currentState.isFav
             };
         });
     }
 
     truncate(input) {
-        return input.length > 40 ?
-        (input.substring(0,40) + '...') : input;
-    };
+        return input.length > 40 ? input.substring(0, 40) + '...' : input;
+    }
 
     render() {
         const { id, title, image, price, inCart } = this.props.product;
@@ -34,29 +33,31 @@ export default class Product extends Component {
                 <div className="card">
                     <ProductConsumer>
                         {value => (
-                            <div
-                                className="img-container p-1 p-sm-3"
-                                onClick={()=> value.handleDetail(id)}
-                            >
+                            <div className="img-container p-1 p-sm-3" onClick={() => value.handleDetail(id)}>
                                 <Link to="/detalhes-do-produto">
-                                    <img
-                                        className="card-img-top"
-                                        src={image}
-                                        alt="product"
-                                    />
+                                    <img className="card-img-top" src={image} alt="product" />
                                 </Link>
-                                <button className="cart-fav"
-                                        onClick={() => {this.toggleFav()}}
+                                <button
+                                    className="cart-fav"
+                                    onClick={() => {
+                                        this.toggleFav();
+                                    }}
                                 >
-                                    {isFav ?
-                                        (<i className="filledHeart fas fa-heart animated heartBeat fast" style={{'animationIterationCount': 3}}></i>) :
-                                        (<i
+                                    {isFav ? (
+                                        <i
+                                            className="filledHeart fas fa-heart animated heartBeat fast"
+                                            style={{
+                                                animationIterationCount: 3
+                                            }}
+                                        ></i>
+                                    ) : (
+                                        <i
                                             className="emptyHeart far fa-heart"
-                                            onClick={() => {value.openModalFavorite(id)}}
-                                        >
-                                        </i>)
-                                    }
-
+                                            onClick={() => {
+                                                value.openModalFavorite(id);
+                                            }}
+                                        ></i>
+                                    )}
                                 </button>
                                 <button
                                     className="cart-btn"
@@ -66,24 +67,21 @@ export default class Product extends Component {
                                         value.openModal(id);
                                     }}
                                 >
-                                    {inCart ?
-                                        (<p
-                                            className="text-capitalize mb-0"
-                                            disabled>
-                                            {" "}
+                                    {inCart ? (
+                                        <p className="text-capitalize mb-0" disabled>
+                                            {' '}
                                             No carrinho
                                         </p>
-                                        ) : (
-                                            <i className="fas fa-cart-plus"></i>
-                                        )
-                                    }
+                                    ) : (
+                                        <i className="fas fa-cart-plus"></i>
+                                    )}
                                 </button>
                             </div>
                         )}
                     </ProductConsumer>
                     {/*card footer*/}
                     <div className="text-product-title p-1 card-footer d-flex flex-column text-center justify-content-between">
-                        <p style={{height: "4em", overflow: "hidden"}} className="mb-0 text-capitalize">
+                        <p style={{ height: '4em', overflow: 'hidden' }} className="mb-0 text-capitalize">
                             {this.truncate(title)}
                         </p>
                         <h5 className="mt-2 text-right mb-2 mr-2">
@@ -105,8 +103,7 @@ Product.propTypes = {
         price: PropTypes.number,
         inCart: PropTypes.bool
     }).isRequired
-}
-
+};
 
 const ProductWrapper = styled.div`
     .card {

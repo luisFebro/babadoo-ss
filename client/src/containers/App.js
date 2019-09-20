@@ -1,16 +1,15 @@
 import React from 'react';
-import { Switch, Route } from
-'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import './App.css';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import CategorySlider from '../components/carousels/CategorySlider';
-import WhatsappIcon from "../components/WhatsappIcon";
+import WhatsappIcon from '../components/WhatsappIcon';
 //GENERAL COMPONENTS
 import { CustomPreloader } from 'react-preloaders';
 import StoreMap from '../components/StoreMap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import "animate.css/animate.min.css";
+import 'animate.css/animate.min.css';
 //END GENERAL COMPONENTS
 //GENERAL PAGES
 import Cart from '../components/cart/Cart';
@@ -44,7 +43,7 @@ export default function App() {
                 <Route path="/cosmeticos" component={Cosmetic} />
                 <Route path="/comestiveis" component={Edible} />
                 {/*End Categories Pages*/}
-                <Route path ="/detalhes-do-produto" component={Details} />
+                <Route path="/detalhes-do-produto" component={Details} />
                 <Route path="/seu-carrinho" component={Cart} />
                 <Route path="/finalizar-compra" component={FormNodeMailer} />
                 <Route component={Default} />

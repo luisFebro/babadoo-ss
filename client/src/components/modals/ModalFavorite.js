@@ -1,16 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
 import { ProductConsumer } from '../../context';
-import { ButtonContainerPressedEffectDark as DarkBtn, ButtonContainerPressedEffectYellow as YellowBtn } from '../Button';
+import {
+    ButtonContainerPressedEffectDark as DarkBtn,
+    ButtonContainerPressedEffectYellow as YellowBtn
+} from '../Button';
 import { Link } from 'react-router-dom';
 
 export default function ModalFavorite() {
     return (
         <ProductConsumer>
-            {(value) => {
+            {value => {
                 const { isModalFavoriteOpen, closeModal } = value;
                 const { image, title, price } = value.modalProduct;
-                if(!isModalFavoriteOpen) {
+                if (!isModalFavoriteOpen) {
                     return null;
                 } else {
                     return (
@@ -23,22 +26,25 @@ export default function ModalFavorite() {
                                     >
                                         <h2
                                             className="animated bounce fast mb-2"
-                                            style={{animationIterationCount: '3'}}>
-                                            <span><i className="fas fa-heart"></i></span>
+                                            style={{
+                                                animationIterationCount: '3'
+                                            }}
+                                        >
+                                            <span>
+                                                <i className="fas fa-heart"></i>
+                                            </span>
                                             Adicionado aos favoritos
                                         </h2>
-                                        <img src={image} alt="product" className="img-fluid shadow-elevation"/>
+                                        <img src={image} alt="product" className="img-fluid shadow-elevation" />
                                         <section className="my-2">
                                             <h5>{title}</h5>
                                         </section>
                                         <div className="d-flex flex-column justify-content-center align-items-center mt-2">
                                             <Link to="/">
-                                                <DarkBtn onClick={()=> closeModal()}>
-                                                    Voltar
-                                                </DarkBtn>
+                                                <DarkBtn onClick={() => closeModal()}>Voltar</DarkBtn>
                                                 <YellowBtn
                                                     className="mt-2"
-                                                    onClick={()=> {
+                                                    onClick={() => {
                                                         closeModal();
                                                         value.openModalOnly();
                                                     }}
@@ -47,7 +53,6 @@ export default function ModalFavorite() {
                                                 </YellowBtn>
                                             </Link>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
@@ -65,7 +70,7 @@ const ModalContainer = styled.div`
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, .8);
+    background: rgba(0, 0, 0, 0.8);
     display: flex;
     align-items: center;
     justify-content: center;

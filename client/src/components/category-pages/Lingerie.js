@@ -14,13 +14,10 @@ export default function Lingerie() {
                         <ProductConsumer>
                             {value => {
                                 return value.products.map(product => {
-                                    return product.description === "lingeries" ?
-                                        (<Product
-                                            key={product.id}
-                                            product={product} />
-                                        ) :
-                                        null
-                                })
+                                    return product.description === 'lingeries' ? (
+                                        <Product key={product.id} product={product} />
+                                    ) : null;
+                                });
                             }}
                         </ProductConsumer>
                     </div>

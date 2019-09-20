@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const ButtonContainerNoFillLightBlue = styled.button `
+export const ButtonContainerNoFillLightBlue = styled.button`
     :root {
         --mainBlue: #2a2a72;
         --mainYellow: #ffa400;
@@ -10,16 +10,16 @@ export const ButtonContainerNoFillLightBlue = styled.button `
     text-transform: capitalize;
     font-size: 1.4rem;
     background: transparent;
-    border: .05rem solid var(--lightBlue);
-    border-color: ${props => props.cart ? "var(--mainYellow)" : "var(--lightBlue)"};
-    color: ${props => props.cart ? "var(--mainYellow)" : "var(--lightBlue)"};
-    border-radius: .5rem;
+    border: 0.05rem solid var(--lightBlue);
+    border-color: ${props => (props.cart ? 'var(--mainYellow)' : 'var(--lightBlue)')};
+    color: ${props => (props.cart ? 'var(--mainYellow)' : 'var(--lightBlue)')};
+    border-radius: 0.5rem;
     cursor: pointer;
-    padding: .2rem .5rem;
-    margin: .2rem .5rem .2rem 0;
-    transition: all .5s ease-in-out;
+    padding: 0.2rem 0.5rem;
+    margin: 0.2rem 0.5rem 0.2rem 0;
+    transition: all 0.5s ease-in-out;
     &:hover {
-        background: ${props => props.cart ? "var(--mainYellow)" : "var(--lightBlue)"};
+        background: ${props => (props.cart ? 'var(--mainYellow)' : 'var(--lightBlue)')};
         color: var(--mainBlue);
     }
     &:focus {
@@ -28,7 +28,7 @@ export const ButtonContainerNoFillLightBlue = styled.button `
 `;
 
 // Pressed Effect - Collection
-export const ButtonContainerPressedEffectYellow = styled.button `
+export const ButtonContainerPressedEffectYellow = styled.button`
     outline: none;
 
     padding: .5rem .9rem;

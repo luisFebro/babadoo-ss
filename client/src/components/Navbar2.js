@@ -21,7 +21,7 @@ export default class Navbar extends Component {
     // }
     toggleMenu = function() {
         this.setState({ showMenu: !this.state.showMenu });
-    }
+    };
 
     render() {
         return (
@@ -29,18 +29,32 @@ export default class Navbar extends Component {
                 <HeaderWrapper>
                     <div className="logo">BABADOO</div>
 
-                    {this.state.showMenu &&
+                    {this.state.showMenu && (
                         <nav className="toolbar_navigation-items">
                             <ul>
-                                <li><a href="#" className="active">buscar</a></li>
-                                <li><a href="#">mapa da loja</a></li>
-                                <li><a href="#">favoritos</a></li>
-                                <li><a href="#">carrinho</a></li>
-                                <li><a href="#">login</a></li>
+                                <li>
+                                    <a href="#" className="active">
+                                        buscar
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">mapa da loja</a>
+                                </li>
+                                <li>
+                                    <a href="#">favoritos</a>
+                                </li>
+                                <li>
+                                    <a href="#">carrinho</a>
+                                </li>
+                                <li>
+                                    <a href="#">login</a>
+                                </li>
                             </ul>
                         </nav>
-                    }
-                    <div className="menu-toggle" onClick={this.props.toggleMenu}><i class="fa fa-bars" aria-hidden="true"></i></div>
+                    )}
+                    <div className="menu-toggle" onClick={this.props.toggleMenu}>
+                        <i class="fa fa-bars" aria-hidden="true"></i>
+                    </div>
                 </HeaderWrapper>
             </React.Fragment>
         );
@@ -66,7 +80,7 @@ const HeaderWrapper = styled.header`
     }
 
     & nav {
-        float:right;
+        float: right;
     }
 
     & nav ul {
@@ -88,7 +102,8 @@ const HeaderWrapper = styled.header`
         text-decoration: none !important;
     }
 
-    & nav ul li a:hover, & nav ul li a.active {
+    & nav ul li a:hover,
+    & nav ul li a.active {
         color: #fff !important;
         background: #2196f3 !important;
     }
@@ -124,10 +139,8 @@ const HeaderWrapper = styled.header`
             display: block;
             text-align: center;
         }
-        & nav ul li a{
-            border-bottom: 1px solid rgba(0, 0, 0, .2);
+        & nav ul li a {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.2);
         }
     }
 `;
-
-

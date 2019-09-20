@@ -1,5 +1,5 @@
 import React from 'react';
-import styled,{ keyframes } from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 /*SHAKE IMAGE*/
 /*All credits for this section here goes to w3school.

@@ -16,8 +16,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.post('/api/form', (req, res) => {
     const owner = 'Babadoo';
-    const client = req.body.name
-    client.charAt(0).toUpperCase() + client.slice(1);
+    const clientRaw = req.body.name;
+    const client = clientRaw.charAt(0).toUpperCase() + clientRaw.slice(1)
     const htmlEmail = `
         <center>
             <header">
