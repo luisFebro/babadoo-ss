@@ -73,8 +73,8 @@ export default class FormNodeMailer extends Component {
     //         }
     // }
 
-    resetForm(e){
-        e.preventDefault(); //only allow one click
+    resetForm(){
+        // e.preventDefault(); //only allow one click
         document.getElementById('contactForm').reset();
     }
 
