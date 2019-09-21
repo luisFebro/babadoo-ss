@@ -1,7 +1,7 @@
 import React from 'react';
 import Title from '../Title';
 import Product from '../Product';
-import { ProductConsumer } from '../../context';
+import { ProductConsumer } from '../../data/context';
 import ButtonCart from '../ButtonCart';
 
 export default function Edible() {

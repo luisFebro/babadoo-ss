@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { storeProducts, detailProduct } from './data';
+import { storeProducts, detailProduct } from './storeProducts';
 
 //Provider
 class ProductProvider extends Component {

@@ -3,7 +3,7 @@ import Slider from 'react-slick';
 import './_slick.css';
 import './_slickTheme.css';
 import { HashLink } from 'react-router-hash-link';
-import { categories } from '../../data';
+import { productCategories } from '../../data/dataProductCategories';
 import { floatIt } from '../keyframes/floatIt';
 import styled from 'styled-components';
 
@@ -75,7 +75,7 @@ export default class CategorySlider extends Component {
                     }}
                     {...settings}
                 >
-                    {categories.map(card => {
+                    {productCategories.map(card => {
                         return (
                             <div key={card.id} className="card-carousel">
                                 <HashLink smooth to={`${card.link}`}>

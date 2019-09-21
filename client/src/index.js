@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import App from './containers/App';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { ProductProvider } from './context';
+import { ProductProvider } from './data/context';
 import ScrollToTop from 'react-router-scroll-top';
 
 ReactDOM.render(

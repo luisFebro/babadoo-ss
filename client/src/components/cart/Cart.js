@@ -3,7 +3,7 @@ import Title from '../Title';
 import CartColumns from './CartColumns';
 import EmptyCart from './EmptyCart';
 import CartList from './CartList';
-import { ProductConsumer } from '../../context';
+import { ProductConsumer } from '../../data/context';
 import CardTotals from './CardTotals';
 
 export default class Cart extends Component {

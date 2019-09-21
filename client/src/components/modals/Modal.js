@@ -5,7 +5,7 @@ import {
     ButtonContainerPressedEffectDark as DarkBtn,
     ButtonContainerPressedEffectYellow as YellowBtn
 } from '../Button';
-import { ProductConsumer } from '../../context';
+import { ProductConsumer } from '../../data/context';
 
 export default class Modal extends Component {
     render() {

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import SearchCompleteWithImg from './SearchCompleteWithImg';
-import { ProductConsumer } from '../context';
+import { ProductConsumer } from '../data/context';
 
 export default class Navbar extends Component {
     constructor() {

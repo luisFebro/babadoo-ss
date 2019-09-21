@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Product from './Product';
 import Title from './Title';
-import { ProductConsumer } from '../context';
+import { ProductConsumer } from '../data/context';
 import LogoSlogon from './LogoSlogon';
 import ButtonCart from './ButtonCart';
 

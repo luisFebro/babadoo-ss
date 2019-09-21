@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ProductConsumer } from '../../context';
+import { ProductConsumer } from '../../data/context';
 import {
     ButtonContainerPressedEffectDark as DarkBtn,
     ButtonContainerPressedEffectYellow as YellowBtn

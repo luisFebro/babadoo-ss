@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
-import { ProductConsumer } from '../context';
+import { ProductConsumer } from '../data/context';
 import { Link } from 'react-router-dom';
 import { ButtonContainerPressedEffectDark as DarkBtn } from './Button';
 
