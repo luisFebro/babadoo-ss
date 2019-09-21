@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import App from './containers/App';
+import App from './_main-app/App';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { ProductProvider } from './data/context';
+import { ProductProvider } from './data/contexts/mainContext';
 import ScrollToTop from 'react-router-scroll-top';
 
 ReactDOM.render(

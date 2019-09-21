@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
-import { ProductConsumer } from '../data/context';
 import { Link } from 'react-router-dom';
-import { ButtonContainerPressedEffectDark as DarkBtn } from './Button';
 
-export default class FormNodeMailer extends Component {
+export default class FormCheckoutWithNodeMailer extends Component {
     constructor() {
         super();
         this.state = {
@@ -25,11 +23,6 @@ export default class FormNodeMailer extends Component {
     componentDidMount() {
         this.setInfoProducts();
     }
-
-    // showReady() {
-    //     this.setState({isFinishedFields: true});
-    //     console.log("this worked well!");
-    // }
 
     handleChange = e => {
         this.setState({ [e.target.name]: e.target.value });
@@ -81,48 +74,6 @@ export default class FormNodeMailer extends Component {
         return (
             <React.Fragment>
                 <DivContainer className="container">
-                    <h2 style={{ margin: '4rem 0' }} className="brand bt-5">
-                        <strong>Quase lá!</strong>
-                    </h2>
-                    <ProductConsumer>
-                        {value => {
-                            const { cart } = value;
-                            let listTemp = cart.map(item => {
-                                return `${item.count} ${item.title} || `;
-                            });
-
-                            return (
-                                <section
-                                    style={{
-                                        padding: '15px',
-                                        background: 'green',
-                                        color: 'white',
-                                        marginBottom: '15px'
-                                    }}
-                                >
-                                    <h3 className="text-center text-uppercase">Resumo do seu Pedido</h3>
-                                    <ul>
-                                        <li id="items">
-                                            <h4>
-                                                Items:
-                                                <br />
-                                                {listTemp}
-                                            </h4>
-                                        </li>
-                                        <br />
-                                        <li id="total">
-                                            <h4>
-                                                Valor Total com Frete:
-                                                <br />
-                                                R$ {value.cartTotal}
-                                            </h4>
-                                        </li>
-                                    </ul>
-                                </section>
-                            );
-                        }}
-                    </ProductConsumer>
-
                     <div className="wrapper animated rotateInDownLeft slower delay-3s">
                         <div className="company-info text-capitalize">
                             <h3>precisamos identificar você para o envio</h3>
@@ -170,13 +121,6 @@ export default class FormNodeMailer extends Component {
                         </div>
                     </div>
                 </DivContainer>
-                <div className="container">
-                    <div className="row">
-                        <Link to="/seu-carrinho" className="col-10 mx-auto text-uppercase my-4">
-                            <DarkBtn>Voltar Carrinho</DarkBtn>
-                        </Link>
-                    </div>
-                </div>
             </React.Fragment>
         );
     }
@@ -295,60 +239,3 @@ const DivContainer = styled.div`
         text-align: left;
     }
 `;
-
-//ADPT THIS:
-// import React, {Component} from 'react';
-// import axios from 'axios';
-
-// class ContactForm extends Component{
-//     handleSubmit(e){
-//         e.preventDefault();
-//         const name = document.getElementById('name').value;
-//         const email = document.getElementById('email').value;
-//         const message = document.getElementById('message').value;
-//         axios({
-//             method: "POST",
-//             url:"http://localhost:3002/send",
-//             data: {
-//                 name: name,
-//                 email: email,
-//                 message: message
-//             }
-//         }).then((response)=>{
-//             if (response.data.msg === 'success'){
-//                 alert("Message Sent.");
-//                 this.resetForm()
-//             }else if(response.data.msg === 'fail'){
-//                 alert("Message failed to send.")
-//             }
-//         })
-//     }
-
-//     resetForm(){
-//         document.getElementById('contact-form').reset();
-//     }
-
-//     render(){
-//         return(
-//             <div className="col-sm-4 offset-sm-4">
-//                 <form id="contact-form" onSubmit={this.handleSubmit.bind(this)} method="POST">
-//                     <div className="form-group">
-//                         <label for="name">Name</label>
-//                         <input type="text" className="form-control" id="name" />
-//                     </div>
-//                     <div className="form-group">
-//                         <label for="exampleInputEmail1">Email address</label>
-//                         <input type="email" className="form-control" id="email" aria-describedby="emailHelp" />
-//                     </div>
-//                     <div className="form-group">
-//                         <label for="message">Message</label>
-//                         <textarea className="form-control" rows="5" id="message"></textarea>
-//                     </div>
-//                     <button type="submit" className="btn btn-primary">Submit</button>
-//                 </form>
-//             </div>
-//         )
-//     }
-// }
-
-// export default ContactForm;

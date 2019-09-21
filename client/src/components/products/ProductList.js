@@ -1,19 +1,13 @@
 import React, { Component } from 'react';
 import Product from './Product';
-import Title from './Title';
-import { ProductConsumer } from '../data/context';
-import LogoSlogon from './LogoSlogon';
-import ButtonCart from './ButtonCart';
+import { ProductConsumer } from '../../data/contexts/mainContext';
 
 export default class ProductList extends Component {
     render() {
         return (
             <React.Fragment>
-                <LogoSlogon />
                 <div className="py-5">
                     <div className="container">
-                        <Title name="Nossa" title="Vitrine" />
-
                         <div className="row">
                             <ProductConsumer>
                                 {value => {
@@ -25,7 +19,6 @@ export default class ProductList extends Component {
                         </div>
                     </div>
                 </div>
-                <ButtonCart />
             </React.Fragment>
         );
     }

@@ -1,5 +1,5 @@
 import React from 'react';
-import ButtonCart from '../ButtonCart';
+import ButtonCart from '../buttons/ButtonCart';
 export default function Sadomasochism() {
     return (
         <div>

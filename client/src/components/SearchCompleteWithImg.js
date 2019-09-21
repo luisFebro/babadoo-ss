@@ -1,9 +1,9 @@
 import _ from 'lodash';
-import { storeProducts } from '../data/storeProducts';
+import { storeProducts } from '../data/dataStoreProducts';
 import React, { Component } from 'react';
 import { Search } from 'semantic-ui-react';
 import styled from 'styled-components';
-import { ProductConsumer } from '../data/context';
+import { ProductConsumer } from '../data/contexts/mainContext';
 import { Link } from 'react-router-dom';
 
 class SearchCompleteWithImg extends Component {

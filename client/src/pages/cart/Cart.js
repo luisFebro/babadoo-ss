@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import Title from '../Title';
+// STRUCTURE
 import CartColumns from './CartColumns';
 import EmptyCart from './EmptyCart';
 import CartList from './CartList';
-import { ProductConsumer } from '../../data/context';
 import CardTotals from './CardTotals';
+// END STRUCTURE
+import Title from '../../components/Title';
+import { ProductConsumer } from '../../data/contexts/mainContext';
 
 export default class Cart extends Component {
     render() {

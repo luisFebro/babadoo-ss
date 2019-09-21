@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { ProductConsumer } from '../../data/context';
-import { ButtonContainerPressedEffectDark as DarkBtn } from '../Button';
+import { ProductConsumer } from '../../data/contexts/mainContext';
+import { ButtonContainerPressedEffectDark as DarkBtn } from '../buttons/Default';
 
 export default class UnderConstruction extends Component {
     render() {

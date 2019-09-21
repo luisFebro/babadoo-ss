@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ProductConsumer } from '../../data/context';
+import { ProductConsumer } from '../../data/contexts/mainContext';
 import {
     ButtonContainerPressedEffectDark as DarkBtn,
     ButtonContainerPressedEffectYellow as YellowBtn
-} from '../Button';
+} from '../buttons/Default';
 import { Link } from 'react-router-dom';
 
 export default function ModalFavorite() {

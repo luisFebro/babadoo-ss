@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import SearchCompleteWithImg from './SearchCompleteWithImg';
-import { ProductConsumer } from '../data/context';
+import SearchCompleteWithImg from '../SearchCompleteWithImg';
+import { ProductConsumer } from '../../data/contexts/mainContext';
 
 export default class Navbar extends Component {
     constructor() {

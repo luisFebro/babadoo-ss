@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ButtonContainerPressedEffectDark } from '../Button';
+import { ButtonContainerPressedEffectDark } from '../../components/buttons/Default';
 
 export default function EmptyCart() {
     return (

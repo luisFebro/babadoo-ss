@@ -1,20 +1,19 @@
 import React from 'react';
-import Title from '../Title';
-import Product from '../Product';
-import { ProductConsumer } from '../../data/context';
-import ButtonCart from '../ButtonCart';
-
-export default function Lingerie() {
+import Title from '../../components/Title';
+import Product from '../../components/products/Product';
+import { ProductConsumer } from '../../data/contexts/mainContext';
+import ButtonCart from '../../components/buttons/ButtonCart';
+export default function Cosmetic() {
     return (
         <React.Fragment>
-            <Title name="" title="Lingeries" />
+            <Title name="" title="Cosméticos" />
             <div className="py-2">
                 <div className="container">
                     <div className="row">
                         <ProductConsumer>
                             {value => {
                                 return value.products.map(product => {
-                                    return product.description === 'lingeries' ? (
+                                    return product.description === 'cosméticos' ? (
                                         <Product key={product.id} product={product} />
                                     ) : null;
                                 });

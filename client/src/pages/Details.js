@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import { ProductConsumer } from "../data/context";
+import { ProductConsumer } from "../data/contexts/mainContext";
 import { Link } from "react-router-dom";
 import {
     ButtonContainerPressedEffectDark as DarkBtn,
     ButtonContainerPressedEffectYellow as YellowBtn
-} from "./Button";
+} from "../components/buttons/Default";
 
 export default class Details extends Component {
     render() {

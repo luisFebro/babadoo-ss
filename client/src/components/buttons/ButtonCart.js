@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ProductConsumer } from '../data/context';
-import { ButtonContainerPressedEffectYellow as ButtonYellow } from './Button';
+import { ProductConsumer } from '../../data/contexts/mainContext';
+import { ButtonContainerPressedEffectYellow as ButtonYellow } from './Default';
 
 export default function ButtonCart() {
     return (

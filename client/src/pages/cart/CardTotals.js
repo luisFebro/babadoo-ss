@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import {
     ButtonContainerPressedEffectDark as DarkBtn,
     ButtonContainerPressedEffectYellow as YellowBtn
-} from '../Button';
+} from '../../components/buttons/Default';
 
 export default function CardTotals({ value }) {
     const { cartSubtotal, cartTax, cartTotal, clearCart } = value;
