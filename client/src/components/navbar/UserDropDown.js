@@ -1,5 +1,6 @@
 import React from "react";
 
+
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import history from "../../history";
 // MENU COMPOSITION
@@ -7,7 +8,7 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import ButtonList from "../buttons/ButtonList";
+import ButtonList from "../buttons/navbar-dropdown/ButtonList";
 // END MENU COMPOSITION
 
 // ICONS
@@ -16,6 +17,7 @@ import AccountCircleTwoToneIcon from '@material-ui/icons/AccountCircleTwoTone';
 import LocalMallTwoToneIcon from '@material-ui/icons/LocalMallTwoTone';
 import IconButton from "@material-ui/core/IconButton";
 // END ICONS
+
 
 const useStyles = makeStyles({
   root: {
@@ -68,7 +70,7 @@ export default function UserDropDown() {
               style={{ color: "white", padding: "13px 12px" }}
               onClick={handleClick}
           >
-              <MoreVertIcon />
+              <i className="fas fa-user-friends"></i>
           </IconButton>
           {/*End Three dots points*/}
 

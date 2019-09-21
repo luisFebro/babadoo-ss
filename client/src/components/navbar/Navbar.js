@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import SearchCompleteWithImg from '../SearchCompleteWithImg';
 import { ProductConsumer } from '../../data/contexts/mainContext';
+import UserDropDown from './UserDropDown';
 
 export default class Navbar extends Component {
     constructor() {
@@ -64,11 +65,12 @@ export default class Navbar extends Component {
                                     </Link>
                                 </li>
                             </ul>
-                            <ul className="navbar-nav mr-5 align-items-center" onClick={value.openModalOnly}>
+                            <ul className="navbar-nav mr-5 align-items-center">
                                 <li className="nav-item">
                                     <Link to="/" className="nav-link">
                                         <span>
-                                            <i className="fas fa-user-friends"></i>
+                                            {/*<i className="fas fa-user-friends"></i>*/}
+                                            <UserDropDown />
                                         </span>
                                     </Link>
                                 </li>

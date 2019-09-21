@@ -1,11 +1,11 @@
-import EmailIcon from "img/icons/buttonslogin/email.png";
-import GoogleIcon from "img/icons/buttonslogin/google.png";
-import FacebookIcon from "img/icons/buttonslogin/facebook.png";
-import InstagramIcon from "img/icons/buttonslogin/instagram.png";
+// import EmailIcon from "";
+// import GoogleIcon from "";
+// import FacebookIcon from "";
+// import InstagramIcon from ;
 
 export const dataButtonsLogin = [
     {
-        img: EmailIcon,
+        img: "img/icons/buttonslogin/email.png",
         name: "seu email",
         href: "/",
         alt: "email cliente",
@@ -13,7 +13,7 @@ export const dataButtonsLogin = [
         title: "Entrar com seu Email"
     },
     {
-        img: GoogleIcon,
+        img: "img/icons/buttonslogin/google.png",
         name: "google",
         href: "auth/google",
         alt: "google-icon",
@@ -21,7 +21,7 @@ export const dataButtonsLogin = [
         title: "Entrar com Google"
     },
     {
-        img: FacebookIcon,
+        img: "img/icons/buttonslogin/facebook.png",
         name: "facebook",
         href: "auth/facebook",
         alt: "facebook-icon",
@@ -29,7 +29,7 @@ export const dataButtonsLogin = [
         title: "Entrar com Facebook"
     },
     {
-        img: InstagramIcon,
+        img: "img/icons/buttonslogin/instagram.png",
         name: "instagram",
         href: "auth/instagram",
         alt: "instagram-icon",
