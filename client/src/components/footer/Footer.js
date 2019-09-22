@@ -1,5 +1,6 @@
 import React from 'react';
 import SocialNetworks from './SocialNetworks';
+
 const Footer = () => {
     return (
         <footer className="container-fluid mt-5">

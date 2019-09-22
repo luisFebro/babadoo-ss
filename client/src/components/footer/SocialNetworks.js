@@ -10,7 +10,7 @@ export default function SocialNetworks() {
                     </a>
                 </div>
                 <div>
-                    <a href="https://www.facebook.com/babadoo_sexyshop" target="_blank">
+                    <a href="https://www.facebook.com/babadoo.sexyshop" target="_blank">
                         <i className="fab fa-facebook icon-default"></i>
                     </a>
                 </div>
