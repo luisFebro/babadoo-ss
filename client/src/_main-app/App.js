@@ -1,7 +1,9 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
 import './App.css';
 import CategorySlider from '../components/carousels/CategorySlider';
+import UserProvider from '../data/contexts/UserProvider';
+import history from '../history';
 //GENERAL COMPONENTS
 import { CustomPreloader } from 'react-preloaders';
 // import StoreMap from '../components/StoreMap';
@@ -11,6 +13,7 @@ import 'animate.css/animate.min.css';
 //GENERAL PAGES
 import Preloader from '../pages/Preloader';
 import Cart from '../pages/cart/Cart';
+import Client from '../pages/Client';
 import CheckoutLocal from '../pages/checkout/CheckoutLocal';
 import Details from '../pages/Details';
 import Default from '../pages/Default';
@@ -23,7 +26,7 @@ import Edible from '../pages/category-pages/Edible';
 //END GENERAL PAGES
 //CONTAINER COMPONENTS
 import Navbar from '../components/navbar/Navbar';
-import Footer from '../components/Footer';
+import Footer from '../components/footer/Footer';
 // END CONTAINER COMPONENTS
 // MODALS
 import Modal from '../components/modals/Modal';
@@ -50,6 +53,11 @@ export default function App() {
                 <Route path="/finalizar-compra" component={CheckoutLocal} />
                 <Route component={Default} />
             </Switch>
+            <Router history={history}>
+                <UserProvider>
+                    <Route path="/cliente" component={Client}/>
+                </UserProvider>
+            </Router>
             <Modal />
             <ModalFavorite />
             <UnderConstruction />

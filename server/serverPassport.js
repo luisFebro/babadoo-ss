@@ -2,7 +2,6 @@ const express = require("express");
 const cors = require("cors");
 const passport = require("passport");
 const keys = require("../config");
-const chalk = require("chalk");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const InstagramStrategy = require("passport-instagram").Strategy;
 const FacebookStrategy = require("passport-facebook").Strategy;
@@ -23,7 +22,7 @@ passport.use(new GoogleStrategy({
         callbackURL: "/auth/google/callback"
     },
     (accessToken, refreshToken, profile, cb) => {
-        console.log(chalk.blue(JSON.stringify(profile)));
+        console.log(JSON.stringify(profile));
         user = { ...profile };
         return cb(null, profile);
     }));
@@ -99,5 +98,5 @@ app.get("auth/logout", (req, res) => {
     res.redirect("/");
 });
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 6000;
 app.listen(PORT);

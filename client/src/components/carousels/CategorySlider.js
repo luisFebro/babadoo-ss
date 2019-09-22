@@ -104,5 +104,5 @@ export default class CategorySlider extends Component {
 const SpanWrapper = styled.span`
     cursor: pointer;
     margin-bottom: 5px;
-    animation: ${floatIt} 1s linear 0s 10;
+    animation: ${floatIt} 1s linear 0s 20;
 `;

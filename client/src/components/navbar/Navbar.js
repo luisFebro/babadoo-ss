@@ -103,7 +103,6 @@ export default class Navbar extends Component {
 const NavWrapper = styled.nav`
     #searchIcon {
         cursor: pointer;
-        font-size: 2.1rem;
         z-index: 1200;
     }
     #closeBtn {
@@ -123,7 +122,7 @@ const NavWrapper = styled.nav`
     }
     & .navbar-nav span i,
     #searchIcon {
-        font-size: 1.9rem;
+        font-size: 2.1rem;
         filter: drop-shadow(0.001em 0.1em 0.1em var(--mainDark));
     }
     background: var(--mainRed);

@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { ButtonContainerPressedEffectDark as DarkBtn } from '../../components/buttons/Default';
 import ShoppingSummary from './ShoppingSummary';

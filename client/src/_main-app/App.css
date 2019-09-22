@@ -137,6 +137,21 @@ footer {
     transform: scale(1.1);
     filter: drop-shadow(.001em .1em .1em var(--mainYellow));
 }
+/*END MAIN SHADOW AND HOVER*/
+
+/*ICON DEFAULT*/
+.icon-default {
+    color: var(--mainWhite);
+    cursor: pointer;
+    font-size: 2.1rem;
+    filter: drop-shadow(0.001em 0.1em 0.1em var(--mainDark));
+}
+.icon-default:hover {
+    transform: scale(1.1);
+    filter: drop-shadow(0.001em 0.1em 0.1em var(--mainYellow));
+}
+/*END ICON DEFAULT*/
+
 
 /*MENU DROPDOWN*/
 .btn {

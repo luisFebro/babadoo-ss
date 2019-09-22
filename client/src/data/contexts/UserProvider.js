@@ -3,6 +3,7 @@ const context = createContext(null);
 
 const UserProvider = ({ children }) => {
     const [user, setUser] = useState({});
+    console.log(user);
 
     useEffect(() => {
         fetch("/user")
