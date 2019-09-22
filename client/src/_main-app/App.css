@@ -33,6 +33,10 @@ footer {
     color: var(--mainWhite);
 }
 
+.no-outline:focus {
+    outline: none;
+}
+
 .text-title {
     font-weight: bolder;
     font-family: 'Organica 90 Regular', cursive !important;

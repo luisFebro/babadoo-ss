@@ -67,7 +67,8 @@ export default function UserDropDown() {
           {/*Three dots points*/}
           <IconButton
               href=""
-              style={{ color: "white", padding: "13px 12px" }}
+              className="no-outline"
+              style={{color: "var(--mainWhite)"}}
               onClick={handleClick}
           >
               <i className="fas fa-user-friends"></i>

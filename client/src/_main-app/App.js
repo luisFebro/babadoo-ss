@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
+import { Switch, Route, Router } from 'react-router-dom';
 import './App.css';
 import CategorySlider from '../components/carousels/CategorySlider';
 import UserProvider from '../data/contexts/UserProvider';

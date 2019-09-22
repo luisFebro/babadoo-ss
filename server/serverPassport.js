@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
-const passport = require("passport");
 const keys = require("../config");
+const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const InstagramStrategy = require("passport-instagram").Strategy;
 const FacebookStrategy = require("passport-facebook").Strategy;
@@ -65,7 +65,7 @@ app.get("/auth/google", passport.authenticate("google", {
 app.get("/auth/google/callback",
     passport.authenticate("google"),
     (req, res) => {
-        res.redirect("/profile");
+        res.redirect("/cliente");
     });
 // END GOOGLE REQUEST
 
@@ -74,7 +74,7 @@ app.get("/auth/facebook", passport.authenticate("facebook"));
 app.get("/auth/facebook/callback",
     passport.authenticate("facebook"),
     (req, res) => {
-        res.redirect("/profile");
+        res.redirect("/cliente");
     });
 // END FACEBOOK REQUEST
 
@@ -83,7 +83,7 @@ app.get("/auth/instagram", passport.authenticate("instagram"));
 app.get("/auth/instagram/callback",
     passport.authenticate("instagram"),
     (req, res) => {
-        res.redirect("/profile");
+        res.redirect("/cliente");
     });
 // END INSTAGRAM REQUEST
 
