@@ -8,7 +8,7 @@
     "npm": "6.9.0"
   },
   "scripts": {
-    "start": "node index.js",
+    "start": "node server/serverEmailBuy.js",
     "server": "nodemon server/serverEmailBuy.js",
     "serverPassport": "nodemon server/serverPassport.js",
     "client": "npm run start --prefix client",
