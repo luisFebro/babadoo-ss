@@ -69,7 +69,6 @@ export default class Navbar extends Component {
                                 <li className="nav-item">
                                     <Link to="/" className="nav-link">
                                         <span>
-                                            {/*<i className="fas fa-user-friends"></i>*/}
                                             <UserDropDown />
                                         </span>
                                     </Link>
