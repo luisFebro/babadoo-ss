@@ -3,6 +3,7 @@ import Title from '../../components/Title';
 import Product from '../../components/products/Product';
 import { ProductConsumer } from '../../data/contexts/mainContext';
 import ButtonCart from '../../components/buttons/ButtonCart';
+import ShareSocialMediaButtons from '../../components/buttons/ShareSocialMediaButtons';
 
 export default function Lingerie() {
     const pageData = {
