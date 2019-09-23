@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 
 export default class FormCheckoutWithNodeMailer extends Component {
     constructor() {

@@ -1,5 +1,4 @@
-import React from 'react';
-import styled, { keyframes } from 'styled-components';
+import { keyframes } from 'styled-components';
 
 export const floatIt = keyframes`
     0% { transform: translateY(0); }

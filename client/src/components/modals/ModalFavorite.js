@@ -12,7 +12,7 @@ export default function ModalFavorite() {
         <ProductConsumer>
             {value => {
                 const { isModalFavoriteOpen, closeModal } = value;
-                const { image, title, price } = value.modalProduct;
+                const { image, title } = value.modalProduct;
                 if (!isModalFavoriteOpen) {
                     return null;
                 } else {

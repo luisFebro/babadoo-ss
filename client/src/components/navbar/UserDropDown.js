@@ -12,7 +12,6 @@ import ButtonList from "../buttons/navbar-dropdown/ButtonList";
 // END MENU COMPOSITION
 
 // ICONS
-import MoreVertIcon from "@material-ui/icons/MoreVert";
 import AccountCircleTwoToneIcon from '@material-ui/icons/AccountCircleTwoTone';
 import LocalMallTwoToneIcon from '@material-ui/icons/LocalMallTwoTone';
 import IconButton from "@material-ui/core/IconButton";

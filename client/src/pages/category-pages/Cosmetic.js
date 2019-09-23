@@ -3,7 +3,16 @@ import Title from '../../components/Title';
 import Product from '../../components/products/Product';
 import { ProductConsumer } from '../../data/contexts/mainContext';
 import ButtonCart from '../../components/buttons/ButtonCart';
+import ShareSocialMediaButtons from '../../components/buttons/ShareSocialMediaButtons';
+
 export default function Cosmetic() {
+    const pageData = {
+        titleShare: "Compartilhe essa Categoria",
+        pageURL: "https://www.babadoo.herokuapp.com/cosmeticos",
+        pageImg: "https://i.imgur.com/9GjtAiW.png",
+        pageTitle: "Babadoo - Categoria Cosméticos",
+        pageDescription: "Conheça nossa linha de cosméticos",
+    }
     return (
         <React.Fragment>
             <Title name="" title="Cosméticos" />
@@ -23,6 +32,7 @@ export default function Cosmetic() {
                 </div>
             </div>
             <ButtonCart />
+            <ShareSocialMediaButtons data={pageData} />
         </React.Fragment>
     );
 }
