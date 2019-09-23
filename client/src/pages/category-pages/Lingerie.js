@@ -33,6 +33,7 @@ export default function Lingerie() {
                 </div>
             </div>
             <ButtonCart />
+            <ShareSocialMediaButtons data={pageData} />
         </React.Fragment>
     );
 }
