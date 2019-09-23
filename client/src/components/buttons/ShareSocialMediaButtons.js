@@ -32,8 +32,8 @@ export default function ShareSocialMediaButtons({data}) {
                     image: `${pageImg}`, //"https://i.imgur.com/9GjtAiW.png", // (defaults to og:image or twitter:image)
                     title: `${pageTitle}`, // (defaults to og:title or twitter:title)
                     description: `${pageDescription}`, // (defaults to og:description or twitter:description)
-                    message: `${pageTitle}`, // (only for email sharing)
-                    subject: `${pageDescription}`, // (only for email sharing)
+                    subject: `${pageTitle}`, // (only for email sharing)
+                    message: `${pageDescription}`, // (only for email sharing)
                     // username: 'custom twitter handle' // (only for twitter sharing)
                 }}
             />
