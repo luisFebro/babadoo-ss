@@ -8,8 +8,8 @@ import ShareSocialMediaButtons from '../../components/buttons/ShareSocialMediaBu
 export default function Cosmetic() {
     const pageData = {
         titleShare: "Compartilhe essa Categoria",
-        pageURL: "https://www.babadoo.herokuapp.com/cosmeticos",
-        pageImg: "https://i.imgur.com/9GjtAiW.png",
+        pageURL: "https://www.babadoo.herokuapp.com",
+        pageImg: "i.imgur.com/9GjtAiW.png",
         pageTitle: "Babadoo - Categoria Cosméticos",
         pageDescription: "",
 

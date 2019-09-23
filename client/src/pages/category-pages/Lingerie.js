@@ -7,8 +7,8 @@ import ButtonCart from '../../components/buttons/ButtonCart';
 export default function Lingerie() {
     const pageData = {
         titleShare: "Compartilhe essa Categoria",
-        pageURL: "https://www.babadoo.herokuapp.com/lingeries",
-        pageImg: "https://i.imgur.com/9GjtAiW.png",
+        pageURL: "https://www.babadoo.herokuapp.com",
+        pageImg: "i.imgur.com/9GjtAiW",
         pageTitle: "Babadoo - Categoria Lingeries",
         pageDescription: "",
 

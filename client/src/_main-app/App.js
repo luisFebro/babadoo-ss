@@ -50,8 +50,8 @@ export default function App() {
                 <Route path="/detalhes-do-produto" component={Details} />
                 <Route path="/seu-carrinho" component={Cart} />
                 <Route path="/finalizar-compra" component={CheckoutLocal} />
-                <Route component={Default} />
                 <Route path="/cliente" component={Client}/>
+                <Route component={Default} />
             </Switch>
             <UserProvider>
             </UserProvider>

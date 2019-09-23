@@ -7,7 +7,7 @@ import ShareSocialMediaButtons from '../components/buttons/ShareSocialMediaButto
 
 const pageData = {
     titleShare: "Compartilhe a Vitrine Babadoo",
-    pageURL: "https://www.babadoo.herokuapp.com",
+    pageURL: "https://babadoo.herokuapp.com",
     pageImg: "https://i.imgur.com/9GjtAiW",
     pageTitle: "Babadoo SexShop - Nossa Vitrine",
     pageDescription: "",
