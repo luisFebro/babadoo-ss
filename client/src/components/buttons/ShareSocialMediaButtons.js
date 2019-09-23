@@ -5,11 +5,7 @@ export default function ShareSocialMediaButtons({data}) {
     const { titleShare, pageURL, pageImg, pageTitle, pageDescription } = data;
     return (
         <div>
-            <header>
-                <meta property="og:title" content="babadoo categorias" />
-                <meta property="og:image" content="https://i.imgur.com/9GjtAiW.png" />
-            </header>
-            <h2 className="mt-5">{titleShare}</h2>
+            <h2 className="mt-5 text-center">{titleShare}</h2>
             <InlineShareButtons
                 config={{
                     alignment: 'center', // alignment of buttons (left, center, right)
@@ -20,10 +16,10 @@ export default function ShareSocialMediaButtons({data}) {
                     language: 'pt', // which language to use (see LANGUAGES)
                     networks: [
                         // which networks to include (see SHARING NETWORKS)
+                        'sms',
                         'facebook',
                         'email',
                         'whatsapp',
-                        'sms',
                         'messenger',
                     ],
                     padding: 12, // padding within buttons (INTEGER)

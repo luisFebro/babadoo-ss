@@ -3,8 +3,17 @@ import Title from '../../components/Title';
 import Product from '../../components/products/Product';
 import { ProductConsumer } from '../../data/contexts/mainContext';
 import ButtonCart from '../../components/buttons/ButtonCart';
+import ShareSocialMediaButtons from '../../components/buttons/ShareSocialMediaButtons';
 
 export default function Edible() {
+    const pageData = {
+        titleShare: "Compartilhe essa Categoria",
+        pageURL: "https://www.babadoo.herokuapp.com/comestiveis",
+        pageImg: "https://i.imgur.com/9GjtAiW.png",
+        pageTitle: "Babadoo - Categoria Comestíveis",
+        pageDescription: "",
+    }
+    pageData.pageDescription = `Conheça nossa linha de comestíveis em ${pageData.pageURL}`
     return (
         <React.Fragment>
             <Title name="" title="Comestíveis" />
@@ -24,6 +33,7 @@ export default function Edible() {
                 </div>
             </div>
             <ButtonCart />
+            <ShareSocialMediaButtons data={pageData} />
         </React.Fragment>
     );
 }

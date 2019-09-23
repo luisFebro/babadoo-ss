@@ -11,8 +11,10 @@ export default function Cosmetic() {
         pageURL: "https://www.babadoo.herokuapp.com/cosmeticos",
         pageImg: "https://i.imgur.com/9GjtAiW.png",
         pageTitle: "Babadoo - Categoria Cosméticos",
-        pageDescription: "Conheça nossa linha de cosméticos",
+        pageDescription: "",
+
     }
+    pageData.pageDescription = `Conheça nossa linha de cosméticos em ${pageData.pageURL}`
     return (
         <React.Fragment>
             <Title name="" title="Cosméticos" />

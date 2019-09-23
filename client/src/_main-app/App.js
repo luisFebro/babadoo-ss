@@ -1,9 +1,8 @@
 import React from 'react';
-import { Switch, Route, Router } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import './App.css';
 import CategorySlider from '../components/carousels/CategorySlider';
 import UserProvider from '../data/contexts/UserProvider';
-import history from '../history';
 //GENERAL COMPONENTS
 import { CustomPreloader } from 'react-preloaders';
 // import StoreMap from '../components/StoreMap';
@@ -52,12 +51,10 @@ export default function App() {
                 <Route path="/seu-carrinho" component={Cart} />
                 <Route path="/finalizar-compra" component={CheckoutLocal} />
                 <Route component={Default} />
+                <Route path="/cliente" component={Client}/>
             </Switch>
-            <Router history={history}>
-                <UserProvider>
-                    <Route path="/cliente" component={Client}/>
-                </UserProvider>
-            </Router>
+            <UserProvider>
+            </UserProvider>
             <Modal />
             <ModalFavorite />
             <UnderConstruction />

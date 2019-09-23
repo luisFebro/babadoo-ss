@@ -57,7 +57,7 @@ export default class Navbar extends Component {
                                 </li>
                             </ul>
                             <ul className="navbar-nav ml-3 ml-md-auto">
-                                <li className="nav-item mr-2 align-items-center" onClick={value.openModalOnly}>
+                                <li className="nav-item mr-2 pt-2 align-items-center" onClick={value.openModalOnly}>
                                     <Link to="/" className="nav-link">
                                         <span>
                                             <i className="fas fa-heart"></i>
