@@ -15,11 +15,11 @@ export default function Profiles() {
     });
 
     return (
-        <div className="page">
+        <div className="page mt-5">
             <p className="page-title" style={{ textAlign: "center" }}>
-                {text}
+                <h2>{text}</h2>
             </p>
-            <div style={{ marginBottom: 20 }} />
+            <div style={{ marginBottom: "40px" }} />
         </div>
     );
 }

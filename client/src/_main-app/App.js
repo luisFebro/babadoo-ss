@@ -1,7 +1,6 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import './App.css';
-import CategorySlider from '../components/carousels/CategorySlider';
 import UserProvider from '../data/contexts/UserProvider';
 //GENERAL COMPONENTS
 import { CustomPreloader } from 'react-preloaders';
@@ -23,10 +22,11 @@ import Cosmetic from '../pages/category-pages/Cosmetic';
 import Edible from '../pages/category-pages/Edible';
 //>>>End category pages
 //END GENERAL PAGES
-//CONTAINER COMPONENTS
-import Navbar from '../components/navbar/Navbar';
-import Footer from '../components/footer/Footer';
-// END CONTAINER COMPONENTS
+//LAYOUT
+import Navbar from '../components/layout/navbar/Navbar';
+import CategorySlider from '../components/layout/CategorySlider';
+import Footer from '../components/layout/footer/Footer';
+// END LAYOUT
 // MODALS
 import Modal from '../components/modals/Modal';
 import ModalFavorite from '../components/modals/ModalFavorite';
@@ -42,7 +42,7 @@ export default function App() {
             <CategorySlider />
             <Switch>
                 {/*Categories Pages*/}
-                <Route exact path="/" component={Home} /> {/*This will be routed first*/}
+                <Route exact path="/" render={(props) => (<Home />)} /> {/*This will be routed first, exact make sure only Home content is displayed render based on https://github.com/luisFebro/react_crash_todo/blob/master/src/App.js*/}
                 <Route path="/lingeries" component={Lingerie} />
                 <Route path="/cosmeticos" component={Cosmetic} />
                 <Route path="/comestiveis" component={Edible} />
@@ -50,11 +50,11 @@ export default function App() {
                 <Route path="/detalhes-do-produto" component={Details} />
                 <Route path="/seu-carrinho" component={Cart} />
                 <Route path="/finalizar-compra" component={CheckoutLocal} />
-                <Route path="/cliente" component={Client}/>
+                <UserProvider>
+                    <Route path="/cliente" component={Client}/>
+                </UserProvider>
                 <Route component={Default} />
             </Switch>
-            <UserProvider>
-            </UserProvider>
             <Modal />
             <ModalFavorite />
             <UnderConstruction />

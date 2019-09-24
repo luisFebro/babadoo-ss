@@ -7,7 +7,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import ButtonList from '../buttons/navbar-dropdown/ButtonList';
+import ButtonList from '../../buttons/navbar-dropdown/ButtonList';
 // END MENU COMPOSITION
 
 // ICONS
@@ -68,7 +68,7 @@ export default function UserDropDown() {
             {/*Icon login*/}
 
             <StyledMenu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
-                <Link to="/">
+                <Link to="/cliente">
                     <StyledMenuItem
                         onClick={() => {
                             handleClose();

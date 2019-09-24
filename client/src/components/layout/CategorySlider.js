@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Slider from 'react-slick';
-import './_slick.css';
-import './_slickTheme.css';
 import { HashLink } from 'react-router-hash-link';
+import '../carousels/_slick.css';
+import '../carousels/_slickTheme.css';
 import { productCategories } from '../../data/dataProductCategories';
 import { floatIt } from '../keyframes/floatIt';
 import styled from 'styled-components';
