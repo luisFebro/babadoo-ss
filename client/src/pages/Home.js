@@ -21,6 +21,7 @@ export default class Home extends Component {
                 <LogoSlogon />
                 <Title name="Nossa" title="Vitrine" />
                 <ProductList />
+                <h1 style={{display: "inline-block", background: "#000", color:"#fff"}}>Tt</h1>
                 <ShareSocialMediaButtons data={pageData} />
                 <ButtonCart />
             </React.Fragment>
