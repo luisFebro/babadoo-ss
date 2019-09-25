@@ -26,7 +26,6 @@ html, body {margin: 0; height: 100%;}
 /*End Preventing the scrollbar to disappear in mobile apps*/
 
 body {
-  /*margin: 0;*/
   background: var(--mainWhite) !important;
   color: var(--mainDark) !important;
   user-select: none;
