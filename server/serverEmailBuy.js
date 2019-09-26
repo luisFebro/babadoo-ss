@@ -57,7 +57,7 @@ app.post('/api/form', (req, res) => {
 
     let mailOptions = {
         from: `"${owner} - Purchase Request" babadooweb@gmail.com`, // sender address
-        to: ['babadooweb@gmail.com'], // 7229952@gmail.com 'babadoosexy@gmail.com', list of receivers babadoo.sexyshop.lingeries@gmail.com
+        to: ['7229952@gmail.com', 'babadooweb@gmail.com'], // 7229952@gmail.com 'babadoosexy@gmail.com', list of receivers babadoo.sexyshop.lingeries@gmail.com
         subject: `One more! New purchase from ${client}`, // Subject line
         text: 'no-message-sent-ignore-here', // plain text body
         html: htmlEmail // html body
