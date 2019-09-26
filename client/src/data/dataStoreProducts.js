@@ -1,5 +1,17 @@
 export const storeProducts = [
     {
+        id: 123, //this gets reference code. e.g sodo1
+        title: 'Incredible Mysterious Product',
+        description: 'cosméticos',
+        image: 'img/products/oleo-retard-soft-love-para-massagem-em-spray.png',
+        price: 50,
+        company: 'Retard',
+        info: 'Óleo retard soft love para Massagem em Spray - 15 ml',
+        inCart: false,
+        count: 0,
+        total: 0
+    },
+    {
         id: 1, //this gets reference code. e.g sodo1
         title: 'Óleo retard massagem em spray',
         description: 'cosméticos',

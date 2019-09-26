@@ -54,16 +54,6 @@ export default class FormCheckoutWithNodeMailer extends Component {
         this.setState({ itemDescription: items, totalPay: totalPay });
     }
 
-    // validateForm() {
-    //     let x = document.forms["contactForm"]["address"].value;
-    //         if (x == "") {
-    //             alert("Endereço deve ser preenchido");
-    //             return false;
-    //         } else {
-    //             return this.handleSubmit
-    //         }
-    // }
-
     resetForm() {
         // e.preventDefault(); //only allow one click
         document.getElementById('contactForm').reset();

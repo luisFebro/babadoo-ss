@@ -53,7 +53,7 @@ class ProductProvider extends Component {
         });
 
         productProps.forEach((obj, i) => {
-            obj.title += ` (código: ${categoriesAbbrev[i]}${++i})`;
+            obj.title += ` (cod: ${categoriesAbbrev[i]}${++i})`;
         });
         this.getRandomArray(productProps);
 

@@ -34,9 +34,9 @@ export default function ShoppingSummary() {
                                 <br />
                                 <li id="total">
                                     <h4>
-                                        Valor Total com Frete:
+                                        Total Value:
                                         <br />
-                                        R$ {value.cartTotal}
+                                        $ {value.cartTotal}
                                     </h4>
                                 </li>
                             </ul>
