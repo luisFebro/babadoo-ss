@@ -24,21 +24,22 @@ app.post('/api/form', (req, res) => {
                  <img style="box-shadow: 0 19px 38px rgba(0,0,0,0.20), 0 15px 12px rgba(0,0,0,0.12);" src="https://imgur.com/9GjtAiW.png" width="200px" height="200px"/>
             </header>
         </center>
-        <h1><center>Real Time Report</center></h1>
-        <h3>Client Infos:</h3>
+        <h1><center>Relatório Descritivo</center></h1>
+        <h3>Informações do Cliente:</h3>
         <ul>
-          <li>Name: ${client}</li>
-          <li>Contact: ${req.body.phone}</li>
-          <li>Delivery Address: ${req.body.address}</li>
-          <li>Additional Infos: ${req.body.additional}</li>
+          <li>Nome: ${client}</li>
+          <li>Contato/Whatsapp: ${req.body.phone}</li>
+          <li>Endereço para Entrega: ${req.body.address}</li>
+          <li>Informações Adicionais: ${req.body.additional}</li>
         </ul>
-        <h3>Purchase Request Infos:</h3>
+        <h3>Informações do Pedido:</h3>
         <ul>
-          <li>Quantity and Items(ref): <br/>${req.body.itemDescription}</li>
+          <li>Quantidades e Items(ref): <br/>${req.body.itemDescription}</li>
           <li><h3>${req.body.totalPay}</h3></li>
         </ul>
         <footer>
-            <h4><strong>Report generated after your client buy some product from ${owner} online</strong></h4>
+            <h4><strong>Relatório gerado após conclusão de compra pela ${owner} online</strong></h4>
+            <h4><strong>Visite sua loja <a href="https://babadoo.herokuapp.com">AQUI</a></strong></h4>
         </footer>
     `;
 
@@ -56,14 +57,14 @@ app.post('/api/form', (req, res) => {
     });
 
     let mailOptions = {
-        from: `"${owner} - Purchase Request" babadooweb@gmail.com`, // sender address
-        to: ['7229952@gmail.com', 'babadooweb@gmail.com'], // 7229952@gmail.com 'babadoosexy@gmail.com', list of receivers babadoo.sexyshop.lingeries@gmail.com
-        subject: `One more! New purchase from ${client}`, // Subject line
+        from: `"${owner} - Pedidos de Compra" babadooweb@gmail.com`, // sender address
+        to: ['babadooweb@gmail.com'], // 'babadoosexy@gmail.com', list of receivers babadoo.sexyshop.lingeries@gmail.com
+        subject: `Opa! Novo Pedido de ${client}`, // Subject line
         text: 'no-message-sent-ignore-here', // plain text body
         html: htmlEmail // html body
     };
 
-    // CONSOLE LOG - send mail with defined transport object
+    // CONSOLE - send mail with defined transport object
     transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
             return console.log(error);
