@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import LogoSlogon from '../components/LogoSlogon';
 import ButtonCart from '../components/buttons/ButtonCart';
 import Title from '../components/Title';
@@ -17,16 +17,16 @@ pageData.pageDescription = `Conheça nossa vitrine em ${pageData.pageURL}`;
 export default class Home extends Component {
     render() {
         return (
-            <React.Fragment>
+            <Fragment>
                 <LogoSlogon />
                 <Title name="Nossa" title="Vitrine" />
                 <ProductList />
                 {/*Testing updates only*/}
-                <h1 style={{display: "inline-block", background: "#000", color:"#fff"}}></h1>
+                <h1 style={{display: "inline-block", background: "#000", color:"#fff"}}>{null}</h1>
                 {/*End Testing updates only*/}
                 <ShareSocialMediaButtons data={pageData} />
                 <ButtonCart />
-            </React.Fragment>
+            </Fragment>
         );
     }
 }

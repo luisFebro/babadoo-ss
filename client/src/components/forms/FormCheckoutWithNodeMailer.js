@@ -94,7 +94,7 @@ export default class FormCheckoutWithNodeMailer extends Component {
                                     <label>Alguma Informação Adicional? (Opcional)</label>
                                     <textarea name="additional" rows="8"></textarea>
                                 </p>
-                                <h3 id="wait"></h3>
+                                <h3 id="wait">{null}</h3>
                                 <p className="full">
                                     <button
                                         type="submit"

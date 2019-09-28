@@ -23,7 +23,7 @@ export default function GradientButton({ app }) {
             title={txt}
         >
             <img src={img} alt={alt} className="btn-icon" />
-            <span className="btn-txt">Entrar com {name.toUpperCase()}</span>
+            <span className="btn-txt">Entrar com <strong>Instagram</strong></span>
         </a>
     );
 }

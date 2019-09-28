@@ -1,20 +1,8 @@
 const express = require('express');
-const bodyParser = require('body-parser');
+const router = express.Router();
 const nodemailer = require("nodemailer");
-const app = express();
-const path = require('path');
 
-// Serve static files from the React frontend app
-app.use(express.static(path.join(__dirname, '../client/build')))
-// Anything that doesn't match the above, send back index.html
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname + '../client/build/index.html'))
-})
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-
-app.post('/api/form', (req, res) => {
+router.post('/', (req, res) => {
     const owner = 'Babadoo';
     const clientRaw = req.body.name;
     const client = clientRaw.charAt(0).toUpperCase() + clientRaw.slice(1)
@@ -24,7 +12,7 @@ app.post('/api/form', (req, res) => {
                  <img style="box-shadow: 0 19px 38px rgba(0,0,0,0.20), 0 15px 12px rgba(0,0,0,0.12);" src="https://imgur.com/9GjtAiW.png" width="200px" height="200px"/>
             </header>
         </center>
-        <h1><center>Relatório Descritivo</center></h1>
+        <h1><center>Relatório em Tempo Real</center></h1>
         <h3>Informações do Cliente:</h3>
         <ul>
           <li>Nome: ${client}</li>
@@ -75,8 +63,5 @@ app.post('/api/form', (req, res) => {
 
 });
 
-const PORT = process.env.PORT || 6100;
+module.exports = router;
 
-app.listen(PORT, () => {
-    console.log(`Server listening on port ${PORT}`);
-});

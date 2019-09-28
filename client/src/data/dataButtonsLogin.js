@@ -6,7 +6,7 @@
 export const dataButtonsLogin = [
     {
         img: "img/icons/buttonslogin/email.png",
-        name: "seu email",
+        name: "email",
         href: "/",
         alt: "email cliente",
         color: "grey",
@@ -19,14 +19,6 @@ export const dataButtonsLogin = [
         alt: "google-icon",
         color: "#CB4024",
         title: "Entrar com Google"
-    },
-    {
-        img: "img/icons/buttonslogin/facebook.png",
-        name: "facebook",
-        href: "auth/facebook",
-        alt: "facebook-icon",
-        color: "#3B5899",
-        title: "Entrar com Facebook"
     },
     {
         img: "img/icons/buttonslogin/instagram.png",

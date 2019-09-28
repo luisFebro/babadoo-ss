@@ -8,6 +8,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ButtonList from '../../buttons/navbar-dropdown/ButtonList';
+import FacebookAuth from '../../buttons/navbar-dropdown/FacebookAuth';
 // END MENU COMPOSITION
 
 // ICONS
@@ -89,6 +90,7 @@ export default function UserDropDown() {
                     <ListItemText primary="Meus Pedidos" />
                 </StyledMenuItem>
                 <ButtonList />
+                <FacebookAuth />
             </StyledMenu>
         </div>
     );

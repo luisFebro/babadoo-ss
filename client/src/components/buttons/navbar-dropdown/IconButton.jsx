@@ -10,7 +10,7 @@ export default function IconButton({ app }) {
            title={title}
         >
             <img src={img} alt={alt} className="btn-icon" />
-            <span className="btn-txt">Entrar com {name.toUpperCase()}</span>
+            <span className="btn-txt">Entrar com <strong>{name.charAt(0).toUpperCase() + name.slice(1)}</strong></span>
         </a>
     );
 }
