@@ -24,7 +24,7 @@ import Edible from '../pages/category-pages/Edible';
 //>>>End category pages
 //END GENERAL PAGES
 //LAYOUT
-import MenuTopLogin from '../components/layout/navbar/MenuTopLogin';
+// import MenuTopLogin from '../components/layout/navbar/MenuTopLogin';
 import Navbar from '../components/layout/navbar/Navbar';
 import CategorySlider from '../components/layout/CategorySlider';
 import Footer from '../components/layout/footer/Footer';
