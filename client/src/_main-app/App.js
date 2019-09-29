@@ -40,7 +40,6 @@ import WhatsappIcon from '../components/buttons/WhatsappIcon';
 export default function App() {
     return (
         <React.Fragment>
-            <MenuTopLogin />
             <Navbar />
             <CategorySlider />
             <Switch>
