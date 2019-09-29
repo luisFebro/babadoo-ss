@@ -15,7 +15,7 @@ const LogoSlogon = () => {
                         src="img/babadoo-logo_no-slogon.png"
                         alt="logo-babadoo"
                     />
-                    <h1>
+                    <h1 className="text-slogon">
                         <strong>lingeries e acessórios eróticos</strong>
                     </h1>
                 </div>

@@ -10,6 +10,7 @@ import 'animate.css/animate.min.css';
 //END GENERAL COMPONENTS
 //GENERAL PAGES
 import Preloader from '../pages/Preloader';
+import StoreInfo from '../pages/store-info/StoreInfo';
 import Cart from '../pages/cart/Cart';
 import Client from '../pages/Client';
 import CheckoutLocal from '../pages/checkout/CheckoutLocal';
@@ -23,7 +24,7 @@ import Edible from '../pages/category-pages/Edible';
 //>>>End category pages
 //END GENERAL PAGES
 //LAYOUT
-import menuTopLogin from '../components/layout/navbar/menuTopLogin';
+import MenuTopLogin from '../components/layout/navbar/MenuTopLogin';
 import Navbar from '../components/layout/navbar/Navbar';
 import CategorySlider from '../components/layout/CategorySlider';
 import Footer from '../components/layout/footer/Footer';
@@ -39,7 +40,7 @@ import WhatsappIcon from '../components/buttons/WhatsappIcon';
 export default function App() {
     return (
         <React.Fragment>
-            <menuTopLogin />
+            <MenuTopLogin />
             <Navbar />
             <CategorySlider />
             <Switch>
@@ -49,6 +50,7 @@ export default function App() {
                 <Route path="/cosmeticos" component={Cosmetic} />
                 <Route path="/comestiveis" component={Edible} />
                 {/*End Categories Pages*/}
+                <Route path="/loja" component={StoreInfo} />
                 <Route path="/detalhes-do-produto" component={Details} />
                 <Route path="/seu-carrinho" component={Cart} />
                 <Route path="/finalizar-compra" component={CheckoutLocal} />

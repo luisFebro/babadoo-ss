@@ -4,7 +4,7 @@ import SocialNetworks from './SocialNetworks';
 const Footer = () => {
     return (
         <footer className="container-fluid mt-5">
-            <p className="text-sub-title text-center pt-4">Siga a Gente nas Redes Sociais</p>
+            <p className="text-main-container text-center py-4">Siga a Gente nas Redes Sociais</p>
             <div className="pb-1">
                 <SocialNetworks />
             </div>

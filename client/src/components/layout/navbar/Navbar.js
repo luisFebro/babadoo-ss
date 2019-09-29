@@ -12,6 +12,7 @@ export default class Navbar extends Component {
             isSearchOpen: false
         };
     }
+
     addZoomout() {
         const icon = document.getElementById('searchIcon');
 
@@ -49,9 +50,9 @@ export default class Navbar extends Component {
                                     className="navbar-brand"
                                 />
                             </Link>
-                            <ul className="navbar-nav align-items-center" onClick={value.openModalOnly}>
+                            <ul className="navbar-nav align-items-center">
                                 <li className="nav-item">
-                                    <Link to="/" className="nav-link text-nav-items">
+                                    <Link to="/loja" className="nav-link text-nav-items">
                                         loja
                                     </Link>
                                 </li>
