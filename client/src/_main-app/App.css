@@ -59,20 +59,14 @@ footer {
     font-size: 1.5em;
 }
 
-.text-title {
-    font-weight: bolder;
-    font-family: 'Organica 90 Regular', cursive !important;
-    letter-spacing: .2rem;
-    text-transform: uppercase;
-}
-
 .text-sub-title {
     font: normal 2.1rem 'Lato', sans-serif;
     text-transform: uppercase;
 }
 
 .text-nav-items,
-.text-main-container {
+.text-main-container,
+.text-title {
     font: normal 1.7rem 'Cabin', sans-serif;
     margin: 0;
 }

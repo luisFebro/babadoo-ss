@@ -8,7 +8,6 @@ export default function Preloader() {
             <img
                 src="img/babadoo-logo_no-slogon.png"
                 alt="babadoo - sexyshop está carregando..."
-                widht="150px"
                 height="150px"
             />
             <section>
@@ -62,7 +61,7 @@ const DivWrapper = styled.div`
         flex-direction: row;
         justify-content: center;
         align-items: center;
-        margin-top: 80px;
+        margin-top: 40px;
     }
 
     & .spinner {
@@ -73,8 +72,8 @@ const DivWrapper = styled.div`
 
     & .spinner > div {
         margin: 5px;
-        width: 12px;
-        height: 12px;
+        width: 6px;
+        height: 6px;
         background-color: #333;
 
         border-radius: 100%;

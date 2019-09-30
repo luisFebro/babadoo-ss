@@ -13,7 +13,7 @@ import Paper from '@material-ui/core/Paper';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    width: '50%',
+    width: '95%',
     margin: 'auto',
   },
   paper: {
@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
     marginBottom: theme.spacing(2),
   },
   table: {
-    minWidth: 280,
+    minWidth: "400px",
     fontSize: "1.5rem"
   },
 }));

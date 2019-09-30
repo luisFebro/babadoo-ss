@@ -5,20 +5,19 @@ import parse from 'html-react-parser';
 
 export default function GetPeriodOfDay() {
     const getGreeting = () => {
-        let name = "visitante da Babadoo";
+        let name = "visitante";
         let hourNow = new Date().getHours();
         let res = {
             greeting: "",
             illustration: {
                 img: "",
-                color: "var(--mainDark)",
+                color: "var(--mainYellow)",
                 alt: "",
             }
         };
         if (hourNow >= 0 && hourNow <= 5) {
             res.greeting = parse(`Boa Madrugada,<br />${name}!`);
             res.illustration.img = greetings.earlyHours.img;
-            res.illustration.color = "var(--mainWhite)";
             res.illustration.alt = greetings.earlyHours.alt;
         } else if (hourNow > 5 && hourNow <= 12) {
             res.greeting = parse(`Bom Dia,<br /> ${name}!`);
@@ -31,7 +30,6 @@ export default function GetPeriodOfDay() {
         } else {
             res.greeting = parse(`Boa Noite,<br /> ${name}!`);
             res.illustration.img = greetings.night.img;
-            res.illustration.color = "var(--mainWhite)";
             res.illustration.alt = greetings.night.alt;
         }
         return res;
@@ -42,8 +40,8 @@ export default function GetPeriodOfDay() {
 
     return (
         <DivWrapper className="container">
-            <img className="shadow-elevation" src={img} alt={alt} style={{color}} />
-            <h2 className="text-main-container top-centered text-nowrap shadow-white"><strong>{greeting}</strong></h2>
+            <img className="shadow-elevation" src={img} alt={alt} />
+            <p style={{color}} className="text-main-container top-centered text-nowrap shadow-white"><strong>{greeting}</strong></p>
         </DivWrapper>
     );
 }
@@ -59,6 +57,7 @@ const DivWrapper = styled.div`
     }
 
     .top-centered {
+        font-size: 1.3em;
         position: absolute;
         top: 10%;
         left: 50%;
@@ -66,7 +65,7 @@ const DivWrapper = styled.div`
     }
 
     .shadow-white {
-        text-shadow: 7px 2px 4px var(--mainWhite), -7px 2px 4px var(--mainWhite), -7px -5px 4px var(--mainWhite), -7px 5px 4px var(--mainWhite), -7px 5px 4px var(--mainWhite);
+        text-shadow: 3px 1px 18px #FFFFFF;
     }
 
     /*MOBILE FIRST RESPONSIVE MEDIA QUERIES*/

@@ -7,7 +7,7 @@ import { storeIcon } from '../../../data/dataIcons';
 import UserDropDown from './UserDropDown';
 import { dataWorkingHour } from '../../utils/GetWorkingHour';
 
-const isStoreOpen = true;//dataWorkingHour[1];
+const isStoreOpen = dataWorkingHour[1];
 export default class Navbar extends Component {
     constructor() {
         super();
@@ -90,7 +90,7 @@ export default class Navbar extends Component {
                                     </Link>
                                 </li>
                             </ul>
-                            <div className="fixed z-index-top">
+                            <div className="fixed z-index-top pt-3">
                                 <span>
                                     <i id="searchIcon" className="fas fa-search" onClick={() => this.addZoomout()}></i>
                                 </span>

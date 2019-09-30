@@ -7,7 +7,7 @@ export default function EmptyCart() {
         <div className="container mt-5">
             <div className="row">
                 <div className="col-10 mx-auto text-center">
-                    <h1 className="text-title">
+                    <h1 className="text-main=container">
                         <strong>Nada aqui! Seu carrinho está vazio</strong>
                     </h1>
                     <Link to="/">
