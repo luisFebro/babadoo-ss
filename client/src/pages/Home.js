@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from 'react';
-import LogoSlogon from '../components/LogoSlogon';
 import ButtonCart from '../components/buttons/ButtonCart';
 import Title from '../components/Title';
 import ProductList from '../components/products/ProductList';
