@@ -15,8 +15,7 @@ app.use(express.json());
 
 
 // Use Routes
-const emailPurchaseRequest = require('./routes/api/emailPurchaseRequest');
-app.use('/api/form', emailPurchaseRequest);
+app.use('/api/form', require('./routes/api/emailPurchaseRequest'));
 
 // Serve static files from the React frontend app
 app.use(express.static(path.join(__dirname, 'client/build')))

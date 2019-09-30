@@ -18,7 +18,6 @@ export default class Home extends Component {
     render() {
         return (
             <Fragment>
-                <LogoSlogon />
                 <Title name="Nossa" title="Vitrine" />
                 <ProductList />
                 {/*Testing updates only*/}

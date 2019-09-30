@@ -1,6 +1,6 @@
 import React from 'react';
 import GetPeriodOfDay from '../../components/utils/GetPeriodOfDay';
-import CheckWorkingHour from '../../components/utils/CheckWorkingHour';
+import WorkingHourMsg from './WorkingHourMsg';
 
 export default function GreetingsAndWorkingHourMsg() {
     return (
@@ -9,7 +9,7 @@ export default function GreetingsAndWorkingHourMsg() {
                 <GetPeriodOfDay />
             </section>
             <section>
-                <CheckWorkingHour />
+                <WorkingHourMsg />
             </section>
         </h2>
     );

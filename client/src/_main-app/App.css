@@ -50,6 +50,15 @@ footer {
     outline: none;
 }
 
+.text-slogon {
+    font: bolder 2.4em 'Indie Flower', cursive;
+    letter-spacing: .1em;
+}
+
+.text-slogon span {
+    font-size: 1.5em;
+}
+
 .text-title {
     font-weight: bolder;
     font-family: 'Organica 90 Regular', cursive !important;

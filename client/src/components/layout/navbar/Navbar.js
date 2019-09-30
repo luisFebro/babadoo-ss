@@ -3,8 +3,11 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import SearchCompleteWithImg from '../../SearchCompleteWithImg';
 import { ProductConsumer } from '../../../data/contexts/mainContext';
+import { storeIcon } from '../../../data/dataIcons';
 import UserDropDown from './UserDropDown';
+import { dataWorkingHour } from '../../utils/GetWorkingHour';
 
+const isStoreOpen = true;//dataWorkingHour[1];
 export default class Navbar extends Component {
     constructor() {
         super();
@@ -43,17 +46,29 @@ export default class Navbar extends Component {
                         <NavWrapper className="navbar navbar-expand-sm navbar-dark px-sm-5 text-nav-items">
                             <Link to="/">
                                 <img
-                                    src="img/babadoo-logo_no-slogon.png"
-                                    alt="store"
-                                    width="70px"
-                                    height="70px"
+                                    src= "img/babadoo-logo_no-slogon.png"
+                                    alt="Logomarca da loja Babadoo Manaus"
+                                    width="90rem"
+                                    height="90rem"
                                     className="navbar-brand"
                                 />
                             </Link>
                             <ul className="navbar-nav align-items-center">
                                 <li className="nav-item">
-                                    <Link to="/loja" className="nav-link text-nav-items">
-                                        loja
+                                    <Link to="/loja" className="nav-link">
+                                        {isStoreOpen ?
+                                            <div className="store-container">
+                                                 <img
+                                                    width="70rem"
+                                                    height="70rem"
+                                                    src={storeIcon.imgSrc}
+                                                    alt={storeIcon.altTitle}
+                                                    title={storeIcon.altTitle}
+                                                 />
+                                                <div className="store-badge badge badge-danger">Aberto</div>
+                                             </div> :
+                                            "loja"
+                                        }
                                     </Link>
                                 </li>
                             </ul>
@@ -102,6 +117,17 @@ export default class Navbar extends Component {
 
 // STYLES
 const NavWrapper = styled.nav`
+    .store-container {
+        position: relative;
+    }
+
+    .store-badge {
+        font-size: .4em;
+        position: absolute;
+        top: 60%;
+        left: 65%;
+        transform: translate(-50%, -50%);
+    }
     #searchIcon {
         cursor: pointer;
         z-index: 1200;

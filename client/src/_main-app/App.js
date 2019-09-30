@@ -63,8 +63,8 @@ export default function App() {
             <UnderConstruction />
             <Footer />
             <WhatsappIcon />
+            <Preloader />
             <CustomPreloader>
-                <Preloader />
             </CustomPreloader>
         </React.Fragment>
     );

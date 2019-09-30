@@ -1,3 +1,9 @@
+
+export const storeIcon = {
+    imgSrc: "img/icons/store-open.png",
+    altTitle: "Nossa Loja Física está aberta!",
+}
+
 export const productCategories = [
     {
         id: 1,

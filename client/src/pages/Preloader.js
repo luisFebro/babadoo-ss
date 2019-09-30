@@ -11,12 +11,19 @@ export default function Preloader() {
                 widht="150px"
                 height="150px"
             />
-            <h2>Carregando</h2>
-            <div class="spinner">
-                <div class="bounce1"></div>
-                <div class="bounce2"></div>
-                <div class="bounce3"></div>
-            </div>
+            <section>
+                <h1 className="text-slogon text-center">
+                    <strong><span>L</span>ingeries <br/>e<br/> Acessórios Eróticos</strong>
+                </h1>
+            </section>
+            <section className="loading-container">
+                <h2 className="">Carregando</h2>
+                <div className="spinner">
+                    <div className="bounce1"></div>
+                    <div className="bounce2"></div>
+                    <div className="bounce3"></div>
+                </div>
+            </section>
         </DivWrapper>
     );
 }
@@ -48,12 +55,16 @@ const DivWrapper = styled.div`
         animation: ${pulse} 1s linear infinite;
     }
 
-    & h2 {
-        margin-top: 50px;
-    }
-
     //Three-dot bouncing loading effect
     //Resource: https://codepen.io/danielmorosan/pen/XmYBVx
+    .loading-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        margin-top: 80px;
+    }
+
     & .spinner {
         //margin: 100px auto 0;
         width: 70px;

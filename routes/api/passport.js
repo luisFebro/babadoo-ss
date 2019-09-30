@@ -1,4 +1,5 @@
 const express = require("express");
+const router = express.Router();
 const cors = require("cors");
 const keys = require("../config");
 const passport = require("passport");
@@ -54,15 +55,14 @@ passport.use(new InstagramStrategy({
     }));
 // End Instagram Strategy
 
-const app = express();
-app.use(cors());
-app.use(passport.initialize());
+router.use(cors());
+router.use(passport.initialize());
 
 // GOOGLE REQUEST
-app.get("/auth/google", passport.authenticate("google", {
+router.get("/auth/google", passport.authenticate("google", {
     scope: ["profile", "email"]
 }));
-app.get("/auth/google/callback",
+router.get("/auth/google/callback",
     passport.authenticate("google"),
     (req, res) => {
         res.redirect("/cliente");
@@ -70,8 +70,8 @@ app.get("/auth/google/callback",
 // END GOOGLE REQUEST
 
 // FACEBOOK REQUEST
-app.get("/auth/facebook", passport.authenticate("facebook"));
-app.get("/auth/facebook/callback",
+router.get("/auth/facebook", passport.authenticate("facebook"));
+router.get("/auth/facebook/callback",
     passport.authenticate("facebook"),
     (req, res) => {
         res.redirect("/cliente");
@@ -79,24 +79,21 @@ app.get("/auth/facebook/callback",
 // END FACEBOOK REQUEST
 
 // INSTAGRAM REQUEST
-app.get("/auth/instagram", passport.authenticate("instagram"));
-app.get("/auth/instagram/callback",
+router.get("/auth/instagram", passport.authenticate("instagram"));
+router.get("/auth/instagram/callback",
     passport.authenticate("instagram"),
     (req, res) => {
         res.redirect("/cliente");
     });
 // END INSTAGRAM REQUEST
 
-app.get("/user", (req, res) => {
+router.get("/user", (req, res) => {
     console.log("getting user data!");
     res.send(user);
 });
 
-app.get("auth/logout", (req, res) => {
+router.get("auth/logout", (req, res) => {
     console.log("logging out!");
     user = {};
     res.redirect("/");
 });
-
-const PORT = process.env.PORT || 6000;
-app.listen(PORT);
