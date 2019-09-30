@@ -41,7 +41,7 @@ export default function GetPeriodOfDay() {
     return (
         <DivWrapper className="container">
             <img className="shadow-elevation" src={img} alt={alt} />
-            <p style={{color}} className="text-main-container top-centered text-nowrap shadow-white"><strong>{greeting}</strong></p>
+            <p style={{color}} className="text-main-container top-centered text-nowrap border-white"><strong>{greeting}</strong></p>
         </DivWrapper>
     );
 }
@@ -64,8 +64,9 @@ const DivWrapper = styled.div`
         transform: translate(-50%, -50%);
     }
 
-    .shadow-white {
-        text-shadow: 3px 1px 18px #FFFFFF;
+    .border-white {
+        //border in the font
+        text-shadow: -2px 0 #fff, 0 2px #fff, 2px 0 #fff, 0 -2px #fff;
     }
 
     /*MOBILE FIRST RESPONSIVE MEDIA QUERIES*/

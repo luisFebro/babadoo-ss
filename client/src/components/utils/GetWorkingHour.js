@@ -1,6 +1,7 @@
 import { data } from '../../data/dataWorkingHour';
 import parse from 'html-react-parser';
 import { officialWebsite, whatsapp } from '../../data/dataLinks';
+let isStoreOpened = "";
 
 const checkTodayDay = (weekDays) => {
     let today = "";
@@ -12,8 +13,9 @@ const checkTodayDay = (weekDays) => {
     })
     return today;
 }
+let todayResult = checkTodayDay(data);
 
-const getHours = (day = checkTodayDay(data)) => {
+const getHours = (day) => {
     let openHour = 0;
     let closeHour = 0;
     data.forEach(obj => {
@@ -24,24 +26,33 @@ const getHours = (day = checkTodayDay(data)) => {
     })
     return [openHour, closeHour];
 }
+
+let hourResults = getHours(todayResult);
+
+
 const checking = (openHour, closeHour) => {
+    isStoreOpened = true;
     const hourNow = new Date().getHours();
     let msg = "";
-    let isStoreOpened = true;
+    let msgFalse = parse(`
+                Parace que nossa loja física está fechada agora.<br />
+                Deixe um recado via <a href=${whatsapp}>Whatsapp</a>...<br />
+                Ou faça seu pedido a qualquer hora <a href=${officialWebsite}>por aqui mesmo!</a>`);
+    if(todayResult === "Domingo") {
+        return [msgFalse, false];
+    }
     if (hourNow >= openHour && hourNow <= closeHour) {
         msg = parse(`
                 A loja física está aberta!<br />
                 Estamos entregando por toda a cidade também.`);
     } else {
-        msg = parse(`
-                Parace que nossa loja física está fechada agora.<br />
-                Deixe um recado via <a href=${whatsapp}>Whatsapp</a>...<br />
-                Ou faça seu pedido a qualquer hora <a href=${officialWebsite}>por aqui mesmo!</a>`);
+        msg = msgFalse;
         isStoreOpened = false;
     }
     return [msg, isStoreOpened];
 }
 
-const dataWorkingHour = checking(getHours[0], getHours[1]);
+const dataWorkingHour = checking(hourResults[0], hourResults[1]);
+
 
 export { dataWorkingHour };

@@ -8,6 +8,7 @@ import UserDropDown from './UserDropDown';
 import { dataWorkingHour } from '../../utils/GetWorkingHour';
 
 const isStoreOpen = dataWorkingHour[1];
+console.log(isStoreOpen);
 export default class Navbar extends Component {
     constructor() {
         super();
