@@ -1,5 +1,6 @@
 import React from 'react';
 import SocialNetworks from './SocialNetworks';
+import SecuritySeals from './SecuritySeals';
 
 const Footer = () => {
     return (
@@ -8,6 +9,7 @@ const Footer = () => {
             <div className="pb-1">
                 <SocialNetworks />
             </div>
+            <SecuritySeals />
             <div className="row">
                 <div className="col-10 mx-auto text-center p-1 pt-3">
                     <strong>

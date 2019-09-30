@@ -51,8 +51,12 @@ footer {
 }
 
 .text-slogon {
-    font: bolder 2.4em 'Indie Flower', cursive;
+    font: bolder 2.4em 'Indie Flower';
     letter-spacing: .1em;
+}
+
+.text-categories {
+    font: bolder 5em 'Indie Flower', cursive;
 }
 
 .text-slogon span {

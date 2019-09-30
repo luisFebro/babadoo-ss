@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import ButtonCart from '../components/buttons/ButtonCart';
 import Title from '../components/Title';
 import ProductList from '../components/products/ProductList';
+import ServiceList from '../components/layout/biz-services/ServiceList';
 import ShareSocialMediaButtons from '../components/buttons/ShareSocialMediaButtons';
 
 const pageData = {
@@ -17,6 +18,7 @@ export default class Home extends Component {
     render() {
         return (
             <Fragment>
+              {/*<ServiceList />*/}
                 <Title name="Nossa" title="Vitrine" />
                 <ProductList />
                 {/*Testing updates only*/}

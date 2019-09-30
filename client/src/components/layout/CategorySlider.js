@@ -57,7 +57,7 @@ export default class CategorySlider extends Component {
         const { isCarouselOpen } = this.state;
 
         return (
-            <div style={{ backgroundColor: 'rgba(242, 38, 19, .7)' }}>
+            <div style={{ backgroundColor: 'rgba(242, 38, 19, .7)', marginBottom: "10px"}}>
                 <h3 className="title-carousel text-center text-capitalize bg-danger">
                     Categorias
                     <SpanWrapper
