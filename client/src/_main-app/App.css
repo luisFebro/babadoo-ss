@@ -37,6 +37,10 @@ body {
     user-select: none;
 }
 
+a {
+    color: var(--mainRed) !important;
+}
+
 footer {
     background: var(--mainRed);
     color: var(--mainWhite);

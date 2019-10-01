@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default function GradientButton({ app }) {
-    const { img, href, alt, colors, txt, name } = app;
+    const { img, href, alt, colors, txt } = app;
     const style = {
         margin: 5,
         display: "block",

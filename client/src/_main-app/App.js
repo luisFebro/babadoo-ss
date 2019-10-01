@@ -10,9 +10,9 @@ import 'animate.css/animate.min.css';
 //END GENERAL COMPONENTS
 //GENERAL PAGES
 import Preloader from '../pages/Preloader';
-import StoreInfo from '../pages/store-info/StoreInfo';
+import Store from '../pages/store';
 import Cart from '../pages/cart/Cart';
-import Client from '../pages/Client';
+// import Client from '../pages/Client';
 import CheckoutLocal from '../pages/checkout/CheckoutLocal';
 import Details from '../pages/Details';
 import Default from '../pages/Default';
@@ -49,12 +49,12 @@ export default function App() {
                 <Route path="/cosmeticos" component={Cosmetic} />
                 <Route path="/comestiveis" component={Edible} />
                 {/*End Categories Pages*/}
-                <Route path="/loja" component={StoreInfo} />
+                <Route path="/loja" component={Store} />
                 <Route path="/detalhes-do-produto" component={Details} />
                 <Route path="/seu-carrinho" component={Cart} />
                 <Route path="/finalizar-compra" component={CheckoutLocal} />
                 <UserProvider>
-                    <Route path="/cliente" component={Client}/>
+                    {/*<Route path="/cliente" component={Client}/>*/}
                 </UserProvider>
                 <Route component={Default} />
             </Switch>

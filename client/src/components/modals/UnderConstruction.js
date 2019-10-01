@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { ProductConsumer } from '../../data/contexts/mainContext';
+import { underConstruction } from '../../data/dataIllustrations';
 import { ButtonContainerPressedEffectDark as DarkBtn } from '../buttons/Default';
 
 export default class UnderConstruction extends Component {
@@ -25,8 +26,8 @@ export default class UnderConstruction extends Component {
                                             <section>
                                                 <img
                                                     className="img-fluid mx-auto my-2 shadow-elevation"
-                                                    src="img/under-construction.png"
-                                                    alt="funcionalidade em construção"
+                                                    src={underConstruction.img}
+                                                    alt={underConstruction.title}
                                                 />
                                                 <h2>Em Manutenção.</h2>
                                                 <h2>Logo ficará disponível! :)</h2>

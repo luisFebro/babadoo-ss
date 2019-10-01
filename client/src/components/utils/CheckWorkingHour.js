@@ -1,10 +1,12 @@
 import React from 'react';
 import { data } from '../../data/dataWorkingHour';
+import parse from 'html-react-parser';
+import { officialWebsite, whatsapp } from '../../data/dataLinks';
 
 export default function CheckWorkingHour() {
-    const checkTodayday = (data) => {
+    const checkTodayDay = (weekDays) => {
         let today = "";
-        data.forEach((obj, ind) => {
+        weekDays.forEach((obj, ind) => {
             let date = new Date();
             if(date.getDay() === ind) {
                 today = obj.weekDay;
@@ -13,7 +15,7 @@ export default function CheckWorkingHour() {
         return today;
     }
 
-    const getHours = (day = "Domingo") => {
+    const getHours = (day = checkTodayDay(data)) => {
         let openHour = 0;
         let closeHour = 0;
         data.forEach(obj => {
@@ -28,15 +30,22 @@ export default function CheckWorkingHour() {
          const hourNow = new Date().getHours();
          let res = "";
          if (hourNow >= openHour && hourNow <= closeHour) {
-             res = `Estamos Abertos!`;
+             res = parse(`
+                A loja física está aberta!<br />
+                Estamos entregando por toda a cidade também.`);
          } else {
-            res = 'Parace que nossa loja física está fechada agora. ' +
-            'Deixe um recado via Whatsapp. Aproveite nossos Acessórios!'
+            res = parse(`
+                Parace que nossa loja física está fechada agora.<br />
+                Deixe um recado via <a href=${whatsapp}>Whatsapp</a>...<br />
+                Ou faça seu pedido a qualquer hora <a href=${officialWebsite}>por aqui mesmo!</a>`
+            );
          }
          return res;
      }
 
      return (
-         <span>{checking(getHours[0], getHours[1])}</span>
+        <div className="pt-5">
+            <span>{checking(getHours[0], getHours[1])}</span>
+        </div>
     );
 }
