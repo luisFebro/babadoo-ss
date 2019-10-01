@@ -22,7 +22,7 @@ export default class Home extends Component {
                 <Title name="Nossa" title="Vitrine" />
                 <ProductList />
                 {/*Testing updates only*/}
-                <h1 style={{display: "inline-block", background: "#000", color:"#fff"}}>T</h1>
+                <h1 style={{display: "inline-block", background: "#000", color:"#fff"}}>TE</h1>
                 {/*End Testing updates only*/}
                 <ShareSocialMediaButtons data={pageData} />
                 <ButtonCart />
