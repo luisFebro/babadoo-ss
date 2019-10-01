@@ -15,11 +15,11 @@ export default function GetPeriodOfDay() {
                 alt: "",
             }
         };
-        if (hourNow >= 0 && hourNow <= 5) {
+        if (hourNow >= 0 && hourNow <= 4) {
             res.greeting = parse(`Boa Madrugada,<br />${name}!`);
             res.illustration.img = greetings.earlyHours.img;
             res.illustration.alt = greetings.earlyHours.alt;
-        } else if (hourNow > 5 && hourNow <= 12) {
+        } else if (hourNow > 4 && hourNow <= 12) {
             res.greeting = parse(`Bom Dia,<br /> ${name}!`);
             res.illustration.img = greetings.morning.img;
             res.illustration.alt = greetings.morning.alt;
