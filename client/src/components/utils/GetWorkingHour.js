@@ -41,7 +41,7 @@ const checking = (openHour, closeHour) => {
     if(todayResult === "Domingo") {
         return [msgFalse, false];
     }
-    if (hourNow >= openHour && hourNow <= closeHour) {
+    if (hourNow >= openHour && hourNow < closeHour) {
         msg = parse(`
                 A loja física está aberta!<br />
                 Estamos entregando por toda a cidade também.`);

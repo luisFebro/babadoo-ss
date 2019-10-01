@@ -7,7 +7,7 @@ import { storeIcon } from '../../../data/dataIcons';
 import UserDropDown from './UserDropDown';
 import { dataWorkingHour } from '../../utils/GetWorkingHour';
 
-const isStoreOpen = false; //dataWorkingHour[1];
+const isStoreOpen = dataWorkingHour[1];
 console.log(isStoreOpen);
 export default class Navbar extends Component {
     constructor() {
