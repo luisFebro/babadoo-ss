@@ -19,7 +19,7 @@ import InstagramAuth from '../../buttons/navbar-dropdown/social-buttons/Instagra
 import AccountCircleTwoToneIcon from '@material-ui/icons/AccountCircleTwoTone';
 import LocalMallTwoToneIcon from '@material-ui/icons/LocalMallTwoTone';
 import IconButton from '@material-ui/core/IconButton';
-// END ICONS
+// END ICONSSS
 
 const useStyles = makeStyles({
     root: {
