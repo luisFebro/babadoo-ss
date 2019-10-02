@@ -43,7 +43,11 @@ export default class FacebookAuth extends Component {
                         style={{backgroundColor: "#3B5899", margin: 5, display: "block" }}
                         onClick={renderProps.onClick}
                     >
-                        <img src="img/icons/buttonslogin/facebook.png" alt="facebook-icon" className="btn-icon" />
+                        <img
+                            src="img/icons/buttonslogin/facebook.png"
+                            alt="ícone de login do google"
+                            className="btn-icon"
+                        />
                         <span className="btn-txt">Entrar com <strong>Facebook</strong></span>
                     </button>
                     )}

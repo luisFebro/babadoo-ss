@@ -8,7 +8,11 @@ import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ButtonList from '../../buttons/navbar-dropdown/ButtonList';
-import FacebookAuth from '../../buttons/navbar-dropdown/FacebookAuth';
+/*SOCIAL BUTTONS*/
+import FacebookAuth from '../../buttons/navbar-dropdown/social-buttons/FacebookAuth';
+import GoogleAuth from '../../buttons/navbar-dropdown/social-buttons/GoogleAuth';
+import InstagramAuth from '../../buttons/navbar-dropdown/social-buttons/InstagramAuth';
+/*END SOCIAL BUTTONS*/
 // END MENU COMPOSITION
 
 // ICONS
@@ -90,7 +94,9 @@ export default function UserDropDown() {
                     <ListItemText primary="Meus Pedidos" />
                 </StyledMenuItem>
                 <ButtonList />
+                <GoogleAuth />
                 <FacebookAuth />
+                <InstagramAuth />
             </StyledMenu>
         </div>
     );
