@@ -5,12 +5,19 @@ import * as serviceWorker from './serviceWorker';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { ProductProvider } from './data/contexts/mainContext';
 import ScrollToTop from 'react-router-scroll-top';
+// REDUX - easy-peasy
+import { createStore, StoreProvider } from 'easy-peasy';
+import { reduxModels } from './data/reduxModels';
+const store = createStore(reduxModels);
+// END REDUX - easy-peasy
 
 ReactDOM.render(
     <ProductProvider>
         <Router>
             <ScrollToTop>
-                <App />
+                <StoreProvider store={store}>
+                    <App />
+                </StoreProvider>
             </ScrollToTop>
         </Router>
     </ProductProvider>,

@@ -2,35 +2,31 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { useStoreState, useStoreActions } from 'easy-peasy';
 
 export default function MenuLogin() {
-        // const [isNavOpen, closeNav] = useState(false);
-        const dataLogin = {};
-        dataLogin.isLoggedIn = true;
-        const closeMenuTopLogin = () => {
-            let nav = document.querySelector('#mainNav');
-            nav.className="animated zoomOut slower sticky"
-            setTimeout(() => {
-                nav.style.display = 'none';
-                console.log(nav);
-                // closeNav(true);
-            }, 1500)
-        }
+        const { isLoggedIn, name, picture } = useStoreState(state => ({
+            isLoggedIn: state.dataLogin.isLoggedIn,
+            name: state.dataLogin.name,
+            picture: state.dataLogin.picture,
+        }));
+
+        const closeMenuLogin = useStoreActions(actions => actions.dataLogin.closeMenuLogin);
 
         return (
         <Fragment>
-            {(dataLogin.isLoggedIn) ?
+            {isLoggedIn ?
                 <DivWrapper id="mainNav" className="animated zoomIn slower" style={{ transition: '.5s' }}>
                     <nav className="navbar navbar-expand-sm px-sm-5 text-nav-items py-0 my-0">
                         <ul className="navbar-nav">
                             <li className="nav-item">
                                 <Link to="/perfil" className="nav-link">
-                                    {dataLogin.picture ?
+                                    {isLoggedIn ?
                                         <img
                                             className="profilePic nav-brand"
-                                            src={dataLogin.picture}
-                                            alt={dataLogin.name}
-                                            title={dataLogin.name}
+                                            src={picture}
+                                            alt={name}
+                                            title={name}
                                         >
                                         </img> :
                                         <img className="profilePic" src="img/icons/avatar-woman.png" alt="avatar babadoo"/>
@@ -44,8 +40,8 @@ export default function MenuLogin() {
                                     <p
                                         className="user-name-greeting"
                                     >
-                                        {dataLogin.name ?
-                                            `Olá, ${dataLogin.name}` :
+                                        {isLoggedIn ?
+                                            `Olá, ${name}` :
                                             "Olá, Visitante!"
                                         }
                                     </p>
@@ -53,7 +49,7 @@ export default function MenuLogin() {
                                 <Link to="/">
                                     <p
                                         className="logout-btn badge badge-danger"
-                                        onClick={closeMenuTopLogin}
+                                        onClick={closeMenuLogin}
                                         style={{cursor: 'pointer'}}
                                     >
                                         sair
@@ -132,7 +128,7 @@ const DivWrapper = styled.div`
 
     .logout-btn {
         position: absolute;
-        font: normal .9rem 'Cabin', sans-serif;
+        font: normal 1.1rem 'Cabin', sans-serif;
         top: 4px;
         right: 4px;
         padding: 2px 4px;

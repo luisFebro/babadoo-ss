@@ -113,7 +113,7 @@ export default class Navbar extends Component {
                                 ) : null}
                             </NavWrapper>
                             <DivWrapper>
-                                {/*<MenuLogin />*/}
+                                <MenuLogin />
                             </DivWrapper>
                         </Fragment>
                     );
