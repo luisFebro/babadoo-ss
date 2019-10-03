@@ -6,7 +6,7 @@ import { ProductConsumer } from '../../../data/contexts/mainContext';
 import { storeIcon } from '../../../data/dataIcons';
 import UserDropDown from './UserDropDown';
 import { dataWorkingHour } from '../../utils/GetWorkingHour';
-import MenuLogin from './MenuTopLogin';
+import MenuLogin from './MenuLogin';
 
 const isStoreOpen = dataWorkingHour[1];
 console.log(isStoreOpen);

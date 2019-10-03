@@ -96,7 +96,7 @@ export default function MenuLogin() {
     );
 }
 
-MenuTopLogin.propTypes = {
+MenuLogin.propTypes = {
     dataLogin: PropTypes.object.isRequired
 };
 
