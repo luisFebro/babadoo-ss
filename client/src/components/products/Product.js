@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { ProductConsumer } from '../../data/contexts/mainContext';
 import PropTypes from 'prop-types';
+import truncateWords from '../utils/truncateWords'
 
 export default class Product extends Component {
     constructor() {
@@ -14,15 +15,7 @@ export default class Product extends Component {
     }
 
     toggleFav() {
-        this.setState(currentState => {
-            return {
-                isFav: !currentState.isFav
-            };
-        });
-    }
-
-    truncate(input) {
-        return input.length > 40 ? input.substring(0, 40) + '...' : input;
+        this.setState({isFav: !this.state.isFav});
     }
 
     render() {
@@ -82,7 +75,7 @@ export default class Product extends Component {
                     {/*card footer*/}
                     <div className="text-product-title p-1 card-footer d-flex flex-column text-center justify-content-between">
                         <p style={{ height: '4em', overflow: 'hidden' }} className="mb-0 text-capitalize">
-                            {this.truncate(title)}
+                            {truncateWords(title, 40)}
                         </p>
                         <h5 className="mt-2 text-right mb-2 mr-2">
                             <span>R$</span>

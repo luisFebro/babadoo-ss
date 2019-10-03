@@ -13,14 +13,6 @@ export const dataButtonsLogin = [
         title: "Entrar com seu Email"
     },
     {
-        img: "img/icons/buttonslogin/google.png",
-        name: "google",
-        href: "auth/google",
-        alt: "google-icon",
-        color: "#CB4024",
-        title: "Entrar com Google"
-    },
-    {
         img: "img/icons/buttonslogin/instagram.png",
         name: "instagram",
         href: "auth/instagram",

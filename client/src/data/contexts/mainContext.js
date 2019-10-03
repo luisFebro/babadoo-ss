@@ -16,13 +16,24 @@ class ProductProvider extends Component {
             cartSubtotal: 0,
             cartTax: 10,
             cartTotal: 0,
-            cartTotalItems: 0
+            cartTotalItems: 0,
+            dataLogin: {
+                isLoggedIn: false,
+                userID: "",
+                name: "",
+                email: "",
+                picture: ""
+            }
         };
         this.generateRef = this.generateRef.bind(this);
     }
 
     componentDidMount() {
         this.setProducts();
+    }
+    //Get Data from login button components
+    getDataLogin = (data) => {
+        this.setState({dataLogin: data});
     }
     // copying the array elements to not being only references
     setProducts = () => {
@@ -289,7 +300,8 @@ class ProductProvider extends Component {
                         increment: this.increment,
                         decrement: this.decrement,
                         removeItem: this.removeItem,
-                        clearCart: this.clearCart
+                        clearCart: this.clearCart,
+                        getDataLogin: this.getDataLogin
                     }}
                 >
                     {this.props.children}

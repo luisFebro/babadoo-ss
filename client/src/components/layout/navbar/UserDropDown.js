@@ -19,7 +19,7 @@ import InstagramAuth from '../../buttons/navbar-dropdown/social-buttons/Instagra
 import AccountCircleTwoToneIcon from '@material-ui/icons/AccountCircleTwoTone';
 import LocalMallTwoToneIcon from '@material-ui/icons/LocalMallTwoTone';
 import IconButton from '@material-ui/core/IconButton';
-// END ICONSSS
+// END ICONS
 
 const useStyles = makeStyles({
     root: {
@@ -96,7 +96,6 @@ export default function UserDropDown() {
                 <ButtonList />
                 <GoogleAuth />
                 <FacebookAuth />
-                <InstagramAuth />
             </StyledMenu>
         </div>
     );

@@ -46,6 +46,12 @@ footer {
     color: var(--mainWhite);
 }
 
+.fixedNav {
+    position: fixed;
+    width: 100%;
+    top: 0;
+}
+
 .no-outline:focus {
     outline: none;
 }
@@ -217,7 +223,9 @@ footer {
 }
 
 .login-btn {
-    padding: 5px 20px;
+    width: 95%;
+    margin: auto;
+    /*padding: 5px 20px;*/
     border-radius: 3px;
 }
 
