@@ -5,10 +5,10 @@ import { useStoreActions } from 'easy-peasy';
 
 
 export default function GoogleAuth() {
-    const showMenuLogin = useStoreActions(actions => actions.dataLogin.showMenuLogin);
+    const showMenuBarLogin = useStoreActions(actions => actions.dataLogin.showMenuBarLogin);
 
     const responseGoogle = response => {
-        showMenuLogin(response);
+        showMenuBarLogin([response, {name: "google"}]);
     }
 
     return (

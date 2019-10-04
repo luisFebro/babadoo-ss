@@ -81,7 +81,7 @@ footer {
     margin: 0;
 }
 
-.text-product-title {
+.text-product-title, .text-sub-container {
     font: normal 1.3rem 'Cabin', sans-serif;
 }
 

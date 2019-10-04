@@ -1,62 +1,37 @@
-import React, { Component } from 'react';
+import React from 'react';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
+import { useStoreActions } from 'easy-peasy';
 
-export default class FacebookAuth extends Component {
-    state = {
-        isLoggedIn: false,
-        userID: '',
-        name: '',
-        email: '',
-        picture: '',
+export default function FacebookAuth() {
+    const showMenuBarLogin = useStoreActions(actions => actions.dataLogin.showMenuBarLogin);
+
+    const responseFacebook = response => {
+        showMenuBarLogin([response, {name: "facebook"}]);
     }
 
-    responseFacebook = response => {
-        alert(`${response.name} ${response.email}`);
-    //     this.useState({
-    //         isLoggedIn: true,
-    //         userID: response.userID,
-    //         name: response.name,
-    //         email: response.email,
-    //         picture: response.picture.data.url
-    //     })
-    }
+    const componentClicked = () => {}
 
-    componentClicked = () => {
-        console.log("clicked");
-    }
-
-    render() {
-        let fbContent;
-        if(this.state.isLoggedIn) {
-            fbContent = null;
-        } else {
-            fbContent = (
-                <FacebookLogin
-                    appId={process.env.REACT_APP_SOCIAL_FACEBOOK}
-                    autoLoad={false}
-                    fields="name,email,picture"
-                    onClick={this.componentClicked}
-                    callback={this.responseFacebook}
-                    render={renderProps => (
-                    <button
-                        className="btn login-btn"
-                        style={{backgroundColor: "#3B5899", margin: 5, display: "block" }}
-                        onClick={renderProps.onClick}
-                    >
-                        <img
-                            src="img/icons/buttonslogin/facebook.png"
-                            alt="ícone de login do google"
-                            className="btn-icon"
-                        />
-                        <span className="btn-txt">Entrar com <strong>Facebook</strong></span>
-                    </button>
-                    )}
+    return(
+        <FacebookLogin
+            appId={process.env.REACT_APP_SOCIAL_FACEBOOK}
+            autoLoad={false}
+            fields="name,email,picture"
+            onClick={null}
+            callback={responseFacebook}
+            render={renderProps => (
+            <button
+                className="btn login-btn"
+                style={{backgroundColor: "#3B5899", margin: 5, display: "block" }}
+                onClick={renderProps.onClick}
+            >
+                <img
+                    src="img/icons/buttonslogin/facebook.png"
+                    alt="ícone de login do google"
+                    className="btn-icon"
                 />
-            );
-        }
-
-        return (
-            <div>{fbContent}</div>
-        );
-    }
+                <span className="btn-txt">Entrar com <strong>Facebook</strong></span>
+            </button>
+            )}
+        />
+    );
 }

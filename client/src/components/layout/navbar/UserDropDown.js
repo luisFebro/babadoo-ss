@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
+import { useStoreState } from 'easy-peasy';
 import { Link } from 'react-router-dom';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 // MENU COMPOSITION
@@ -7,10 +8,10 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import ButtonList from '../../buttons/navbar-dropdown/ButtonList';
 /*SOCIAL BUTTONS*/
-import FacebookAuth from '../../buttons/navbar-dropdown/social-buttons/FacebookAuth';
+import EmailAuth from '../../buttons/navbar-dropdown/EmailAuth';
 import GoogleAuth from '../../buttons/navbar-dropdown/social-buttons/GoogleAuth';
+import FacebookAuth from '../../buttons/navbar-dropdown/social-buttons/FacebookAuth';
 import InstagramAuth from '../../buttons/navbar-dropdown/social-buttons/InstagramAuth';
 /*END SOCIAL BUTTONS*/
 // END MENU COMPOSITION
@@ -49,6 +50,9 @@ const StyledMenu = withStyles({
 
 const StyledMenuItem = withStyles(theme => ({
     root: {
+        padding: 0,
+        width: '100%',
+        margin: 'auto',
         '&:focus': {
             backgroundColor: 'var(--primary-red)',
             '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
@@ -63,40 +67,64 @@ export default function UserDropDown() {
     const handleClick = event => setAnchorEl(event.currentTarget);
     const handleClose = () => setAnchorEl(null);
     const classes = useStyles();
+    const isLoggedIn = useStoreState(state => state.dataLogin.isLoggedIn);
+    console.log("isLoggedIn", isLoggedIn);
 
     return (
-        <div style={{ float: 'right' }}>
+        <Fragment style={{ float: 'right' }}>
             {/*Icon login*/}
             <IconButton href="" className="no-outline" style={{ color: 'var(--mainWhite)' }} onClick={handleClick}>
                 <i className="fas fa-user-friends"></i>
             </IconButton>
             {/*Icon login*/}
 
-            <StyledMenu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
-                <Link to="/cliente">
+            {isLoggedIn ?
+                <StyledMenu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
+                    <h1 className="text-center text-main-container">Seja Bem-Vindo(a)!</h1>
+                     <StyledMenuItem
+                         onClick={handleClose}
+                     >
+                         <ListItemIcon>
+                             <AccountCircleTwoToneIcon fontSize="large" classes={{ root: classes.root }} />
+                         </ListItemIcon>
+                         <ListItemText primary="Minha Conta" />
+                     </StyledMenuItem>
+                     <StyledMenuItem
+                         onClick={handleClose}
+                     >
+                         <ListItemIcon>
+                             <LocalMallTwoToneIcon fontSize="large" classes={{ root: classes.root }} />
+                         </ListItemIcon>
+                         <ListItemText primary="Meus Pedidos" />
+                     </StyledMenuItem>
+                 </StyledMenu> :
+
+                <StyledMenu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
+                    <h1 className="text-center text-main-container">Crie Sua Conta</h1>
+                    <h2 className="text-center text-sub-container">Selecione uma Opção:</h2>
                     <StyledMenuItem
-                        onClick={() => {
-                            handleClose();
-                        }}
+                        onClick={handleClose}
                     >
-                        <ListItemIcon>
-                            <AccountCircleTwoToneIcon fontSize="large" classes={{ root: classes.root }} />
-                        </ListItemIcon>
-                        <ListItemText primary="Minha Conta" />
+                        <EmailAuth />
                     </StyledMenuItem>
-                </Link>
-                <StyledMenuItem
-                    onClick={() => {handleClose();}}
-                >
-                    <ListItemIcon>
-                        <LocalMallTwoToneIcon fontSize="large" classes={{ root: classes.root }} />
-                    </ListItemIcon>
-                    <ListItemText primary="Meus Pedidos" />
-                </StyledMenuItem>
-                <ButtonList />
-                <GoogleAuth />
-                <FacebookAuth />
-            </StyledMenu>
-        </div>
+                    <StyledMenuItem
+                        onClick={handleClose}
+                    >
+                        <GoogleAuth />
+                    </StyledMenuItem>
+                    <StyledMenuItem
+                        onClick={handleClose}
+                    >
+                        <FacebookAuth onClick={handleClose} />
+                    </StyledMenuItem>
+                    <StyledMenuItem
+                        onClick={handleClose}
+                    >
+                        <InstagramAuth onClick={handleClose} />
+                    </StyledMenuItem>
+                </StyledMenu>
+            }
+        </Fragment>
     );
 }
+

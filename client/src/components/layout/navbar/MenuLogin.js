@@ -127,11 +127,12 @@ const DivWrapper = styled.div`
     }
 
     .logout-btn {
+        background: var(--mainDark);
         position: absolute;
         font: normal 1.1rem 'Cabin', sans-serif;
-        top: 4px;
+        top: -14px;
         right: 4px;
-        padding: 2px 4px;
+        padding: 0 3px;
     }
 
     .user-name-greeting p {
@@ -143,4 +144,15 @@ const DivWrapper = styled.div`
         transform: scale(1.1);
         filter: drop-shadow(0.001em 0.1em 0.1em var(--mainYellow));
     }
+
+    /*MOBILE FIRST RESPONSIVE MEDIA QUERIES*/
+    /*media portrait tablets and large phones || for large devices, use min-width: 992px and up*/
+    @media only screen and (min-width: 600px) {
+        .logout-btn {
+            background: var(--mainRed);
+            top: 4px;
+            padding: 2px 4px;
+        }
+    }
+
 `;
