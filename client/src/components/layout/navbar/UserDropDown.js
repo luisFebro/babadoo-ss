@@ -30,6 +30,7 @@ const useStyles = makeStyles({
 
 const StyledMenu = withStyles({
     paper: {
+        padding: "0 5px",
         border: '2px solid var(--mainYellow)'
     }
 })(props => (
@@ -100,8 +101,8 @@ export default function UserDropDown() {
                  </StyledMenu> :
 
                 <StyledMenu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
-                    <h1 className="text-center text-main-container">Crie Sua Conta</h1>
-                    <h2 className="text-center text-sub-container">Selecione uma Opção:</h2>
+                    <h1 className="text-center text-main-container">Conectar a Loja</h1>
+                    <h2 className="text-center text-sub-container">Entre ou registre sua conta<br /> em um só lugar!<br />Selecione uma Opção:</h2>
                     <StyledMenuItem
                         onClick={handleClose}
                     >

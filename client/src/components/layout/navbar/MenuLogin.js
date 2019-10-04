@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useStoreState, useStoreActions } from 'easy-peasy';
+import { bizWhatsapp } from '../../../data/dataBiz';
 
 export default function MenuLogin() {
         const { isLoggedIn, name, picture } = useStoreState(state => ({
@@ -79,7 +80,7 @@ export default function MenuLogin() {
                             <li className="nav-item">
                                 <Link to="/" className="nav-link" style={{position: 'relative'}}>
                                     <i className="fab fa-whatsapp mr-2 pt-0"></i>
-                                    <span>(92)99281-7363</span>
+                                    <span>{ bizWhatsapp }</span>
                                     <span style={{position: "absolute", top: "0.1rem", right: "2rem"}}>Dúvidas?</span>
                                 </Link>
                             </li>

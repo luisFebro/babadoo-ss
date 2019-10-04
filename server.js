@@ -1,21 +1,34 @@
 const express = require('express');
 const path = require('path');
+// Database MongoDB
+const mongoose = require('mongoose');
+const { mongoUrl } = require('./config/keys');
+// End Database MongoDB
 
 //Init Express
 const app = express();
 
 // Bodyparser Middleware
 app.use(express.json());
-//from email PurchaseRequest (this is the former way, use express for body parser)
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: false }));
 
-// DB Config
-// const db = config.get('mongoURI');
+// Database config
+const db = mongoUrl
 
+//  Connect to Mongo
+mongoose
+  .connect(db, {
+    useNewUrlParser: true,
+    useCreateIndex: true
+  }) // Adding new mongo url parser
+  .then(() => console.log(`MongoDB Connected...`))
+  .catch(err => console.log(err));
+// End Database config
 
 // Use Routes
 app.use('/api/form', require('./routes/api/emailPurchaseRequest'));
+app.use('/api/users', require('./routes/api/users'));
+app.use('/api/auth', require('./routes/api/auth'));
+// End Use Routes
 
 // Serve static files from the React frontend app
 app.use(express.static(path.join(__dirname, 'client/build')))
@@ -23,6 +36,7 @@ app.use(express.static(path.join(__dirname, 'client/build')))
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname + 'client/build/index.html'))
 })
+// End
 
 const PORT = process.env.PORT || 5000;
 

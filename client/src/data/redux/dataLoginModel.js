@@ -37,9 +37,9 @@ export const dataLoginModel = {
     closeMenuLogin: action((state, payload) => {
         let nav = document.querySelector('#mainNav');
         nav.className="animated zoomOut slower sticky"
-        setTimeout((state) => {
+        state.isLoggedIn = false;
+        setTimeout(() => {
             nav.style.display = 'none';
-            state.isLoggedIn = false;
         }, 1500)
     })
 }
