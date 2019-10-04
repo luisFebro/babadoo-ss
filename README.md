@@ -15,3 +15,4 @@
 - [Learn the MERN stack Series - Traversy Media](https://www.youtube.com/watch?v=PBTYxXADG_k)
 - [Course: Web Development - Zero to Mastery - Andrei ]()
 - [Course: React Node FullStack - Ryan Dhungel](https://www.udemy.com/course/react-node-ecommerce/)
+- [Generate Sitemap (SEO) for React](https://www.amitsn.com/blog/how-to-generate-a-sitemap-for-your-react-website-with-dynamic-content)

@@ -19,10 +19,10 @@ const dataLoginModel = {
         state.email = payload.profileObj.email;
     }),
 
-    closeMenuLogin: action((state) => {
+    closeMenuLogin: action((state, payload) => {
         let nav = document.querySelector('#mainNav');
         nav.className="animated zoomOut slower sticky"
-        setTimeout(() => {
+        setTimeout((state) => {
             nav.style.display = 'none';
             state.isLoggedIn = false;
         }, 1500)
