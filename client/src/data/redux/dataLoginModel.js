@@ -15,6 +15,8 @@ export const dataLoginModel = {
         const socialProvider = payload[1].name;
         payload = payload[0];
         switch (socialProvider) {
+            case "email":
+                break;
             case "google":
                 state.isId = payload.tokenId;
                 state.isLoggedIn = true;

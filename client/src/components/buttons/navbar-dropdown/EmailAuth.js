@@ -1,12 +1,7 @@
 import React from 'react';
-import GoogleLogin from 'react-google-login';
-import PropTypes from 'prop-types';
 import { useStoreActions } from 'easy-peasy';
 
-
 export default function EmailAuth() {
-    const showMenuBarLogin = useStoreActions(actions => actions.dataLogin.showMenuBarLogin);
-
     return (
         <button
           className="btn login-btn"
@@ -21,5 +16,4 @@ export default function EmailAuth() {
          </button>
     );
 }
-
 

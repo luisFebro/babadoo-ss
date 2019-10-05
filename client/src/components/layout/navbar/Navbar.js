@@ -9,7 +9,6 @@ import { dataWorkingHour } from '../../utils/GetWorkingHour';
 import MenuLogin from './MenuLogin';
 
 const isStoreOpen = dataWorkingHour[1];
-console.log(isStoreOpen);
 export default class Navbar extends Component {
     constructor() {
         super();
@@ -152,7 +151,7 @@ const NavWrapper = styled.nav`
         top: 5rem;
         right: 5%;
         color: var(--mainWhite);
-        z-index: 999;
+        z-index: 1501;
         filter: drop-shadow(0.001em 0.1em 0.1em var(--mainDark));
     }
     & .fixed {

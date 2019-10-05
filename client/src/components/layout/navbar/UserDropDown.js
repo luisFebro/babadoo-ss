@@ -1,6 +1,5 @@
-import React, { Fragment } from 'react';
-
-import { useStoreState } from 'easy-peasy';
+import React from 'react';
+import { useStoreState, useStoreActions } from 'easy-peasy';
 import { Link } from 'react-router-dom';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 // MENU COMPOSITION
@@ -68,11 +67,14 @@ export default function UserDropDown() {
     const handleClick = event => setAnchorEl(event.currentTarget);
     const handleClose = () => setAnchorEl(null);
     const classes = useStyles();
+    // Redux
+    // const isModalOpen = useStoreState(state => state.dataModal.isModalOpen);
     const isLoggedIn = useStoreState(state => state.dataLogin.isLoggedIn);
-    console.log("isLoggedIn", isLoggedIn);
+    const showModal = useStoreActions(action => action.dataModal.showModal);
+    // End Redux
 
     return (
-        <Fragment style={{ float: 'right' }}>
+        <div style={{ float: 'right' }}>
             {/*Icon login*/}
             <IconButton href="" className="no-outline" style={{ color: 'var(--mainWhite)' }} onClick={handleClick}>
                 <i className="fas fa-user-friends"></i>
@@ -104,7 +106,11 @@ export default function UserDropDown() {
                     <h1 className="text-center text-main-container">Conectar a Loja</h1>
                     <h2 className="text-center text-sub-container">Entre ou registre sua conta<br /> em um só lugar!<br />Selecione uma Opção:</h2>
                     <StyledMenuItem
-                        onClick={handleClose}
+                        onClick={() => {
+                            handleClose();
+                            showModal(true);
+                            }
+                        }
                     >
                         <EmailAuth />
                     </StyledMenuItem>
@@ -125,7 +131,7 @@ export default function UserDropDown() {
                     </StyledMenuItem>
                 </StyledMenu>
             }
-        </Fragment>
+        </div>
     );
 }
 

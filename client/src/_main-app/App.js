@@ -33,6 +33,7 @@ import Footer from '../components/layout/footer/Footer';
 import Modal from '../components/modals/Modal';
 import ModalFavorite from '../components/modals/ModalFavorite';
 import UnderConstruction from '../components/modals/UnderConstruction';
+import ModalLogin from '../components/modals/ModalLogin';
 // END MODALS
 // BUTTONS
 import WhatsappIcon from '../components/buttons/WhatsappIcon';
@@ -58,9 +59,12 @@ export default function App() {
                 </UserProvider>
                 <Route component={Default} />
             </Switch>
+            {/*Modals*/}
             <Modal />
             <ModalFavorite />
             <UnderConstruction />
+            <ModalLogin />
+            {/*End Modals*/}
             <Footer />
             <WhatsappIcon />
             <CustomPreloader>

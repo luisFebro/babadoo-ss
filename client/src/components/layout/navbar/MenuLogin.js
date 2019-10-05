@@ -94,7 +94,9 @@ export default function MenuLogin() {
 }
 
 MenuLogin.propTypes = {
-    dataLogin: PropTypes.object.isRequired
+    isLoggedIn: PropTypes.bool,
+    picture: PropTypes.string,
+    name: PropTypes.string,
 };
 
 const DivWrapper = styled.div`
