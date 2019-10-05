@@ -37,11 +37,11 @@ export const dataLoginModel = {
     }),
 
     closeMenuLogin: action((state, payload) => {
-        let nav = document.querySelector('#mainNav');
-        nav.className="animated zoomOut slower sticky"
+        // let nav = document.querySelector('#mainNav');
+        // nav.className="animated zoomOut slower sticky"
         state.isLoggedIn = false;
         setTimeout(() => {
-            nav.style.display = 'none';
+            // nav.style.display = 'none';
         }, 1500)
     })
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useStoreState, useStoreActions } from 'easy-peasy';
+import { useStoreState, useStoreActions, useStoreDispatch } from 'easy-peasy';
 import { Link } from 'react-router-dom';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 // MENU COMPOSITION
@@ -68,8 +68,9 @@ export default function UserDropDown() {
     const handleClose = () => setAnchorEl(null);
     const classes = useStyles();
     // Redux
-    // const isModalOpen = useStoreState(state => state.dataModal.isModalOpen);
+    // const isModalLoginOpen = useStoreState(state => state.dataModal.isModalLoginOpen);
     const isLoggedIn = useStoreState(state => state.dataLogin.isLoggedIn);
+    const dispatch = useStoreDispatch();
     const showModal = useStoreActions(action => action.dataModal.showModal);
     // End Redux
 
@@ -108,7 +109,7 @@ export default function UserDropDown() {
                     <StyledMenuItem
                         onClick={() => {
                             handleClose();
-                            showModal(true);
+                            dispatch({type: 'SHOW_MODAL_LOGIN', payload: true});
                             }
                         }
                     >

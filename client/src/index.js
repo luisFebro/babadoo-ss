@@ -7,8 +7,8 @@ import { ProductProvider } from './data/contexts/mainContext';
 import ScrollToTop from 'react-router-scroll-top';
 // REDUX - easy-peasy
 import { createStore, StoreProvider } from 'easy-peasy';
-import { reduxModels } from './data/redux/reduxModels';
-const store = createStore(reduxModels);
+import { easyStore } from './data/redux/easyStore';
+const store = createStore(easyStore);
 // END REDUX - easy-peasy
 
 ReactDOM.render(

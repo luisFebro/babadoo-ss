@@ -20,7 +20,9 @@ function ModalLogin() {
         msg: null
     });
     const { email, password, msg } = data;
-    const isModalOpen = useStoreState(state => state.dataModal.isModalOpen)
+    const isModalLoginOpen = useStoreState(state => state.dataModal.showModal.isModalLoginOpen);
+    console.log("isModalLoginOpen", isModalLoginOpen);
+
     const toggleModal = useStoreActions(actions => actions.dataModal.toggleModal);
 
   // componentDidUpdate(prevProps) {
@@ -68,7 +70,7 @@ function ModalLogin() {
 
     return (
         <div>
-          <Dialog open={isModalOpen} onClose={toggleModal} aria-labelledby="form-dialog-title">
+          <Dialog open={isModalLoginOpen} onClose={toggleModal} aria-labelledby="form-dialog-title">
             <DialogTitle id="form-dialog-title">Entrar com Email</DialogTitle>
             <DialogContent>
               <DialogContentText>
@@ -92,7 +94,7 @@ function ModalLogin() {
               />
             </DialogContent>
             <DialogActions>
-              <Button onClick={() => toggleModal(!isModalOpen)} color="primary">
+              <Button onClick={() => toggleModal(!isModalLoginOpen)} color="primary">
                 Sair
               </Button>
               <Button onClick={onSubmit} color="primary">
@@ -106,7 +108,7 @@ function ModalLogin() {
 
 ModalLogin.propTypes = {
     toggleModal: PropTypes.func.isRequired,
-    isModalOpen: PropTypes.bool,
+    isModalLoginOpen: PropTypes.bool,
     // isAuthenticated: PropTypes.bool,
     // error: PropTypes.object.isRequired,
     // login: PropTypes.func.isRequired,

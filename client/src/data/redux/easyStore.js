@@ -4,7 +4,7 @@ import { dataLoginModel } from './dataLoginModel';
 import { dataModalModel } from './dataModalModel';
 
 //Main store
-export const reduxModels = {
+export const easyStore = {
     dataLogin: dataLoginModel,
     dataModal: dataModalModel
 }
