@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 // Database MongoDB
 const mongoose = require('mongoose');
-const { mongoUrl } = require('./config/keys');
+const { mongoUrl } = require('./config/keys.js');
 // End Database MongoDB
 
 //Init Express
