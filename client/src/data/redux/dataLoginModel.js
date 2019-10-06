@@ -3,7 +3,7 @@ import { action } from 'easy-peasy';
 export const dataLoginModel = {
     //State
     userId: "",
-    isLoggedIn: false,
+    isUserLoggedIn: false,
     name: "", //change to givenName
     picture: "",
     email: "",
@@ -19,14 +19,14 @@ export const dataLoginModel = {
                 break;
             case "google":
                 state.isId = payload.tokenId;
-                state.isLoggedIn = true;
+                state.isUserLoggedIn = true;
                 state.name = payload.profileObj.familyName; //change to givenName
                 state.picture = payload.profileObj.imageUrl;
                 state.email = payload.profileObj.email;
                 break;
             case "facebook":
                 state.isId = payload.accessToken;
-                state.isLoggedIn = true;
+                state.isUserLoggedIn = true;
                 state.name = payload.name; //change to givenName
                 state.picture = payload.picture.data.url;
                 state.email = payload.email;
@@ -39,7 +39,7 @@ export const dataLoginModel = {
     closeMenuLogin: action((state, payload) => {
         // let nav = document.querySelector('#mainNav');
         // nav.className="animated zoomOut slower sticky"
-        state.isLoggedIn = false;
+        state.isUserLoggedIn = false;
         setTimeout(() => {
             // nav.style.display = 'none';
         }, 1500)

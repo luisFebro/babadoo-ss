@@ -6,8 +6,8 @@ import { useStoreState, useStoreActions } from 'easy-peasy';
 import { bizWhatsapp } from '../../../data/dataBiz';
 
 export default function MenuLogin() {
-        const { isLoggedIn, name, picture } = useStoreState(state => ({
-            isLoggedIn: state.dataLogin.isLoggedIn,
+        const { isUserLoggedIn, name, picture } = useStoreState(state => ({
+            isUserLoggedIn: state.dataLogin.isUserLoggedIn,
             name: state.dataLogin.name,
             picture: state.dataLogin.picture,
         }));
@@ -16,13 +16,13 @@ export default function MenuLogin() {
 
         return (
         <Fragment>
-            {isLoggedIn ?
+            {isUserLoggedIn ?
                 <DivWrapper id="mainNav" className="animated zoomIn slower" style={{ transition: '.5s' }}>
                     <nav className="navbar navbar-expand-sm px-sm-5 text-nav-items py-0 my-0">
                         <ul className="navbar-nav">
                             <li className="nav-item">
                                 <Link to="/perfil" className="nav-link">
-                                    {isLoggedIn ?
+                                    {isUserLoggedIn ?
                                         <img
                                             className="profilePic nav-brand"
                                             src={picture}
@@ -41,7 +41,7 @@ export default function MenuLogin() {
                                     <p
                                         className="user-name-greeting"
                                     >
-                                        {isLoggedIn ?
+                                        {isUserLoggedIn ?
                                             `Olá, ${name}` :
                                             "Olá, Visitante!"
                                         }
@@ -94,7 +94,7 @@ export default function MenuLogin() {
 }
 
 MenuLogin.propTypes = {
-    isLoggedIn: PropTypes.bool,
+    isUserLoggedIn: PropTypes.bool,
     picture: PropTypes.string,
     name: PropTypes.string,
 };

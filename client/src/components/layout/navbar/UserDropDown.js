@@ -1,5 +1,5 @@
 import React from 'react';
-import { useStoreState, useStoreActions, useStoreDispatch } from 'easy-peasy';
+import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { Link } from 'react-router-dom';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 // MENU COMPOSITION
@@ -8,6 +8,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 /*SOCIAL BUTTONS*/
+import RegisterButton from '../../buttons/navbar-dropdown/RegisterButton';
 import EmailAuth from '../../buttons/navbar-dropdown/EmailAuth';
 import GoogleAuth from '../../buttons/navbar-dropdown/social-buttons/GoogleAuth';
 import FacebookAuth from '../../buttons/navbar-dropdown/social-buttons/FacebookAuth';
@@ -68,10 +69,10 @@ export default function UserDropDown() {
     const handleClose = () => setAnchorEl(null);
     const classes = useStyles();
     // Redux
-    // const isModalLoginOpen = useStoreState(state => state.dataModal.isModalLoginOpen);
-    const isLoggedIn = useStoreState(state => state.dataLogin.isLoggedIn);
+    //> Set State
+    const isUserLoggedIn = useStoreState(state => state.dataLogin.isUserLoggedIn);
+    //> Dispatch Actions to Reducer
     const dispatch = useStoreDispatch();
-    const showModal = useStoreActions(action => action.dataModal.showModal);
     // End Redux
 
     return (
@@ -82,7 +83,7 @@ export default function UserDropDown() {
             </IconButton>
             {/*Icon login*/}
 
-            {isLoggedIn ?
+            {isUserLoggedIn ?
                 <StyledMenu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
                     <h1 className="text-center text-main-container">Seja Bem-Vindo(a)!</h1>
                      <StyledMenuItem
@@ -104,8 +105,33 @@ export default function UserDropDown() {
                  </StyledMenu> :
 
                 <StyledMenu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
-                    <h1 className="text-center text-main-container">Conectar a Loja</h1>
-                    <h2 className="text-center text-sub-container">Entre ou registre sua conta<br /> em um só lugar!<br />Selecione uma Opção:</h2>
+                    <h1
+                        className="text-center text-main-container"
+                    >
+                        Conecte-se com<br />a Babadoo
+                    </h1>
+                    <h2
+                        className="text-center text-sub-container pb-0 pt-3"
+                    >
+                        Novo(a) por aqui?
+                    </h2>
+                    <StyledMenuItem
+                        onClick={() => {
+                            handleClose();
+                            dispatch({type: 'SHOW_MODAL_REGISTER', payload: true});
+                            }
+                        }
+                    >
+                        <RegisterButton />
+                    </StyledMenuItem>
+                    <div>
+                        <h2
+                            className="text-sub-container"
+                            style={{textAlign: 'center'}}
+                        >
+                        ou
+                        </h2>
+                    </div>
                     <StyledMenuItem
                         onClick={() => {
                             handleClose();
@@ -123,12 +149,15 @@ export default function UserDropDown() {
                     <StyledMenuItem
                         onClick={handleClose}
                     >
-                        <FacebookAuth onClick={handleClose} />
+                        <FacebookAuth />
                     </StyledMenuItem>
                     <StyledMenuItem
-                        onClick={handleClose}
+                        onClick={() => {
+                            handleClose();
+                            dispatch({ type: 'SHOW_MODAL_UNDER_CONSTRUCTION', payload: true })
+                        }}
                     >
-                        <InstagramAuth onClick={handleClose} />
+                        <InstagramAuth />
                     </StyledMenuItem>
                 </StyledMenu>
             }

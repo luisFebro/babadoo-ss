@@ -18,7 +18,7 @@ class ProductProvider extends Component {
             cartTotal: 0,
             cartTotalItems: 0,
             dataLogin: {
-                isLoggedIn: false,
+                isUserLoggedIn: false,
                 userID: "",
                 name: "",
                 email: "",

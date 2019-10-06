@@ -105,6 +105,17 @@ footer {
     color: var(--lightBlue);
 }
 
+/*LETTERS BORDER*/
+.letter-border-white {
+    text-shadow: -2px 0 #fff, 0 2px #fff, 2px 0 #fff, 0 -2px #fff;
+}
+
+.letter-border-black {
+    text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;
+}
+
+/*END LETTERS BORDER*/
+
 /*PICTURES*/
 .shadow-elevation {
     box-shadow: 0 19px 38px rgba(0, 0, 0, 0.20), 0 15px 12px rgba(0, 0, 0, 0.12);

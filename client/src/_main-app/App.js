@@ -33,7 +33,9 @@ import Footer from '../components/layout/footer/Footer';
 import Modal from '../components/modals/Modal';
 import ModalFavorite from '../components/modals/ModalFavorite';
 import UnderConstruction from '../components/modals/UnderConstruction';
+//> auth
 import ModalLogin from '../components/modals/ModalLogin';
+import ModalRegister from '../components/modals/ModalRegister';
 // END MODALS
 // BUTTONS
 import WhatsappIcon from '../components/buttons/WhatsappIcon';
@@ -64,6 +66,7 @@ export default function App() {
             <ModalFavorite />
             <UnderConstruction />
             <ModalLogin />
+            <ModalRegister />
             {/*End Modals*/}
             <Footer />
             <WhatsappIcon />

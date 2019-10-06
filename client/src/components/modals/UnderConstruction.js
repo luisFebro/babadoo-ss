@@ -1,53 +1,42 @@
 import React, { Component } from 'react';
+import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { ProductConsumer } from '../../data/contexts/mainContext';
 import { underConstruction } from '../../data/dataIllustrations';
 import { ButtonContainerPressedEffectDark as DarkBtn } from '../buttons/Default';
+export default function UnderConstruction()  {
+    const isModalUnderConstructionOpen = useStoreState(state => state.modalReducers.cases.isModalUnderConstructionOpen);
+    const dispatch = useStoreDispatch();
 
-export default class UnderConstruction extends Component {
-    render() {
-        return (
-            <ProductConsumer>
-                {value => {
-                    const { modalOpenOnly, closeModal } = value;
-
-                    if (!modalOpenOnly) {
-                        return null;
-                    } else {
-                        return (
-                            <ModalContainer>
-                                <div className="container">
-                                    <div className="row">
-                                        <div
-                                            id="modal"
-                                            className="col-10 mx-auto col-md-6 col-lg-4 text-center text-capitalize p-1"
-                                        >
-                                            <section>
-                                                <img
-                                                    className="img-fluid mx-auto my-2 shadow-elevation"
-                                                    src={underConstruction.img}
-                                                    alt={underConstruction.title}
-                                                />
-                                                <h2>Em Manutenção.</h2>
-                                                <h2>Logo ficará disponível! :)</h2>
-                                            </section>
-                                            <Link to="/">
-                                                <DarkBtn className="my-4" onClick={() => closeModal()}>
-                                                    voltar para vitrine
-                                                </DarkBtn>
-                                            </Link>
-                                        </div>
-                                    </div>
-                                </div>
-                            </ModalContainer>
-                        );
-                    }
-                }}
-            </ProductConsumer>
-        );
-    }
+    return (
+        isModalUnderConstructionOpen ?
+        <ModalContainer>
+            <div className="container">
+                <div className="row">
+                    <div
+                        id="modal"
+                        className="col-10 mx-auto col-md-6 col-lg-4 text-center text-capitalize p-1"
+                    >
+                        <section>
+                            <img
+                                className="img-fluid mx-auto my-2 shadow-elevation"
+                                src={underConstruction.img}
+                                alt={underConstruction.title}
+                            />
+                            <h2>Em Manutenção.</h2>
+                            <h2>Logo ficará disponível! :)</h2>
+                        </section>
+                        <DarkBtn className="my-4" onClick={() => dispatch({type: 'TOGGLE_MODAL_UNDER_CONSTRUCTION', payload: isModalUnderConstructionOpen})}>
+                                Entendi.
+                        </DarkBtn>
+                    </div>
+                </div>
+            </div>
+        </ModalContainer> :
+        null
+    );
 }
+
 
 const ModalContainer = styled.div`
     position: fixed;

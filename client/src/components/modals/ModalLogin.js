@@ -1,7 +1,9 @@
 import React, { useState, Fragment } from 'react';
-import { useStoreState, useStoreActions } from 'easy-peasy';
+import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import PropTypes from 'prop-types';
 // Material UI
+import { makeStyles } from '@material-ui/core/styles';
+import { CardMedia } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -13,17 +15,35 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 // import { login } from '../../actions/authActions';
 // import { clearErrors } from '../../actions/errorActions';
 
-function ModalLogin() {
-    const [data, setData] = useState({
-        email: "someemail",
-        passport: "",
-        msg: null
-    });
-    const { email, password, msg } = data;
-    const isModalLoginOpen = useStoreState(state => state.dataModal.showModal.isModalLoginOpen);
-    console.log("isModalLoginOpen", isModalLoginOpen);
+const useStyles = makeStyles(theme => ({
+    button: {
+        margin: theme.spacing(1),
+    },
+    media: {
+        height: 50,
+        width: '50%',
+        margin: 'auto'
+    }
+}));
 
-    const toggleModal = useStoreActions(actions => actions.dataModal.toggleModal);
+
+export default function ModalLogin() {
+    // Redux
+    // > set state
+    const isModalLoginOpen = useStoreState(state => state.modalReducers.cases.isModalLoginOpen);
+    console.log("isModalLoginOpen", isModalLoginOpen);
+    const dispatch = useStoreDispatch();
+    // End Redux
+
+    const [data, setData] = useState({
+        email: "",
+        password: "",
+        hasErrorMsg: null
+    });
+
+    const { email, password, hasErrorMsg } = data;
+    const classes = useStyles();
+
 
   // componentDidUpdate(prevProps) {
   //   const { error, isAuthenticated } = this.props;
@@ -70,52 +90,75 @@ function ModalLogin() {
 
     return (
         <div>
-          <Dialog open={isModalLoginOpen} onClose={toggleModal} aria-labelledby="form-dialog-title">
+          <Dialog
+                open={isModalLoginOpen}
+                aria-labelledby="form-dialog-title"
+            >
+            <CardMedia
+                className={classes.media}
+                image='img/babadoo-logo_no-slogon.png'
+                title='loja babadoo'
+            />
             <DialogTitle id="form-dialog-title">Entrar com Email</DialogTitle>
             <DialogContent>
               <DialogContentText>
-                Escolha um email e uma senha.
+                {hasErrorMsg ? (
+                  alert(data.msg)
+                ) : "Escolha um email e uma senha"}
               </DialogContentText>
-              <TextField
-                autoFocus
-                margin="dense"
-                id="name"
-                label="Seu Email"
-                type="email"
-                fullWidth
-              />
-              <TextField
-                autoFocus
-                margin="dense"
-                id="name"
-                label="Senha"
-                type="password"
-                fullWidth
-              />
+              <form onSubmit={onSubmit}>
+                    <TextField
+                      autoFocus
+                      margin="dense"
+                      id="email"
+                      name="email"
+                      type="email"
+                      label="Seu Email"
+                      autoComplete="email"
+                      fullWidth
+                      onChange={onChange}
+                    />
+                    <TextField
+                      margin="dense"
+                      id="password"
+                      name="password"
+                      type="password"
+                      label="Senha"
+                      fullWidth
+                      onChange={onChange}
+                    />
+                    <div style={{marginTop: '28px'}}>
+                        <Button
+                              color="primary"
+                              className={classes.link}
+                              style={{fontSize: '.6em'}}
+                              onClick={() => dispatch({ type: 'SHOW_MODAL_UNDER_CONSTRUCTION', payload: true })}
+                          >
+                          Esqueceu sua senha?
+                        </Button>
+                        <Button
+                              onClick={() => dispatch({type: 'TOGGLE_MODAL_LOGIN', payload: isModalLoginOpen})}
+                              color="primary"
+                          >
+                          Sair
+                        </Button>
+                        <Button
+                              onClick={onSubmit}
+                              variant="contained"
+                              color="primary"
+                              className={classes.button}
+                          >
+                          Entrar
+                          <i className="fas fa-paper-plane" style={{marginLeft: '5px'}}></i>
+                        </Button>
+                    </div>
+              </form>
             </DialogContent>
-            <DialogActions>
-              <Button onClick={() => toggleModal(!isModalLoginOpen)} color="primary">
-                Sair
-              </Button>
-              <Button onClick={onSubmit} color="primary">
-                Entrar
-              </Button>
-            </DialogActions>
           </Dialog>
         </div>
     );
 }
 
-ModalLogin.propTypes = {
-    toggleModal: PropTypes.func.isRequired,
-    isModalLoginOpen: PropTypes.bool,
-    // isAuthenticated: PropTypes.bool,
-    // error: PropTypes.object.isRequired,
-    // login: PropTypes.func.isRequired,
-    // clearErrors: PropTypes.func.isRequired
-  };
-
-export default ModalLogin;
 // const mapStateToProps = state => ({
 //   isAuthenticated: state.auth.isAuthenticated,
 //   error: state.error

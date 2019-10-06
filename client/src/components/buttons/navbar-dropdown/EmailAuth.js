@@ -1,5 +1,4 @@
 import React from 'react';
-import { useStoreActions } from 'easy-peasy';
 
 export default function EmailAuth() {
     return (
