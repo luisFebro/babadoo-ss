@@ -6,9 +6,11 @@ import { useStoreState, useStoreActions } from 'easy-peasy';
 import { bizWhatsapp } from '../../../data/dataBiz';
 
 export default function MenuLogin() {
-        const { isUserLoggedIn, name, picture } = useStoreState(state => ({
+        const { isUserLoggedIn, name, picture, isAuthenticated } = useStoreState(state => ({
+            isAuthenticated: state.authReducer.cases.isAuthenticated,
             isUserLoggedIn: state.dataLogin.isUserLoggedIn,
             name: state.dataLogin.name,
+            name2: state.authReducer.cases.user,
             picture: state.dataLogin.picture,
         }));
 
@@ -16,7 +18,7 @@ export default function MenuLogin() {
 
         return (
         <Fragment>
-            {isUserLoggedIn ?
+            {(isUserLoggedIn || isAuthenticated) ?
                 <DivWrapper id="mainNav" className="animated zoomIn slower" style={{ transition: '.5s' }}>
                     <nav className="navbar navbar-expand-sm px-sm-5 text-nav-items py-0 my-0">
                         <ul className="navbar-nav">

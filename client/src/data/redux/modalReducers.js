@@ -1,7 +1,8 @@
-import { useStoreDispatch, action, reducer } from 'easy-peasy';
+import { useStoreDispatch, reducer } from 'easy-peasy';
 // actions are used with the usestoredispatch hook inside the wanting functional component
 // copy and paste the type of actions below
 // You can use only one isntance of object like 'cases' for each object.
+// Check for mispellings in case of one action not being dispatched properly.
 
 // REDUCERS
 const initialState = {

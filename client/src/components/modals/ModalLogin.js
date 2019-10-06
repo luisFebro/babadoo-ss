@@ -31,7 +31,6 @@ export default function ModalLogin() {
     // Redux
     // > set state
     const isModalLoginOpen = useStoreState(state => state.modalReducers.cases.isModalLoginOpen);
-    console.log("isModalLoginOpen", isModalLoginOpen);
     const dispatch = useStoreDispatch();
     // End Redux
 
@@ -103,12 +102,11 @@ export default function ModalLogin() {
             <DialogContent>
               <DialogContentText>
                 {hasErrorMsg ? (
-                  alert(data.msg)
+                  alert(hasErrorMsg)
                 ) : "Escolha um email e uma senha"}
               </DialogContentText>
               <form onSubmit={onSubmit}>
                     <TextField
-                      autoFocus
                       margin="dense"
                       id="email"
                       name="email"

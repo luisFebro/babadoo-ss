@@ -1,7 +1,9 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState, Fragment, useEffect } from 'react';
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
+import axios from 'axios';
 import PropTypes from 'prop-types';
 // Material UI
+import { SnackbarBlack } from '../snackbars/SnackbarBlack';
 import { makeStyles } from '@material-ui/core/styles';
 import { CardMedia } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
@@ -13,7 +15,53 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 // End Material UI
 // import { register } from '../../actions/authActions';
-// import { clearErrors } from '../../actions/errorActions';
+
+// Redux Actions
+const returnErrors = (msg, status, id = null) => {
+  return {
+    type: 'GET_ERRORS',
+    payload: { msg, status, id }
+  };
+};
+
+const clearErrors = (dispatch) => {
+    dispatch({ type: 'CLEAR_ERRORS' });
+};
+
+// Register User
+const register = ({ name, email, password }) => dispatch => {
+    // Headers
+    const config = {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    };
+
+    // Request body
+    const body = JSON.stringify({ name, email, password });
+    // json ready to Go Internet - exemple:
+    // {"name":"Luis Febro","email":"mr.febro@gmail.com","password":"12345678910"}
+
+    axios
+        .post('/api/users', body, config)
+        .then(res =>
+            dispatch({
+                type: 'REGISTER_SUCCESS',
+                payload: res.data
+            })
+        )
+      .catch(err => {
+        console.log("ERRORresponse.data", err.response.data, err.response.status);
+        dispatch(
+          returnErrors(err.response.data, err.response.status, 'REGISTER_FAIL')
+        );
+        dispatch({
+          type: 'REGISTER_FAIL'
+        });
+      });
+};
+
+// End Redux Actions
 
 const useStyles = makeStyles(theme => ({
     button: {
@@ -30,7 +78,10 @@ const useStyles = makeStyles(theme => ({
 export default function ModalRegister() {
     // Redux
     // > set state
-    const isModalRegisterOpen = useStoreState(state => state.modalReducers.cases.isModalRegisterOpen);
+    const { isModalRegisterOpen, isAuthenticated } = useStoreState(state => ({
+        isModalRegisterOpen: state.modalReducers.cases.isModalRegisterOpen,
+        isAuthenticated: state.authReducer.cases.isAuthenticated,
+    }));
     const dispatch = useStoreDispatch();
     // End Redux
 
@@ -41,52 +92,57 @@ export default function ModalRegister() {
         hasErrorMsg: null
     });
 
-    const { email, password, hasErrorMsg } = data;
+    const { name, email, password, hasErrorMsg } = data;
     const classes = useStyles();
 
 
-  // componentDidUpdate(prevProps) {
-  //   const { error, isAuthenticated } = this.props;
-  //   if (error !== prevProps.error) {
-  //     // Check for register error
-  //     if (error.id === 'LOGIN_FAIL') {
-  //       this.setState({ msg: error.msg.msg });
-  //     } else {
-  //       this.setState({ msg: null });
-  //     }
-  //   }
+    // componentDidUpdate(prevProps) {
+    //   const { error, isAuthenticated } = this.props;
+    //   if (error !== prevProps.error) {
+    //     // Check for register error
+    //     if (error.id === 'LOGIN_FAIL') {
+    //       this.setState({ msg: error.msg.msg });
+    //     } else {
+    //       this.setState({ msg: null });
+    //     }
+    //   }
 
     // If authenticated, close modal
-  //   if (this.state.modal) {
-  //     if (isAuthenticated) {
-  //       this.toggle();
-  //     }
-  //   }
-  // }
+    useEffect(() => {
+        if (isModalRegisterOpen) {
+            if (isAuthenticated) {
+              dispatch({"type": "TOGGLE_MODAL_REGISTER", "payload": isModalRegisterOpen});
+              console.log("dispatched from useEffect hook")
+            }
+        }
+    }, [isModalRegisterOpen, isAuthenticated]);
 
-  // const toggle = () => {
-    // Clear errors
-    // this.props.clearErrors();
-    // setData({
-    //   modal: !data.modal
-    // });
-  // };
+    // }
 
-  const onChange = e => {
-    setData({ [e.target.name]: e.target.value });
-  };
-
-  const onSubmit = e => {
-    e.preventDefault();
-
-    const newUser = {
-        email,
-        password
+    const onChange = e => {
+        //updating the obj keys
+        //   let test = {
+        //       color: "",
+        //       color: "red",
+        //   }
+        //   console.log("color", test.color); //red
+        const { name, value } = e.target;
+        setData({ ...data, [name]: value });
+        console.log(setData({ ...data, [name]: value }));
     };
 
-    // Attempt to login
-    // this.props.register(newUser);
-  };
+    const onSubmit = e => {
+        // e.preventDefault();
+
+        const newUser = {
+            name,
+            email,
+            password
+        };
+
+        // Attempt to register
+        register(newUser)(dispatch);
+    };
 
     return (
         <div>
@@ -103,19 +159,17 @@ export default function ModalRegister() {
             <DialogContent>
               <DialogContentText>
                 {hasErrorMsg ? (
-                  alert(data.msg)
+                  alert(hasErrorMsg)
                 ) : "quase lá!"}
               </DialogContentText>
-              <form onSubmit={onSubmit}>
+              <form onChange={onChange}>
                   <TextField
-                    autoFocus
                     margin="dense"
                     id="name"
                     name="name"
                     type="name"
                     label="Nome"
                     fullWidth
-                    onChange={onChange}
                   />
                     <TextField
                       margin="dense"
@@ -125,7 +179,6 @@ export default function ModalRegister() {
                       label="Email"
                       autoComplete="email"
                       fullWidth
-                      onChange={onChange}
                     />
                     <TextField
                       margin="dense"
@@ -134,10 +187,10 @@ export default function ModalRegister() {
                       type="password"
                       label="Senha"
                       fullWidth
-                      onChange={onChange}
                     />
                     <div style={{marginTop: '28px'}}>
                         <Button
+                              type="submit"
                               color="primary"
                               className={classes.link}
                               style={{fontSize: '.6em'}}
@@ -146,13 +199,21 @@ export default function ModalRegister() {
                           Esqueceu sua senha?
                         </Button>
                         <Button
-                              onClick={() => dispatch({type: 'TOGGLE_MODAL_REGISTER', payload: isModalRegisterOpen})}
+                              onClick={() => {
+                                dispatch({type: 'TOGGLE_MODAL_REGISTER', payload: isModalRegisterOpen})
+                                clearErrors(dispatch);
+                            }}
                               color="primary"
                           >
                           Sair
                         </Button>
                         <Button
-                              onClick={onSubmit}
+                              onClick={() => {
+                                onSubmit();
+                                setTimeout(() => {
+                                    alert("Cadastro Realizado com Sucesso!");
+                                }, 3000);
+                              }}
                               variant="contained"
                               color="primary"
                               className={classes.button}
