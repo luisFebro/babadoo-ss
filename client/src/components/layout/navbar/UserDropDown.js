@@ -70,7 +70,7 @@ export default function UserDropDown() {
     const classes = useStyles();
     // Redux
     //> Set State
-    const isUserLoggedIn = useStoreState(state => state.dataLogin.isUserLoggedIn);
+    const isUserAuthenticated = useStoreState(state => state.authReducer.cases.isUserAuthenticated);
     //> Dispatch Actions to Reducer
     const dispatch = useStoreDispatch();
     // End Redux
@@ -83,7 +83,7 @@ export default function UserDropDown() {
             </IconButton>
             {/*Icon login*/}
 
-            {isUserLoggedIn ?
+            {isUserAuthenticated ?
                 <StyledMenu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
                     <h1 className="text-center text-main-container">Seja Bem-Vindo(a)!</h1>
                      <StyledMenuItem

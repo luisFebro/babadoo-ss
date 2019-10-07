@@ -1,14 +1,15 @@
 import React from 'react';
 import GoogleLogin from 'react-google-login';
 import PropTypes from 'prop-types';
-import { useStoreActions } from 'easy-peasy';
+import { useStoreDispatch } from 'easy-peasy';
 
 
 export default function GoogleAuth() {
-    const showMenuBarLogin = useStoreActions(actions => actions.dataLogin.showMenuBarLogin);
-
+    // Redux
+    const dispatch = useStoreDispatch();
+    // End Redux
     const responseGoogle = response => {
-        showMenuBarLogin([response, {name: "google"}]);
+        dispatch({"type": 'LOGIN_GOOGLE', "payload": response });
     }
 
     return (

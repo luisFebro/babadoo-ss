@@ -3,7 +3,6 @@ import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 // Material UI
-import { SnackbarBlack } from '../snackbars/SnackbarBlack';
 import { makeStyles } from '@material-ui/core/styles';
 import { CardMedia } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
@@ -51,7 +50,6 @@ const register = ({ name, email, password }) => dispatch => {
             })
         )
       .catch(err => {
-        console.log("ERRORresponse.data", err.response.data, err.response.status);
         dispatch(
           returnErrors(err.response.data, err.response.status, 'REGISTER_FAIL')
         );
@@ -78,9 +76,10 @@ const useStyles = makeStyles(theme => ({
 export default function ModalRegister() {
     // Redux
     // > set state
-    const { isModalRegisterOpen, isAuthenticated } = useStoreState(state => ({
+    const { isModalRegisterOpen, isUserAuthenticated, error } = useStoreState(state => ({
         isModalRegisterOpen: state.modalReducers.cases.isModalRegisterOpen,
-        isAuthenticated: state.authReducer.cases.isAuthenticated,
+        isUserAuthenticated: state.authReducer.cases.isUserAuthenticated,
+        error: state.errorReducer.cases
     }));
     const dispatch = useStoreDispatch();
     // End Redux
@@ -95,40 +94,47 @@ export default function ModalRegister() {
     const { name, email, password, hasErrorMsg } = data;
     const classes = useStyles();
 
-
     // componentDidUpdate(prevProps) {
-    //   const { error, isAuthenticated } = this.props;
+    //   const { error, isUserAuthenticated } = this.props;
     //   if (error !== prevProps.error) {
     //     // Check for register error
-    //     if (error.id === 'LOGIN_FAIL') {
-    //       this.setState({ msg: error.msg.msg });
-    //     } else {
-    //       this.setState({ msg: null });
-    //     }
+        // if (error.id === 'LOGIN_FAIL') {
+        //   this.setState({ msg: error.msg.msg });
+        // } else {
+        //   this.setState({ msg: null });
+        // }
     //   }
 
     // If authenticated, close modal
     useEffect(() => {
+        // Check for register error
+        // if (error.id === 'LOGIN_FAIL') {
+        //   setData({ msg: error.msg.msg });
+        // } else {
+        //   setData({ msg: null });
+        // }
+        //
         if (isModalRegisterOpen) {
-            if (isAuthenticated) {
+            if (isUserAuthenticated) {
               dispatch({"type": "TOGGLE_MODAL_REGISTER", "payload": isModalRegisterOpen});
-              console.log("dispatched from useEffect hook")
+              setTimeout(() => {
+                  alert("Cadastro Realizado com Sucesso!");
+              }, 3000);
             }
         }
-    }, [isModalRegisterOpen, isAuthenticated]);
+    }, [isModalRegisterOpen, isUserAuthenticated, error]);
 
     // }
 
     const onChange = e => {
+        const { name, value } = e.target;
+        setData({ ...data, [name]: value });
         //updating the obj keys
         //   let test = {
         //       color: "",
         //       color: "red",
         //   }
         //   console.log("color", test.color); //red
-        const { name, value } = e.target;
-        setData({ ...data, [name]: value });
-        console.log(setData({ ...data, [name]: value }));
     };
 
     const onSubmit = e => {
@@ -158,12 +164,14 @@ export default function ModalRegister() {
             <DialogTitle id="form-dialog-title">Registre sua Conta</DialogTitle>
             <DialogContent>
               <DialogContentText>
-                {hasErrorMsg ? (
-                  alert(hasErrorMsg)
+                {error.msg.msg ? (
+                  <span className="text-red text-main-container">{error.msg.msg}</span>
                 ) : "quase lá!"}
               </DialogContentText>
               <form onChange={onChange}>
                   <TextField
+                    required
+                    error={error.msg.msg ? true : false}
                     margin="dense"
                     id="name"
                     name="name"
@@ -172,7 +180,9 @@ export default function ModalRegister() {
                     fullWidth
                   />
                     <TextField
+                      required
                       margin="dense"
+                      error={error.msg.msg ? true : false}
                       id="email"
                       name="email"
                       type="email"
@@ -181,7 +191,9 @@ export default function ModalRegister() {
                       fullWidth
                     />
                     <TextField
+                      required
                       margin="dense"
+                      error={error.msg.msg ? true : false}
                       id="password"
                       name="password"
                       type="password"
@@ -193,7 +205,6 @@ export default function ModalRegister() {
                               type="submit"
                               color="primary"
                               className={classes.link}
-                              style={{fontSize: '.6em'}}
                               onClick={() => dispatch({ type: 'SHOW_MODAL_UNDER_CONSTRUCTION', payload: true })}
                           >
                           Esqueceu sua senha?
@@ -208,12 +219,7 @@ export default function ModalRegister() {
                           Sair
                         </Button>
                         <Button
-                              onClick={() => {
-                                onSubmit();
-                                setTimeout(() => {
-                                    alert("Cadastro Realizado com Sucesso!");
-                                }, 3000);
-                              }}
+                              onClick={onSubmit}
                               variant="contained"
                               color="primary"
                               className={classes.button}
@@ -230,7 +236,7 @@ export default function ModalRegister() {
 }
 
 // const mapStateToProps = state => ({
-//   isAuthenticated: state.auth.isAuthenticated,
+//   isUserAuthenticated: state.auth.isUserAuthenticated,
 //   error: state.error
 // });
 

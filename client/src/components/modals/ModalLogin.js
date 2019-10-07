@@ -1,6 +1,9 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState, Fragment, useEffect } from 'react';
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import PropTypes from 'prop-types';
+import axios from 'axios';
+
+
 // Material UI
 import { makeStyles } from '@material-ui/core/styles';
 import { CardMedia } from '@material-ui/core';
@@ -12,8 +15,48 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 // End Material UI
-// import { login } from '../../actions/authActions';
-// import { clearErrors } from '../../actions/errorActions';
+
+// Redux Actions
+const returnErrors = (msg, status, id = null) => {
+  return {
+    type: 'GET_ERRORS',
+    payload: { msg, status, id }
+  };
+};
+
+const clearErrors = (dispatch) => {
+    dispatch({ type: 'CLEAR_ERRORS' });
+};
+
+export const login = ({ email, password }) => dispatch => {
+  // Headers
+  const config = {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  };
+
+  // Request body
+  const body = JSON.stringify({ email, password });
+
+  axios
+    .post('/api/auth', body, config)
+    .then(res =>
+      dispatch({
+        type: 'LOGIN_SUCCESS',
+        payload: res.data
+      })
+    )
+    .catch(err => {
+      dispatch(
+        returnErrors(err.response.data, err.response.status, 'LOGIN_FAIL')
+      );
+      dispatch({
+        type: 'LOGIN_FAIL'
+      });
+    });
+};
+// End Redux Actions
 
 const useStyles = makeStyles(theme => ({
     button: {
@@ -30,7 +73,11 @@ const useStyles = makeStyles(theme => ({
 export default function ModalLogin() {
     // Redux
     // > set state
-    const isModalLoginOpen = useStoreState(state => state.modalReducers.cases.isModalLoginOpen);
+    const { isModalLoginOpen, isUserAuthenticated, error } = useStoreState(state => ({
+            isModalLoginOpen: state.modalReducers.cases.isModalLoginOpen,
+            isUserAuthenticated: state.authReducer.cases.isUserAuthenticated,
+            error: state.errorReducer.cases
+        }));
     const dispatch = useStoreDispatch();
     // End Redux
 
@@ -45,38 +92,44 @@ export default function ModalLogin() {
 
 
   // componentDidUpdate(prevProps) {
-  //   const { error, isAuthenticated } = this.props;
+  //   const { error, isUserAuthenticated } = this.props;
   //   if (error !== prevProps.error) {
   //     // Check for register error
-  //     if (error.id === 'LOGIN_FAIL') {
-  //       this.setState({ msg: error.msg.msg });
-  //     } else {
-  //       this.setState({ msg: null });
-  //     }
+      // if (error.id === 'LOGIN_FAIL') {
+      //   this.setState({ msg: error.msg.msg });
+      // } else {
+      //   this.setState({ msg: null });
+      // }
   //   }
 
-    // If authenticated, close modal
-  //   if (this.state.modal) {
-  //     if (isAuthenticated) {
-  //       this.toggle();
-  //     }
-  //   }
+  // If authenticated, close modal
+  useEffect(() => {
+      // Check for register error
+      // if (error.id === 'LOGIN_FAIL') {
+      //   setData({ msg: error.msg.msg });
+      // } else {
+      //   setData({ msg: null });
+      // }
+      //
+      if (isModalLoginOpen) {
+          if (isUserAuthenticated) {
+            dispatch({"type": "TOGGLE_MODAL_LOGIN", "payload": isModalLoginOpen});
+            setTimeout(() => {
+                alert("Seja Bem-Vindo(a)!");
+            }, 3000);
+          }
+      }
+  }, [isModalLoginOpen, isUserAuthenticated, error]);
+
   // }
 
-  // const toggle = () => {
-    // Clear errors
-    // this.props.clearErrors();
-    // setData({
-    //   modal: !data.modal
-    // });
-  // };
-
   const onChange = e => {
-    setData({ [e.target.name]: e.target.value });
+      const { name, value } = e.target;
+      setData({ ...data, [name]: value });
   };
 
   const onSubmit = e => {
-    e.preventDefault();
+    // e.preventDefault();
 
     const user = {
         email,
@@ -84,7 +137,7 @@ export default function ModalLogin() {
     };
 
     // Attempt to login
-    // this.props.login(user);
+    login(user)(dispatch);
   };
 
     return (
@@ -101,29 +154,32 @@ export default function ModalLogin() {
             <DialogTitle id="form-dialog-title">Entrar com Email</DialogTitle>
             <DialogContent>
               <DialogContentText>
-                {hasErrorMsg ? (
-                  alert(hasErrorMsg)
-                ) : "Escolha um email e uma senha"}
+                  {error.msg.msg ? (
+                    <span className="text-red text-main-container">{error.msg.msg}</span>
+                  ) : "Bem-Vindo(a) de volta!"}
               </DialogContentText>
-              <form onSubmit={onSubmit}>
+              <form onChange={onChange}>
                     <TextField
+                      required
                       margin="dense"
+                      error={error.msg.msg ? true : false}
                       id="email"
                       name="email"
                       type="email"
-                      label="Seu Email"
+                      label="Email"
                       autoComplete="email"
                       fullWidth
-                      onChange={onChange}
                     />
                     <TextField
+                      required
                       margin="dense"
+                      error={error.msg.msg ? true : false}
                       id="password"
                       name="password"
                       type="password"
                       label="Senha"
+                      autoComplete="senha"
                       fullWidth
-                      onChange={onChange}
                     />
                     <div style={{marginTop: '28px'}}>
                         <Button
@@ -135,7 +191,10 @@ export default function ModalLogin() {
                           Esqueceu sua senha?
                         </Button>
                         <Button
-                              onClick={() => dispatch({type: 'TOGGLE_MODAL_LOGIN', payload: isModalLoginOpen})}
+                                onClick={() => {
+                                  dispatch({type: 'TOGGLE_MODAL_LOGIN', payload: isModalLoginOpen})
+                                  clearErrors(dispatch);
+                              }}
                               color="primary"
                           >
                           Sair
@@ -158,7 +217,7 @@ export default function ModalLogin() {
 }
 
 // const mapStateToProps = state => ({
-//   isAuthenticated: state.auth.isAuthenticated,
+//   isUserAuthenticated: state.auth.isUserAuthenticated,
 //   error: state.error
 // });
 

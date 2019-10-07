@@ -2,29 +2,36 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { useStoreState, useStoreActions } from 'easy-peasy';
+import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { bizWhatsapp } from '../../../data/dataBiz';
+import truncateWords from '../../utils/truncateWords';
+
+// Redux Actions
+const logout = dispatch => {
+    console.log("logout_dispatch", dispatch)
+    return dispatch({ "type": 'LOGOUT_SUCCESS' })
+};
+// End Redux Actions
 
 export default function MenuLogin() {
-        const { isUserLoggedIn, name, picture, isAuthenticated } = useStoreState(state => ({
-            isAuthenticated: state.authReducer.cases.isAuthenticated,
-            isUserLoggedIn: state.dataLogin.isUserLoggedIn,
-            name: state.dataLogin.name,
-            name2: state.authReducer.cases.user,
-            picture: state.dataLogin.picture,
+        // Redux
+        const { isUserAuthenticated, name, picture } = useStoreState(state => ({
+            isUserAuthenticated: state.authReducer.cases.isUserAuthenticated,
+            name: state.authReducer.cases.user.name,
+            picture: state.authReducer.cases.user.picture,
         }));
-
-        const closeMenuLogin = useStoreActions(actions => actions.dataLogin.closeMenuLogin);
+        const dispatch = useStoreDispatch();
+        // End Redux
 
         return (
         <Fragment>
-            {(isUserLoggedIn || isAuthenticated) ?
+            {isUserAuthenticated ?
                 <DivWrapper id="mainNav" className="animated zoomIn slower" style={{ transition: '.5s' }}>
                     <nav className="navbar navbar-expand-sm px-sm-5 text-nav-items py-0 my-0">
                         <ul className="navbar-nav">
                             <li className="nav-item">
                                 <Link to="/perfil" className="nav-link">
-                                    {isUserLoggedIn ?
+                                    {isUserAuthenticated ?
                                         <img
                                             className="profilePic nav-brand"
                                             src={picture}
@@ -43,19 +50,10 @@ export default function MenuLogin() {
                                     <p
                                         className="user-name-greeting"
                                     >
-                                        {isUserLoggedIn ?
-                                            `Olá, ${name}` :
+                                        {name ?
+                                            `Olá, ${truncateWords(name, 10)}` :
                                             "Olá, Visitante!"
                                         }
-                                    </p>
-                                </Link>
-                                <Link to="/">
-                                    <p
-                                        className="logout-btn badge badge-danger"
-                                        onClick={closeMenuLogin}
-                                        style={{cursor: 'pointer'}}
-                                    >
-                                        sair
                                     </p>
                                 </Link>
                             </li>
@@ -83,8 +81,16 @@ export default function MenuLogin() {
                                 <Link to="/" className="nav-link" style={{position: 'relative'}}>
                                     <i className="fab fa-whatsapp mr-2 pt-0"></i>
                                     <span>{ bizWhatsapp }</span>
-                                    <span style={{position: "absolute", top: "0.1rem", right: "2rem"}}>Dúvidas?</span>
+                                    <span style={{position: "absolute", top: "0.1rem", right: "2.7rem"}}>Dúvidas?</span>
                                 </Link>
+                                <button
+                                    style={{padding: 0, border: 'none', background: 'none'}}
+                                    className="logout-btn badge badge-danger"
+                                    onClick={() => logout(dispatch)}
+                                    style={{cursor: 'pointer'}}
+                                >
+                                    sair
+                                </button>
                             </li>
                         </ul>
                     </nav>
@@ -107,7 +113,7 @@ const DivWrapper = styled.div`
     line-height: 45px;
 
     i {
-        font-size: 1.7rem;
+        font-size: 2.3rem;
     }
 
     p, nav, span, i {
@@ -132,10 +138,10 @@ const DivWrapper = styled.div`
     }
 
     .logout-btn {
-        background: var(--mainDark);
+        background: var(--mainRed);
         position: absolute;
         font: normal 1.1rem 'Cabin', sans-serif;
-        top: -14px;
+        top: 1px;
         right: 4px;
         padding: 0 3px;
     }
@@ -154,9 +160,11 @@ const DivWrapper = styled.div`
     /*media portrait tablets and large phones || for large devices, use min-width: 992px and up*/
     @media only screen and (min-width: 600px) {
         .logout-btn {
-            background: var(--mainRed);
             top: 4px;
             padding: 2px 4px;
+        }
+        i {
+            font-size: 1.9rem;
         }
     }
 

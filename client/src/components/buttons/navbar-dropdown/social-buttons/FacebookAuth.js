@@ -1,12 +1,12 @@
 import React from 'react';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
-import { useStoreActions } from 'easy-peasy';
-
+import { useStoreDispatch } from 'easy-peasy';
 export default function FacebookAuth() {
-    const showMenuBarLogin = useStoreActions(actions => actions.dataLogin.showMenuBarLogin);
-
+    // Redux
+    const dispatch = useStoreDispatch();
+    // End Redux
     const responseFacebook = response => {
-        showMenuBarLogin([response, {name: "facebook"}]);
+        dispatch({"type": 'LOGIN_FACEBOOK', "payload": response });
     }
 
     const componentClicked = () => {}

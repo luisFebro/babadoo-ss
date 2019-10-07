@@ -36,6 +36,8 @@ import UnderConstruction from '../components/modals/UnderConstruction';
 //> auth
 import ModalLogin from '../components/modals/ModalLogin';
 import ModalRegister from '../components/modals/ModalRegister';
+// > snackbars
+import SnackbarBlack from '../components/snackbars/SnackbarBlack';
 // END MODALS
 // BUTTONS
 import WhatsappIcon from '../components/buttons/WhatsappIcon';
@@ -67,6 +69,7 @@ export default function App() {
             <UnderConstruction />
             <ModalLogin />
             <ModalRegister />
+            <SnackbarBlack />
             {/*End Modals*/}
             <Footer />
             <WhatsappIcon />
