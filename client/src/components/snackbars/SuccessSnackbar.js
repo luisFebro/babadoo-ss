@@ -2,32 +2,47 @@ import React from 'react';
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { closeSuccessSnackbar } from '../../data/redux/actions/snackbarActions';
 import { makeStyles } from '@material-ui/core/styles';
+import { green } from '@material-ui/core/colors'
 import Slide from '@material-ui/core/Slide'
 import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 
+
+// function SlideTransition(props) {
+//   return <Slide {...props} direction="up" />;
+// }
+// const handleClick = Transition => () => {
+//    setState({
+//      open: true,
+//      Transition,
+//    });
+//  };
+
 const useStyles = makeStyles(theme => ({
+  success: {
+    backgroundColor: green[600],
+  },
   close: {
     padding: theme.spacing(0.5),
   },
 }));
 
-export default function SnackbarBlack() {
+export default function SuccessSnackbar() {
     // Redux
-    const { isSnackbarOpen, snackbarMsg } = useStoreState(state => ({
-        isSnackbarOpen: state.snackbarReducer.cases.isSnackbarOpen,
+    const { isSuccessSnackbarOpen, snackbarMsg } = useStoreState(state => ({
+        isSuccessSnackbarOpen: state.snackbarReducer.cases.isSuccessSnackbarOpen,
         snackbarMsg: state.snackbarReducer.cases.snackbarMsg,
     }))
     const dispatch = useStoreDispatch();
     // End Redux
+
     const classes = useStyles();
 
   return (
-     <div>
        <Snackbar
-         open={isSnackbarOpen}
+         open={isSuccessSnackbarOpen}
          anchorOrigin={{
            vertical: 'top',
            horizontal: 'center',
@@ -37,7 +52,7 @@ export default function SnackbarBlack() {
          ContentProps={{
            'aria-describedby': 'message-id',
          }}
-         message={<span id="message-id">{snackbarMsg}</span>}
+         message={<span id="message-id" className="text-default" ><i style={{color: 'var(--mainWhite)', fontSize: '1.7rem', paddingRight: '8px'}} className="far fa-check-circle"></i>{snackbarMsg}</span>}
          action={[
            <IconButton
              key="close"
@@ -50,6 +65,5 @@ export default function SnackbarBlack() {
            </IconButton>,
          ]}
        />
-     </div>
   );
 }

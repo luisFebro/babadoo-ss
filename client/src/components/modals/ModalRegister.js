@@ -1,5 +1,6 @@
 import React, { useState, Fragment, useEffect } from 'react';
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
+import { showSuccessSnackbar } from '../../data/redux/actions/snackbarActions';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 // Material UI
@@ -15,7 +16,8 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 // End Material UI
 // import { register } from '../../actions/authActions';
 
-// Redux Actions
+// REDUX
+// actions
 const returnErrors = (msg, status, id = null) => {
   return {
     type: 'GET_ERRORS',
@@ -58,8 +60,7 @@ const register = ({ name, email, password }) => dispatch => {
         });
       });
 };
-
-// End Redux Actions
+// END REDUX
 
 const useStyles = makeStyles(theme => ({
     button: {
@@ -75,7 +76,6 @@ const useStyles = makeStyles(theme => ({
 
 export default function ModalRegister() {
     // Redux
-    // > set state
     const { isModalRegisterOpen, isUserAuthenticated, error } = useStoreState(state => ({
         isModalRegisterOpen: state.modalReducers.cases.isModalRegisterOpen,
         isUserAuthenticated: state.authReducer.cases.isUserAuthenticated,
@@ -83,7 +83,6 @@ export default function ModalRegister() {
     }));
     const dispatch = useStoreDispatch();
     // End Redux
-
     const [data, setData] = useState({
         name: "",
         email: "",
@@ -118,7 +117,7 @@ export default function ModalRegister() {
             if (isUserAuthenticated) {
               dispatch({"type": "TOGGLE_MODAL_REGISTER", "payload": isModalRegisterOpen});
               setTimeout(() => {
-                  alert("Cadastro Realizado com Sucesso!");
+                  showSuccessSnackbar(dispatch, "Cadastro Realizado com Sucesso!");
               }, 3000);
             }
         }

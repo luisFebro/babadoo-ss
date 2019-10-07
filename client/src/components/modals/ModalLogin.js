@@ -1,5 +1,6 @@
 import React, { useState, Fragment, useEffect } from 'react';
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
+import { showSuccessSnackbar } from '../../data/redux/actions/snackbarActions';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 
@@ -115,7 +116,7 @@ export default function ModalLogin() {
           if (isUserAuthenticated) {
             dispatch({"type": "TOGGLE_MODAL_LOGIN", "payload": isModalLoginOpen});
             setTimeout(() => {
-                alert("Seja Bem-Vindo(a)!");
+                dispatch({type: "SHOW_SNACKBAR_SUCCESS", payload: "Seja Bem-Vindo(a)!"})
             }, 3000);
           }
       }

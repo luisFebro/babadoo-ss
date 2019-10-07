@@ -56,6 +56,10 @@ footer {
     outline: none;
 }
 
+.text-default {
+    font: normal 1.2rem 'Cabin', sans-serif;
+}
+
 .text-slogon {
     font: bolder 2.4em 'Indie Flower';
     letter-spacing: .1em;
@@ -83,10 +87,6 @@ footer {
 
 .text-product-title, .text-sub-container {
     font: normal 1.3rem 'Cabin', sans-serif;
-}
-
-.text-default {
-    font-family: 'Cabin', sans-serif;
 }
 
 .text-red {
