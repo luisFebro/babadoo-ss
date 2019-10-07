@@ -3,5 +3,7 @@ const dotenv = require('dotenv').config();
 //KEY_NAME="yourSecretTokenHere"
 module.exports = {
   mongoUrl: process.env.MONGO_URL,
-  jwtSecret: process.env.JWT_SECRET
+  jwtSecret: process.env.JWT_SECRET,
+  nodemailerEmail: process.env.NODEMAILER_EMAIL,
+  nodemailerPassword: process.env.NODEMAILER_PASSWORD,
 };

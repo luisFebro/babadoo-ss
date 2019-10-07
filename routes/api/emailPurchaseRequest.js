@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const nodemailer = require("nodemailer");
+const { nodemailerEmail, nodemailerPassword } from '../../config/keys'
 
 router.post('/', (req, res) => {
     const owner = 'Babadoo';
@@ -36,8 +37,8 @@ router.post('/', (req, res) => {
         port: 587,
         secure: false, // true for 465, false for other ports
         auth: {
-            user: process.env.NODEMAILER_EMAIL, // generated ethereal user
-            pass: process.env.NODEMAILER_PASSWORD // generated ethereal password
+            user: nodemailerEmail, // generated ethereal user
+            pass: nodemailerPassword // generated ethereal password
         },
         tls: {
             rejectUnauthorized: false
