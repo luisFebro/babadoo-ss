@@ -37,8 +37,8 @@ router.post('/', (req, res) => {
         port: 587,
         secure: false, // true for 465, false for other ports
         auth: {
-            user: nodemailerEmail, // generated ethereal user
-            pass: nodemailerPassword // generated ethereal password
+            user: "babadooweb@gmail.com", // generated ethereal user
+            pass: "babadoo2019" // generated ethereal password
         },
         tls: {
             rejectUnauthorized: false
