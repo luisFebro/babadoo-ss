@@ -2,11 +2,12 @@ import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import SearchCompleteWithImg from '../../SearchCompleteWithImg';
+import UserDropDown from './UserDropDown';
+import KeyAccessDashboard from './KeyAccessDashboard';
+import MenuLogin from './MenuLogin';
 import { ProductConsumer } from '../../../data/contexts/mainContext';
 import { storeIcon } from '../../../data/dataIcons';
-import UserDropDown from './UserDropDown';
 import { dataWorkingHour } from '../../utils/GetWorkingHour';
-import MenuLogin from './MenuLogin';
 
 const isStoreOpen = dataWorkingHour[1];
 export default class Navbar extends Component {
@@ -69,6 +70,9 @@ export default class Navbar extends Component {
                                                         title={storeIcon.altTitle}
                                                      />
                                                     <div className="store-badge badge badge-danger">Aberto</div>
+                                                    <Link to='/painel-controle-admin'>
+                                                        <KeyAccessDashboard />
+                                                    </Link>
                                                  </div> :
                                                 "loja"
                                             }

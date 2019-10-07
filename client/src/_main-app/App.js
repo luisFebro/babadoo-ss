@@ -16,6 +16,7 @@ import Cart from '../pages/cart/Cart';
 import CheckoutLocal from '../pages/checkout/CheckoutLocal';
 import Details from '../pages/Details';
 import Default from '../pages/Default';
+import Dashboard from '../pages/Dashboard';
 //>>>Category pages
 import Home from '../pages/Home';
 import Lingerie from '../pages/category-pages/Lingerie';
@@ -60,6 +61,7 @@ export default function App() {
                 <Route path="/detalhes-do-produto" component={Details} />
                 <Route path="/seu-carrinho" component={Cart} />
                 <Route path="/finalizar-compra" component={CheckoutLocal} />
+                <Route path="/painel-controle-admin" component={Dashboard} />
                 <UserProvider>
                     {/*<Route path="/cliente" component={Client}/>*/}
                 </UserProvider>

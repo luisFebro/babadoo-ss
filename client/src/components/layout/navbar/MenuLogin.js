@@ -8,8 +8,8 @@ import truncateWords from '../../utils/truncateWords';
 
 // Redux Actions
 const logout = dispatch => {
-    console.log("logout_dispatch", dispatch)
-    return dispatch({ "type": 'LOGOUT_SUCCESS' })
+    dispatch({ type: 'LOGOUT_SUCCESS' });
+    setTimeout(() => dispatch({ type: 'SHOW_SNACKBAR_SUCCESS', payload: "Sua sessão foi finalizada." }), 2000);
 };
 // End Redux Actions
 

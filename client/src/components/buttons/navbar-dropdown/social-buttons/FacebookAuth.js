@@ -6,6 +6,7 @@ export default function FacebookAuth() {
     const dispatch = useStoreDispatch();
     // End Redux
     const responseFacebook = response => {
+        dispatch({type: 'SHOW_SNACKBAR_SUCCESS', payload: 'carregando...' });
         dispatch({"type": 'LOGIN_FACEBOOK', "payload": response });
     }
 

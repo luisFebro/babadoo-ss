@@ -9,7 +9,8 @@ export default function GoogleAuth() {
     const dispatch = useStoreDispatch();
     // End Redux
     const responseGoogle = response => {
-        dispatch({"type": 'LOGIN_GOOGLE', "payload": response });
+        dispatch({type: 'SHOW_SNACKBAR_SUCCESS', payload: 'carregando...' });
+        dispatch({type: 'LOGIN_GOOGLE', payload: response });
     }
 
     return (

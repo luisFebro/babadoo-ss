@@ -22,7 +22,6 @@ export const authReducer = {
     cases: reducer((state = initialState, action) => {
         switch(action.type) {
             case "LOGIN_GOOGLE":
-                console.log("LOGIN_GOOGLE", action);
                 return {
                     ...state,
                     isUserAuthenticated: true,
