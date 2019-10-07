@@ -218,7 +218,10 @@ export default function ModalRegister() {
                           Sair
                         </Button>
                         <Button
-                              onClick={onSubmit}
+                              onClick={() => {
+                                onSubmit();
+                                dispatch({type: 'SHOW_SNACKBAR_BLACK', payload: "Carregando..."});
+                              }}
                               variant="contained"
                               color="primary"
                               className={classes.button}

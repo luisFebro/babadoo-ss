@@ -9,7 +9,7 @@ import truncateWords from '../../utils/truncateWords';
 // Redux Actions
 const logout = dispatch => {
     dispatch({ type: 'LOGOUT_SUCCESS' });
-    setTimeout(() => dispatch({ type: 'SHOW_SNACKBAR_SUCCESS', payload: "Sua sessão foi finalizada." }), 2000);
+    setTimeout(() => dispatch({ type: 'SHOW_SNACKBAR_BLACK', payload: "Sua sessão foi finalizada." }), 2000);
 };
 // End Redux Actions
 
@@ -113,7 +113,7 @@ const DivWrapper = styled.div`
     line-height: 45px;
 
     i {
-        font-size: 2.3rem;
+        font-size: 2.5rem;
     }
 
     p, nav, span, i {

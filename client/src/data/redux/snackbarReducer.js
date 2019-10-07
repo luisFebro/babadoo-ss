@@ -15,13 +15,13 @@ export const snackbarReducer = {
     cases: reducer((state = initialState, action) => {
         switch(action.type) {
             //Show
-            case 'SHOW_SNACKBAR_SUCCESS':
+            case 'SHOW_SNACKBAR_BLACK':
                 return {
                    isSuccessSnackbarOpen: true,
                    snackbarMsg: action.payload
                 };
             //Close
-            case 'CLOSE_SNACKBAR_SUCCESS':
+            case 'CLOSE_SNACKBAR_BLACK':
                 return {
                    isSuccessSnackbarOpen: false,
                    snackbarMsg: ""

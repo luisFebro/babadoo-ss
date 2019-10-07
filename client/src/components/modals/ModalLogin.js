@@ -116,7 +116,7 @@ export default function ModalLogin() {
           if (isUserAuthenticated) {
             dispatch({"type": "TOGGLE_MODAL_LOGIN", "payload": isModalLoginOpen});
             setTimeout(() => {
-                dispatch({type: "SHOW_SNACKBAR_SUCCESS", payload: "Seja Bem-Vindo(a)!"})
+                dispatch({type: "SHOW_SNACKBAR_BLACK", payload: "Seja Bem-Vindo(a)!"})
             }, 3000);
           }
       }
@@ -201,7 +201,10 @@ export default function ModalLogin() {
                           Sair
                         </Button>
                         <Button
-                              onClick={onSubmit}
+                              onClick={() => {
+                                onSubmit();
+                                dispatch({type: 'SHOW_SNACKBAR_BLACK', payload: "Carregando..."});
+                              }}
                               variant="contained"
                               color="primary"
                               className={classes.button}

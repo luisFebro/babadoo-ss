@@ -32,7 +32,7 @@ export default function SnackbarBlack() {
            vertical: 'top',
            horizontal: 'center',
          }}
-         autoHideDuration={6000}
+         autoHideDuration={4000}
          onClose={() => closeSuccessSnackbar(dispatch)}
          ContentProps={{
            'aria-describedby': 'message-id',

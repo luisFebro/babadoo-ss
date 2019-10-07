@@ -1,4 +1,5 @@
-import React, { Component, Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
+import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import SearchCompleteWithImg from '../../SearchCompleteWithImg';
@@ -10,24 +11,20 @@ import { storeIcon } from '../../../data/dataIcons';
 import { dataWorkingHour } from '../../utils/GetWorkingHour';
 
 const isStoreOpen = dataWorkingHour[1];
-export default class Navbar extends Component {
-    constructor() {
-        super();
-        this.state = {
-            isSearchOpen: false
-        };
-    }
+export default function Navbar() {
+    const [isSearchOpen, setSearchOpen] = useState(false);
+    const { isUserAuthenticated } = useStoreState(state => state.authReducer.cases);
+    const dispatch = useStoreDispatch();
 
-    addZoomout() {
+    const addZoomout = () => {
         const icon = document.getElementById('searchIcon');
-
         icon.className += ' animated zoomOut slow';
         setTimeout(() => {
-            this.setState({ isSearchOpen: true });
+            setSearchOpen(true);
         }, 1000);
     }
 
-    closeBtn() {
+    const closeBtn = () => {
         const icon = document.getElementById('searchIcon'),
             closeBtn = document.getElementById('closeBtn');
         // searchComplete = document.getElementById("SearchCompleteWithImg");
@@ -36,51 +33,54 @@ export default class Navbar extends Component {
         // searchComplete.className = "animated zoomOut delay-2s";
         icon.className = 'fas fa-search animated zoomIn slow';
         setTimeout(() => {
-            this.setState({ isSearchOpen: false });
+            setSearchOpen(false);
         }, 1000);
     }
 
-    render() {
-        return (
-            <ProductConsumer>
-                {value => {
-                    const { isSearchOpen } = this.state;
-                    return (
-                        <Fragment>
-                            <NavWrapper className="navbar navbar-expand-sm navbar-dark px-sm-5 text-nav-items">
-                                <Link to="/">
-                                    <img
-                                        src= "img/babadoo-logo_no-slogon.png"
-                                        alt="Logomarca da loja Babadoo Manaus"
-                                        width="90rem"
-                                        height="90rem"
-                                        className="navbar-brand"
-                                    />
-                                </Link>
-                                <ul className="navbar-nav align-items-center">
-                                    <li className="nav-item">
-                                        <Link to="/loja" className="nav-link">
-                                            {isStoreOpen ?
-                                                <div className="store-container">
-                                                     <img
-                                                        width="70rem"
-                                                        height="70rem"
-                                                        src={storeIcon.imgSrc}
-                                                        alt={storeIcon.altTitle}
-                                                        title={storeIcon.altTitle}
-                                                     />
-                                                    <div className="store-badge badge badge-danger">Aberto</div>
-                                                    <Link to='/painel-controle-admin'>
-                                                        <KeyAccessDashboard />
-                                                    </Link>
-                                                 </div> :
-                                                "loja"
-                                            }
-                                        </Link>
-                                    </li>
-                                </ul>
-                                <ul className="navbar-nav ml-3 ml-md-auto">
-                                    <li className="nav-item mr-2 pt-2 align-items-center" onClick={value.openModalOnly}>
+
+    return (
+        <ProductConsumer>
+            {value => {
+                return (
+                    <Fragment>
+                        <NavWrapper className="navbar navbar-expand-sm navbar-dark px-sm-5 text-nav-items">
+                            <Link to="/">
+                                <img
+                                    src= "img/babadoo-logo_no-slogon.png"
+                                    alt="Logomarca da loja Babadoo Manaus"
+                                    width="90rem"
+                                    height="90rem"
+                                    className="navbar-brand"
+                                />
+                            </Link>
+                            <ul className="navbar-nav align-items-center">
+                                <li className="nav-item">
+                                    <Link to="/loja" className="nav-link">
+                                        {isStoreOpen ?
+                                            <div className="store-container">
+                                                 <img
+                                                    width="70rem"
+                                                    height="70rem"
+                                                    src={storeIcon.imgSrc}
+                                                    alt={storeIcon.altTitle}
+                                                    title={storeIcon.altTitle}
+                                                 />
+                                                <div className="store-badge badge badge-danger">Aberto</div>
+                                                <Link to='/painel-controle-admin'>
+                                                    <KeyAccessDashboard />
+                                                </Link>
+                                             </div> :
+                                            <span>
+                                                loja<KeyAccessDashboard />
+                                            </span>
+                                        }
+                                    </Link>
+                                </li>
+                            </ul>
+                            {isUserAuthenticated ?
+                                null :
+                                <ul className="animated zoomIn slow navbar-nav ml-3 ml-md-auto">
+                                    <li className="nav-item mr-2 pt-2 align-items-center" onClick={() => dispatch({type: 'SHOW_SNACKBAR_BLACK', payload: 'Faça seu Login para adicionar pedidos, favoritos e mais! Clique no link ao lado para opções de acesso.'})}>
                                         <Link to="/" className="nav-link">
                                             <span>
                                                 <i className="fas fa-heart"></i>
@@ -88,42 +88,42 @@ export default class Navbar extends Component {
                                         </Link>
                                     </li>
                                 </ul>
-                                <ul className="navbar-nav mr-5 align-items-center">
-                                    <li className="nav-item">
-                                        <Link to="/" className="nav-link">
-                                            <span>
-                                                <UserDropDown />
-                                            </span>
-                                        </Link>
-                                    </li>
-                                </ul>
-                                <div className="fixed pt-3" style={{zIndex: 1011}}>
+                            }
+                            <ul className="navbar-nav mr-5 align-items-center">
+                                <li className="nav-item">
+                                    <Link to="/" className="nav-link">
+                                        <span>
+                                            <UserDropDown />
+                                        </span>
+                                    </Link>
+                                </li>
+                            </ul>
+                            <div className="fixed pt-3" style={{zIndex: 1011}}>
+                                <span>
+                                    <i id="searchIcon" className="fas fa-search" onClick={addZoomout}></i>
+                                </span>
+                            </div>
+                            {isSearchOpen ? (
+                                <div className="backdrop-medium">
+                                    <SearchCompleteWithImg style={{ transition: '.5s' }} className="animated zoomIn" />
                                     <span>
-                                        <i id="searchIcon" className="fas fa-search" onClick={() => this.addZoomout()}></i>
+                                        <i
+                                            id="closeBtn"
+                                            className="fas fa-times-circle animated rotateIn delay-2s"
+                                            onClick={closeBtn}
+                                        ></i>
                                     </span>
                                 </div>
-                                {isSearchOpen ? (
-                                    <div className="backdrop-medium">
-                                        <SearchCompleteWithImg style={{ transition: '.5s' }} className="animated zoomIn" />
-                                        <span>
-                                            <i
-                                                id="closeBtn"
-                                                className="fas fa-times-circle animated rotateIn delay-2s"
-                                                onClick={() => this.closeBtn()}
-                                            ></i>
-                                        </span>
-                                    </div>
-                                ) : null}
-                            </NavWrapper>
-                            <DivWrapper>
-                                <MenuLogin />
-                            </DivWrapper>
-                        </Fragment>
-                    );
-                }}
-            </ProductConsumer>
-        );
-    }
+                            ) : null}
+                        </NavWrapper>
+                        <DivWrapper>
+                            <MenuLogin />
+                        </DivWrapper>
+                    </Fragment>
+                );
+            }}
+        </ProductConsumer>
+    );
 }
 
 // STYLES

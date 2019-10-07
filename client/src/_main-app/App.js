@@ -16,7 +16,7 @@ import Cart from '../pages/cart/Cart';
 import CheckoutLocal from '../pages/checkout/CheckoutLocal';
 import Details from '../pages/Details';
 import Default from '../pages/Default';
-import Dashboard from '../pages/Dashboard';
+import Dashboard from '../pages/dashboard-admin';
 //>>>Category pages
 import Home from '../pages/Home';
 import Lingerie from '../pages/category-pages/Lingerie';
