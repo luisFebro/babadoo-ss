@@ -223,7 +223,7 @@ export default function ModalRegister() {
                               color="primary"
                               className={classes.button}
                           >
-                          Entrar
+                          Criar
                           <i className="fas fa-paper-plane" style={{marginLeft: '5px'}}></i>
                         </Button>
                     </div>
