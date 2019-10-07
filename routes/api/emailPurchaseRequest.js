@@ -36,8 +36,8 @@ router.post('/', (req, res) => {
         port: 587,
         secure: false, // true for 465, false for other ports
         auth: {
-            user: 'babadooweb@gmail.com', // generated ethereal user
-            pass: 'babadoo2019' // generated ethereal password
+            user: process.env.NODEMAILER_EMAIL, // generated ethereal user
+            pass: process.env.NODEMAILER_PASSWORD // generated ethereal password
         },
         tls: {
             rejectUnauthorized: false
@@ -46,7 +46,7 @@ router.post('/', (req, res) => {
 
     let mailOptions = {
         from: `"${owner} - Pedidos de Compra" babadooweb@gmail.com`, // sender address
-        to: ['babadoosexy@gmail.com', 'babadooweb@gmail.com'], // 'babadoosexy@gmail.com', list of receivers babadoo.sexyshop.lingeries@gmail.com
+        to: ['babadooweb@gmail.com'], //'babadoosexy@gmail.com' 'babadoosexy@gmail.com', list of receivers babadoo.sexyshop.lingeries@gmail.com
         subject: `Opa! Novo Pedido de ${client}`, // Subject line
         text: 'no-message-sent-ignore-here', // plain text body
         html: htmlEmail // html body
