@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const nodemailer = require("nodemailer");
-const { nodemailerEmail, nodemailerPassword } from '../../config/keys'
+const { nodemailerEmail, nodemailerPassword } = require('../../config/keys');
 
 router.post('/', (req, res) => {
     const owner = 'Babadoo';
