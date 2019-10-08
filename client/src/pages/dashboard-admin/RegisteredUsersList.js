@@ -1,40 +1,50 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import RegisteredUser from './RegisteredUser';
-let datus = [];
+
+//fetchUsers(data)
+// const fetchUsers = async () => {
+//     const response = await axios.get('api/users/list');
+//     setData(response.data);
+// };
+
+const getDataFromRes = (res) => {
+    let name = [], email = [];
+    for(let userId in res) {
+        name.push(res[userId].name);
+        email.push(res[userId].email);
+    }
+    return [name, email];
+}
+
 export default function RegisteredUsersList() {
-    const [data, setData] = useState([]);
-    const [name, setName] = useState([]);
+    const [data, setData] = useState({ name: [], email: [] });
     const [load, setLoad] = useState(false);
     const [error, setError] = useState("");
     // empty array as a second argument acts like componentDidMount.
     useEffect(() => {
         axios.get('api/users/list')
           .then(response => {
-                setData(response.data);
+                let data = getDataFromRes(response.data);
+                setData({ name: data[0], email: data[1] });
                 setLoad(true);
-                for(let userId in response.data) {
-                    datus.push(response.data[userId].name);
-                    console.log(response.data[userId].name);
-                    setName(response.data[userId].name);
-                }
-
-                // usersEmails.push(response.data[registeredUser].email);
           })
           .catch(err => {
                 setError(err.message);
                 setLoad(true);
            })
     }, [])
-    console.log("whatisname", name);
-    console.log("datus", datus);
 
     if (load) {
-        return (<div>
+        return (<div style={{maxHeight: '300px',
+    overflow: 'scroll'}}>
             <h2 className="text-title text-center">Lista de Todos os Usuários Cadastrados</h2>
+            <h2 className="text-title text-left pl-5">Total de Usuários: <strong>{data.name.length}</strong></h2>
             {error ? <p>{error.message}</p> :
-            <p className="text-default text-center">{datus}</p>
-            // data.map((data, index) => <p key={index}>{data}</p>)
+            <p className="text-default">
+            {data.name.map((nam, ind) => <RegisteredUser key={ind} name={nam} email={data.email[ind]} />)}
+            </p>
+
         }
         </div>);
         } else {

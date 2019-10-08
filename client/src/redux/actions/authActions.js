@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { returnActions } from './errorActions';
+import { returnErrors } from './errorActions';
 
 export const login = ({ email, password }) => dispatch => {
   // Headers
@@ -32,7 +32,7 @@ export const login = ({ email, password }) => dispatch => {
 
 
 // Rconstegister User
-export register = ({ name, email, password }) => dispatch => {
+export const register = ({ name, email, password }) => dispatch => {
     // Headers
     const config = {
         headers: {

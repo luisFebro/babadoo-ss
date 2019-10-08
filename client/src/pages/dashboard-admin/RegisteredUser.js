@@ -6,20 +6,20 @@ export default function RegisteredUser({ name, email }) {
     return (
         <DivWrapper className="text-default">
             <div>
-                <p>Name</p>
+                <p>Name: {name}</p>
             </div>
             <div>
-                <p>Email</p>
+                <p>Email: {email}</p>
             </div>
         </DivWrapper>
     );
 }
 
 const DivWrapper = styled.div`
-    width: 100%;
+    width: 90%;
     border-radius: 10px;
     padding: 20px 10px;
-    margin: 30px;
+    margin: 15px auto;
     background-color: #f39c12;
     color: #ecf0f1;
 `;

@@ -28,7 +28,7 @@ export default function MenuLogin() {
             {isUserAuthenticated ?
                 <DivWrapper id="mainNav" className="animated zoomIn slower" style={{ transition: '.5s' }}>
                     <nav className="navbar navbar-expand-sm px-sm-5 text-nav-items py-0 my-0">
-                        <ul className="navbar-nav">
+                        <ul className="navbar-nav container-ul">
                             <li className="nav-item">
                                 <Link to="/perfil" className="nav-link">
                                     {isUserAuthenticated ?
@@ -42,20 +42,14 @@ export default function MenuLogin() {
                                         <img className="profilePic" src="img/icons/avatar-woman.png" alt="avatar babadoo"/>
                                     }
                                 </Link>
-                            </li>
-                        </ul>
-                        <ul className="navbar-nav mr-0">
-                            <li className="nav-item">
-                                <Link to="/" className="nav-link">
-                                    <p
-                                        className="user-name-greeting"
-                                    >
-                                        {name ?
-                                            `Olá, ${truncateWords(name, 10)}` :
-                                            "Olá, Visitante!"
-                                        }
-                                    </p>
-                                </Link>
+                                <p
+                                    className="user-name-greeting"
+                                >
+                                    {name ?
+                                        `Olá, ${truncateWords(name, 10)}` :
+                                        "Olá, Visitante!"
+                                    }
+                                </p>
                             </li>
                         </ul>
                         <ul className="navbar-nav ml-3">
@@ -131,10 +125,14 @@ const DivWrapper = styled.div`
         border-radius: 50%;
     }
 
-    .user-name-greeting {
+    .container-ui {
         position: relative;
-        font: normal 1rem 'Cabin', sans-serif;
-        top: -.8rem;
+    }
+
+    .user-name-greeting {
+        position: absolute;
+        font: normal 1.2rem 'Cabin', sans-serif;
+        top: -1rem;
     }
 
     .logout-btn {
