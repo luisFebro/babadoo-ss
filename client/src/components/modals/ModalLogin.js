@@ -1,10 +1,10 @@
 import React, { useState, Fragment, useEffect } from 'react';
-import { useStoreState, useStoreDispatch } from 'easy-peasy';
-import { showSuccessSnackbar } from '../../data/redux/actions/snackbarActions';
 import PropTypes from 'prop-types';
-import axios from 'axios';
-
-
+// Redux
+import { useStoreState, useStoreDispatch } from 'easy-peasy';
+import { clearErrors, returnErrors } from '../..//redux/actions/errorActions';
+import { login } from '../..//redux/actions/authActions';
+import { showSuccessSnackbar } from '../..//redux/actions/snackbarActions';
 // Material UI
 import { makeStyles } from '@material-ui/core/styles';
 import { CardMedia } from '@material-ui/core';
@@ -16,48 +16,6 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 // End Material UI
-
-// Redux Actions
-const returnErrors = (msg, status, id = null) => {
-  return {
-    type: 'GET_ERRORS',
-    payload: { msg, status, id }
-  };
-};
-
-const clearErrors = (dispatch) => {
-    dispatch({ type: 'CLEAR_ERRORS' });
-};
-
-export const login = ({ email, password }) => dispatch => {
-  // Headers
-  const config = {
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  };
-
-  // Request body
-  const body = JSON.stringify({ email, password });
-
-  axios
-    .post('/api/auth', body, config)
-    .then(res =>
-      dispatch({
-        type: 'LOGIN_SUCCESS',
-        payload: res.data
-      })
-    )
-    .catch(err => {
-      dispatch(
-        returnErrors(err.response.data, err.response.status, 'LOGIN_FAIL')
-      );
-      dispatch({
-        type: 'LOGIN_FAIL'
-      });
-    });
-};
-// End Redux Actions
 
 const useStyles = makeStyles(theme => ({
     button: {
@@ -220,12 +178,4 @@ export default function ModalLogin() {
     );
 }
 
-// const mapStateToProps = state => ({
-//   isUserAuthenticated: state.auth.isUserAuthenticated,
-//   error: state.error
-// });
 
-// export default connect(
-//   mapStateToProps,
-//   { login, clearErrors }
-// )(LoginModal);

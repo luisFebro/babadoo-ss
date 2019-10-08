@@ -1,8 +1,10 @@
 import React, { useState, Fragment, useEffect } from 'react';
-import { useStoreState, useStoreDispatch } from 'easy-peasy';
-import { showSuccessSnackbar } from '../../data/redux/actions/snackbarActions';
-import axios from 'axios';
 import PropTypes from 'prop-types';
+// Redux
+import { useStoreState, useStoreDispatch } from 'easy-peasy';
+import { showSuccessSnackbar } from '../..//redux/actions/snackbarActions';
+import { clearErrors, returnErrors } from '../..//redux/actions/errorActions';
+import { register } from '../..//redux/actions/authActions';
 // Material UI
 import { makeStyles } from '@material-ui/core/styles';
 import { CardMedia } from '@material-ui/core';
@@ -14,53 +16,6 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 // End Material UI
-// import { register } from '../../actions/authActions';
-
-// REDUX
-// actions
-const returnErrors = (msg, status, id = null) => {
-  return {
-    type: 'GET_ERRORS',
-    payload: { msg, status, id }
-  };
-};
-
-const clearErrors = (dispatch) => {
-    dispatch({ type: 'CLEAR_ERRORS' });
-};
-
-// Register User
-const register = ({ name, email, password }) => dispatch => {
-    // Headers
-    const config = {
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    };
-
-    // Request body
-    const body = JSON.stringify({ name, email, password });
-    // json ready to Go Internet - exemple:
-    // {"name":"Luis Febro","email":"mr.febro@gmail.com","password":"12345678910"}
-
-    axios
-        .post('/api/users', body, config)
-        .then(res =>
-            dispatch({
-                type: 'REGISTER_SUCCESS',
-                payload: res.data
-            })
-        )
-      .catch(err => {
-        dispatch(
-          returnErrors(err.response.data, err.response.status, 'REGISTER_FAIL')
-        );
-        dispatch({
-          type: 'REGISTER_FAIL'
-        });
-      });
-};
-// END REDUX
 
 const useStyles = makeStyles(theme => ({
     button: {
@@ -237,12 +192,3 @@ export default function ModalRegister() {
     );
 }
 
-// const mapStateToProps = state => ({
-//   isUserAuthenticated: state.auth.isUserAuthenticated,
-//   error: state.error
-// });
-
-// export default connect(
-//   mapStateToProps,
-//   { login, clearErrors }
-// )(LoginModal);

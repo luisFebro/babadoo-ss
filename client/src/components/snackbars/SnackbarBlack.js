@@ -1,6 +1,6 @@
 import React from 'react';
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
-import { closeSuccessSnackbar } from '../../data/redux/actions/snackbarActions';
+import { closeSuccessSnackbar } from '../..//redux/actions/snackbarActions';
 import { makeStyles } from '@material-ui/core/styles';
 import Slide from '@material-ui/core/Slide'
 import Button from '@material-ui/core/Button';
