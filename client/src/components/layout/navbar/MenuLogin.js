@@ -43,7 +43,7 @@ export default function MenuLogin() {
                                     }
                                 </Link>
                                 <p
-                                    className="user-name-greeting"
+                                    className="user-name-greeting badge badge-warning"
                                 >
                                     {name ?
                                         `Olá, ${truncateWords(name, 10)}` :
@@ -130,9 +130,11 @@ const DivWrapper = styled.div`
     }
 
     .user-name-greeting {
+        color: var(--mainDark);
+        padding: 2px 5px;
         position: absolute;
-        font: normal 1.2rem 'Cabin', sans-serif;
-        top: -1rem;
+        font: normal 1.1rem 'Cabin', sans-serif;
+        top: 3.12rem;
     }
 
     .logout-btn {
