@@ -1,3 +1,4 @@
+// naming structure: action > type > speficification
 export const returnErrors = (msg, status, id = null) => {
   return {
     type: 'GET_ERRORS',

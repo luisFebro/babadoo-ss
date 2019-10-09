@@ -2,12 +2,6 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import RegisteredUser from './RegisteredUser';
 
-//fetchUsers(data)
-// const fetchUsers = async () => {
-//     const response = await axios.get('api/users/list');
-//     setData(response.data);
-// };
-
 const getDataFromRes = (res) => {
     let name = [], email = [];
     for(let userId in res) {

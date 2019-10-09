@@ -1,17 +1,16 @@
-import React, { useState, Fragment, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 // Redux
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
-import { clearErrors, returnErrors } from '../..//redux/actions/errorActions';
-import { login } from '../..//redux/actions/authActions';
-import { showSuccessSnackbar } from '../..//redux/actions/snackbarActions';
+import { showSnackbarBlack } from '../../redux/actions/snackbarActions';
+import { clearErrors } from '../../redux/actions/errorActions';
+import { login } from '../../redux/actions/authActions';
 // Material UI
 import { makeStyles } from '@material-ui/core/styles';
 import { CardMedia } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -46,7 +45,7 @@ export default function ModalLogin() {
         hasErrorMsg: null
     });
 
-    const { email, password, hasErrorMsg } = data;
+    const { email, password } = data;
     const classes = useStyles();
 
 
@@ -72,13 +71,13 @@ export default function ModalLogin() {
       //
       if (isModalLoginOpen) {
           if (isUserAuthenticated) {
-            dispatch({"type": "TOGGLE_MODAL_LOGIN", "payload": isModalLoginOpen});
+            dispatch({type: "TOGGLE_MODAL_LOGIN", payload: isModalLoginOpen});
             setTimeout(() => {
-                dispatch({type: "SHOW_SNACKBAR_BLACK", payload: "Seja Bem-Vindo(a)!"})
+                showSnackbarBlack(dispatch, "Seja Bem-Vindo(a)!");
             }, 3000);
           }
       }
-  }, [isModalLoginOpen, isUserAuthenticated, error]);
+  }, [isUserAuthenticated, isModalLoginOpen, dispatch]);
 
   // }
 
@@ -161,7 +160,7 @@ export default function ModalLogin() {
                         <Button
                               onClick={() => {
                                 onSubmit();
-                                dispatch({type: 'SHOW_SNACKBAR_BLACK', payload: "Carregando..."});
+                                showSnackbarBlack(dispatch, "Carregando...");
                               }}
                               variant="contained"
                               color="primary"
@@ -178,4 +177,9 @@ export default function ModalLogin() {
     );
 }
 
-
+ModalLogin.propTypes = {
+    isAuthenticated: PropTypes.bool,
+    error: PropTypes.object,
+    login: PropTypes.func,
+    clearErrors: PropTypes.func
+}

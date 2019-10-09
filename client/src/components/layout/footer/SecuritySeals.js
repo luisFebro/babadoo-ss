@@ -19,7 +19,7 @@ export default function SecuritySeals() {
                         src="https://seal.websecurity.norton.com/getseal?host_name=babadoo.herokuapp.com&amp;size=S&amp;use_flash=NO&amp;use_transparent=No&amp;lang=pt">
                         </script>
                         <br />
-                        <a href="https://www.symantec.com/pt/br/ssl-certificates" target="_blank"  style={{color: "#000000", textDecoration: "none", font: "bold 10px verdana,sans-serif", letterSpacing: ".5px;text-align:center", margin: "0px", padding: "0px"}}>
+                        <a rel="noopener noreferrer" href="https://www.symantec.com/pt/br/ssl-certificates" target="_blank"  style={{color: "#000000", textDecoration: "none", font: "bold 10px verdana,sans-serif", letterSpacing: ".5px;text-align:center", margin: "0px", padding: "0px"}}>
                         Sobre certificados SSL
                         </a>
                     </td>

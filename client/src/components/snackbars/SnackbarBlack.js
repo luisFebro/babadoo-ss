@@ -1,9 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+// Redux
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
-import { closeSuccessSnackbar } from '../..//redux/actions/snackbarActions';
+import { closeSnackbarBlack } from '../../redux/actions/snackbarActions';
+// End Redux
 import { makeStyles } from '@material-ui/core/styles';
-import Slide from '@material-ui/core/Slide'
-import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
@@ -16,8 +17,8 @@ const useStyles = makeStyles(theme => ({
 
 export default function SnackbarBlack() {
     // Redux
-    const { isSnackbarOpen, snackbarMsg } = useStoreState(state => ({
-        isSnackbarOpen: state.snackbarReducer.cases.isSnackbarOpen,
+    const { isBlackSnackbarOpen, snackbarMsg } = useStoreState(state => ({
+        isBlackSnackbarOpen: state.snackbarReducer.cases.isBlackSnackbarOpen,
         snackbarMsg: state.snackbarReducer.cases.snackbarMsg,
     }))
     const dispatch = useStoreDispatch();
@@ -27,24 +28,34 @@ export default function SnackbarBlack() {
   return (
      <div>
        <Snackbar
-         open={isSnackbarOpen}
+         open={isBlackSnackbarOpen}
          anchorOrigin={{
            vertical: 'top',
            horizontal: 'center',
          }}
          autoHideDuration={4000}
-         onClose={() => closeSuccessSnackbar(dispatch)}
+         onClose={() => closeSnackbarBlack(dispatch)}
          ContentProps={{
            'aria-describedby': 'message-id',
          }}
-         message={<span id="message-id">{snackbarMsg}</span>}
+         message={<span
+                    id="message-id"
+                    className="text-default"
+                  >
+                  <i
+                    style={{color: 'var(--mainWhite)', fontSize: '1.7rem', paddingRight: '8px'}}
+                    className="far fa-check-circle"
+                  >
+                  </i>
+                  {snackbarMsg}
+                  </span>}
          action={[
            <IconButton
              key="close"
              aria-label="close"
              color="inherit"
              className={classes.close}
-             onClick={() => closeSuccessSnackbar(dispatch)}
+             onClick={() => closeSnackbarBlack(dispatch)}
            >
              <CloseIcon />
            </IconButton>,
@@ -52,4 +63,8 @@ export default function SnackbarBlack() {
        />
      </div>
   );
+}
+
+SnackbarBlack.propTypes = {
+    closeBlackSnackbar: PropTypes.func,
 }

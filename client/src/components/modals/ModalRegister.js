@@ -1,17 +1,16 @@
-import React, { useState, Fragment, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 // Redux
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
-import { showSuccessSnackbar } from '../..//redux/actions/snackbarActions';
-import { clearErrors, returnErrors } from '../..//redux/actions/errorActions';
-import { register } from '../..//redux/actions/authActions';
+import { showSnackbarBlack } from '../../redux/actions/snackbarActions';
+import { clearErrors } from '../../redux/actions/errorActions';
+import { register } from '../../redux/actions/authActions';
 // Material UI
 import { makeStyles } from '@material-ui/core/styles';
 import { CardMedia } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -45,7 +44,7 @@ export default function ModalRegister() {
         hasErrorMsg: null
     });
 
-    const { name, email, password, hasErrorMsg } = data;
+    const { name, email, password } = data;
     const classes = useStyles();
 
     // componentDidUpdate(prevProps) {
@@ -70,15 +69,15 @@ export default function ModalRegister() {
         //
         if (isModalRegisterOpen) {
             if (isUserAuthenticated) {
-              dispatch({"type": "TOGGLE_MODAL_REGISTER", "payload": isModalRegisterOpen});
+              dispatch({type: "TOGGLE_MODAL_REGISTER", payload: isModalRegisterOpen});
               setTimeout(() => {
-                  showSuccessSnackbar(dispatch, "Cadastro Realizado com Sucesso!");
-              }, 3000);
+                showSnackbarBlack(dispatch, "Cadastro Realizado com Sucesso!");
+              })
             }
         }
-    }, [isModalRegisterOpen, isUserAuthenticated, error]);
 
-    // }
+    }, [isUserAuthenticated, isModalRegisterOpen, dispatch]);
+
 
     const onChange = e => {
         const { name, value } = e.target;
@@ -175,7 +174,7 @@ export default function ModalRegister() {
                         <Button
                               onClick={() => {
                                 onSubmit();
-                                dispatch({type: 'SHOW_SNACKBAR_BLACK', payload: "Carregando..."});
+                                showSnackbarBlack(dispatch, "Carregando...");
                               }}
                               variant="contained"
                               color="primary"
@@ -190,5 +189,13 @@ export default function ModalRegister() {
           </Dialog>
         </div>
     );
+}
+
+ModalRegister.propTypes = {
+    showSnackbarBlack: PropTypes.func,
+    isAuthenticated: PropTypes.bool,
+    error: PropTypes.object,
+    register: PropTypes.func,
+    clearErrors: PropTypes.func,
 }
 

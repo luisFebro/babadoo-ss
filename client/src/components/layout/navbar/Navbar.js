@@ -66,12 +66,9 @@ export default function Navbar() {
                                                     title={storeIcon.altTitle}
                                                  />
                                                 <div className="store-badge badge badge-danger">Aberto</div>
-                                                <Link to='/painel-controle-admin'>
-                                                    <KeyAccessDashboard />
-                                                </Link>
                                              </div> :
                                             <span>
-                                                loja<KeyAccessDashboard />
+                                                loja
                                             </span>
                                         }
                                     </Link>
@@ -119,6 +116,9 @@ export default function Navbar() {
                         <DivWrapper>
                             <MenuLogin />
                         </DivWrapper>
+                        <Link to='/painel-controle-admin'>
+                            <KeyAccessDashboard />
+                        </Link>
                     </Fragment>
                 );
             }}

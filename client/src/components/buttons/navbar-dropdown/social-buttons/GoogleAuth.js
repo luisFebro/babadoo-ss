@@ -1,7 +1,11 @@
 import React from 'react';
+// Redux
+import { useStoreDispatch } from 'easy-peasy';
+import { showSnackbarBlack } from '../../../../redux/actions/snackbarActions';
+import { register } from '../../../../redux/actions/authActions';
+// End Redux
 import GoogleLogin from 'react-google-login';
 import PropTypes from 'prop-types';
-import { useStoreDispatch } from 'easy-peasy';
 
 
 export default function GoogleAuth() {
@@ -9,8 +13,19 @@ export default function GoogleAuth() {
     const dispatch = useStoreDispatch();
     // End Redux
     const responseGoogle = response => {
-        dispatch({type: 'SHOW_SNACKBAR_BLACK', payload: 'carregando...' });
+        //Register New user DB
+        // showSnackbarBlack(dispatch, 'Carregando...');
+        showSnackbarBlack(dispatch, 'Seja Bem-Vindo(a)!');
         dispatch({type: 'LOGIN_GOOGLE', payload: response });
+
+        // const newUser = {
+        //     name: response.profileObj.familyName,
+        //     email: response.profileObj.email,
+        //     password: ''
+        // };
+
+        // register(newUser)(dispatch);
+
     }
 
     return (

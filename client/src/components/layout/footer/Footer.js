@@ -1,6 +1,5 @@
 import React from 'react';
 import SocialNetworks from './SocialNetworks';
-import SecuritySeals from './SecuritySeals';
 
 const Footer = () => {
     return (

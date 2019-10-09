@@ -3,6 +3,7 @@ import { reducer } from 'easy-peasy';
 // copy and paste the type of actions below
 // You can use only one isntance of object like 'cases' for each object.
 // Check for mispellings in case of one action not being dispatched properly.
+//Reducer Naming Structure: (optional verb 'is') + main + state/desc
 
 // REDUCERS
 const initialState = {
@@ -17,13 +18,13 @@ export const snackbarReducer = {
             //Show
             case 'SHOW_SNACKBAR_BLACK':
                 return {
-                   isSuccessSnackbarOpen: true,
+                   isBlackSnackbarOpen: true,
                    snackbarMsg: action.payload
                 };
             //Close
             case 'CLOSE_SNACKBAR_BLACK':
                 return {
-                   isSuccessSnackbarOpen: false,
+                   isBlackSnackbarOpen: false,
                    snackbarMsg: ""
                 }
 

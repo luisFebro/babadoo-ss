@@ -1,4 +1,3 @@
-import { action } from 'easy-peasy';
 // Models
 import { modalReducers } from './modalReducers';
 import { snackbarReducer } from './snackbarReducer';

@@ -1,10 +1,8 @@
 import React from 'react';
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
-import { closeSuccessSnackbar } from '../..//redux/actions/snackbarActions';
+import { closeSnackbarSuccess } from '../../redux/actions/snackbarActions';
 import { makeStyles } from '@material-ui/core/styles';
 import { green } from '@material-ui/core/colors'
-import Slide from '@material-ui/core/Slide'
-import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
@@ -48,18 +46,28 @@ export default function SuccessSnackbar() {
            horizontal: 'center',
          }}
          autoHideDuration={4000}
-         onClose={() => closeSuccessSnackbar(dispatch)}
+         onClose={() => closeSnackbarSuccess(dispatch)}
          ContentProps={{
            'aria-describedby': 'message-id',
          }}
-         message={<span id="message-id" className="text-default" ><i style={{color: 'var(--mainWhite)', fontSize: '1.7rem', paddingRight: '8px'}} className="far fa-check-circle"></i>{snackbarMsg}</span>}
+         message={<span
+                    id="message-id"
+                    className="text-default"
+                  >
+                  <i
+                    style={{color: 'var(--mainWhite)', fontSize: '1.7rem', paddingRight: '8px'}}
+                    className="far fa-check-circle"
+                  >
+                  </i>
+                  {snackbarMsg}
+                  </span>}
          action={[
            <IconButton
              key="close"
              aria-label="close"
              color="inherit"
              className={classes.close}
-             onClick={() => closeSuccessSnackbar(dispatch)}
+             onClick={() => closeSnackbarSuccess(dispatch)}
            >
              <CloseIcon />
            </IconButton>,

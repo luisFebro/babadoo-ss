@@ -1,3 +1,5 @@
+// naming structure:
+// action > type > specification e.g showMenuDark / SHOW_MENU_DARK
 import axios from 'axios';
 import { returnErrors } from './errorActions';
 

@@ -78,10 +78,9 @@ export default function MenuLogin() {
                                     <span style={{position: "absolute", top: "0.1rem", right: "2.7rem"}}>Dúvidas?</span>
                                 </Link>
                                 <button
-                                    style={{padding: 0, border: 'none', background: 'none'}}
+                                    style={{cursor: 'pointer', padding: '0 4px', border: 'none'}}
                                     className="logout-btn badge badge-danger"
                                     onClick={() => logout(dispatch)}
-                                    style={{cursor: 'pointer'}}
                                 >
                                     sair
                                 </button>
@@ -131,23 +130,19 @@ const DivWrapper = styled.div`
 
     .user-name-greeting {
         color: var(--mainDark);
-        padding: 2px 5px;
+        padding: 0 3px;
         position: absolute;
-        font: normal 1.1rem 'Cabin', sans-serif;
+        font: normal 1rem 'Cabin', sans-serif;
         top: 3.12rem;
     }
 
     .logout-btn {
         background: var(--mainRed);
         position: absolute;
-        font: normal 1.1rem 'Cabin', sans-serif;
+        font: normal 1rem 'Cabin', sans-serif;
         top: 1px;
         right: 4px;
         padding: 0 3px;
-    }
-
-    .user-name-greeting p {
-        font-size: .9rem;
     }
 
     & .nav-link:hover,
@@ -165,6 +160,10 @@ const DivWrapper = styled.div`
         }
         i {
             font-size: 1.9rem;
+        }
+        .user-name-greeting {
+            font: normal 1.1rem 'Cabin', sans-serif;
+            padding: 2px 5px;
         }
     }
 

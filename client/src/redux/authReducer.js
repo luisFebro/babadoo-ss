@@ -38,7 +38,7 @@ export const authReducer = {
                     isUserAuthenticated: true,
                     user: {
                         id: action.payload.accessToken,
-                        name: action.payload.name, //change to givenName
+                        name: action.payload.givenName, //change to givenName
                         picture: action.payload.picture.data.url,
                         email: action.payload.email
                     }
