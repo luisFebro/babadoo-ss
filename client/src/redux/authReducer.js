@@ -20,7 +20,7 @@ const initialState = {
 
 export const authReducer = {
     cases: reducer((state = initialState, action) => {
-        switch(action.type) {
+        switch (action.type) {
             case "LOGIN_GOOGLE":
                 return {
                     ...state,
@@ -47,16 +47,16 @@ export const authReducer = {
             case 'REGISTER_SUCCESS':
                 localStorage.setItem('token', action.payload.token);
                 return {
-                  ...state,
-                  ...action.payload,
-                  isUserAuthenticated: true,
-                  isLoading: false,
-                  user: {
-                      id: action.payload.user.id,
-                      email: action.payload.user.email,
-                      name: action.payload.user.name,
-                      picture: "img/icons/avatar-woman.png",
-                  }
+                    ...state,
+                    ...action.payload,
+                    isUserAuthenticated: true,
+                    isLoading: false,
+                    user: {
+                        id: action.payload.user.id,
+                        email: action.payload.user.email,
+                        name: action.payload.user.name,
+                        picture: "img/icons/avatar-woman.png",
+                    }
                 };
             case 'USER_LOADING':
                 return {
@@ -74,19 +74,19 @@ export const authReducer = {
             case 'LOGIN_FAIL':
             case 'LOGOUT_SUCCESS':
             case 'REGISTER_FAIL':
-              localStorage.removeItem('token');
-              return {
-                ...state,
-                isUserAuthenticated: false,
-                token: null,
-                isLoading: false,
-                user: {
-                    id: null,
-                    name: null,
-                    email: null,
-                    picture: "img/icons/avatar-woman.png",
-                }
-              };
+                localStorage.removeItem('token');
+                return {
+                    ...state,
+                    isUserAuthenticated: false,
+                    token: null,
+                    isLoading: false,
+                    user: {
+                        id: null,
+                        name: null,
+                        email: null,
+                        picture: "img/icons/avatar-woman.png",
+                    }
+                };
             default:
                 return state;
         }

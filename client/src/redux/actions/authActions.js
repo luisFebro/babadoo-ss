@@ -1,8 +1,9 @@
-// naming structure:
-// action > type > specification e.g showMenuDark / SHOW_MENU_DARK
 import axios from 'axios';
 import { returnErrors } from './errorActions';
+// naming structure:
+// action > type > specification e.g showMenuDark / SHOW_MENU_DARK
 
+// Login
 export const login = ({ email, password }) => dispatch => {
   // Headers
   const config = {
@@ -33,7 +34,7 @@ export const login = ({ email, password }) => dispatch => {
 };
 
 
-// Rconstegister User
+// Register User
 export const register = ({ name, email, password }) => dispatch => {
     // Headers
     const config = {
@@ -63,4 +64,10 @@ export const register = ({ name, email, password }) => dispatch => {
           type: 'REGISTER_FAIL'
         });
       });
+};
+
+// Logout
+export const logout = dispatch => {
+    dispatch({ type: 'LOGOUT_SUCCESS' });
+    setTimeout(() => dispatch({ type: 'SHOW_SNACKBAR_BLACK', payload: "Sua sessão foi finalizada." }), 2000);
 };

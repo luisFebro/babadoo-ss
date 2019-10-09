@@ -1,17 +1,13 @@
 import React, { Fragment } from 'react';
+// Redux
+import { useStoreState, useStoreDispatch } from 'easy-peasy';
+import { logout } from '../../../redux/actions/authActions.js';
+// End Redux
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { bizWhatsapp } from '../../../data/dataBiz';
 import truncateWords from '../../utils/truncateWords';
-
-// Redux Actions
-const logout = dispatch => {
-    dispatch({ type: 'LOGOUT_SUCCESS' });
-    setTimeout(() => dispatch({ type: 'SHOW_SNACKBAR_BLACK', payload: "Sua sessão foi finalizada." }), 2000);
-};
-// End Redux Actions
 
 export default function MenuLogin() {
         // Redux

@@ -1,30 +1,47 @@
 import React from 'react';
 // Redux
-import { useStoreDispatch } from 'easy-peasy';
+import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { showSnackbarBlack } from '../../../../redux/actions/snackbarActions';
-import { register } from '../../../../redux/actions/authActions';
+import { login, register } from '../../../../redux/actions/authActions';
 // End Redux
 import GoogleLogin from 'react-google-login';
 import PropTypes from 'prop-types';
+import getEmailAllRegisteredUsers from '../../../../pages/dashboard-admin/getEmailAllRegisteredUsers';
+
+const emailAllUsers = getEmailAllRegisteredUsers();
+
 
 
 export default function GoogleAuth() {
-    // Redux
     const dispatch = useStoreDispatch();
-    // End Redux
+
     const responseGoogle = response => {
         //Register New user DB
-        // showSnackbarBlack(dispatch, 'Carregando...');
-        // showSnackbarBlack(dispatch, 'Seja Bem-Vindo(a)!');
+        // Check if the user is already registed to log in or Register
+        let userEmail = response.profileObj.email;
+        if(emailAllUsers.email.includes(response.profileObj.email)) {
+            // Login
+            const newUser = {
+                email: userEmail,
+                password: 'google'
+            };
+            login(newUser)(dispatch);
+            showSnackbarBlack(dispatch, 'Login: Olá de Volta!');
+        } else {
+            // Register
+            const newUser = {
+                name: response.profileObj.givenName,
+                email: userEmail,
+                password: 'google'
+            };
+            register(newUser)(dispatch);
+            showSnackbarBlack(dispatch, 'Register: Conta Babadoo criada via Google!');
+        }
+
+        //Authenticate User
         dispatch({type: 'LOGIN_GOOGLE', payload: response });
-
-        // const newUser = {
-        //     name: response.profileObj.familyName,
-        //     email: response.profileObj.email,
-        //     password: ''
-        // };
-
-        // register(newUser)(dispatch);
+        // showSnackbarBlack(dispatch, 'Seja Bem-Vindo(a)!');
+        //
 
     }
 

@@ -14,7 +14,7 @@ export default function FacebookAuth() {
         const newUser = {
             name: response.givenName,
             email: response.email,
-            password: ''
+            password: 'facebook'
         };
 
         register(newUser)(dispatch);

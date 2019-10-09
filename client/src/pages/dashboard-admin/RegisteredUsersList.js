@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react';
+// Redux
+import { useStoreDispatch } from 'easy-peasy';
+// import { getEmailAllRegisteredUsers } from '../../redux/actions/authActions.js'
+// End Redux
 import axios from 'axios';
 import RegisteredUser from './RegisteredUser';
+
 
 const getDataFromRes = (res) => {
     let name = [], email = [];
@@ -15,6 +20,8 @@ export default function RegisteredUsersList() {
     const [data, setData] = useState({ name: [], email: [] });
     const [load, setLoad] = useState(false);
     const [error, setError] = useState("");
+
+    const dispatch = useStoreDispatch();
     // empty array as a second argument acts like componentDidMount.
     useEffect(() => {
         axios.get('api/users/list')
