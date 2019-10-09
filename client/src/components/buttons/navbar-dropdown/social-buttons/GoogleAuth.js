@@ -15,7 +15,7 @@ export default function GoogleAuth() {
     const responseGoogle = response => {
         //Register New user DB
         // showSnackbarBlack(dispatch, 'Carregando...');
-        showSnackbarBlack(dispatch, 'Seja Bem-Vindo(a)!');
+        // showSnackbarBlack(dispatch, 'Seja Bem-Vindo(a)!');
         dispatch({type: 'LOGIN_GOOGLE', payload: response });
 
         // const newUser = {

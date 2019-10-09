@@ -23,7 +23,7 @@ export default function FacebookAuth() {
 
         //Authenticate User
         showSnackbarBlack(dispatch, 'carregando...');
-        showSnackbarBlack(dispatch, 'Seja Bem-vindo(a)');
+        // showSnackbarBlack(dispatch, 'Seja Bem-vindo(a)');
         dispatch({"type": 'LOGIN_FACEBOOK', "payload": response });
 
     }
