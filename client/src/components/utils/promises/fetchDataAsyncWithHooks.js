@@ -8,8 +8,8 @@ export const fetchDataAsyncWithHooks = async (urlOrRoute, setData) => {
         setData(response.data);
         // statements
     } catch(e) {
-        // console.log(e);
-        throw new Error(`fetchData: something went wrong! error: ${e.message}`);
+        console.log(e);
+        // throw new Error(`fetchData: something went wrong! error: ${e.message}`);
     }
 };
 
