@@ -4,6 +4,7 @@ import Title from '../../components/Title';
 import parse from 'html-react-parser';
 import EmptyContent from '../../components/EmptyContent';
 import { ButtonContainerPressedEffectDark as Dark } from '../../components/buttons/Default';
+import { Link } from 'react-router-dom';
 
 export default function Favorites() {
     const name = useStoreState(state => state.authReducer.cases.user.name);
@@ -14,9 +15,11 @@ export default function Favorites() {
                     <Title title={`Seus Favaritos, ${name}`} /> :
                     <EmptyContent text={"Sua Galeria está vazia..."} />
                     <div style={{display: 'flex', justifyContent: 'center'}}>
-                        <Dark className="mt-5">
-                            Escolher seus favoritos
-                        </Dark>
+                        <Link to='/favoritos'>
+                            <Dark className="mt-5">
+                                Escolher seus favoritos
+                            </Dark>
+                        </Link>
                     </div>
                 </div> :
                 <div>

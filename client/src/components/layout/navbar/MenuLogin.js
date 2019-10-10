@@ -20,10 +20,25 @@ export default function MenuLogin() {
         const dispatch = useStoreDispatch();
         // End Redux
 
+        const changeCss = () => {
+          console.log("running changeCss");
+          const bodyElement = document.querySelector("body");
+          const navElement = document.querySelector("#mainNav");
+          if(typeof navElement !== null) {
+            if(window.scrollY > 50) {
+              navElement.className += " shadow-elevation-soft";
+            } else {
+              navElement.className += "";
+            }
+          }
+        }
+
+        useEffect(() => window.addEventListener('scroll', changeCss, true), []);
+
         return (
         <Fragment>
             {isUserAuthenticated ?
-                <DivWrapper id="mainNav" className="animated zoomIn slower" style={{ transition: '.5s' }}>
+                <DivWrapper id="mainNav" className="animated zoomIn slower">
                     <nav className="navbar navbar-expand-sm px-sm-5 text-nav-items py-0 my-0">
                         <ul className="navbar-nav container-ul">
                             <li className="nav-item">

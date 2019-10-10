@@ -126,10 +126,6 @@ footer {
 /*END CONTAINERS*/
 
 /*IMAGES*/
-.shadow-elevation {
-    box-shadow: 0 19px 38px rgba(0, 0, 0, 0.20), 0 15px 12px rgba(0, 0, 0, 0.12);
-}
-
 .image-center {
     max-width: 80%;
     height: auto;
@@ -139,6 +135,18 @@ footer {
     width: 80%;
     height: auto;
 }
+/*END IMAGES*/
+
+/*SHADOWS*/
+.shadow-elevation {
+    box-shadow: 0 19px 38px rgba(0, 0, 0, 0.20), 0 15px 12px rgba(0, 0, 0, 0.12);
+}
+.shadow-elevation-soft {
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.20), 0 10px 8px rgba(0, 0, 0, 0.12);
+}
+/*END SHADOWS*/
+
+
 
 /*CART BUTTON*/
 .btn-black {
