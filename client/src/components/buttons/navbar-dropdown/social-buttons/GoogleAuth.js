@@ -8,34 +8,27 @@ import { login, register } from '../../../../redux/actions/authActions';
 import GoogleLogin from 'react-google-login';
 import PropTypes from 'prop-types';
 import getDataObjDiffKeys from '../../../utils/promises/getDataObjDiffKeys';
-// const emailAllUsers = getEmailAllRegisteredUsers();
+import { fetchDataAsyncWithHooks } from '../../../utils/promises/fetchDataAsyncWithHooks'
+// import parse from 'html-react-parser';
 
 export default function GoogleAuth() {
     const [data, setData] = useState({});
+
+    const name = useStoreState(state => state.authReducer.cases.user.name);
     const dispatch = useStoreDispatch();
+    console.log(name);
 
-    // Getting data from database
-    const fetchData = async () => {
-        try {
-            const response = await axios.get('api/users/list');
-            setData(response.data);
-            // statements
-        } catch(e) {
-            // console.log(e);
-            throw new Error(`fetchData: something went wrong! error: ${e.message}`);
-        }
-    };
-
-    useEffect(() => { fetchData(data) }, [data]);
+    // Getting data from database afte mounting
+    useEffect(() => { fetchDataAsyncWithHooks('api/users/list', setData) }, []);
 
     const responseGoogle = response => {
         //Return an Obj with an Array with all emails
+        const isSocialOn = 'google';
         const emailAllRegisteredUsers = getDataObjDiffKeys(data, ["email"]).email;
 
         const userEmail = response.profileObj.email;
         const isEmailAlreadyRegistered = emailAllRegisteredUsers.includes(userEmail);
-        console.log(isEmailAlreadyRegistered);
-        //Register New user DB
+
         // Check if the user is already registed to either log in or Register
         if(isEmailAlreadyRegistered) {
             // Login
@@ -43,8 +36,9 @@ export default function GoogleAuth() {
                 email: userEmail,
                 password: 'google'
             };
-            // login(newUser)(dispatch);
-            showSnackbarBlack(dispatch, 'Login: Olá de Volta!');
+
+            login(newUser)(dispatch, isSocialOn);
+            showSnackbarBlack(dispatch, `Olá de Volta!`);
         } else {
             // Register
             const newUser = {
@@ -52,14 +46,13 @@ export default function GoogleAuth() {
                 email: userEmail,
                 password: 'google'
             };
-            register(newUser)(dispatch);
-            showSnackbarBlack(dispatch, 'Register: Conta Babadoo criada via Google!');
+            register(newUser)(dispatch, isSocialOn);
+            showSnackbarBlack(dispatch, 'Conta Babadoo criada \
+                                        via Google!');
         }
 
         //Authenticate User
         dispatch({type: 'LOGIN_GOOGLE', payload: response });
-        // showSnackbarBlack(dispatch, 'Seja Bem-Vindo(a)!');
-        //
 
     }
 

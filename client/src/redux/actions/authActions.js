@@ -4,7 +4,7 @@ import { returnErrors } from './errorActions';
 // action > type > specification e.g showMenuDark / SHOW_MENU_DARK
 
 // Login
-export const login = ({ email, password }) => dispatch => {
+export const login = ({ email, password }) => (dispatch, isSocialOn = null) => {
   // Headers
   const config = {
     headers: {
@@ -17,11 +17,19 @@ export const login = ({ email, password }) => dispatch => {
 
   axios
     .post('/api/auth', body, config)
-    .then(res =>
-      dispatch({
-        type: 'LOGIN_SUCCESS',
-        payload: res.data
-      })
+    .then(res => {
+            console.log("axios-post-login", res.data);
+            if(isSocialOn) {
+                if(isSocialOn === ('google' || 'facebook')) {
+                    return;
+                } else {
+                    dispatch({
+                      type: 'LOGIN_SUCCESS',
+                      payload: res.data
+                    })
+                }
+            }
+        }
     )
     .catch(err => {
       dispatch(
@@ -35,7 +43,7 @@ export const login = ({ email, password }) => dispatch => {
 
 
 // Register User
-export const register = ({ name, email, password }) => dispatch => {
+export const register = ({ name, email, password }) => (dispatch, isSocialOn = null) => {
     // Headers
     const config = {
         headers: {
@@ -50,12 +58,18 @@ export const register = ({ name, email, password }) => dispatch => {
 
     axios
         .post('/api/users', body, config)
-        .then(res =>
-            dispatch({
-                type: 'REGISTER_SUCCESS',
-                payload: res.data
-            })
-        )
+        .then(res => {
+            if(isSocialOn) {
+                if(isSocialOn === ('google' || 'facebook')) {
+                    return;
+                } else {
+                    dispatch({
+                        type: 'REGISTER_SUCCESS',
+                        payload: res.data
+                    })
+                }
+            }
+        })
       .catch(err => {
         dispatch(
           returnErrors(err.response.data, err.response.status, 'REGISTER_FAIL')
@@ -71,3 +85,4 @@ export const logout = dispatch => {
     dispatch({ type: 'LOGOUT_SUCCESS' });
     setTimeout(() => dispatch({ type: 'SHOW_SNACKBAR_BLACK', payload: "Sua sessão foi finalizada." }), 2000);
 };
+

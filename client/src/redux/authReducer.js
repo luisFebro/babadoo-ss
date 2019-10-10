@@ -21,7 +21,9 @@ const initialState = {
 export const authReducer = {
     cases: reducer((state = initialState, action) => {
         switch (action.type) {
+            // social network login
             case "LOGIN_GOOGLE":
+                // localStorage.setItem('token', action.payload.token);
                 return {
                     ...state,
                     isUserAuthenticated: true,
@@ -33,6 +35,7 @@ export const authReducer = {
                     }
                 }
             case "LOGIN_FACEBOOK":
+                // localStorage.setItem('token', action.payload.token);
                 return {
                     ...state,
                     isUserAuthenticated: true,
@@ -43,6 +46,7 @@ export const authReducer = {
                         email: action.payload.email
                     }
                 }
+            // end social network login
             case 'LOGIN_SUCCESS':
             case 'REGISTER_SUCCESS':
                 localStorage.setItem('token', action.payload.token);
@@ -52,9 +56,9 @@ export const authReducer = {
                     isUserAuthenticated: true,
                     isLoading: false,
                     user: {
+                        name: action.payload.user.name,
                         id: action.payload.user.id,
                         email: action.payload.user.email,
-                        name: action.payload.user.name,
                         picture: "img/icons/avatar-woman.png",
                     }
                 };
