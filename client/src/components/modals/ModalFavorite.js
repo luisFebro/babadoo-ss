@@ -40,8 +40,8 @@ export default function ModalFavorite() {
                                             <h5>{title}</h5>
                                         </section>
                                         <div className="d-flex flex-column justify-content-center align-items-center mt-2">
-                                            <Link to="/">
-                                                <DarkBtn onClick={() => closeModal()}>Voltar</DarkBtn>
+                                            <DarkBtn onClick={() => closeModal()}>Voltar</DarkBtn>
+                                            <Link to="/favoritos">
                                                 <YellowBtn
                                                     className="mt-2"
                                                     onClick={() => {

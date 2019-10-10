@@ -18,6 +18,7 @@ import Cart from '../pages/cart/Cart';
 import CheckoutLocal from '../pages/checkout/CheckoutLocal';
 import Details from '../pages/Details';
 import Default from '../pages/Default';
+import Favorites from '../pages/favorites';
 import Dashboard from '../pages/dashboard-admin';
 //>>>Category pages
 import Home from '../pages/Home';
@@ -69,6 +70,7 @@ export default function App() {
                 <Route path="/detalhes-do-produto" component={Details} />
                 <Route path="/seu-carrinho" component={Cart} />
                 <Route path="/finalizar-compra" component={CheckoutLocal} />
+                <Route path="/favoritos" component={Favorites} />
                 <Route path="/painel-controle-admin" component={Dashboard} />
                 <UserProvider>
                     {/*<Route path="/cliente" component={Client}/>*/}

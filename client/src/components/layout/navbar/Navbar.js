@@ -77,8 +77,8 @@ export default function Navbar() {
                             {isUserAuthenticated ?
                                 null :
                                 <ul className="animated zoomIn slow navbar-nav ml-3 ml-md-auto">
-                                    <li className="nav-item mr-2 pt-2 align-items-center" onClick={() => dispatch({type: 'SHOW_SNACKBAR_BLACK', payload: 'Faça seu Login para adicionar pedidos, favoritos e mais! Clique no link ao lado para opções de acesso.'})}>
-                                        <Link to="/" className="nav-link">
+                                    <li className="nav-item mr-2 pt-2 align-items-center">
+                                        <Link to="/favoritos" className="nav-link">
                                             <span>
                                                 <i className="fas fa-heart"></i>
                                             </span>

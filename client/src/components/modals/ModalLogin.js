@@ -73,7 +73,7 @@ export default function ModalLogin() {
           if (isUserAuthenticated) {
             dispatch({type: "TOGGLE_MODAL_LOGIN", payload: isModalLoginOpen});
             setTimeout(() => {
-                showSnackbarBlack(dispatch, "Seja Bem-Vindo(a)!");
+                showSnackbarBlack(dispatch, `Olá de volta!`);
             }, 3000);
           }
       }
@@ -114,7 +114,7 @@ export default function ModalLogin() {
               <DialogContentText>
                   {error.msg.msg ? (
                     <span className="text-red text-main-container">{error.msg.msg}</span>
-                  ) : "Bem-Vindo(a) de volta!"}
+                  ) : "Falta pouco para você entrar na sua conta novamente"}
               </DialogContentText>
               <form onChange={onChange}>
                     <TextField

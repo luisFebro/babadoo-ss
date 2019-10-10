@@ -5,7 +5,6 @@ import { useStoreState } from 'easy-peasy';
 
 export default function GetPeriodOfDay() {
     const userLoggedIn = useStoreState(state => state.authReducer.cases.user.name);
-    console.log(userLoggedIn);
 
     const getData = getPeriodOfDayWithPic(userLoggedIn);
     const { img, alt, color } = getData.illustration;

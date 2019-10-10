@@ -1,7 +1,8 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 // Redux
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
-import { logout } from '../../../redux/actions/authActions.js';
+import { logout } from '../../../redux/actions/authActions';
+import { showSnackbarBlack } from '../../../redux/actions/snackbarActions';
 // End Redux
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -28,14 +29,14 @@ export default function MenuLogin() {
                             <li className="nav-item">
                                 <Link to="/perfil" className="nav-link">
                                     {isUserAuthenticated ?
+                                        picture ?
                                         <img
                                             className="profilePic nav-brand"
                                             src={picture}
                                             alt={name}
                                             title={name}
-                                        >
-                                        </img> :
-                                        <img className="profilePic" src="img/icons/avatar-woman.png" alt="avatar babadoo"/>
+                                        /> : null
+                                    : <img className="profilePic" src="img/icons/avatar-woman.png" alt="avatar babadoo"/>
                                     }
                                 </Link>
                                 <p
@@ -50,7 +51,7 @@ export default function MenuLogin() {
                         </ul>
                         <ul className="navbar-nav ml-3">
                             <li className="nav-item">
-                                <Link to="/" className="nav-link">
+                                <Link to="/favoritos" className="nav-link">
                                     <span>
                                         <i className="fas fa-heart"></i>
                                     </span>
@@ -129,7 +130,7 @@ const DivWrapper = styled.div`
         padding: 0 3px;
         position: absolute;
         font: normal 1rem 'Cabin', sans-serif;
-        top: 3.12rem;
+        top: 3rem;
     }
 
     .logout-btn {
@@ -152,7 +153,8 @@ const DivWrapper = styled.div`
     @media only screen and (min-width: 600px) {
         .logout-btn {
             top: 4px;
-            padding: 2px 4px;
+            font: normal 1.2rem 'Cabin', sans-serif;
+            padding: 5px 8px;
         }
         i {
             font-size: 1.9rem;
@@ -160,6 +162,7 @@ const DivWrapper = styled.div`
         .user-name-greeting {
             font: normal 1.1rem 'Cabin', sans-serif;
             padding: 2px 5px;
+            top: 2.8rem;
         }
     }
 

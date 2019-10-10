@@ -69,18 +69,15 @@ footer {
     font: bolder 5em 'Indie Flower', cursive;
 }
 
-.text-slogon span {
-    font-size: 1.5em;
-}
 
-.text-sub-title {
+.text-title {
     font: normal 2.1rem 'Lato', sans-serif;
     text-transform: uppercase;
 }
 
 .text-nav-items,
 .text-main-container,
-.text-title {
+.text-sub-title {
     font: normal 1.7rem 'Cabin', sans-serif;
     margin: 0;
 }

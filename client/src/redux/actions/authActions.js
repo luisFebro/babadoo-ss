@@ -103,7 +103,7 @@ export const register = ({ name, email, password }) => (dispatch, isSocialOn = n
 // Logout
 export const logout = dispatch => {
     dispatch({ type: 'LOGOUT_SUCCESS' });
-    setTimeout(() => dispatch({ type: 'SHOW_SNACKBAR_BLACK', payload: "Sua sessão foi finalizada." }), 2000);
+    setTimeout(() => dispatch({ type: 'SHOW_SNACKBAR_BLACK', payload: "Sua sessão foi finalizada com sucesso." }), 2000);
 };
 
 // Setup config/headers and token
