@@ -14,7 +14,7 @@ import { fetchDataAsyncWithHooks } from '../../../utils/promises/fetchDataAsyncW
 export default function GoogleAuth() {
     const [data, setData] = useState({});
 
-    const name = useStoreState(state => state.authReducer.cases.user.name);
+    // const name = getState().authReducer.cases.user.name);
     const dispatch = useStoreDispatch();
     console.log(name);
 
@@ -47,8 +47,7 @@ export default function GoogleAuth() {
                 password: 'google'
             };
             register(newUser)(dispatch, isSocialOn);
-            showSnackbarBlack(dispatch, 'Conta Babadoo criada \
-                                        via Google!');
+            showSnackbarBlack(dispatch, 'Conta Babadoo criada via Google!');
         }
 
         //Authenticate User

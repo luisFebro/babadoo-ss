@@ -12,12 +12,12 @@ export default function FacebookAuth() {
 
     const name = useStoreState(state => state.authReducer.cases.user.name);
     const dispatch = useStoreDispatch();
-    console.log(name);
 
     // Getting data from database afte mounting
     useEffect(() => { fetchDataAsyncWithHooks('api/users/list', setData) }, []);
 
     const responseFacebook = response => {
+        console.log(response);
         //Return an Obj with an Array with all emails
         const isSocialOn = 'facebook';
         const emailAllRegisteredUsers = getDataObjDiffKeys(data, ["email"]).email;
@@ -44,8 +44,7 @@ export default function FacebookAuth() {
             };
 
             register(newUser)(dispatch, isSocialOn);
-            showSnackbarBlack(dispatch, 'Conta Babadoo criada \
-                                        via Facebook!');
+            showSnackbarBlack(dispatch, 'Conta Babadoo criada via Facebook!');
         }
 
         //Authenticate User

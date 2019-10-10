@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+// import { useStoreDispatch } from 'easy-peasy';
+// import { loadUser } from '../redux/actions/authActions';
 import { Switch, Route } from 'react-router-dom';
 import './App.css';
 import UserProvider from '../data/contexts/UserProvider';
@@ -46,6 +48,11 @@ import SuccessSnackbar from '../components/snackbars/SuccessSnackbar';
 import WhatsappIcon from '../components/buttons/WhatsappIcon';
 // END BUTTONS
 export default function App() {
+    // const dispatch = useStoreDispatch();
+    // useEffect(() => {
+    //     dispatch(loadUser());
+    // }, []);
+
     return (
         <React.Fragment>
             <Navbar />
