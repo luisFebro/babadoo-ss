@@ -82,6 +82,11 @@ footer {
     margin: 0;
 }
 
+.text-sub-title-upper {
+    font: normal 1.7rem 'Cabin', sans-serif;
+    text-transform: uppercase;
+}
+
 .text-product-title, .text-sub-container {
     font: normal 1.3rem 'Cabin', sans-serif;
 }
@@ -116,6 +121,11 @@ footer {
 /*PICTURES*/
 .shadow-elevation {
     box-shadow: 0 19px 38px rgba(0, 0, 0, 0.20), 0 15px 12px rgba(0, 0, 0, 0.12);
+}
+
+.responsive-img-90 {
+    height: auto;
+    width: 90%;
 }
 
 /*CART BUTTON*/
