@@ -18,9 +18,9 @@ export const loadUser = () => (dispatch, getState) => {
     )
     .catch(err => {
       dispatch(returnErrors(err.response.data, err.response.status));
-      dispatch({
-        type: 'AUTH_ERROR'
-      });
+      // dispatch({
+      //   type: 'AUTH_ERROR'
+      // });
     });
 };
 
@@ -109,8 +109,8 @@ export const logout = dispatch => {
 // Setup config/headers and token
 export const tokenConfig = getState => {
   //getState method accesses redux store outside of a react component
-  const token = getState().authReducer.token;
-
+  const token = getState().authReducer.cases.token;
+    console.log("token from tokenConfig", token);
   // Headers
   const config = {
     headers: {

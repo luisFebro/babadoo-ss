@@ -30,8 +30,8 @@ export const authReducer = {
                     user: {
                         id: action.payload.tokenId,
                         name: action.payload.profileObj.familyName, //change to givenName
-                        picture: action.payload.profileObj.imageUrl,
-                        email: action.payload.profileObj.email
+                        email: action.payload.profileObj.email,
+                        picture: action.payload.profileObj.imageUrl
                     }
                 }
             case "LOGIN_FACEBOOK":
@@ -42,8 +42,8 @@ export const authReducer = {
                     user: {
                         id: action.payload.accessToken,
                         name: action.payload.givenName, //change to givenName
-                        picture: action.payload.picture.data.url,
-                        email: action.payload.email
+                        email: action.payload.email,
+                        picture: action.payload.picture.data.url
                     }
                 }
             // end social network login
@@ -56,8 +56,8 @@ export const authReducer = {
                     isUserAuthenticated: true,
                     isLoading: false,
                     user: {
-                        name: action.payload.user.name,
                         id: action.payload.user.id,
+                        name: action.payload.user.name,
                         email: action.payload.user.email,
                         picture: "img/icons/avatar-woman.png",
                     }

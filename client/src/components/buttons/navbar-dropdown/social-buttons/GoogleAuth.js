@@ -14,9 +14,9 @@ import { fetchDataAsyncWithHooks } from '../../../utils/promises/fetchDataAsyncW
 export default function GoogleAuth() {
     const [data, setData] = useState({});
 
-    // const name = getState().authReducer.cases.user.name);
+    const name = useStoreState(state => state.authReducer.cases.user);
     const dispatch = useStoreDispatch();
-    console.log(name);
+    console.log("googleAuth", name);
 
     // Getting data from database afte mounting
     useEffect(() => { fetchDataAsyncWithHooks('api/users/list', setData) }, []);
