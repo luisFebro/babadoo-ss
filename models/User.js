@@ -3,7 +3,6 @@ const Schema = mongoose.Schema;
 const collectionName = "all-users";
 // Moment
 const moment = require('moment');
-require('moment/locale/pt-BR.js');
 
 //Set local time:
 //e.g Outubro 10º 2019, 8:53:49 pm
