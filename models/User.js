@@ -1,8 +1,18 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const collectionName = "all-users";
+// Moment
+const moment = require('moment');
+require('moment/locale/pt-BR.js');
+
+//Set local time:
+//e.g Outubro 10º 2019, 8:53:49 pm
+moment.locale('pt-BR');
+const brTime = moment().format('MMMM Do YYYY, h:mm:ss a');
+
 
 // Create Schema
-const UserSchema = new Schema({
+const userSchema = new Schema({
   name: {
     type: String,
     required: true
@@ -16,10 +26,14 @@ const UserSchema = new Schema({
     type: String,
     required: true
   },
-  register_date: {
+  picture: {
+    type: String,
+    default: "img/icons/avatar-woman.png"
+  },
+  registerDate: {
     type: Date,
-    default: Date.now
+    default: brTime
   }
 });
 
-module.exports = User = mongoose.model('user', UserSchema);
+module.exports = User = mongoose.model('User', userSchema, collectionName);

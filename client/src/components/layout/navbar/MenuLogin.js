@@ -4,6 +4,7 @@ import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { logout } from '../../../redux/actions/authActions';
 import { showSnackbarBlack } from '../../../redux/actions/snackbarActions';
 // End Redux
+// import isRealObj from '../../components/utils/isRealObj';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
@@ -21,10 +22,10 @@ export default function MenuLogin() {
         // End Redux
 
         const changeCss = () => {
-          console.log("running changeCss");
-          const bodyElement = document.querySelector("body");
           const navElement = document.querySelector("#mainNav");
-          if(typeof navElement !== null) {
+          if(null) {
+            console.log("running changeCss");
+            if(null === null) return;
             if(window.scrollY > 50) {
               navElement.className += " shadow-elevation-soft";
             } else {
@@ -107,6 +108,7 @@ export default function MenuLogin() {
 }
 
 MenuLogin.propTypes = {
+    isRealObj: PropTypes.bool,
     isUserLoggedIn: PropTypes.bool,
     picture: PropTypes.string,
     name: PropTypes.string,

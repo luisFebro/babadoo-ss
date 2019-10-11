@@ -18,8 +18,14 @@ const db = mongoUrl
 mongoose
   .connect(db, {
     useNewUrlParser: true,
-    useCreateIndex: true
-  }) // Adding new mongo url parser
+    useCreateIndex: true,
+    useUnifiedTopology: true //Applied after DeprecationWarning and goal: new Server Discover and Monitoring engine
+  })
+  // // Rename the default `test` collection in the database
+  // .then(() => db.copyDatabase("mern-shopping-list","babadoo"))
+  // .then(() => console.log("collection renamed successfully!"))
+  // .catch(e => console.log("rename failed:", e.message))
+  // End Rename the default `test` collection in the database
   .then(() => console.log(`MongoDB Connected...`))
   .catch(err => console.log(err));
 // End Database config
