@@ -20,15 +20,15 @@ export default function CardTotals({ value }) {
                             limpar carrinho
                         </button>
                         <h5>
-                            <span className="text-title">subtotal: </span>
+                            <span className="text-sub-title">subtotal: </span>
                             <strong>R$ {cartSubtotal}</strong>
                         </h5>
                         <h5>
-                            <span className="text-title">frete: </span>
+                            <span className="text-sub-title">frete: </span>
                             <strong>R$ {cartTax}</strong>
                         </h5>
                         <h5>
-                            <span className="text-title">total final: </span>
+                            <span className="text-sub-title">total final: </span>
                             <strong>R$ {cartTotal}</strong>
                         </h5>
                         <div className="d-flex flex-row justify-content-between">

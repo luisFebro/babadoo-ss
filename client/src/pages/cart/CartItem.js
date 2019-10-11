@@ -13,7 +13,7 @@ export default function CartItem({ item, value }) {
                 <h4>
                     <span className="d-lg-none">produto: </span>
                 </h4>
-                <p className="text-title">{title}</p>
+                <p className="text-sub-title">{title}</p>
             </div>
             <div className="col-10 mx-auto col-lg-2 text-yellow">
                 <h4>

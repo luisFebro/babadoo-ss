@@ -13,6 +13,7 @@ export default (
         <Route path="/detalhes-do-produto" />
         <Route path="/seu-carrinho" />
         <Route path="/finalizar-compra" />
+        <Route path="/favoritos" />
         <Route />
     </Switch>
 );

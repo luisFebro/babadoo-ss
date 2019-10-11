@@ -155,7 +155,7 @@ const NavWrapper = styled.nav`
         top: 5rem;
         right: 5%;
         color: var(--mainWhite);
-        z-index: 1501;
+        z-index: 1500;
         filter: drop-shadow(0.001em 0.1em 0.1em var(--mainDark));
     }
     & .fixed {

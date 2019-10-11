@@ -4,22 +4,22 @@ import Title from '../../components/Title';
 import parse from 'html-react-parser';
 import EmptyContent from '../../components/EmptyContent';
 import { ButtonContainerPressedEffectDark as Dark } from '../../components/buttons/Default';
-import { Link } from 'react-router-dom';
+import { HashLink } from 'react-router-hash-link';
 
 export default function Favorites() {
     const name = useStoreState(state => state.authReducer.cases.user.name);
     return (
         <Fragment>
-            {name !== null ?
+            {(name !== null) ?
                 <div>
                     <Title title={`Seus Favaritos, ${name}`} /> :
-                    <EmptyContent text={"Sua Galeria está vazia..."} />
+                    <EmptyContent text={"Sua Galeria está vazia..."} img={"img/illustrations/empty-content.png"} />
                     <div style={{display: 'flex', justifyContent: 'center'}}>
-                        <Link to='/favoritos'>
+                        <HashLink smooth to='/#inicio'>
                             <Dark className="mt-5">
                                 Escolher seus favoritos
                             </Dark>
-                        </Link>
+                        </HashLink>
                     </div>
                 </div> :
                 <div>

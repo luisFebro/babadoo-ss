@@ -17,7 +17,7 @@ export default function Cosmetic() {
     pageData.pageDescription = `Conheça nossa linha de cosméticos em ${pageData.pageURL}`
     return (
         <React.Fragment>
-            <Title name="" title="Cosméticos" />
+            <Title title="Cosméticos" />
             <div className="py-2">
                 <div className="container">
                     <div className="row">

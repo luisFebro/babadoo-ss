@@ -40,7 +40,7 @@ export default function RegisteredUsersList() {
         return (<div style={{maxHeight: '300px',
     overflow: 'scroll'}}>
             <h2 className="text-title text-center">Lista de Todos os Usuários Cadastrados</h2>
-            <h2 className="text-title text-left pl-5">Total de Usuários: <strong>{data.name.length}</strong></h2>
+            <h2 className="text-sub-title text-left pl-5">Total de Usuários: <strong>{data.name.length}</strong></h2>
             {error ? <p>{error.message}</p> :
             <p className="text-default">
             {data.name.map((nam, ind) => <RegisteredUser key={ind} name={nam} email={data.email[ind]} />)}

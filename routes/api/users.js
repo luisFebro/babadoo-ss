@@ -7,18 +7,6 @@ const validateEmail = require('../../utils/validateEmail');
 
 // User Model
 const User = require('../../models/User');
-// @route   GET api/users/list
-// @desc    Get a list of all users from db
-// @access  Private
-router.get('/list', (req, res) => {
-    User.find({}, (err, users) => {
-        var userMap = {};
-        users.forEach(user => {
-            userMap[user._id] = user;
-        });
-        res.send(userMap);
-    })
-});
 
 // @route   POST api/users
 // @desc    Register new user
@@ -73,6 +61,19 @@ router.post('/', (req, res) => {
                 })
             })
         })
+});
+
+// @route   GET api/users/list
+// @desc    Get a list of all users from db
+// @access  Private
+router.get('/list', (req, res) => {
+    User.find({}, (err, users) => {
+        var userMap = {};
+        users.forEach(user => {
+            userMap[user._id] = user;
+        });
+        res.send(userMap);
+    })
 });
 
 module.exports = router;

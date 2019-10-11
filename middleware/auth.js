@@ -15,7 +15,8 @@ function auth(req, res, next) {
 
   // Check for token if it exists
   if (!token)
-    return res.status(401).json({ msg: 'Ocorreu um erro. Mas tente fazer seu acesso normalmente...' }); //Sem token, autorização negada
+    return;
+    // res.status(401).json({ msg: 'Ocorreu um erro. Mas tente fazer seu acesso normalmente...' }); //Sem token, autorização negada
 
   try {
     // Verify token
@@ -24,7 +25,8 @@ function auth(req, res, next) {
     req.user = decoded;
     next();
   } catch (e) {
-    res.status(400).json({ msg: 'Ocorreu um pequeno erro. Mas tente fazer seu acesso normalmente...' }); //Token is not valid
+    console.log(e);
+    // res.status(400).json({ msg: 'Ocorreu um pequeno erro. Mas tente fazer seu acesso normalmente...' }); //Token is not valid
   }
 }
 

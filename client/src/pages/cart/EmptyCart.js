@@ -1,22 +1,34 @@
 import React from 'react';
+import { useStoreState } from 'easy-peasy';
 import { Link } from 'react-router-dom';
-import { ButtonContainerPressedEffectDark } from '../../components/buttons/Default';
+import { ButtonContainerPressedEffectDark as Dark } from '../../components/buttons/Default';
+import Title from '../../components/Title';
+import parse from 'html-react-parser';
+import EmptyContent from '../../components/EmptyContent';
+import { HashLink } from 'react-router-hash-link';
 
 export default function EmptyCart() {
+    const name = useStoreState(state => state.authReducer.cases.user.name);
+
     return (
-        <div className="container mt-5">
-            <div className="row">
-                <div className="col-10 mx-auto text-center">
-                    <h1 className="text-main=container">
-                        <strong>Nada aqui! Seu carrinho está vazio</strong>
-                    </h1>
-                    <Link to="/">
-                        <ButtonContainerPressedEffectDark className="text-capitalize">
-                            voltar para a vitrine
-                        </ButtonContainerPressedEffectDark>
-                    </Link>
-                </div>
-            </div>
+        <div className="text-center">
+            <Title title={(name !== null) ? `Nada aqui, ${name}` : `Nada aqui, visitante!`} />
+            <EmptyContent text={"Seu carrinho está vazio..."} img={"img/illustrations/empty-cart.png"} />
+            <h4
+                className="text-sub-title mt-5"
+            >
+                {parse(`A lista de seus produtos de favoritos aparecerá aqui.<br/>
+                        Assim que tiver pelo menos um item adicionado, pode voltar novamente!<br/>
+                        Clique no ícone do carrinho para adicionar um item`)}
+            </h4>
+            <HashLink smooth to="/#inicio">
+                <Dark className="text-capitalize mt-5">
+                    explorar produtos
+                </Dark>
+            </HashLink>
         </div>
     );
+
 }
+
+
