@@ -8,10 +8,8 @@ require('moment/locale/pt-BR.js');
 //Set local time:
 //e.g Outubro 10º 2019, 8:53:49 pm
 moment.locale('pt-BR');
-const brTime = moment().format('MMMM Do YYYY, h:mm:ss a');
+const brTime = moment(Date.now()).format('MMMM Do YYYY, h:mm:ss a');
 
-
-// Create Schema
 const userSchema = new Schema({
   name: {
     type: String,
@@ -28,10 +26,10 @@ const userSchema = new Schema({
   },
   picture: {
     type: String,
-    default: "img/icons/avatar-woman.png"
+    default: ""
   },
   registerDate: {
-    type: Date,
+    type: String,
     default: brTime
   }
 });
