@@ -17,7 +17,6 @@ export default function FacebookAuth() {
     useEffect(() => { fetchDataAsyncWithHooks('api/users/list', setData) }, []);
 
     const responseFacebook = response => {
-        console.log(response);
         //Return an Obj with an Array with all emails
         const isSocialOn = 'facebook';
         const emailAllRegisteredUsers = getDataObjDiffKeys(data, ["email"]).email;
@@ -30,7 +29,7 @@ export default function FacebookAuth() {
             // Login
             const newUser = {
                 email: userEmail,
-                password: 'facebook'
+                password: process.env.REACT_APP_PASSWORD_AUTH_FACEBOOK
             };
 
             login(newUser)(dispatch, isSocialOn);
@@ -40,7 +39,7 @@ export default function FacebookAuth() {
             const newUser = {
                 name: response.givenName,
                 email: userEmail,
-                password: 'facebook'
+                password: process.env.REACT_APP_PASSWORD_AUTH_FACEBOOK
             };
 
             register(newUser)(dispatch, isSocialOn);

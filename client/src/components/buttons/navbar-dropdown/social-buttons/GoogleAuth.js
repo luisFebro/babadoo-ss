@@ -16,7 +16,6 @@ export default function GoogleAuth() {
 
     const name = useStoreState(state => state.authReducer.cases.user);
     const dispatch = useStoreDispatch();
-    console.log("googleAuth", name);
 
     // Getting data from database afte mounting
     useEffect(() => { fetchDataAsyncWithHooks('api/users/list', setData) }, []);
@@ -34,7 +33,7 @@ export default function GoogleAuth() {
             // Login
             const newUser = {
                 email: userEmail,
-                password: 'google'
+                password: process.env.REACT_APP_PASSWORD_AUTH_GOOGLE
             };
 
             login(newUser)(dispatch, isSocialOn);
@@ -44,7 +43,7 @@ export default function GoogleAuth() {
             const newUser = {
                 name: response.profileObj.givenName,
                 email: userEmail,
-                password: 'google'
+                password: process.env.REACT_APP_PASSWORD_AUTH_GOOGLE
             };
             register(newUser)(dispatch, isSocialOn);
             showSnackbarBlack(dispatch, 'Conta Babadoo criada via Google!');

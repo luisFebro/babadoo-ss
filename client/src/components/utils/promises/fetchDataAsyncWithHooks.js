@@ -6,9 +6,8 @@ export const fetchDataAsyncWithHooks = async (urlOrRoute, setData) => {
     try {
         const response = await axios.get(urlOrRoute);
         setData(response.data);
-        // statements
     } catch(e) {
-        console.log(e);
+        console.log("fetchDataAsyncWithHooks", e);
         // throw new Error(`fetchData: something went wrong! error: ${e.message}`);
     }
 };

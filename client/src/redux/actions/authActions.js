@@ -24,7 +24,7 @@ export const loadUser = () => (dispatch, getState) => {
     });
 };
 
-// Login
+// login Email
 export const login = ({ email, password }) => (dispatch, isSocialOn = false) => {
   // Headers
   const config = {
@@ -60,7 +60,6 @@ export const login = ({ email, password }) => (dispatch, isSocialOn = false) => 
       });
     });
 };
-
 
 // Register User
 export const register = ({ name, email, password }) => (dispatch, isSocialOn = null) => {
@@ -99,6 +98,16 @@ export const register = ({ name, email, password }) => (dispatch, isSocialOn = n
         });
       });
 };
+
+// Login/Register Google
+export const authenticateGoogle = dispatch => {
+
+}
+
+// Login/Register Google
+export const authenticateFacebook = dispatch => {
+
+}
 
 // Logout
 export const logout = dispatch => {
