@@ -1,10 +1,11 @@
 import { reducer } from 'easy-peasy';
-// actions are used with the usestoredispatch hook inside the wanting functional component
 // You can use only one isntance of object like 'cases' for each object.
+// Check for mispellings in case of one action not being dispatched properly.
+// Reducer Naming Structure: (optional verb 'is') + main + state/desc
 
 // REDUCERS
 const initialState = {
-    msg: {},
+    // isFavorite: {},
     status: null,
     id: null
 }

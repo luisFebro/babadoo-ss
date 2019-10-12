@@ -1,29 +1,25 @@
 import React, { useState, useEffect } from 'react';
 // Redux
-import { useStoreState, useStoreDispatch } from 'easy-peasy';
+import { useStoreDispatch } from 'easy-peasy';
 import { showSnackbarBlack } from '../../../../redux/actions/snackbarActions';
-import { login, register } from '../../../../redux/actions/authActions';
-import getDataObjDiffKeys from '../../../utils/promises/getDataObjDiffKeys';
-import { fetchDataAsyncWithHooks } from '../../../utils/promises/fetchDataAsyncWithHooks';
+import { loginEmail, registerEmail } from '../../../../redux/actions/authActions';
+import getDataObjDiffKeys from '../../../../utils/promises/getDataObjDiffKeys';
+import { fetchDataAsyncWithHooks } from '../../../../utils/promises/fetchDataAsyncWithHooks';
 // End Redux
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 export default function FacebookAuth() {
+    // Getting an Obj with an Array with all emails
     const [data, setData] = useState({});
-
-    const name = useStoreState(state => state.authReducer.cases.user.name);
     const dispatch = useStoreDispatch();
-
+    const emailAllRegisteredUsers = getDataObjDiffKeys(data, ["email"]).email;
+    // End
     // Getting data from database afte mounting
     useEffect(() => { fetchDataAsyncWithHooks('api/users/list', setData) }, []);
 
     const responseFacebook = response => {
-        //Return an Obj with an Array with all emails
         const isSocialOn = 'facebook';
-        const emailAllRegisteredUsers = getDataObjDiffKeys(data, ["email"]).email;
-
         const userEmail = response.email;
         const isEmailAlreadyRegistered = emailAllRegisteredUsers.includes(userEmail);
-
         // Check if the user is already registed to either log in or Register
         if(isEmailAlreadyRegistered) {
             // Login
@@ -32,7 +28,7 @@ export default function FacebookAuth() {
                 password: process.env.REACT_APP_PASSWORD_AUTH_FACEBOOK
             };
 
-            login(newUser)(dispatch, isSocialOn);
+            loginEmail(newUser)(dispatch, isSocialOn);
             showSnackbarBlack(dispatch, `Olá de Volta! (:`);
         } else {
             // Register
@@ -42,7 +38,7 @@ export default function FacebookAuth() {
                 password: process.env.REACT_APP_PASSWORD_AUTH_FACEBOOK
             };
 
-            register(newUser)(dispatch, isSocialOn);
+            registerEmail(newUser)(dispatch, isSocialOn);
             showSnackbarBlack(dispatch, 'Conta Babadoo criada via Facebook!');
         }
 

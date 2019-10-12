@@ -5,6 +5,8 @@ import parse from 'html-react-parser';
 import EmptyContent from '../../components/EmptyContent';
 import { ButtonContainerPressedEffectDark as Dark } from '../../components/buttons/Default';
 import { HashLink } from 'react-router-hash-link';
+import { ProductConsumer } from '../../data/contexts/mainContext';
+import Product from '../../components/products/Product';
 
 export default function Favorites() {
     const name = useStoreState(state => state.authReducer.cases.user.name);
@@ -13,14 +15,34 @@ export default function Favorites() {
             {(name !== null) ?
                 <div>
                     <Title title={`Seus Favaritos, ${name}`} /> :
-                    <EmptyContent text={"Sua Galeria está vazia..."} img={"img/illustrations/empty-content.png"} />
-                    <div style={{display: 'flex', justifyContent: 'center'}}>
-                        <HashLink smooth to='/#inicio'>
-                            <Dark className="mt-5">
-                                Escolher seus favoritos
-                            </Dark>
-                        </HashLink>
-                    </div>
+                    { true ?
+                    <div className="py-2">
+                        <div className="container">
+                            <div className="row">
+                                <ProductConsumer>
+                                    {value => {
+                                        console.log(value.products);
+                                        return value.products.map(product => {
+                                            return product.isAddedToFav === true ? (
+                                                <Product key={product.id} product={product} />
+                                            ) : null;
+                                        });
+                                    }}
+                                </ProductConsumer>
+                            </div>
+                        </div>
+                    </div> :
+                        <div>
+                            <EmptyContent text={"Sua Galeria está vazia..."} img={"img/illustrations/empty-content.png"} />
+                            <div style={{display: 'flex', justifyContent: 'center'}}>
+                                <HashLink smooth to='/#inicio'>
+                                    <Dark className="mt-5">
+                                        Escolher seus favoritos
+                                    </Dark>
+                                </HashLink>
+                            </div>
+                        </div>
+                    }
                 </div> :
                 <div>
                     <Title title={`Faça seu Acesso`} />

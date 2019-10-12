@@ -8,7 +8,7 @@ import KeyAccessDashboard from './KeyAccessDashboard';
 import MenuLogin from './MenuLogin';
 import { ProductConsumer } from '../../../data/contexts/mainContext';
 import { storeIcon } from '../../../data/dataIcons';
-import { dataWorkingHour } from '../../utils/GetWorkingHour';
+import { dataWorkingHour } from '../../../utils/GetWorkingHour';
 
 const isStoreOpen = dataWorkingHour[1];
 export default function Navbar() {

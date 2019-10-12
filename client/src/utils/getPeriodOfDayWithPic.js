@@ -1,4 +1,4 @@
-import { greetings } from '../../data/dataIllustrations';
+import { greetings } from '../data/dataIllustrations';
 import parse from 'html-react-parser';
 
 export default function getPeriodOfDayWithPic(nameUser) {

@@ -1,15 +1,17 @@
 import React, { Fragment, useEffect } from 'react';
+import PropTypes from 'prop-types';
 // Redux
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { logout } from '../../../redux/actions/authActions';
 import { showSnackbarBlack } from '../../../redux/actions/snackbarActions';
 // End Redux
-import isRealObj from '../../utils/isRealObj';
-import PropTypes from 'prop-types';
+// Utils
+import isRealObj from '../../../utils/isRealObj';
+import truncateWords from '../../../utils/truncateWords';
+// End Utils
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { bizWhatsapp } from '../../../data/dataBiz';
-import truncateWords from '../../utils/truncateWords';
 
 export default function MenuLogin() {
         // Redux

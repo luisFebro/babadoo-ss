@@ -1,5 +1,7 @@
 import axios from 'axios';
 import { returnErrors } from './errorActions';
+// import { postDataWithJsonObj } from '../../utils/promises/postDataWithJsonObj.js'
+
 // naming structure:
 // action > type > specification e.g showMenuDark / SHOW_MENU_DARK
 
@@ -25,45 +27,49 @@ export const loadUser = () => (dispatch, getState) => {
 };
 
 // login Email
-export const login = ({ email, password }) => (dispatch, isSocialOn = false) => {
-  // Headers
-  const config = {
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  };
+// postDataWithJsonObj returns a promise
+export const loginEmail = ({ email, password }) => (dispatch, isSocialOn = false) => {
+    // Headers
+     const config = {
+         headers: {
+             'Content-Type': 'application/json'
+         }
+     };
 
-  // Request body
-  const body = JSON.stringify({ email, password });
+     // Request body
+     const body = JSON.stringify({ email, password });
+     // json ready to Go Internet - exemple:
+     // {"name":"Luis Febro","email":"mr.febro@gmail.com","password":"12345678910"}
 
-  axios
-    .post('/api/auth', body, config)
-    .then(res => {
-            if(isSocialOn) {
-                if(isSocialOn === ('google' || 'facebook')) {
-                    return;
+     axios
+        .post('/api/auth', body, config)
+        .then(res => {
+                if(isSocialOn) {
+                    if(isSocialOn === ('google' || 'facebook')) {
+                        return;
+                    }
+                } else {
+                    return dispatch({
+                      type: 'LOGIN_SUCCESS',
+                      payload: res.data
+                    })
                 }
-            } else {
-                return dispatch({
-                  type: 'LOGIN_SUCCESS',
-                  payload: res.data
-                })
             }
-        }
-    )
-    .catch(err => {
-      dispatch(
-        returnErrors(err.response.data, err.response.status, 'LOGIN_FAIL')
-      );
-      dispatch({
-        type: 'LOGIN_FAIL'
-      });
-    });
+        )
+        .catch(err => {
+          dispatch(
+            returnErrors(err.response.data, err.response.status, 'LOGIN_FAIL')
+          );
+          dispatch({
+            type: 'LOGIN_FAIL'
+          });
+        });
 };
 
 // Register User
-export const register = ({ name, email, password }) => (dispatch, isSocialOn = null) => {
-    // Headers
+// postDataWithJsonObj returns a promise
+export const registerEmail = ({ name, email, password }) => (dispatch, isSocialOn = null) => {
+   // Headers
     const config = {
         headers: {
             'Content-Type': 'application/json'
@@ -90,6 +96,7 @@ export const register = ({ name, email, password }) => (dispatch, isSocialOn = n
             }
         })
       .catch(err => {
+        console.log(err.response);
         dispatch(
           returnErrors(err.response.data, err.response.status, 'REGISTER_FAIL')
         );
@@ -98,6 +105,9 @@ export const register = ({ name, email, password }) => (dispatch, isSocialOn = n
         });
       });
 };
+
+
+
 
 // Login/Register Google
 export const authenticateGoogle = dispatch => {

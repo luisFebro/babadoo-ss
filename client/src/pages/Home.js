@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import ButtonCart from '../components/buttons/ButtonCart';
 import Title from '../components/Title';
 import ProductList from '../components/products/ProductList';
-import ServiceList from '../components/layout/biz-services/ServiceList';
+// import ServiceList from './biz-services/ServiceList';
 import ShareSocialMediaButtons from '../components/buttons/ShareSocialMediaButtons';
 
 const pageData = {

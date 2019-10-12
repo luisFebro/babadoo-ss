@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { ProductConsumer } from '../../data/contexts/mainContext';
 import PropTypes from 'prop-types';
-import truncateWords from '../utils/truncateWords'
+import truncateWords from '../../utils/truncateWords'
 
 export default class Product extends Component {
     constructor() {
@@ -19,7 +19,7 @@ export default class Product extends Component {
     }
 
     render() {
-        const { id, title, image, price, inCart } = this.props.product;
+        const { id, title, image, price, inCart, isAddedToFav } = this.props.product;
         const { isFav } = this.state;
         return (
             <ProductWrapper className="col-6 col-md-4 col-lg-3 mx-auto my-2">
@@ -39,6 +39,7 @@ export default class Product extends Component {
                                     {isFav ? (
                                         <i
                                             className="filledHeart fas fa-heart animated heartBeat fast"
+                                            onClick = {() => {value.addToFavorite(id)}}
                                             style={{
                                                 animationIterationCount: 3
                                             }}

@@ -9,6 +9,7 @@ class ProductProvider extends Component {
             products: [],
             detailProduct: detailProduct,
             cart: [],
+            favorite: [],
             modalOpenOnly: false,
             modalOpen: false,
             isModalFavoriteOpen: false,
@@ -16,14 +17,7 @@ class ProductProvider extends Component {
             cartSubtotal: 0,
             cartTax: 10,
             cartTotal: 0,
-            cartTotalItems: 0,
-            dataLogin: {
-                isUserLoggedIn: false,
-                userID: "",
-                name: "",
-                email: "",
-                picture: ""
-            }
+            cartTotalItems: 0
         };
         this.generateRef = this.generateRef.bind(this);
     }
@@ -31,6 +25,7 @@ class ProductProvider extends Component {
     componentDidMount() {
         this.setProducts();
     }
+
     //Get Data from login button components
     getDataLogin = (data) => {
         this.setState({dataLogin: data});
@@ -93,14 +88,29 @@ class ProductProvider extends Component {
         const { products } = this.state;
         const product = products.find(item => item.id === id);
         return product;
-    };
+    }
 
     handleDetail = id => {
         const product = this.getItem(id);
         this.setState(() => {
             return { detailProduct: product };
         });
-    };
+    }
+
+    addToFavorite = id => {
+        const { products, favorite } = this.state;
+        let tempProducts = [...products];
+        const index = tempProducts.indexOf(this.getItem(id));
+        const product = tempProducts[index];
+        product.isAddedToFav = true;
+        this.setState({
+            products: tempProducts,
+            favorite: [...favorite, product]
+        },
+        () => {
+            console.log(this.state);
+        });
+    }
 
     addToCart = id => {
         const { products, cart } = this.state;
@@ -293,6 +303,7 @@ class ProductProvider extends Component {
                         ...this.state, //gets all the properties from objects listed in state
                         handleDetail: this.handleDetail,
                         addToCart: this.addToCart,
+                        addToFavorite: this.addToFavorite,
                         openModal: this.openModal,
                         openModalOnly: this.openModalOnly,
                         openModalFavorite: this.openModalFavorite,

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { showSnackbarBlack } from '../../redux/actions/snackbarActions';
 import { clearErrors } from '../../redux/actions/errorActions';
-import { login } from '../../redux/actions/authActions';
+import { loginEmail } from '../../redux/actions/authActions';
 // Material UI
 import { makeStyles } from '@material-ui/core/styles';
 import { CardMedia } from '@material-ui/core';
@@ -95,7 +95,7 @@ export default function ModalLogin() {
     };
 
     // Attempt to login
-    login(user)(dispatch);
+    loginEmail(user)(dispatch);
   };
 
     return (

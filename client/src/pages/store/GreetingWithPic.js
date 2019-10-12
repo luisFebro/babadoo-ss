@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import getPeriodOfDayWithPic from '../../components/utils/getPeriodOfDayWithPic';
+import getPeriodOfDayWithPic from '../../utils/getPeriodOfDayWithPic';
 import { useStoreState } from 'easy-peasy';
 
 export default function GetPeriodOfDay() {

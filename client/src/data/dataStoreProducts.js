@@ -8,6 +8,7 @@ export const storeProducts = [
         company: 'Retard',
         info: 'Óleo retard soft love para Massagem em Spray - 15 ml',
         inCart: false,
+        isAddedToFav: false,
         count: 0,
         total: 0
     },
@@ -20,6 +21,7 @@ export const storeProducts = [
         company: 'Black Ice',
         info: 'Gel black ice massagem corporal com aroma - 30 ml',
         inCart: false,
+        isAddedToFav: true,
         count: 0,
         total: 0
     },
@@ -32,6 +34,7 @@ export const storeProducts = [
         company: 'soft love',
         info: 'óleo soft love hot para massagem coporal com aroma 30 ml',
         inCart: false,
+        isAddedToFav: false,
         count: 0,
         total: 0
     },
@@ -44,6 +47,7 @@ export const storeProducts = [
         company: 'soft love',
         info: 'óleo soft love corporal para massagem menta soft ball funcional',
         inCart: false,
+        isAddedToFav: false,
         count: 0,
         total: 0
     },
@@ -68,6 +72,7 @@ export const storeProducts = [
         company: 'facilit',
         info: 'óleo facilit para massagem em spray - 15ml',
         inCart: false,
+        isAddedToFav: false,
         count: 0,
         total: 0
     },
@@ -80,6 +85,7 @@ export const storeProducts = [
         company: 'soft love',
         info: 'top gula com leite condensado soft love vegan - 15ml',
         inCart: false,
+        isAddedToFav: false,
         count: 0,
         total: 0
     },
@@ -92,6 +98,7 @@ export const storeProducts = [
         company: 'soft love',
         info: 'óleo soft love corporal para massagem fire ice - 3 unidades - 12g',
         inCart: false,
+        isAddedToFav: false,
         count: 0,
         total: 0
     },
@@ -104,6 +111,7 @@ export const storeProducts = [
         company: 'soft love',
         info: 'óleo soft love para massagem fire ice jatos 15 ml',
         inCart: false,
+        isAddedToFav: false,
         count: 0,
         total: 0
     },
@@ -116,6 +124,7 @@ export const storeProducts = [
         company: 'diversos',
         info: 'óleo soft love sensação para massagem corporal com aroma - 15ml',
         inCart: false,
+        isAddedToFav: false,
         count: 0,
         total: 0
     },
@@ -140,6 +149,7 @@ export const storeProducts = [
         company: 'diversos',
         info: 'calcinhas na cor preta com temáticas gostosa delicia, pirigueti',
         inCart: false,
+        isAddedToFav: false,
         count: 0,
         total: 0
     }

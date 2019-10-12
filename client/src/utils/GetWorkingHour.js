@@ -1,6 +1,6 @@
-import { data } from '../../data/dataWorkingHour';
+import { data } from '../data/dataWorkingHour';
+import { officialWebsite, whatsapp } from '../data/dataLinks';
 import parse from 'html-react-parser';
-import { officialWebsite, whatsapp } from '../../data/dataLinks';
 let isStoreOpened = "";
 
 const checkTodayDay = (weekDays) => {

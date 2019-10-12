@@ -1,33 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 // Redux
-import { useStoreState, useStoreDispatch } from 'easy-peasy';
+import { useStoreDispatch } from 'easy-peasy';
 import { showSnackbarBlack } from '../../../../redux/actions/snackbarActions';
-import { login, register } from '../../../../redux/actions/authActions';
+import { loginEmail, registerEmail } from '../../../../redux/actions/authActions';
 // End Redux
 import GoogleLogin from 'react-google-login';
 import PropTypes from 'prop-types';
-import getDataObjDiffKeys from '../../../utils/promises/getDataObjDiffKeys';
-import { fetchDataAsyncWithHooks } from '../../../utils/promises/fetchDataAsyncWithHooks'
+import getDataObjDiffKeys from '../../../../utils/promises/getDataObjDiffKeys';
+import { fetchDataAsyncWithHooks } from '../../../../utils/promises/fetchDataAsyncWithHooks'
 // import parse from 'html-react-parser';
 
 export default function GoogleAuth() {
+    //Getting an Obj with an Array with all emails
     const [data, setData] = useState({});
-
-    const name = useStoreState(state => state.authReducer.cases.user);
     const dispatch = useStoreDispatch();
-
-    // Getting data from database afte mounting
+    const emailAllRegisteredUsers = getDataObjDiffKeys(data, ["email"]).email;
+    // End
+    // Getting data from database after rendering
     useEffect(() => { fetchDataAsyncWithHooks('api/users/list', setData) }, []);
 
     const responseGoogle = response => {
-        //Return an Obj with an Array with all emails
         const isSocialOn = 'google';
-        const emailAllRegisteredUsers = getDataObjDiffKeys(data, ["email"]).email;
-
         const userEmail = response.profileObj.email;
         const isEmailAlreadyRegistered = emailAllRegisteredUsers.includes(userEmail);
-
         // Check if the user is already registed to either log in or Register
         if(isEmailAlreadyRegistered) {
             // Login
@@ -36,7 +32,7 @@ export default function GoogleAuth() {
                 password: process.env.REACT_APP_PASSWORD_AUTH_GOOGLE
             };
 
-            login(newUser)(dispatch, isSocialOn);
+            loginEmail(newUser)(dispatch, isSocialOn);
             showSnackbarBlack(dispatch, `Olá de Volta!`);
         } else {
             // Register
@@ -45,7 +41,7 @@ export default function GoogleAuth() {
                 email: userEmail,
                 password: process.env.REACT_APP_PASSWORD_AUTH_GOOGLE
             };
-            register(newUser)(dispatch, isSocialOn);
+            registerEmail(newUser)(dispatch, isSocialOn);
             showSnackbarBlack(dispatch, 'Conta Babadoo criada via Google!');
         }
 

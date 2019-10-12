@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { showSnackbarBlack } from '../../redux/actions/snackbarActions';
 import { clearErrors } from '../../redux/actions/errorActions';
-import { registerEmail } from '../../redux/actions/authActions';
+import { loginEmail } from '../../redux/actions/authActions';
 // Material UI
 import { makeStyles } from '@material-ui/core/styles';
 import { CardMedia } from '@material-ui/core';
@@ -28,85 +28,78 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-export default function ModalRegister() {
+export default function ModalCheckAuthEmail() {
     // Redux
-    const { isModalRegisterOpen, isUserAuthenticated, error } = useStoreState(state => ({
-        isModalRegisterOpen: state.modalReducers.cases.isModalRegisterOpen,
-        isUserAuthenticated: state.authReducer.cases.isUserAuthenticated,
-        error: state.errorReducer.cases
-    }));
+    // > set state
+    const { isModalLoginOpen, isUserAuthenticated, error } = useStoreState(state => ({
+            isModalLoginOpen: state.modalReducers.cases.isModalLoginOpen,
+            isUserAuthenticated: state.authReducer.cases.isUserAuthenticated,
+            error: state.errorReducer.cases
+        }));
     const dispatch = useStoreDispatch();
     // End Redux
+
     const [data, setData] = useState({
-        name: "",
         email: "",
-        password: "",
-        hasErrorMsg: null
     });
 
-    const { name, email, password } = data;
+    const { email, password } = data;
     const classes = useStyles();
 
-    // componentDidUpdate(prevProps) {
-    //   const { error, isUserAuthenticated } = this.props;
-    //   if (error !== prevProps.error) {
-    //     // Check for register error
-        // if (error.id === 'LOGIN_FAIL') {
-        //   this.setState({ msg: error.msg.msg });
-        // } else {
-        //   this.setState({ msg: null });
-        // }
-    //   }
 
-    // If authenticated, close modal
-    useEffect(() => {
-        // Check for register error
-        // if (error.id === 'LOGIN_FAIL') {
-        //   setData({ msg: error.msg.msg });
-        // } else {
-        //   setData({ msg: null });
-        // }
-        //
-        if (isModalRegisterOpen) {
-            if (isUserAuthenticated) {
-              dispatch({type: "TOGGLE_MODAL_REGISTER", payload: isModalRegisterOpen});
-              setTimeout(() => {
-                showSnackbarBlack(dispatch, "Cadastro Realizado com Sucesso!");
-              })
-            }
-        }
+  // componentDidUpdate(prevProps) {
+  //   const { error, isUserAuthenticated } = this.props;
+  //   if (error !== prevProps.error) {
+  //     // Check for register error
+      // if (error.id === 'LOGIN_FAIL') {
+      //   this.setState({ msg: error.msg.msg });
+      // } else {
+      //   this.setState({ msg: null });
+      // }
+  //   }
 
-    }, [isUserAuthenticated, isModalRegisterOpen, dispatch]);
+  // If authenticated, close modal
+  useEffect(() => {
+      // Check for register error
+      // if (error.id === 'LOGIN_FAIL') {
+      //   setData({ msg: error.msg.msg });
+      // } else {
+      //   setData({ msg: null });
+      // }
+      //
+      if (isModalLoginOpen) {
+          if (isUserAuthenticated) {
+            dispatch({type: "TOGGLE_MODAL_LOGIN", payload: isModalLoginOpen});
+            setTimeout(() => {
+                showSnackbarBlack(dispatch, `Olá de volta!`);
+            }, 3000);
+          }
+      }
+  }, [isUserAuthenticated, isModalLoginOpen, dispatch]);
 
+  // }
 
-    const onChange = e => {
-        const { name, value } = e.target;
-        setData({ ...data, [name]: value });
-        //updating the obj keys
-        //   let test = {
-        //       color: "",
-        //       color: "red",
-        //   }
-        //   console.log("color", test.color); //red
+  const onChange = e => {
+      const { name, value } = e.target;
+      setData({ ...data, [name]: value });
+  };
+
+  const onSubmit = e => {
+    // e.preventDefault();
+
+    const user = {
+        email,
+        password
     };
 
-    const onSubmit = e => {
-        // e.preventDefault();
-
-        const newUser = {
-            name,
-            email,
-            password
-        };
-
-        // Attempt to register
-        registerEmail(newUser)(dispatch);
-    };
+    // Attempt to login
+    loginEmail(user)(dispatch);
+  };
 
     return (
         <div>
           <Dialog
-                open={isModalRegisterOpen}
+                open={isModalLoginOpen}
                 aria-labelledby="form-dialog-title"
             >
             <CardMedia
@@ -114,24 +107,14 @@ export default function ModalRegister() {
                 image='img/babadoo-logo_no-slogon.png'
                 title='loja babadoo'
             />
-            <DialogTitle id="form-dialog-title">Registre sua Conta</DialogTitle>
+            <DialogTitle id="form-dialog-title">Entrar com Email</DialogTitle>
             <DialogContent>
               <DialogContentText>
-                {error.msg.msg ? (
-                  <span className="text-red text-main-container">{error.msg.msg}</span>
-                ) : "quase lá!"}
+                  {error.msg.msg ? (
+                    <span className="text-red text-main-container">{error.msg.msg}</span>
+                  ) : "Falta pouco para você entrar na sua conta novamente"}
               </DialogContentText>
               <form onChange={onChange}>
-                  <TextField
-                    required
-                    error={error.msg.msg ? true : false}
-                    margin="dense"
-                    id="name"
-                    name="name"
-                    type="name"
-                    label="Nome"
-                    fullWidth
-                  />
                     <TextField
                       required
                       margin="dense"
@@ -151,22 +134,23 @@ export default function ModalRegister() {
                       name="password"
                       type="password"
                       label="Senha"
+                      autoComplete="senha"
                       fullWidth
                     />
                     <div style={{marginTop: '28px'}}>
                         <Button
-                              type="submit"
                               color="primary"
                               className={classes.link}
+                              style={{fontSize: '.6em'}}
                               onClick={() => dispatch({ type: 'SHOW_MODAL_UNDER_CONSTRUCTION', payload: true })}
                           >
                           Esqueceu sua senha?
                         </Button>
                         <Button
-                              onClick={() => {
-                                dispatch({type: 'TOGGLE_MODAL_REGISTER', payload: isModalRegisterOpen})
-                                clearErrors(dispatch);
-                            }}
+                                onClick={() => {
+                                  dispatch({type: 'TOGGLE_MODAL_LOGIN', payload: isModalLoginOpen})
+                                  clearErrors(dispatch);
+                              }}
                               color="primary"
                           >
                           Sair
@@ -180,7 +164,7 @@ export default function ModalRegister() {
                               color="primary"
                               className={classes.button}
                           >
-                          Criar
+                          Entrar
                           <i className="fas fa-paper-plane" style={{marginLeft: '5px'}}></i>
                         </Button>
                     </div>
@@ -191,11 +175,9 @@ export default function ModalRegister() {
     );
 }
 
-ModalRegister.propTypes = {
-    showSnackbarBlack: PropTypes.func,
+ModalLogin.propTypes = {
     isAuthenticated: PropTypes.bool,
     error: PropTypes.object,
-    register: PropTypes.func,
-    clearErrors: PropTypes.func,
+    login: PropTypes.func,
+    clearErrors: PropTypes.func
 }
-

@@ -28,10 +28,10 @@ import Edible from '../pages/category-pages/Edible';
 //>>>End category pages
 //END GENERAL PAGES
 //LAYOUT
-// import MenuTopLogin from '../components/layout/navbar/MenuTopLogin';
-import Navbar from '../components/layout/navbar/Navbar';
-import CategorySlider from '../components/layout/CategorySlider';
-import Footer from '../components/layout/footer/Footer';
+// import MenuTopLogin from '../components/_layout/navbar/MenuTopLogin';
+import Navbar from '../components/_layout/navbar/Navbar';
+import CategorySlider from '../components/_layout/CategorySlider';
+import Footer from '../components/_layout/footer/Footer';
 // END LAYOUT
 // MODALS
 import Modal from '../components/modals/Modal';
