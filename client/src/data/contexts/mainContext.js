@@ -95,7 +95,7 @@ class ProductProvider extends Component {
         this.setState(() => {
             return { detailProduct: product };
         });
-    }
+    };
 
     addToFavorite = id => {
         const { products, favorite } = this.state;
@@ -110,7 +110,7 @@ class ProductProvider extends Component {
         () => {
             console.log(this.state);
         });
-    }
+    };
 
     addToCart = id => {
         const { products, cart } = this.state;

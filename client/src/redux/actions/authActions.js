@@ -1,9 +1,7 @@
 import axios from 'axios';
 import { returnErrors } from './errorActions';
 // import { postDataWithJsonObj } from '../../utils/promises/postDataWithJsonObj.js'
-
-// naming structure:
-// action > type > specification e.g showMenuDark / SHOW_MENU_DARK
+// naming structure: action > type > speficification e.g action: GET_MODAL_BLUE / func: getModalBlue
 
 // Check token & load user
 export const loadUser = () => (dispatch, getState) => {
