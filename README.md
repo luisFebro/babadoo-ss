@@ -16,3 +16,7 @@
 - [Course: Web Development - Zero to Mastery - Andrei ]()
 - [Course: React Node FullStack - Ryan Dhungel](https://www.udemy.com/course/react-node-ecommerce/)
 - [Generate Sitemap (SEO) for React](https://www.amitsn.com/blog/how-to-generate-a-sitemap-for-your-react-website-with-dynamic-content)
+- [Life cycles replacement to useEffect - Holly Girouard](https://alligator.io/react/replacing-component-lifecycles-with-useeffect/)
+- [Life cycles replacement to useEffect - Holly Girouard](https://alligator.io/react/replacing-component-lifecycles-with-useeffect/)
+- [React Hooks: How to use useEffect()](https://medium.com/javascript-in-plain-english/react-hooks-how-to-use-useeffect-ecea3e90d84f)
+- [ React Hooks: fetching data - Robin Wieruch](https://www.robinwieruch.de/react-hooks-fetch-data)

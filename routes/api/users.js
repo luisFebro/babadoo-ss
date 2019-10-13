@@ -66,6 +66,7 @@ router.post('/', (req, res) => {
 // @route   GET api/users/list
 // @desc    Get a list of all users from db
 // @access  Private
+// THIS IS NOT THE BEST WAY TO DO IT SINCE THIS GET DIFF OBJ KEYS. SEE PRODUCTS GET ALL PRODUCTS
 router.get('/list', (req, res) => {
     User.find({}, (err, users) => {
         var userMap = {};

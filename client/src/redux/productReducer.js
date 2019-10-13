@@ -5,29 +5,64 @@ import { reducer } from 'easy-peasy';
 
 // REDUCERS
 const initialState = {
-    // isFavorite: {},
-    status: null,
-    id: null
+    allProductsList: [],
+    isLoading: false
 }
 
-export const errorReducer = {
+export const productReducer = {
     cases: reducer((state = initialState, action) => {
-        switch(action.type) {
-            case 'GET_ERRORS':
+        switch (action.type) {
+            case 'PRODUCTS_LOADING':
                 return {
-                   msg: action.payload.msg,
-                   status: action.payload.status,
-                   id: action.payload.id
+                    ...state,
+                    isLoading: true
                 };
-            case 'CLEAR_ERRORS':
+            // CRUD PATTERN
+            case 'ADD_PRODUCT':
                 return {
-                    msg: {},
-                    status: "status_testing",
-                    id: "luis_testing",
-                }
-
+                    ...state,
+                    allProductsList: [action.payload, ...state.allProductsList]
+                };
+            case 'GET_ALL_PRODUCTS':
+                return {
+                    ...state,
+                    allProductsList: action.payload, //n1
+                    isLoading: false
+                };
+            case 'CHANGE_PRODUCT':
+                return {
+                    ...state,
+                    allProductsList: action.payload, //n1
+                };
+            case 'DELETE_PRODUCT':
+                return {
+                    ...state,
+                    allProductsList: state.allProductsList.filter(product => product._id !== action.payload)
+                };
+            // END CRUD PATTERN
+            case 'DETAIL_PRODUCT':
+                return {
+                    ...state,
+                };
             default:
                 return state;
         }
     }),
 }
+
+// n1:
+// data fetched is like this:
+// company: "diversos"
+// count: 0
+// description: "lingeries"
+// image: "img/products/calcinhas-tematicas-gostosa-delicia-pirigueti.jpg"
+// inCart: false
+// info: "calcinhas na cor preta com temáticas gostosa delicia, pirigueti"
+// isAddedToFav: false
+// price: 40
+// registerDate: "Outubro 12º 2019, 9:22:04 pm"
+// systemDate: "2019-10-13T01:27:40.597Z"
+// title: "calcinhas temáticas gostosa delicia pirigueti"
+// total: 0
+// __v: 0
+// _id: "5da27d8ca83d231dc4

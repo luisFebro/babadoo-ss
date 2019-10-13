@@ -1,97 +1,95 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { ProductConsumer } from '../../data/contexts/mainContext';
 import PropTypes from 'prop-types';
 import truncateWords from '../../utils/truncateWords'
 
-export default class Product extends Component {
-    constructor() {
-        super();
-        this.state = {
-            isFav: false
-        };
-        this.toggleFav = this.toggleFav.bind(this);
-    }
+export default function Product({ product }) {
+    // constructor() {
+    //     super();
+    //     this.state = {
+    //         isFav: false
+    //     };
+    //     this.toggleFav = this.toggleFav.bind(this);
+    // }
 
-    toggleFav() {
-        this.setState({isFav: !this.state.isFav});
-    }
-
-    render() {
-        const { id, title, image, price, inCart, isAddedToFav } = this.props.product;
-        const { isFav } = this.state;
-        return (
-            <ProductWrapper className="col-6 col-md-4 col-lg-3 mx-auto my-2">
-                <div className="card">
-                    <ProductConsumer>
-                        {value => (
-                            <div className="img-container p-1 p-sm-3" onClick={() => value.handleDetail(id)}>
-                                <Link to="/detalhes-do-produto">
-                                    <img className="card-img-top" src={image} alt="product" />
-                                </Link>
-                                <button
-                                    className="cart-fav"
-                                    onClick={() => {
-                                        this.toggleFav();
-                                    }}
-                                >
-                                    {isFav ? (
-                                        <i
-                                            className="filledHeart fas fa-heart animated heartBeat fast"
-                                            onClick = {() => {value.addToFavorite(id)}}
-                                            style={{
-                                                animationIterationCount: 3
-                                            }}
-                                        ></i>
-                                    ) : (
-                                        <i
-                                            className="emptyHeart far fa-heart"
-                                            onClick={() => {
-                                                value.openModalFavorite(id);
-                                            }}
-                                        ></i>
-                                    )}
-                                </button>
-                                <button
-                                    className="cart-btn"
-                                    disabled={inCart ? true : false}
-                                    onClick={() => {
-                                        value.addToCart(id);
-                                        value.openModal(id);
-                                    }}
-                                >
-                                    {inCart ? (
-                                        <p className="text-capitalize mb-0" disabled>
-                                            {' '}
-                                            No carrinho
-                                        </p>
-                                    ) : (
-                                        <i className="fas fa-cart-plus"></i>
-                                    )}
-                                </button>
-                            </div>
-                        )}
-                    </ProductConsumer>
-                    {/*card footer*/}
-                    <div className="text-product-title p-1 card-footer d-flex flex-column text-center justify-content-between">
-                        <p style={{ height: '4em', overflow: 'hidden' }} className="mb-0 text-capitalize">
-                            {truncateWords(title, 40)}
-                        </p>
-                        <h5 className="mt-2 text-right mb-2 mr-2">
-                            <span>R$</span>
-                            {price}
-                        </h5>
-                    </div>
+    // const toggleFav = () => {
+    //     this.setState({isFav: !this.state.isFav});
+    // }
+    const { _id, title, image, price, inCart, isAddedToFav } = product;
+    // const { isFav } = this.state;
+    return (
+        <ProductWrapper className="col-6 col-md-4 col-lg-3 mx-auto my-2">
+            <div className="card">
+                <ProductConsumer>
+                    {value => (
+                        <div className="img-container p-1 p-sm-3" onClick={() => value.handleDetail(_id)}>
+                            <Link to="/detalhes-do-produto">
+                                <img className="card-img-top" src={image} alt="product" />
+                            </Link>
+                            <button
+                                className="cart-fav"
+                                onClick={() => {
+                                    this.toggleFav();
+                                }}
+                            >
+                                {false ? ( //isFav
+                                    <i
+                                        className="filledHeart fas fa-heart animated heartBeat fast"
+                                        onClick = {() => {value.addToFavorite(_id)}}
+                                        style={{
+                                            animationIterationCount: 3
+                                        }}
+                                    ></i>
+                                ) : (
+                                    <i
+                                        className="emptyHeart far fa-heart"
+                                        onClick={() => {
+                                            value.openModalFavorite(_id);
+                                        }}
+                                    ></i>
+                                )}
+                            </button>
+                            <button
+                                className="cart-btn"
+                                disabled={inCart ? true : false}
+                                onClick={() => {
+                                    value.addToCart(_id);
+                                    value.openModal(_id);
+                                }}
+                            >
+                                {inCart ? (
+                                    <p className="text-capitalize mb-0" disabled>
+                                        {' '}
+                                        No carrinho
+                                    </p>
+                                ) : (
+                                    <i className="fas fa-cart-plus"></i>
+                                )}
+                            </button>
+                        </div>
+                    )}
+                </ProductConsumer>
+                {/*card footer*/}
+                <div className="text-product-title p-1 card-footer d-flex flex-column text-center justify-content-between">
+                    <p style={{ height: '4em', overflow: 'hidden' }} className="mb-0 text-capitalize">
+                        {truncateWords(title, 40)}
+                    </p>
+                    <h5 className="mt-2 text-right mb-2 mr-2">
+                        <span>R$</span>
+                        {price}
+                    </h5>
                 </div>
-            </ProductWrapper>
-        );
-    }
+            </div>
+        </ProductWrapper>
+    );
+
 }
 
 Product.propTypes = {
     product: PropTypes.shape({
-        id: PropTypes.number,
+        id: PropTypes.string,
         img: PropTypes.string,
         title: PropTypes.string,
         price: PropTypes.number,

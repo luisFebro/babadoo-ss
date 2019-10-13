@@ -56,8 +56,10 @@ footer {
     outline: none;
 }
 
-.text-default {
-    font: normal 1.2rem 'Cabin', sans-serif;
+.text-default,
+.text-product-title,
+.text-sub-container {
+    font: normal 1.3rem 'Cabin', sans-serif;
 }
 
 .text-slogon {
@@ -85,10 +87,6 @@ footer {
 .text-sub-title-upper {
     font: normal 1.7rem 'Cabin', sans-serif;
     text-transform: uppercase;
-}
-
-.text-product-title, .text-sub-container {
-    font: normal 1.3rem 'Cabin', sans-serif;
 }
 
 .text-red {
