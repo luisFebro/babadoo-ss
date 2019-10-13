@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 // Redux
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { showSnackbarBlack } from '../../redux/actions/snackbarActions';
+import { showModalUnderConstruction, toggleModalLogin } from '../../redux/actions/modalActions';
 import { clearErrors } from '../../redux/actions/errorActions';
 import { loginEmail } from '../../redux/actions/authActions';
 // Material UI
@@ -71,7 +72,7 @@ export default function ModalLogin() {
       //
       if (isModalLoginOpen) {
           if (isUserAuthenticated) {
-            dispatch({type: "TOGGLE_MODAL_LOGIN", payload: isModalLoginOpen});
+            toggleModalLogin(dispatch, isModalLoginOpen);
             setTimeout(() => {
                 showSnackbarBlack(dispatch, `Olá de volta!`);
             }, 3000);
@@ -144,13 +145,13 @@ export default function ModalLogin() {
                               color="primary"
                               className={classes.link}
                               style={{fontSize: '.6em'}}
-                              onClick={() => dispatch({ type: 'SHOW_MODAL_UNDER_CONSTRUCTION', payload: true })}
+                              onClick={() => showModalUnderConstruction(dispatch)}
                           >
                           Esqueceu sua senha?
                         </Button>
                         <Button
                                 onClick={() => {
-                                  dispatch({type: 'TOGGLE_MODAL_LOGIN', payload: isModalLoginOpen})
+                                  toggleModalLogin(dispatch, isModalLoginOpen);
                                   clearErrors(dispatch);
                               }}
                               color="primary"

@@ -29,7 +29,7 @@ class ProductProvider extends Component {
     //Get Data from login button components
     getDataLogin = (data) => {
         this.setState({dataLogin: data});
-    }
+    };
     // copying the array elements to not being only references
     setProducts = () => {
         let tempProducts = [];
@@ -97,50 +97,50 @@ class ProductProvider extends Component {
     //     });
     // };
 
-    addToFavorite = id => {
-        const { products, favorite } = this.state;
-        let tempProducts = [...products];
-        const index = tempProducts.indexOf(this.getItem(id));
-        const product = tempProducts[index];
-        product.isAddedToFav = true;
-        this.setState({
-            products: tempProducts,
-            favorite: [...favorite, product]
-        },
-        () => {
-            console.log(this.state);
-        });
-    };
+    // addToFavorite = id => {
+    //     const { products, favorite } = this.state;
+    //     let tempProducts = [...products];
+    //     const index = tempProducts.indexOf(this.getItem(id));
+    //     const product = tempProducts[index];
+    //     product.isAddedToFav = true;
+    //     this.setState({
+    //         products: tempProducts,
+    //         favorite: [...favorite, product]
+    //     },
+    //     () => {
+    //         console.log(this.state);
+    //     });
+    // };
 
-    addToCart = id => {
-        const { products, cart } = this.state;
-        let tempProducts = [...products];
-        const index = tempProducts.indexOf(this.getItem(id));
-        const product = tempProducts[index];
-        product.inCart = true;
-        product.count = 1;
-        const price = product.price;
-        product.total = price;
+    // addToCart = id => {
+    //     const { products, cart } = this.state;
+    //     let tempProducts = [...products];
+    //     const index = tempProducts.indexOf(this.getItem(id));
+    //     const product = tempProducts[index];
+    //     product.inCart = true;
+    //     product.count = 1;
+    //     const price = product.price;
+    //     product.total = price;
 
-        this.setState(
-            () => {
-                return {
-                    products: tempProducts,
-                    cart: [...cart, product]
-                };
-            },
-            () => {
-                this.addTotals();
-                this.countItems();
-            }
-        );
+    //     this.setState(
+    //         () => {
+    //             return {
+    //                 products: tempProducts,
+    //                 cart: [...cart, product]
+    //             };
+    //         },
+    //         () => {
+    //             this.addTotals();
+    //             this.countItems();
+    //         }
+    //     );
         /*
         Insert this chunk of code (( } HERE );)) for testing and check the current state which is being rendered.
         , () => {
             console.log(this.state);
         }
         */
-    };
+    // };
 
     // MODALS
     openModal = id => {

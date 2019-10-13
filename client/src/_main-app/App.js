@@ -34,12 +34,7 @@ import CategorySlider from '../components/_layout/CategorySlider';
 import Footer from '../components/_layout/footer/Footer';
 // END LAYOUT
 // MODALS
-import Modal from '../components/modals/Modal';
-import ModalFavorite from '../components/modals/ModalFavorite';
-import UnderConstruction from '../components/modals/UnderConstruction';
-//> auth
-import ModalLogin from '../components/modals/ModalLogin';
-import ModalRegister from '../components/modals/ModalRegister';
+import AllModals from '../components/modals';
 // END MODALS
 // SNACKBARS
 import SnackbarBlack from '../components/snackbars/SnackbarBlack';
@@ -78,11 +73,7 @@ export default function App() {
                 <Route component={Default} />
             </Switch>
             {/*Modals*/}
-            <Modal />
-            <ModalFavorite />
-            <UnderConstruction />
-            <ModalLogin />
-            <ModalRegister />
+            <AllModals />
             {/*End Modals*/}
             {/*Snackbars*/}
             <SnackbarBlack />

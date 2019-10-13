@@ -82,7 +82,8 @@ const ModalContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 1500;
+
+    -index: 1500;
     #modal {
         background: var(--mainWhite);
     }

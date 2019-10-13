@@ -21,8 +21,8 @@ export const errorReducer = {
             case 'CLEAR_ERRORS':
                 return {
                     msg: {},
-                    status: "status_testing",
-                    id: "luis_testing",
+                    status: null,
+                    id: null,
                 }
 
             default:

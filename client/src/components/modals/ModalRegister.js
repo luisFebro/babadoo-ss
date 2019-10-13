@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 // Redux
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { showSnackbarBlack } from '../../redux/actions/snackbarActions';
+import { showModalUnderConstruction, toggleModalRegister } from '../../redux/actions/modalActions';
 import { clearErrors } from '../../redux/actions/errorActions';
 import { registerEmail } from '../../redux/actions/authActions';
 // Material UI
@@ -69,7 +70,7 @@ export default function ModalRegister() {
         //
         if (isModalRegisterOpen) {
             if (isUserAuthenticated) {
-              dispatch({type: "TOGGLE_MODAL_REGISTER", payload: isModalRegisterOpen});
+              toggleModalRegister(dispatch, isModalRegisterOpen);
               setTimeout(() => {
                 showSnackbarBlack(dispatch, "Cadastro Realizado com Sucesso!");
               })
@@ -158,13 +159,13 @@ export default function ModalRegister() {
                               type="submit"
                               color="primary"
                               className={classes.link}
-                              onClick={() => dispatch({ type: 'SHOW_MODAL_UNDER_CONSTRUCTION', payload: true })}
+                              onClick={() => showModalUnderConstruction(dispatch) }
                           >
                           Esqueceu sua senha?
                         </Button>
                         <Button
                               onClick={() => {
-                                dispatch({type: 'TOGGLE_MODAL_REGISTER', payload: isModalRegisterOpen})
+                                toggleModalRegister(dispatch, isModalRegisterOpen);
                                 clearErrors(dispatch);
                             }}
                               color="primary"
