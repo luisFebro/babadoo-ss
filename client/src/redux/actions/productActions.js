@@ -53,6 +53,12 @@ export const deleteProduct = id => async (dispatch, getState) => {
 };
 //END CRUD PATTERN
 
+export const getItem = id => {
+    const { products } = this.state;
+    const product = products.find(item => item.id === id);
+    return product;
+}
+
 export const handleDetail = id => {
     const product = this.getItem(id);
     this.setState(() => {
@@ -60,12 +66,44 @@ export const handleDetail = id => {
     });
 };
 
-
-export const getOneProduct = id => {
-    // const { products } = this.state;
-    // const product = products.find(item => item.id === id);
-    // return product;
+export const addToFavorite = id => {
+    const { products, favorite } = this.state;
+    let tempProducts = [...products];
+    const index = tempProducts.indexOf(this.getItem(id));
+    const product = tempProducts[index];
+    product.isAddedToFav = true;
+    this.setState({
+        products: tempProducts,
+        favorite: [...favorite, product]
+    },
+    () => {
+        console.log(this.state);
+    });
 };
+
+export const addToCart = id => {
+    const { products, cart } = this.state;
+    let tempProducts = [...products];
+    const index = tempProducts.indexOf(this.getItem(id));
+    const product = tempProducts[index];
+    product.inCart = true;
+    product.count = 1;
+    const price = product.price;
+    product.total = price;
+
+    this.setState(
+        () => {
+            return {
+                products: tempProducts,
+                cart: [...cart, product]
+            };
+        },
+        () => {
+            this.addTotals();
+            this.countItems();
+        }
+    );
+}
 
 // set loading to true to stop the animation loader and starting loading files
 // false: animation loader running

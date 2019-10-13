@@ -84,18 +84,18 @@ class ProductProvider extends Component {
         });
     };
 
-    getItem = id => {
-        const { products } = this.state;
-        const product = products.find(item => item.id === id);
-        return product;
-    }
+    // getItem = id => {
+    //     const { products } = this.state;
+    //     const product = products.find(item => item.id === id);
+    //     return product;
+    // }
 
-    handleDetail = id => {
-        const product = this.getItem(id);
-        this.setState(() => {
-            return { detailProduct: product };
-        });
-    };
+    // handleDetail = id => {
+    //     const product = this.getItem(id);
+    //     this.setState(() => {
+    //         return { detailProduct: product };
+    //     });
+    // };
 
     addToFavorite = id => {
         const { products, favorite } = this.state;
