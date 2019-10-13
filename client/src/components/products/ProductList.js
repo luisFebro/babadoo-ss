@@ -9,6 +9,7 @@ import { ProductConsumer } from '../../data/contexts/mainContext';
 import PropTypes from 'prop-types';
 
 ProductList.propTypes = {
+    checkForServerError: PropTypes.bool,
     getAllProducts: PropTypes.func,
     isLoading: PropTypes.bool,
     allProductsList: PropTypes.object,
@@ -27,12 +28,14 @@ export default function ProductList() {
 
     console.log("serverStatus", serverStatus);
     useEffect(() => {
-        checkForServerError(serverStatus, setIsError);
-        if(!isError) {
+        if(checkForServerError(serverStatus)) {
+            console.log("errorServerDetected");
+            setIsError(true);
+        } else {
             getAllProducts(dispatch);
         }
 
-    }, [serverStatus]);
+    }, [serverStatus, setIsError]);
 
     return (
         <Fragment>
@@ -41,7 +44,7 @@ export default function ProductList() {
                     <div className="row">
                         {isError && <div className="text-center text-sub-title">Ocorreu um problema. Tente recarregar a página novamente</div>}
                         {isLoading ? (
-                            <h2 className="text-sub-title text-center"><center>Carregando...</center></h2>
+                            <h2 className="text-sub-title"><center>Carregando...</center></h2>
                         ) : (
                             allProductsList.map(product => (
                                 <Product key={product._id} product={product} />

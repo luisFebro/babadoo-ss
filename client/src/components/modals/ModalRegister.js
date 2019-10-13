@@ -72,7 +72,7 @@ export default function ModalRegister() {
             if (isUserAuthenticated) {
               toggleModalRegister(dispatch, isModalRegisterOpen);
               setTimeout(() => {
-                showSnackbarBlack(dispatch, "Cadastro Realizado com Sucesso!");
+                showSnackbarBlack(dispatch, "Cadastro Realizado com Sucesso via Email!");
               })
             }
         }
