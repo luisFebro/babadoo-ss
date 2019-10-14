@@ -80,14 +80,45 @@ router.get('/list', (req, res) => {
     })
 });
 
+//TESTING
+// @route   POST/UPDATE api/users/list/favorite/:id
+// @desc    Update User Info
+// @access  Private
+router.post('/list/favorite/:id', (req,res) => {
+    User.findById(req.params.id, (err, doc) => {
+        res.json({ msg: "success" + doc });
+    })
+    // req.body =  { "favoriteList": { "_id": "5d9fd4a25ba70c15c466c79d", "hello": "testing" }}
+    // var request_data = req.body;
+    // var userModel = new User(request_data);
+    // var upsertData = userModel.toObject();
+    // delete upsertData._id;
+
+    // var currentUserId;
+    // if (request_data._id || request_data._id !== '') {
+    //     currentUserId = new Mongoose.mongo.ObjectId(request_data._id);
+    // } else {
+    //     currentUserId = new Mongoose.mongo.ObjectId();
+    // }
+
+    // User.update({_id: currentUserId}, upsertData, {upsert: true},
+    //     function (err) {
+    //         if (err) throw err;
+    //     }
+    // );
+    // res.redirect('/home');
+
+});
+
 // LISTS
 // @route   UPDATE api/users/list/favorite/:id
 // @desc    Update User Info
 // @access  Private
 router.put('/list/favorite/:id', (req, res) => {
-    User.findByIdAndUpdate(req.params.id, req.body, { strict: false, upsert:true }, (err, value) => {
+    User.findByIdAndUpdate(req.params.id,{ $push: req.body}, { strict: false, upsert:true }, (err, value) => {
         console.log(req.params.id);
         console.log(req.body);
+        console.log(value);
         if (err) {
             return res
                 .status(500)

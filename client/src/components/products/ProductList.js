@@ -50,14 +50,8 @@ export default function ProductList() {
                                 <LoadingIndicator />
                             </div>
                         ) : (
-                            allProductsList.map((product, ind) => {
-                                // Check if the product is favorite
-                                // let isAddedFav = false;
-                                // if(allProductsList.includes(allFavorites[ind])) {
-                                //     isAddedFav = true;
-                                // }
-                                // console.log(isAddedFav);
-                                return <Product key={product._id} product={product} isFav={false} />
+                            allProductsList.map(product => {
+                                return <Product key={product._id} product={product} />
                             })
                         )}
                     </div>

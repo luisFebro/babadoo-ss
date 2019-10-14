@@ -16,9 +16,10 @@ Favorites.propTypes = {
 }
 
 export default function Favorites() {
-    const { name, allFavorites } = useStoreState(state => ({
+    const { name, allFavorites, favoriteList } = useStoreState(state => ({
         name: state.authReducer.cases.user.name,
-        allFavorites: state.productReducer.cases.allFavorites
+        favoriteList: state.productReducer.cases.favoriteList
+        // allFavorites: state.productReducer.cases.allFavorites
     }));
 
     return (
@@ -26,11 +27,11 @@ export default function Favorites() {
             {(name !== null) ?
                 <div>
                     <Title title={`Seus Favaritos, ${name}`} /> :
-                    { (allFavorites.length >= 1) ?
+                    { (favoriteList.length >= 1) ?
                     <div className="py-2">
                         <div className="container">
                             <div className="row">
-                                {allFavorites.map(product => {
+                                {favoriteList.map(product => {
                                     console.log("productIDfavorites", product._id)
                                     return <ProductFavorite key={product._id} product={product} />
                                 })}
