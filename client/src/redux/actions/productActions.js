@@ -15,20 +15,21 @@ export const addProduct = products => async (dispatch, getState) => {
 };
 
 // read product
+let count = 0;
 export const getAllProducts = async (dispatch) => {
-    let didCancel = false; //n1
+    // let didCancel = false; //n1
     try {
         dispatch(setProductsLoading());
         const res = await axios.get('/api/products');
-        if(!didCancel) {
-            console.log("getAllProducts", res);
-            dispatch({ type: 'GET_ALL_PRODUCTS', payload: res.data });
-        }
-
+        console.log("getAllProducts", res + ` times: ${++count}`);
+        dispatch({ type: 'GET_ALL_PRODUCTS', payload: res.data });
+        // if(!didCancel) {
+        // }
     } catch (err) {
-        if(!didCancel) {
-            dispatch(returnErrors(err.response.data, err.response.status))
-        }
+        console.log("getAllProductsError", err);
+        dispatch(returnErrors(err.response.data, err.response.status))
+        // if(!didCancel) {
+        // }
     }
 };
 
@@ -53,9 +54,8 @@ export const deleteProduct = id => async (dispatch, getState) => {
 };
 //END CRUD PATTERN
 
-export const getItem = id => {
-    const { products } = this.state;
-    const product = products.find(item => item.id === id);
+export const getItem = (allProductsList, _id) => {
+    const product = allProductsList.find(item => item._id === _id);
     return product;
 }
 
@@ -66,19 +66,15 @@ export const handleDetail = id => {
     });
 };
 
-export const addToFavorite = id => {
-    const { products, favorite } = this.state;
-    let tempProducts = [...products];
-    const index = tempProducts.indexOf(this.getItem(id));
-    const product = tempProducts[index];
-    product.isAddedToFav = true;
-    this.setState({
-        products: tempProducts,
-        favorite: [...favorite, product]
-    },
-    () => {
-        console.log(this.state);
-    });
+export const addFavorite = (dispatch, allProductsList, _id) => {
+    const selectedProduct = getItem(allProductsList, _id)
+    selectedProduct.isAddedToFav = true;
+    return dispatch({ type: 'ADD_FAVORITE', payload: selectedProduct });
+};
+
+export const removeFavorite = (dispatch, allProductsList, _id) => {
+   const selectedProduct = getItem(allProductsList, _id)
+   return dispatch({ type: 'REMOVE_FAVORITE', payload: selectedProduct });
 };
 
 export const addToCart = id => {

@@ -15,10 +15,11 @@ import { bizWhatsapp } from '../../../data/dataBiz';
 
 export default function MenuLogin() {
         // Redux
-        const { isUserAuthenticated, name, picture } = useStoreState(state => ({
+        const { isUserAuthenticated, name, picture, allFavorites } = useStoreState(state => ({
             isUserAuthenticated: state.authReducer.cases.isUserAuthenticated,
             name: state.authReducer.cases.user.name,
             picture: state.authReducer.cases.user.picture,
+            allFavorites: state.productReducer.cases.allFavorites
         }));
         const dispatch = useStoreDispatch();
         // End Redux
@@ -67,7 +68,11 @@ export default function MenuLogin() {
                             <li className="nav-item">
                                 <Link to="/favoritos" className="nav-link">
                                     <span>
-                                        <i className="fas fa-heart"></i>
+                                        <i className="fas fa-heart">
+                                            <span className="animated pulse slow" style={{ top: '.3em', marginLeft: '.01em' }} className="badge badge-danger p-1">
+                                                {allFavorites.length}
+                                            </span>
+                                        </i>
                                     </span>
                                 </Link>
                             </li>

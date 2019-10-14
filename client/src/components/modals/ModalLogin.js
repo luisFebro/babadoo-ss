@@ -78,7 +78,7 @@ export default function ModalLogin() {
             }, 3000);
           }
       }
-  }, [isUserAuthenticated, isModalLoginOpen, dispatch]);
+  }, [isUserAuthenticated, isModalLoginOpen]);
 
   // }
 

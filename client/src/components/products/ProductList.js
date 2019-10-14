@@ -4,6 +4,7 @@ import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { getAllProducts } from '../../redux/actions/productActions';
 import { checkForServerError } from '../../redux/actions/errorActions';
 // End Redux
+import LoadingIndicator from '../LoadingIndicator';
 import Product from './Product';
 import { ProductConsumer } from '../../data/contexts/mainContext';
 import PropTypes from 'prop-types';
@@ -26,12 +27,12 @@ export default function ProductList() {
     const dispatch = useStoreDispatch();
     // End Redux
 
-    console.log("serverStatus", serverStatus);
     useEffect(() => {
         if(checkForServerError(serverStatus)) {
-            console.log("errorServerDetected");
+            console.log("errorServerDetected", serverStatus);
             setIsError(true);
         } else {
+            console.log("ServerFine", serverStatus);
             getAllProducts(dispatch);
         }
 
@@ -41,10 +42,12 @@ export default function ProductList() {
         <Fragment>
             <div className="py-5">
                 <div className="container">
-                    <div className="row">
-                        {isError && <div className="text-center text-sub-title">Ocorreu um problema. Tente recarregar a página novamente</div>}
+                    <div className="row text-center">
+                        {isError && <div className="text-center text-sub-title">Ocorreu um problema. Tente recarregar a página novamente<br /></div>}
                         {isLoading ? (
-                            <h2 className="text-sub-title"><center>Carregando...</center></h2>
+                            <div className="col-10 mx-auto">
+                                <LoadingIndicator />
+                            </div>
                         ) : (
                             allProductsList.map(product => (
                                 <Product key={product._id} product={product} />

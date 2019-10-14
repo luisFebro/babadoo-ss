@@ -77,7 +77,7 @@ export default function ModalRegister() {
             }
         }
 
-    }, [isUserAuthenticated, isModalRegisterOpen, dispatch]);
+    }, [isUserAuthenticated, isModalRegisterOpen]);
 
 
     const onChange = e => {

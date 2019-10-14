@@ -1,22 +1,38 @@
 import React, { useState } from 'react';
+// Redux
+import { useStoreState, useStoreDispatch } from 'easy-peasy';
+import { addFavorite, removeFavorite } from '../../redux/actions/productActions';
+import { showSnackbarBlack } from '../../redux/actions/snackbarActions';
+import { toggleModalRegister } from '../../redux/actions/modalActions';
+// End Redux
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { ProductConsumer } from '../../data/contexts/mainContext';
 import PropTypes from 'prop-types';
 import truncateWords from '../../utils/truncateWords'
 
-export default function Product({ product }) {
-    // constructor() {
-    //     super();
-    //     this.state = {
-    //         isFav: false
-    //     };
-    //     this.toggleFav = this.toggleFav.bind(this);
-    // }
+Product.propTypes = {
+    product: PropTypes.shape({
+        id: PropTypes.string,
+        img: PropTypes.string,
+        title: PropTypes.string,
+        price: PropTypes.number,
+        inCart: PropTypes.bool
+    }).isRequired
+};
 
-    // const toggleFav = () => {
-    //     this.setState({isFav: !this.state.isFav});
-    // }
+export default function Product({ product }) {
+    const [isFavChanged, setIsFavChanged] = useState(false);
+
+    const { allProductsList, isUserAuthenticated } = useStoreState(state => ({
+        allProductsList: state.productReducer.cases.allProductsList,
+        isUserAuthenticated: state.authReducer.cases.isUserAuthenticated
+    }));
+    const dispatch = useStoreDispatch();
+    // console.log("isAuth", isUserAuthenticated); //Check this behavior: auth is running multiple 11 times
+    const toggleFav = () => {
+        setIsFavChanged(!isFavChanged);
+    }
     const { _id, title, image, price, inCart, isAddedToFav } = product;
     // const { isFav } = this.state;
     return (
@@ -24,39 +40,59 @@ export default function Product({ product }) {
             <div className="card">
                 <ProductConsumer>
                     {value => (
-                        <div className="img-container p-1 p-sm-3" onClick={() => value.handleDetail(_id)}>
+                        <div
+                            className="img-container p-1 p-sm-3"
+                            onClick={() => {
+                                console.log("value.handleDetail(_id)");
+                            }}
+                        >
                             <Link to="/detalhes-do-produto">
                                 <img className="card-img-top" src={image} alt="product" />
                             </Link>
                             <button
                                 className="cart-fav"
-                                onClick={() => {
-                                    this.toggleFav();
-                                }}
+                                onClick={() => toggleFav()}
                             >
-                                {false ? ( //isFav
-                                    <i
-                                        className="filledHeart fas fa-heart animated heartBeat fast"
-                                        onClick = {() => {value.addToFavorite(_id)}}
-                                        style={{
-                                            animationIterationCount: 3
-                                        }}
-                                    ></i>
-                                ) : (
-                                    <i
-                                        className="emptyHeart far fa-heart"
-                                        onClick={() => {
-                                            value.openModalFavorite(_id);
-                                        }}
-                                    ></i>
-                                )}
+                                {isUserAuthenticated ? (
+                                    isFavChanged ? (
+                                        <i
+                                            className="filledHeart fas fa-heart animated heartBeat fast"
+                                            onClick = {() => {
+                                                removeFavorite(dispatch, allProductsList, _id)
+                                                showSnackbarBlack(dispatch, "Removido dos seus favoritos!")
+                                            }}
+                                            style={{
+                                                animationIterationCount: 3
+                                            }}
+                                        ></i>
+                                        ) : (
+                                            <i
+                                                className="emptyHeart far fa-heart"
+                                                onClick={() => {
+                                                    addFavorite(dispatch, allProductsList, _id);
+                                                    showSnackbarBlack(dispatch, "Adicionado aos seus favoritos!")
+                                                    // value.openModalFavorite(_id);
+                                                }}
+                                            ></i>
+                                        )
+                                    ) : (
+                                        <i
+                                            className="emptyHeart far fa-heart"
+                                            onClick={() => {
+                                                toggleModalRegister(dispatch);
+                                                showSnackbarBlack(dispatch, "Faça seu acesso para adicionar aos favoritos!")
+                                                // value.openModalFavorite(_id);
+                                            }}
+                                        ></i>
+                                    )
+                                }
                             </button>
                             <button
                                 className="cart-btn"
                                 disabled={inCart ? true : false}
                                 onClick={() => {
-                                    value.addToCart(_id);
-                                    value.openModal(_id);
+                                    // value.addToCart(_id);
+                                    // value.openModal(_id);
                                 }}
                             >
                                 {inCart ? (
@@ -87,15 +123,6 @@ export default function Product({ product }) {
 
 }
 
-Product.propTypes = {
-    product: PropTypes.shape({
-        id: PropTypes.string,
-        img: PropTypes.string,
-        title: PropTypes.string,
-        price: PropTypes.number,
-        inCart: PropTypes.bool
-    }).isRequired
-};
 
 const ProductWrapper = styled.div`
     .card {

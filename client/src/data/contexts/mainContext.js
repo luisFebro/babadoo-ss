@@ -97,7 +97,7 @@ class ProductProvider extends Component {
     //     });
     // };
 
-    // addToFavorite = id => {
+    // addFavorite = id => {
     //     const { products, favorite } = this.state;
     //     let tempProducts = [...products];
     //     const index = tempProducts.indexOf(this.getItem(id));
@@ -303,7 +303,7 @@ class ProductProvider extends Component {
                         ...this.state, //gets all the properties from objects listed in state
                         handleDetail: this.handleDetail,
                         addToCart: this.addToCart,
-                        addToFavorite: this.addToFavorite,
+                        addFavorite: this.addFavorite,
                         openModal: this.openModal,
                         openModalOnly: this.openModalOnly,
                         openModalFavorite: this.openModalFavorite,

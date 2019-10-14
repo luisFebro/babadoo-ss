@@ -1,34 +1,39 @@
 import React, { Fragment } from 'react';
+// Redux
 import { useStoreState } from 'easy-peasy';
+// End Redux
 import Title from '../../components/Title';
 import parse from 'html-react-parser';
 import EmptyContent from '../../components/EmptyContent';
 import { ButtonContainerPressedEffectDark as Dark } from '../../components/buttons/Default';
 import { HashLink } from 'react-router-hash-link';
-import { ProductConsumer } from '../../data/contexts/mainContext';
 import Product from '../../components/products/Product';
+import PropTypes from 'prop-types';
+
+Favorites.propTypes = {
+    name: PropTypes.string,
+    allFavorites: PropTypes.object
+}
 
 export default function Favorites() {
-    const name = useStoreState(state => state.authReducer.cases.user.name);
+    const { name, allFavorites } = useStoreState(state => ({
+        name: state.authReducer.cases.user.name,
+        allFavorites: state.productReducer.cases.allFavorites
+    }));
+
+    console.log("favList", allFavorites);
     return (
         <Fragment>
             {(name !== null) ?
                 <div>
                     <Title title={`Seus Favaritos, ${name}`} /> :
-                    { true ?
+                    { (allFavorites.length >= 1) ?
                     <div className="py-2">
                         <div className="container">
                             <div className="row">
-                                <ProductConsumer>
-                                    {value => {
-                                        console.log(value.products);
-                                        return value.products.map(product => {
-                                            return product.isAddedToFav === true ? (
-                                                <Product key={product.id} product={product} />
-                                            ) : null;
-                                        });
-                                    }}
-                                </ProductConsumer>
+                                {allFavorites.map(product => {
+                                    return <Product key={product.id} product={product} />
+                                })}
                             </div>
                         </div>
                     </div> :
