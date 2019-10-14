@@ -38,16 +38,15 @@ router.get("/", (req, res) => {
 // @route   UPDATE api/products
 // @desc    Update a Product
 // @access  Private
-    // router.put('/', (req, res) => {
-    //     let query = { "favoriteList": [] }; // e.g { isAddedToFav: false }
-    //     console.log("query", req.body.favoriteList);
-    //     // req.body.isAddedToFav = true;
-    //     Product.findOneAndUpdate(query, req.body.favoriteList, {upsert:true}, (err, doc) => { // upsert: option creates the object if it doesn't exist
-    //         if (err) return res.json({ error: "it was not possible to update. Reason: " + err });
-    //         console.log("updated");
-    //         return res.json({ msg: "new product properties updated successfully!" });
-    //     });
-    // });
+// router.put('/', (req, res) => {
+//     let query = req.body; // e.g { isAddedToFav: false }
+//     // req.body.isAddedToFav = true;
+//     Product.findOneAndUpdate(query, req.body.favoriteList, {upsert:true}, (err, doc) => { // upsert: option creates the object if it doesn't exist
+//         if (err) return res.json({ error: "it was not possible to update. Reason: " + err });
+//         console.log("updated");
+//         return res.json({ msg: "new product properties updated successfully!" });
+//     });
+// });
 
 // @route   DELETE api/products/:id
 // @desc    Delete a Product

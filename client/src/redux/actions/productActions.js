@@ -79,24 +79,27 @@ export const handleDetail = id => {
     // });
 };
 
-export const addFavorite = async (dispatch, allProductsList, _id) => {
-    const selectedProduct = getItem(allProductsList, _id)
-    const body = getBodyRequest({ favoriteList: selectedProduct });
-    console.log("selected", body);
+export const addFavorite = async (dispatch, allProductsList, _idProduct, _idUser) => {
+    const selectedProduct = getItem(allProductsList, _idProduct);
+    selectedProduct.isAddedToFav = true;
+    const body = getBodyRequest( { favoriteList: selectedProduct } ); // Obj
     try {
-        const res = await axios.put('api/users', body, config);
+        const res = await axios.put(`api/users/list/favorite/${_idUser}`, body, config);
         dispatch({ type: 'ADD_FAVORITE', payload: selectedProduct });
     } catch(e) {
         console.log(e);
     }
-    // selectedProduct.isAddedToFav = true;
-    // console.log("selectedProduct", selectedProduct);
 };
 
-export const removeFavorite = (dispatch, allProductsList, _id) => {
-   const selectedProduct = getItem(allProductsList, _id)
-    selectedProduct.isAddedToFav = false;
-   return dispatch({ type: 'REMOVE_FAVORITE', payload: selectedProduct });
+export const removeFavorite = async (dispatch, allProductsList, _idProduct, _idUser) => {
+   const selectedProduct = getItem(allProductsList, _idProduct);
+   selectedProduct.isAddedToFav = false;
+   try {
+       const res = await axios.delete(`api/users/list/favorite/${_idUser}`, config);
+       dispatch({ type: 'REMOVE_FAVORITE', payload: selectedProduct });
+   } catch(e) {
+       console.log(e);
+   }
 };
 
 export const addToCart = id => {

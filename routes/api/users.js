@@ -80,19 +80,33 @@ router.get('/list', (req, res) => {
     })
 });
 
-// @route   UPDATE api/users
+// LISTS
+// @route   UPDATE api/users/list/favorite/:id
 // @desc    Update User Info
 // @access  Private
-router.put('/', (req, res) => {
-    let query = { favList: [] };
-    req.body.isAddedToFav = true;
-    Product.findOneAndUpdate(
-        query,
-        { favList: ["hello"] },
-        {returnNewDocument: true, new: true, strict: false, upsert:true}, (err, doc) => { // upsert: option creates the object if it doesn't exist
-            if (err) return res.json({ error: "it was not possible to update. Reason: " + err });
-            return res.json({ msg: "new product properties updated successfully!" });
+router.put('/list/favorite/:id', (req, res) => {
+    User.findByIdAndUpdate(req.params.id, req.body, { strict: false, upsert:true }, (err, value) => {
+        console.log(req.params.id);
+        console.log(req.body);
+        if (err) {
+            return res
+                .status(500)
+                .json({error: "unsuccessful"})
+        };
+        res.json({success: "success"});
     });
 });
 
+router.delete('/list/favorite/:id', (req, res) => {
+    User.findByIdAndUpdate(req.params.id, req.body, { strict: false, upsert:true }, (err, value) => {
+        if (err) {
+            return res
+                .status(500)
+                .json({error: "unsuccessful"})
+        };
+        res.json({success: "success"});
+    });
+})
+
+// END LISTS
 module.exports = router;

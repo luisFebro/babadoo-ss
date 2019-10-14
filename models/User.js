@@ -28,7 +28,11 @@ const userSchema = new Schema({
     type: String,
     default: ""
   },
-  favList: {
+  favoriteList: {
+    type: Array,
+    default: []
+  },
+  inCartList: {
     type: Array,
     default: []
   },

@@ -21,11 +21,13 @@ Product.propTypes = {
     }).isRequired
 };
 
-export default function Product({ product }) {
+export default function Product({ product, isFav }) {
     const [isFavChanged, setIsFavChanged] = useState(false);
-    const { allProductsList, isUserAuthenticated } = useStoreState(state => ({
+
+    const { allProductsList, isUserAuthenticated, _idUser } = useStoreState(state => ({
         allProductsList: state.productReducer.cases.allProductsList,
-        isUserAuthenticated: state.authReducer.cases.isUserAuthenticated
+        isUserAuthenticated: state.authReducer.cases.isUserAuthenticated,
+        _idUser: state.authReducer.cases.user["_id"]
     }));
     const dispatch = useStoreDispatch();
     // console.log("isAuth", isUserAuthenticated); //Check this behavior: auth is running multiple 11 times
@@ -53,11 +55,11 @@ export default function Product({ product }) {
                                 onClick={() => toggleFav()}
                             >
                                 {isUserAuthenticated ? (
-                                    (isFavChanged) ? (
+                                    (isFavChanged || isFav) ? (
                                         <i
                                             className="filledHeart fas fa-heart animated heartBeat fast"
                                             onClick = {() => {
-                                                removeFavorite(dispatch, allProductsList, _id)
+                                                removeFavorite(dispatch, allProductsList, _id, _idUser);
                                                 showSnackbarBlack(dispatch, "Removido dos seus favoritos!")
                                             }}
                                             style={{
@@ -68,7 +70,7 @@ export default function Product({ product }) {
                                             <i
                                                 className="emptyHeart far fa-heart"
                                                 onClick={() => {
-                                                    addFavorite(dispatch, allProductsList, _id);
+                                                    addFavorite(dispatch, allProductsList, _id, _idUser);
                                                     showSnackbarBlack(dispatch, "Adicionado aos seus favoritos!")
                                                     // value.openModalFavorite(_id);
                                                 }}
