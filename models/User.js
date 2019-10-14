@@ -12,7 +12,8 @@ const brTime = moment(Date.now()).format('MMMM Do YYYY, h:mm:ss a');
 const userSchema = new Schema({
   name: {
     type: String,
-    required: true
+    required: true,
+    lowercase: true
   },
   email: {
     type: String,
@@ -27,10 +28,18 @@ const userSchema = new Schema({
     type: String,
     default: ""
   },
+  favList: {
+    type: Array,
+    default: []
+  },
   registerDate: {
     type: String,
     default: brTime
   }
-});
+}); //n1
 
 module.exports = User = mongoose.model('User', userSchema, collectionName);
+
+
+
+// n1 : { strict: false }The strict option, (enabled by default), ensures that values passed to our model constructor that were not specified in our schema do not get saved to the db.

@@ -18,12 +18,15 @@ router.post('/', (req, res) => {
     if (!name || !email || !password) {
         return res.status(400).json({ msg: 'Por favor, entre todos os campos' });
     }
-
     // Check if the email is valid
     if(!validateEmail(email)) {
         return res.status(400).json({ msg: 'Email Inválido. Tente outro.'})
     }
 
+    // Check the length of password
+    if(password.length < 6) {
+        return res.status(400).json({ msg: 'Sua senha deve conter pelo menos 6 dígitos'})
+    }
 
     // Check for existing user
     User.findOne({ email })
@@ -75,6 +78,21 @@ router.get('/list', (req, res) => {
         });
         res.send(userMap);
     })
+});
+
+// @route   UPDATE api/users
+// @desc    Update User Info
+// @access  Private
+router.put('/', (req, res) => {
+    let query = { favList: [] };
+    req.body.isAddedToFav = true;
+    Product.findOneAndUpdate(
+        query,
+        { favList: ["hello"] },
+        {returnNewDocument: true, new: true, strict: false, upsert:true}, (err, doc) => { // upsert: option creates the object if it doesn't exist
+            if (err) return res.json({ error: "it was not possible to update. Reason: " + err });
+            return res.json({ msg: "new product properties updated successfully!" });
+    });
 });
 
 module.exports = router;

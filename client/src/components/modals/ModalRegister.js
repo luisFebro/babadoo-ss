@@ -20,6 +20,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 const useStyles = makeStyles(theme => ({
     button: {
         margin: theme.spacing(1),
+        padding: theme.spacing(1),
     },
     media: {
         height: 50,
@@ -154,15 +155,7 @@ export default function ModalRegister() {
                       label="Senha"
                       fullWidth
                     />
-                    <div style={{marginTop: '28px'}}>
-                        <Button
-                              type="submit"
-                              color="primary"
-                              className={classes.link}
-                              onClick={() => showModalUnderConstruction(dispatch) }
-                          >
-                          Esqueceu sua senha?
-                        </Button>
+                    <div style={{display: 'flex', justifyContent: 'center', marginTop: '28px'}}>
                         <Button
                               onClick={() => {
                                 toggleModalRegister(dispatch, isModalRegisterOpen);
@@ -171,6 +164,14 @@ export default function ModalRegister() {
                               color="primary"
                           >
                           Sair
+                        </Button>
+                        <Button
+                              type="submit"
+                              color="primary"
+                              className={classes.link}
+                              onClick={() => showModalUnderConstruction(dispatch) }
+                          >
+                          Esqueceu sua senha?
                         </Button>
                         <Button
                               onClick={() => {

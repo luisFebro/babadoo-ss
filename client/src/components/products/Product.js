@@ -21,9 +21,8 @@ Product.propTypes = {
     }).isRequired
 };
 
-export default function Product({ product, isFav }) {
+export default function Product({ product }) {
     const [isFavChanged, setIsFavChanged] = useState(false);
-
     const { allProductsList, isUserAuthenticated } = useStoreState(state => ({
         allProductsList: state.productReducer.cases.allProductsList,
         isUserAuthenticated: state.authReducer.cases.isUserAuthenticated
@@ -54,7 +53,7 @@ export default function Product({ product, isFav }) {
                                 onClick={() => toggleFav()}
                             >
                                 {isUserAuthenticated ? (
-                                    (isFavChanged || isFav) ? (
+                                    (isFavChanged) ? (
                                         <i
                                             className="filledHeart fas fa-heart animated heartBeat fast"
                                             onClick = {() => {

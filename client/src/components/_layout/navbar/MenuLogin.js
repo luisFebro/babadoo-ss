@@ -81,7 +81,7 @@ export default function MenuLogin() {
                             <li className="nav-item">
                                 <Link to="/seu-carrinho" className="nav-link">
                                     <span>
-                                        <i className="fas fa-shopping-bag"></i>
+                                        <i className="fas fa-shopping-bag animated bounce slow"></i>
                                     </span>
                                 </Link>
                             </li>

@@ -10,12 +10,13 @@ const config = {
         'Content-Type': 'application/json'
     }
 };
-
-const getRequestBody = objToSend => {
+// set body
+const getBodyRequest = objToSend => {
     return JSON.stringify(objToSend);
     // json ready to Go Internet - exemple:
     // {"name":"Luis Febro","email":"mr.febro@gmail.com","password":"12345678910"}
 }
+//END UTILS
 
 // Check token & load user
 export const loadUser = () => (dispatch, getState) => {
@@ -42,7 +43,7 @@ export const loadUser = () => (dispatch, getState) => {
 // postDataWithJsonObj returns a promise
 export const loginEmail = (objToSend) => async (dispatch, isSocialOn = false) => {
     // Request body
-    const body = getRequestBody(objToSend);
+    const body = getBodyRequest(objToSend);
 
     try {
         const res = await axios.post('/api/auth', body, config);
@@ -71,7 +72,7 @@ export const loginEmail = (objToSend) => async (dispatch, isSocialOn = false) =>
 // objToSend: { name, email, password }
 export const registerEmail = (objToSend) => (dispatch, isSocialOn = null) => {
     // Request body
-    const body = getRequestBody(objToSend);
+    const body = getBodyRequest(objToSend);
 
     axios
         .post('/api/users', body, config)

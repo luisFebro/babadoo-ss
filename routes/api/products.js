@@ -4,15 +4,7 @@ const auth = require('../../middleware/auth');
 
 // Mongoose Schema/Model
 const Product = require('../../models/Product');
-
-// @route   GET api/items
-// @desc    Get All Items
-// @access  Public
-router.get("/", (req, res) => {
-    Product.find({})
-        .sort({ systemDate: -1 }) // ordered descending - most recently
-        .then(products => res.json(products))
-})
+// CRUD PATTERN
 
 // @route   POST api/products
 // @desc    Create a Product
@@ -33,6 +25,29 @@ router.post('/', (req, res) => { //needs to put auth as middleware
 
     newProduct.save().then(product => res.json(product));
 });
+
+// @route   GET api/items
+// @desc    Get All Items
+// @access  Public
+router.get("/", (req, res) => {
+    Product.find({})
+        .sort({ systemDate: -1 }) // ordered descending - most recently
+        .then(products => res.json(products))
+})
+
+// @route   UPDATE api/products
+// @desc    Update a Product
+// @access  Private
+    // router.put('/', (req, res) => {
+    //     let query = { "favoriteList": [] }; // e.g { isAddedToFav: false }
+    //     console.log("query", req.body.favoriteList);
+    //     // req.body.isAddedToFav = true;
+    //     Product.findOneAndUpdate(query, req.body.favoriteList, {upsert:true}, (err, doc) => { // upsert: option creates the object if it doesn't exist
+    //         if (err) return res.json({ error: "it was not possible to update. Reason: " + err });
+    //         console.log("updated");
+    //         return res.json({ msg: "new product properties updated successfully!" });
+    //     });
+    // });
 
 // @route   DELETE api/products/:id
 // @desc    Delete a Product

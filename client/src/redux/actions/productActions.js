@@ -3,10 +3,25 @@ import axios from 'axios';
 import { returnErrors } from './errorActions';
 import { tokenConfig } from './authActions';
 
+//UTILS
+// Headers
+const config = {
+    headers: {
+        'Content-Type': 'application/json'
+    }
+};
+// set body
+const getBodyRequest = objToSend => {
+    return JSON.stringify(objToSend);
+    // json ready to Go Internet - exemple:
+    // {"name":"Luis Febro","email":"mr.febro@gmail.com","password":"12345678910"}
+}
+//END UTILS
+
 //CRUD PATTERN
 // create product
-export const addProduct = products => async (dispatch, getState) => {
-    const res = await axios.post('/api/products', products, tokenConfig(getState));
+export const addProduct = product => async (dispatch, getState) => {
+    const res = await axios.post('/api/products', product, tokenConfig(getState));
     try {
         dispatch({ type: 'ADD_PRODUCT', payload: res.data });
     } catch(err) {
@@ -64,11 +79,18 @@ export const handleDetail = id => {
     // });
 };
 
-export const addFavorite = (dispatch, allProductsList, _id) => {
+export const addFavorite = async (dispatch, allProductsList, _id) => {
     const selectedProduct = getItem(allProductsList, _id)
-    selectedProduct.isAddedToFav = true;
-    console.log("selectedProduct", selectedProduct);
-    return dispatch({ type: 'ADD_FAVORITE', payload: selectedProduct });
+    const body = getBodyRequest({ favoriteList: selectedProduct });
+    console.log("selected", body);
+    try {
+        const res = await axios.put('api/users', body, config);
+        dispatch({ type: 'ADD_FAVORITE', payload: selectedProduct });
+    } catch(e) {
+        console.log(e);
+    }
+    // selectedProduct.isAddedToFav = true;
+    // console.log("selectedProduct", selectedProduct);
 };
 
 export const removeFavorite = (dispatch, allProductsList, _id) => {

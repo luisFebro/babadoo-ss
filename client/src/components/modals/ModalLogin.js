@@ -20,6 +20,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 const useStyles = makeStyles(theme => ({
     button: {
         margin: theme.spacing(1),
+        padding: theme.spacing(1),
     },
     media: {
         height: 50,
@@ -140,15 +141,7 @@ export default function ModalLogin() {
                       autoComplete="senha"
                       fullWidth
                     />
-                    <div style={{marginTop: '28px'}}>
-                        <Button
-                              color="primary"
-                              className={classes.link}
-                              style={{fontSize: '.6em'}}
-                              onClick={() => showModalUnderConstruction(dispatch)}
-                          >
-                          Esqueceu sua senha?
-                        </Button>
+                    <div style={{display: 'flex', justifyContent: 'center', marginTop: '28px'}}>
                         <Button
                                 onClick={() => {
                                   toggleModalLogin(dispatch, isModalLoginOpen);
@@ -157,6 +150,14 @@ export default function ModalLogin() {
                               color="primary"
                           >
                           Sair
+                        </Button>
+                        <Button
+                              color="primary"
+                              className={classes.link}
+                              style={{fontSize: '.6em'}}
+                              onClick={() => showModalUnderConstruction(dispatch)}
+                          >
+                          Esqueceu sua senha?
                         </Button>
                         <Button
                               onClick={() => {

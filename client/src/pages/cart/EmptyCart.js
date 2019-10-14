@@ -17,8 +17,7 @@ export default function EmptyCart() {
             <h4
                 className="text-sub-title mt-5"
             >
-                {parse(`A lista de seus produtos de favoritos aparecerá aqui.<br/>
-                        Assim que tiver pelo menos um item adicionado, pode voltar novamente!<br/>
+                {parse(`Assim que tiver pelo menos um item adicionado, pode voltar novamente!<br/>
                         Clique no ícone do carrinho para adicionar um item`)}
             </h4>
             <HashLink smooth to="/#inicio">
