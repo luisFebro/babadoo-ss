@@ -15,13 +15,11 @@ export const addProduct = products => async (dispatch, getState) => {
 };
 
 // read product
-let count = 0;
 export const getAllProducts = async (dispatch) => {
     // let didCancel = false; //n1
     try {
         dispatch(setProductsLoading());
         const res = await axios.get('/api/products');
-        console.log("getAllProducts", res + ` times: ${++count}`);
         dispatch({ type: 'GET_ALL_PRODUCTS', payload: res.data });
         // if(!didCancel) {
         // }
@@ -60,20 +58,22 @@ export const getItem = (allProductsList, _id) => {
 }
 
 export const handleDetail = id => {
-    const product = this.getItem(id);
-    this.setState(() => {
-        return { detailProduct: product };
-    });
+    // const product = this.getItem(id);
+    // this.setState(() => {
+    //     return { detailProduct: product };
+    // });
 };
 
 export const addFavorite = (dispatch, allProductsList, _id) => {
     const selectedProduct = getItem(allProductsList, _id)
     selectedProduct.isAddedToFav = true;
+    console.log("selectedProduct", selectedProduct);
     return dispatch({ type: 'ADD_FAVORITE', payload: selectedProduct });
 };
 
 export const removeFavorite = (dispatch, allProductsList, _id) => {
    const selectedProduct = getItem(allProductsList, _id)
+    selectedProduct.isAddedToFav = false;
    return dispatch({ type: 'REMOVE_FAVORITE', payload: selectedProduct });
 };
 

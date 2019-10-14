@@ -11,7 +11,7 @@ import { ProductConsumer } from '../../data/contexts/mainContext';
 import PropTypes from 'prop-types';
 import truncateWords from '../../utils/truncateWords'
 
-Product.propTypes = {
+ProductFavorite.propTypes = {
     product: PropTypes.shape({
         id: PropTypes.string,
         img: PropTypes.string,
@@ -21,7 +21,7 @@ Product.propTypes = {
     }).isRequired
 };
 
-export default function Product({ product, isFav }) {
+export default function ProductFavorite({ product }) {
     const [isFavChanged, setIsFavChanged] = useState(false);
 
     const { allProductsList, isUserAuthenticated } = useStoreState(state => ({
@@ -54,7 +54,7 @@ export default function Product({ product, isFav }) {
                                 onClick={() => toggleFav()}
                             >
                                 {isUserAuthenticated ? (
-                                    (isFavChanged || isFav) ? (
+                                    !isFavChanged ? ( //starting with filledHeart product cart
                                         <i
                                             className="filledHeart fas fa-heart animated heartBeat fast"
                                             onClick = {() => {

@@ -67,9 +67,9 @@ export default function MenuLogin() {
                         <ul className="navbar-nav ml-3">
                             <li className="nav-item">
                                 <Link to="/favoritos" className="nav-link">
-                                    <span>
-                                        <i className="fas fa-heart">
-                                            <span className="animated pulse slow" style={{ top: '.3em', marginLeft: '.01em' }} className="badge badge-danger p-1">
+                                    <span style={{ position: 'relative' }} >
+                                        <i className="fas fa-heart animated bounce slow">
+                                            <span  style={{ position: 'absolute', top: '-.5em', left: '1.6em', marginLeft: '.01em', padding: '.9px 3px' }} className="badge badge-danger">
                                                 {allFavorites.length}
                                             </span>
                                         </i>
@@ -165,7 +165,7 @@ const DivWrapper = styled.div`
     & .nav-link:hover,
     & .navbar-nav span i:hover {
         transform: scale(1.1);
-        filter: drop-shadow(0.001em 0.1em 0.1em var(--mainYellow));
+        filter: drop-shadow(0.001em 0.1em 0.1em var(--mainRed));
     }
 
     /*MOBILE FIRST RESPONSIVE MEDIA QUERIES*/

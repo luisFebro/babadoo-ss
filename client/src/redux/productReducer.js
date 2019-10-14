@@ -38,7 +38,7 @@ export const productReducer = {
             case 'DELETE_PRODUCT':
                 return {
                     ...state,
-                    allProductsList: state.allProductsList.filter(product => product._id !== action.payload)
+                    allProductsList: state.allProductsList.filter(product => product._id !== action.payload._id)
                 };
             // END CRUD PATTERN
 

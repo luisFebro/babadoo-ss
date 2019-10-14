@@ -7,7 +7,7 @@ import parse from 'html-react-parser';
 import EmptyContent from '../../components/EmptyContent';
 import { ButtonContainerPressedEffectDark as Dark } from '../../components/buttons/Default';
 import { HashLink } from 'react-router-hash-link';
-import Product from '../../components/products/Product';
+import ProductFavorite from '../../components/products/ProductFavorite';
 import PropTypes from 'prop-types';
 
 Favorites.propTypes = {
@@ -21,7 +21,6 @@ export default function Favorites() {
         allFavorites: state.productReducer.cases.allFavorites
     }));
 
-    console.log("favList", allFavorites);
     return (
         <Fragment>
             {(name !== null) ?
@@ -32,7 +31,8 @@ export default function Favorites() {
                         <div className="container">
                             <div className="row">
                                 {allFavorites.map(product => {
-                                    return <Product key={product.id} product={product} />
+                                    console.log("productIDfavorites", product._id)
+                                    return <ProductFavorite key={product._id} product={product} />
                                 })}
                             </div>
                         </div>
