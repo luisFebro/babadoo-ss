@@ -84,8 +84,9 @@ export const addFavorite = async (dispatch, allProductsList, _idProduct, _idUser
     selectedProduct.isAddedToFav = true;
     const body = getBodyRequest( { favoriteList: selectedProduct } ); // Obj
     try {
-        const res = await axios.put(`api/users/list/favorite/${_idUser}`, body, config);
         dispatch({ type: 'ADD_FAVORITE', payload: selectedProduct });
+        const res = await axios.put(`api/users/list/favorite/${_idUser}`, body, config);
+        console.log("addFavorite", res);
     } catch(e) {
         console.log(e);
     }
@@ -95,8 +96,9 @@ export const removeFavorite = async (dispatch, allProductsList, _idProduct, _idU
    const selectedProduct = getItem(allProductsList, _idProduct);
    selectedProduct.isAddedToFav = false;
    try {
-       const res = await axios.delete(`api/users/list/favorite/${_idUser}`, config);
        dispatch({ type: 'REMOVE_FAVORITE', payload: selectedProduct });
+       const res = await axios.delete(`api/users/list/favorite/${_idUser}`, config);
+       console.log("removeFav", res);
    } catch(e) {
        console.log(e);
    }
