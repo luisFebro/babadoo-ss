@@ -2,7 +2,7 @@ import React from 'react';
 import { InlineShareButtons } from 'sharethis-reactjs';
 import PropTypes from 'prop-types';
 
-export default function ShareSocialMediaButtons({data}) {
+export default function ShareSocialMediaButtons({ data }) {
     const { titleShare, pageURL, pageImg, pageTitle, pageDescription } = data;
     return (
         <div>

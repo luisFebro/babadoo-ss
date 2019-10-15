@@ -5,17 +5,25 @@ import { ProductConsumer } from '../../data/contexts/mainContext';
 import ButtonCart from '../../components/buttons/ButtonCart';
 import ShareSocialMediaButtons from '../../components/buttons/ShareSocialMediaButtons';
 import styled from 'styled-components';
+import parse from 'html-react-parser';
+
+// Share Button Infos
+const dataCategory = {
+    name: "Lingeries",
+    urlName: "lingeries",
+}
+const pageData = {
+    titleShare: parse(`Compartilhe a Categoria<br />${dataCategory.name}`),
+    pageURL: `https://www.babadoo.herokuapp.com/${dataCategory.urlName}`,
+    pageImg: "i.imgur.com/9GjtAiW",
+    pageTitle: `Babadoo - Categoria ${dataCategory.name}`,
+    get pageDescription() {
+        return `Conheça nossa linha de ${dataCategory.name} em ${this.pageURL}`;
+    }
+}
+// End Share Button Infos
 
 export default function Lingerie() {
-    const pageData = {
-        titleShare: "Compartilhe essa Categoria",
-        pageURL: "https://www.babadoo.herokuapp.com",
-        pageImg: "i.imgur.com/9GjtAiW",
-        pageTitle: "Babadoo - Categoria Lingeries",
-        pageDescription: "",
-
-    }
-    pageData.pageDescription = `Conheça nossa linha de Lingeries em ${pageData.pageURL}`
     return (
         <React.Fragment>
             <DivWrapper>

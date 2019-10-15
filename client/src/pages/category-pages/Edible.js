@@ -4,16 +4,25 @@ import Product from '../../components/products/Product';
 import { ProductConsumer } from '../../data/contexts/mainContext';
 import ButtonCart from '../../components/buttons/ButtonCart';
 import ShareSocialMediaButtons from '../../components/buttons/ShareSocialMediaButtons';
+import parse from 'html-react-parser';
+
+// Share Button Infos
+const dataCategory = {
+    name: "Comestíveis",
+    urlName: "comestiveis",
+}
+const pageData = {
+    titleShare: parse(`Compartilhe a Categoria<br />${dataCategory.name}`),
+    pageURL: `https://www.babadoo.herokuapp.com/${dataCategory.urlName}`,
+    pageImg: "i.imgur.com/9GjtAiW",
+    pageTitle: `Babadoo - Categoria ${dataCategory.name}`,
+    get pageDescription() {
+        return `Conheça nossa linha de ${dataCategory.name} em ${this.pageURL}`;
+    }
+}
+// End Share Button Infos
 
 export default function Edible() {
-    const pageData = {
-        titleShare: "Compartilhe essa Categoria",
-        pageURL: "https://www.babadoo.herokuapp.com",
-        pageImg: "i.imgur.com/9GjtAiW.png",
-        pageTitle: "Babadoo - Categoria Comestíveis",
-        pageDescription: "",
-    }
-    pageData.pageDescription = `Conheça nossa linha de comestíveis em ${pageData.pageURL}`
     return (
         <React.Fragment>
             <Title name="" title="Comestíveis" />

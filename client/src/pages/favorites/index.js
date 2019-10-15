@@ -6,6 +6,7 @@ import Title from '../../components/Title';
 import parse from 'html-react-parser';
 import EmptyContent from '../../components/EmptyContent';
 import { ButtonContainerPressedEffectDark as Dark } from '../../components/buttons/Default';
+import ShareSocialMediaButtons from '../../components/buttons/ShareSocialMediaButtons';
 import { HashLink } from 'react-router-hash-link';
 import ProductFavorite from '../../components/products/ProductFavorite';
 import PropTypes from 'prop-types';

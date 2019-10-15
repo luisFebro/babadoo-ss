@@ -66,8 +66,9 @@ export default function App() {
                     <Route path="/seu-carrinho" component={Cart} />
                     <Route path="/finalizar-compra" component={CheckoutLocal} />
                     <Route path="/favoritos" component={Favorites} />
-                    <Route exact path="/painel-controle-admin" component={Dashboard} />
+                    <Route path="/painel-controle-admin" component={Dashboard} />
                     <Route component={Default} />
+                    {/*<Redirect from="*" to="/" />*/}
                 </Switch>
                 {/*Modals and Snackbars*/}
                 <AllModals />
