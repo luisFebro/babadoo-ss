@@ -44,7 +44,7 @@ export default function ProductList() {
             <div className="py-5">
                 <div className="container">
                     <div className="row text-center">
-                        {isError && <div className="text-center text-sub-title">Ocorreu um problema.<br />Tente recarregar a página novamente<br />ou<br />Verifique sua conexão à internet</div>}
+                        {isError && <div className="text-center text-sub-title">Ocorreu um problema no servidor.<br />Tente recarregar a página novamente<br />ou<br />Verifique sua conexão à internet</div>}
                         {isLoading ? (
                             <div className="col-10 mx-auto">
                                 <LoadingIndicator />

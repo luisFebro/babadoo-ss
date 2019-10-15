@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import ScrollToTop from 'react-router-scroll-top';
 import { useStoreDispatch } from 'easy-peasy';
 import { loadUser } from '../redux/actions/authActions';
-import { Switch, Route } from 'react-router-dom';
 import './App.css';
 import UserProvider from '../data/contexts/UserProvider';
 //GENERAL COMPONENTS
@@ -33,13 +34,11 @@ import Navbar from '../components/_layout/navbar/Navbar';
 import CategorySlider from '../components/_layout/CategorySlider';
 import Footer from '../components/_layout/footer/Footer';
 // END LAYOUT
-// MODALS
+// MODALS ANS TOASTS
 import AllModals from '../components/modals';
-// END MODALS
-// SNACKBARS
-import SnackbarBlack from '../components/snackbars/SnackbarBlack';
-import SuccessSnackbar from '../components/snackbars/SuccessSnackbar';
-// END SNACKBARS
+import AllSnackbars from '../components/snackbars';
+// END MODALS ANS TOASTS
+
 // BUTTONS
 import WhatsappIcon from '../components/buttons/WhatsappIcon';
 // END BUTTONS
@@ -51,39 +50,35 @@ export default function App() {
     }, []);
 
     return (
-        <React.Fragment>
-            <Navbar />
-            <CategorySlider />
-            <Switch>
-                {/*Categories Pages*/}
-                <Route exact path="/" render={(props) => (<Home />)} /> {/*This will be routed first, exact make sure only Home content is displayed render based on https://github.com/luisFebro/react_crash_todo/blob/master/src/App.js*/}
-                <Route path="/lingeries" component={Lingerie} />
-                <Route path="/cosmeticos" component={Cosmetic} />
-                <Route path="/comestiveis" component={Edible} />
-                {/*End Categories Pages*/}
-                <Route path="/loja" component={Store} />
-                <Route path="/detalhes-do-produto" component={Details} />
-                <Route path="/seu-carrinho" component={Cart} />
-                <Route path="/finalizar-compra" component={CheckoutLocal} />
-                <Route path="/favoritos" component={Favorites} />
-                <Route path="/painel-controle-admin" component={Dashboard} />
-                <UserProvider>
-                    {/*<Route path="/cliente" component={Client}/>*/}
-                </UserProvider>
-                <Route component={Default} />
-            </Switch>
-            {/*Modals*/}
-            <AllModals />
-            {/*End Modals*/}
-            {/*Snackbars*/}
-            <SnackbarBlack />
-            <SuccessSnackbar />
-            {/*End Snackbars*/}
-            <Footer />
-            <WhatsappIcon />
-            <CustomPreloader>
-                <Preloader />
-            </CustomPreloader>
-        </React.Fragment>
+        <BrowserRouter>
+            <ScrollToTop>
+                <Navbar />
+                <CategorySlider />
+                <Switch>
+                    {/*Categories Pages*/}
+                    <Route exact path="/" render={(props) => (<Home />)} /> {/*This will be routed first, exact make sure only Home content is displayed render based on https://github.com/luisFebro/react_crash_todo/blob/master/src/App.js*/}
+                    <Route path="/lingeries" component={Lingerie} />
+                    <Route path="/cosmeticos" component={Cosmetic} />
+                    <Route path="/comestiveis" component={Edible} />
+                    {/*End Categories Pages*/}
+                    <Route path="/loja" component={Store} />
+                    <Route path="/detalhes-do-produto" component={Details} />
+                    <Route path="/seu-carrinho" component={Cart} />
+                    <Route path="/finalizar-compra" component={CheckoutLocal} />
+                    <Route path="/favoritos" component={Favorites} />
+                    <Route exact path="/painel-controle-admin" component={Dashboard} />
+                    <Route component={Default} />
+                </Switch>
+                {/*Modals and Snackbars*/}
+                <AllModals />
+                <AllSnackbars />
+                {/*End Modals and Snackbars*/}
+                <Footer />
+                <WhatsappIcon />
+                <CustomPreloader>
+                    <Preloader />
+                </CustomPreloader>
+            </ScrollToTop>
+        </BrowserRouter>
     );
 }
