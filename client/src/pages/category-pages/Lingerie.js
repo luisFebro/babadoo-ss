@@ -14,7 +14,7 @@ const dataCategory = {
 }
 const pageData = {
     titleShare: parse(`Compartilhe a Categoria<br />${dataCategory.name}`),
-    pageURL: `https://www.babadoo.herokuapp.com/${dataCategory.urlName}`,
+    pageURL: `https://babadoo.herokuapp.com/${dataCategory.urlName}`,
     pageImg: "i.imgur.com/9GjtAiW",
     pageTitle: `Babadoo - Categoria ${dataCategory.name}`,
     get pageDescription() {
