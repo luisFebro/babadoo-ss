@@ -18,7 +18,7 @@ const pageData = {
     pageImg: "i.imgur.com/9GjtAiW",
     pageTitle: `Babadoo - Categoria ${dataCategory.name}`,
     get pageDescription() {
-        return `Conheça nossa linha de ${dataCategory.name} em ${this.pageURL}`;
+        return `Olha essa coleção de ${dataCategory.name} que encontrei em ${this.pageURL}`;
     }
 }
 // End Share Button Infos
