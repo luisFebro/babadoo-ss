@@ -3,9 +3,20 @@ import { pulse } from '../keyframes/pulse';
 import styled, { keyframes } from 'styled-components';
 
 export default function Preloader() {
+    // const loadImage = () => {
+    //     var img = new Image(),
+    //         x = document.querySelector("babadoo-logo");
+
+    //     img.onload = function() {
+    //         x.src = img.src;
+    //     };
+
+    //     img.src = "img/babadoo-logo_no-slogon.png";
+    // }
     return (
         <DivWrapper>
             <img
+                id="babadoo-logo"
                 src="img/babadoo-logo_no-slogon.png"
                 alt="babadoo - sexyshop está carregando..."
                 height="150px"

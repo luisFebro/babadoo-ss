@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 // Redux
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { showSnackbarBlack } from '../../redux/actions/snackbarActions';
-import { showModalUnderConstruction, toggleModalLogin } from '../../redux/actions/modalActions';
+import { showModalUnderConstruction, closeModal } from '../../redux/actions/modalActions';
 import { clearErrors } from '../../redux/actions/errorActions';
 import { loginEmail } from '../../redux/actions/authActions';
 // Material UI
@@ -20,7 +20,6 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 const useStyles = makeStyles(theme => ({
     button: {
         margin: theme.spacing(1),
-        padding: theme.spacing(1),
     },
     media: {
         height: 50,
@@ -73,7 +72,7 @@ export default function ModalLogin() {
       //
       if (isModalLoginOpen) {
           if (isUserAuthenticated) {
-            toggleModalLogin(dispatch, isModalLoginOpen);
+            closeModal(dispatch);
             setTimeout(() => {
                 showSnackbarBlack(dispatch, `Olá de volta!`);
             }, 3000);
@@ -144,7 +143,7 @@ export default function ModalLogin() {
                     <div style={{display: 'flex', justifyContent: 'center', marginTop: '28px'}}>
                         <Button
                                 onClick={() => {
-                                  toggleModalLogin(dispatch, isModalLoginOpen);
+                                  closeModal(dispatch);
                                   clearErrors(dispatch);
                               }}
                               color="primary"

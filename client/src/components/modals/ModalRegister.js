@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 // Redux
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { showSnackbarBlack } from '../../redux/actions/snackbarActions';
-import { showModalUnderConstruction, toggleModalRegister } from '../../redux/actions/modalActions';
+import { showModalUnderConstruction, closeModal } from '../../redux/actions/modalActions';
 import { clearErrors } from '../../redux/actions/errorActions';
 import { registerEmail } from '../../redux/actions/authActions';
 // Material UI
@@ -71,7 +71,7 @@ export default function ModalRegister() {
         //
         if (isModalRegisterOpen) {
             if (isUserAuthenticated) {
-              toggleModalRegister(dispatch, isModalRegisterOpen);
+              closeModal(dispatch, isModalRegisterOpen);
               setTimeout(() => {
                 showSnackbarBlack(dispatch, "Cadastro Realizado com Sucesso via Email!");
               })
@@ -158,7 +158,7 @@ export default function ModalRegister() {
                     <div style={{display: 'flex', justifyContent: 'center', marginTop: '28px'}}>
                         <Button
                               onClick={() => {
-                                toggleModalRegister(dispatch, isModalRegisterOpen);
+                                closeModal(dispatch);
                                 clearErrors(dispatch);
                             }}
                               color="primary"

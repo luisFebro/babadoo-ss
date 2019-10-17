@@ -6,17 +6,22 @@ import { reducer } from 'easy-peasy';
 
 // REDUCERS
 const initialState = {
-    //> Authentification
+    isModalDefaultOpen: false,
+    isModalUnderConstructionOpen: false,
+    // Authentification
     isModalLoginOpen: false,
     isModalRegisterOpen: false,
-    //> End Authentification
-    isModalUnderConstructionOpen: false,
+    // End Authentification
 }
 
 export const modalReducers = {
     cases: reducer((state = initialState, action) => {
         switch(action.type) {
             //SHOW
+            case 'SHOW_MODAL_DEFAULT':
+                return {
+                    isModalDefaultOpen: action.payload
+                }
             case 'SHOW_MODAL_LOGIN':
                 return {
                     isModalLoginOpen: action.payload
@@ -30,18 +35,13 @@ export const modalReducers = {
                     isModalUnderConstructionOpen: action.payload,
                 }
 
-            // TOGGLE
-            case 'TOGGLE_MODAL_LOGIN':
+            // CLOSE
+            case 'CLOSE_ALL_MODALS':
                 return {
-                    isModalLoginOpen: !action.payload
-                }
-            case 'TOGGLE_MODAL_REGISTER':
-                return {
-                    isModalRegisterOpen: !action.payload
-                }
-            case 'TOGGLE_MODAL_UNDER_CONSTRUCTION':
-                return {
-                    isModalUnderConstructionOpen: !action.payload
+                    isModalDefaultOpen: false,
+                    isModalLoginOpen: false,
+                    isModalRegisterOpen: false,
+                    isModalUnderConstructionOpen: false
                 }
             default:
                 return state;

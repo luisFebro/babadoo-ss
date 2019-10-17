@@ -1,0 +1,100 @@
+import React, { useState } from 'react';
+// import parse from 'html-react-parser';
+// Redux
+import { useStoreState, useStoreDispatch } from 'easy-peasy';
+import { showModalDefault } from '../redux/actions/modalActions.js';
+// End Redux
+import ModalDefault from './modals/ModalDefault.js';
+import { ButtonContainerPressedEffectYellow as BtnYellow } from './buttons/Default'
+import styled from 'styled-components';
+
+export default function AnimationBizPromo() {
+    const [ isClosed, setIsClosed ] = useState(false);
+
+    const { isAuthenticated, name, updatedUsers } = useStoreState(state => ({
+            isAuthenticated: state.authReducer.cases.isUserAuthenticated,
+            name: state.authReducer.cases.user.name,
+            updatedUsers: state.userReducer.cases.updatedUsers
+        }));
+    const dispatch = useStoreDispatch();
+
+    // Check if there is an discount item in the array,
+    // If so, the maskot with discount will not appear when user log in.
+    let gotCoupons = false;
+    const checkUserCoupon = () => {
+        updatedUsers.forEach(user => {
+            if(name === user.name) {
+                if(user.couponsList.length >= 1) {
+                    gotCoupons = true;
+                }
+            }
+        });
+    }
+    checkUserCoupon();
+
+    const closeBtn = () => {
+        const mainSection = document.getElementById('main-section'),
+            closeBtn = document.getElementById('closeBtn');
+
+        closeBtn.className = 'fas fa-times-circle animated rotateOut';
+        mainSection.classList.add('animated', 'slideOutRight', 'slower');
+        setTimeout(mainSection => {
+            // setIsClosed(true);
+        }, 1000);
+    }
+
+    return (
+        <div style={{zIndex: 1490}}>
+            <ModalDefault
+                propTitle={`Parabéns, ${name}!`}
+                propMsg={"Você ganhou um cupom de desconto de 10% na sua primeira conta"}
+                propTxtBtn={"aplicar desconto"}
+                objToSend={{couponsList: {type: "10% desconto qualquer produto"}}}
+            />
+            {isAuthenticated ?
+                // Pass if the modal is not closed and the user does not have a coupon
+                (!isClosed && !gotCoupons) ? (
+                    <section
+                        id="main-section"
+                        className="animated slideInRight slower"
+                        style={{animationDelay: '10s', position: 'fixed', bottom: '12px', right: '25px', zIndex: 1490}}>
+                        <img
+                            style={{ cursor: 'pointer' }}
+                            src="gif/girl-turning.gif"
+                            alt="girl turning"
+                            onClick={() => showModalDefault(dispatch)}
+                        />
+                        <div>
+                            <BtnYellow
+                                onClick={() => showModalDefault(dispatch)}
+                            >
+                                <p className="text-default">
+                                    Hey! Você ganhou<br />desconto. Veja!
+                                </p>
+                            </BtnYellow>
+                            <SpanWrapper>
+                                <i
+                                    id="closeBtn"
+                                    className="fas fa-times-circle animated rotateIn delay-2s"
+                                    onClick={() => {
+                                        closeBtn();
+                                    }}
+                                ></i>
+                            </SpanWrapper>
+                        </div>
+                    </section>
+                ) : null
+                : null}
+        </div>
+    );
+}
+
+const SpanWrapper = styled.span`
+    position: fixed;
+    cursor: pointer;
+    font-size: 1.9em;
+    bottom: 5rem;
+    right: 5%;
+    color: var(--mainWhite);
+    filter: drop-shadow(0.001em 0.1em 0.1em var(--mainDark));
+`;

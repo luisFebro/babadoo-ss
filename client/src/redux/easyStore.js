@@ -4,12 +4,14 @@ import { productReducer } from './productReducer';
 import { snackbarReducer } from './snackbarReducer';
 import { errorReducer } from './errorReducer';
 import { authReducer } from './authReducer';
+import { userReducer } from './userReducer';
 
 //Main store
 export const easyStore = {
-    productReducer,
     authReducer,
+    userReducer,
+    productReducer,
     modalReducers,
     errorReducer,
-    snackbarReducer
+    snackbarReducer,
 }

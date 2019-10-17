@@ -66,47 +66,58 @@ router.post('/', (req, res) => {
         })
 });
 
+// @route   GET api/items
+// @desc    Get All Updated User Info (including lists)
+// @access  Public
+router.get("/list", (req, res) => {
+    User.find({})
+        .sort({ systemDate: -1 }) // ordered descending - most recently
+        .then(users => res.json(users))
+})
+
 // @route   GET api/users/list
 // @desc    Get a list of all users from db
 // @access  Private
 // THIS IS NOT THE BEST WAY TO DO IT SINCE THIS GET DIFF OBJ KEYS. SEE PRODUCTS GET ALL PRODUCTS
-router.get('/list', (req, res) => {
-    User.find({}, (err, users) => {
-        var userMap = {};
-        users.forEach(user => {
-            userMap[user._id] = user;
-        });
-        res.send(userMap);
-    })
-});
+// router.get('/list', (req, res) => {
+//     User.find({}, (err, users) => {
+//         var userMap = {};
+//         users.forEach(user => {
+//             userMap[user._id] = user;
+//         });
+//         res.send(userMap);
+//     })
+// });
 
 // LISTS
-// @route   UPDATE api/users/list/favorite/:id
-// @desc    Update User Info
+// @route   ADD/UPDATE api/users/:id
+// @desc    Push an array-like data
 // @access  Private
-router.put('/list/favorite/:id', (req, res) => {
-    User.findByIdAndUpdate(req.params.id, req.body, { strict: false, upsert:true }, (err, value) => {
-        console.log(req.params.id);
-        console.log(req.body);
+router.put('/lists/:id', (req, res) => {
+    User.findByIdAndUpdate(req.params.id,{ $push: req.body}, { strict: false, upsert:true }, (err, data) => {
         if (err) {
             return res
                 .status(500)
-                .json({error: "unsuccessful"})
+                .json({error: "unsuccessful. not added"})
         };
-        res.json({success: "success"});
+        res.json( data );
     });
 });
 
-router.delete('/list/favorite/:id', (req, res) => {
-    User.findByIdAndUpdate(req.params.id, req.body, { strict: false, upsert:true }, (err, value) => {
-        if (err) {
-            return res
-                .status(500)
-                .json({error: "unsuccessful"})
-        };
-        res.json({success: "success"});
-    });
-})
+// @route   REMOVE FAVORITE api/users/list/favorite/:id
+// @desc    Remove an Item from the User list of favorites
+// @access  Private
+// router.put('/list/favorite/:id', (req, res) => {
+//     User.findByIdAndUpdate(req.params.id,{ $push: req.body}, { strict: false, upsert:true }, (err, value) => {
+//         if (err) {
+//             return res
+//                 .status(500)
+//                 .json({error: "unsuccessful. not added"})
+//         };
+//         res.json({success: "success"});
+//     });
+// });
+
 
 // END LISTS
 module.exports = router;

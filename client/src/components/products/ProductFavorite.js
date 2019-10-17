@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { addFavorite, removeFavorite } from '../../redux/actions/productActions';
 import { showSnackbarBlack } from '../../redux/actions/snackbarActions';
-import { toggleModalRegister } from '../../redux/actions/modalActions';
+import { closeModal } from '../../redux/actions/modalActions';
 // End Redux
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
@@ -79,9 +79,8 @@ export default function ProductFavorite({ product }) {
                                         <i
                                             className="emptyHeart far fa-heart"
                                             onClick={() => {
-                                                toggleModalRegister(dispatch);
+                                                closeModal(dispatch);
                                                 showSnackbarBlack(dispatch, "Faça seu acesso para adicionar aos favoritos!")
-                                                // value.openModalFavorite(_id);
                                             }}
                                         ></i>
                                     )

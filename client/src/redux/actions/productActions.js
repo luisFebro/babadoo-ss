@@ -82,11 +82,10 @@ export const handleDetail = id => {
 export const addFavorite = async (dispatch, allProductsList, _idProduct, _idUser) => {
     const selectedProduct = getItem(allProductsList, _idProduct);
     selectedProduct.isAddedToFav = true;
-    const body = getBodyRequest( { favoriteList: selectedProduct } ); // Obj
+    const body = getBodyRequest({ favoriteList: selectedProduct }); // Obj
     try {
-        dispatch({ type: 'ADD_FAVORITE', payload: selectedProduct });
         const res = await axios.put(`api/users/list/favorite/${_idUser}`, body, config);
-        console.log("addFavorite", res);
+        dispatch({ type: 'ADD_FAVORITE', payload: selectedProduct });
     } catch(e) {
         console.log(e);
     }

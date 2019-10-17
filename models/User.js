@@ -36,10 +36,14 @@ const userSchema = new Schema({
     type: Array,
     default: []
   },
+  couponsList: {
+    type: Array,
+    default: []
+  },
   registerDate: {
     type: String,
     default: brTime
-  }
+  },
 }); //n1
 
 module.exports = User = mongoose.model('User', userSchema, collectionName);

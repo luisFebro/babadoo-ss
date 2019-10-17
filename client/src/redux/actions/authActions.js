@@ -23,6 +23,27 @@ export const loadUser = () => (dispatch, getState) => {
     // User loading
     dispatch({ type: 'USER_LOADING' });
 
+    const getAuthUser = () => {
+      return axios.get('/api/auth/user', tokenConfig(getState));
+    }
+
+    const getUpdatedUser = () => {
+      return axios.get('/api/users/list', config);
+    }
+
+    axios.all([getAuthUser(), getUpdatedUser()])
+      .then(axios.spread((auth, updatedUser) => {
+        // Both requests are now complete
+        dispatch({
+            type: 'USER_LOADED',
+            payload: auth.data
+        })
+        dispatch({
+            type: 'USER_UPDATE',
+            payload: updatedUser.data
+        })
+      }))
+
     axios
         .get('/api/auth/user', tokenConfig(getState))
         .then(res =>
