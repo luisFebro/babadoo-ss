@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const collectionName = "all-users";
-// Moment
 const moment = require('moment');
 
 //Set local time:
@@ -9,7 +8,7 @@ const moment = require('moment');
 moment.locale('pt-BR');
 const brTime = moment(Date.now()).format('MMMM Do YYYY, h:mm:ss a');
 
-const userSchema = new Schema({
+const data = {
   name: {
     type: String,
     required: true,
@@ -44,9 +43,10 @@ const userSchema = new Schema({
     type: String,
     default: brTime
   },
-}); //n1
+}
 
-module.exports = User = mongoose.model('User', userSchema, collectionName);
+const userSchema = new Schema(data); //n1
+module.exports = mongoose.model('User', userSchema, collectionName);
 
 
 

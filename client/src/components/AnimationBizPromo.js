@@ -37,10 +37,8 @@ export default function AnimationBizPromo() {
             closeBtn = document.getElementById('closeBtn');
 
         closeBtn.className = 'fas fa-times-circle animated rotateOut';
-        mainSection.classList.add('animated', 'slideOutRight', 'slower');
-        setTimeout(mainSection => {
-            // setIsClosed(true);
-        }, 1000);
+        mainSection.classList.add('animated', 'slideOutRight', 'slow');
+        mainSection.style.animationDelay = '0s';
     }
 
     return (
@@ -58,8 +56,8 @@ export default function AnimationBizPromo() {
                         id="main-section"
                         className="animated slideInRight slower"
                         style={{animationDelay: '10s', position: 'fixed', bottom: '12px', right: '25px', zIndex: 1490}}>
-                        <img
-                            style={{ cursor: 'pointer' }}
+                        <ImageWrapper
+                            // style={{ cursor: 'pointer', height: '370px', maxWidth: '100%' }}
                             src="gif/girl-turning.gif"
                             alt="girl turning"
                             onClick={() => showModalDefault(dispatch)}
@@ -69,7 +67,7 @@ export default function AnimationBizPromo() {
                                 onClick={() => showModalDefault(dispatch)}
                             >
                                 <p className="text-default">
-                                    Hey! Você ganhou<br />desconto. Veja!
+                                    Hey {name}!<br />Você ganhou desconto. Veja!
                                 </p>
                             </BtnYellow>
                             <SpanWrapper>
@@ -88,6 +86,19 @@ export default function AnimationBizPromo() {
         </div>
     );
 }
+
+const ImageWrapper = styled.img`
+    cursor: pointer;
+    height: 320px;
+    maxWidth: 100%;
+
+    /*MOBILE FIRST RESPONSIVE MEDIA QUERIES*/
+    /*media portrait tablets and large phones || for large devices, use min-width: 992px and up*/
+    @media only screen and (min-width: 600px) {
+        height: 370px;
+    }
+
+`;
 
 const SpanWrapper = styled.span`
     position: fixed;

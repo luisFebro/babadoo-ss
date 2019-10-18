@@ -18,6 +18,6 @@
 - [Generate Sitemap (SEO) for React](https://www.amitsn.com/blog/how-to-generate-a-sitemap-for-your-react-website-with-dynamic-content)
 - [Life cycles replacement to useEffect - Holly Girouard](https://alligator.io/react/replacing-component-lifecycles-with-useeffect/)
 - [Life cycles replacement to useEffect - Holly Girouard](https://alligator.io/react/replacing-component-lifecycles-with-useeffect/)
-- [React Hooks: How to use useEffect()](https://medium.com/javascript-in-plain-english/react-hooks-how-to-use-useeffect-ecea3e90d84f)
 - [ React Hooks: fetching data - Robin Wieruch](https://www.robinwieruch.de/react-hooks-fetch-data)
 - [ Email Confirmation with React - Jesse Heaslip ](https://blog.bitsrc.io/email-confirmation-with-react-257e5d9de725)
+- [ Real Time CRUD operations in the DataBase using mongoose - Esteban Herrera ](https://hackernoon.com/using-mongodb-as-a-realtime-database-with-change-streams-213cba1dfc2a)

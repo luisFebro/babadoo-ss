@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 // Database MongoDB
 const mongoose = require('mongoose');
-const { mongoUrl } = require('./config/keys.js');
+const { mongoKey } = require('./config/keys.js');
 // End Database MongoDB
 
 //Init Express
@@ -12,18 +12,17 @@ const app = express();
 // Allow the app to accept JSON on req.body
 app.use(express.json());
 
-// Database config
-const DB_URL = mongoUrl
-
 //  Connect to Mongo
-mongoose
-  .connect(DB_URL, {
+// Database config
+const options = {
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true //Applied after DeprecationWarning and goal: new Server Discover and Monitoring engine
-  })
-  .then(() => console.log(`MongoDB Connected...`))
-  .catch(err => console.log(err));
+}
+mongoose
+    .connect(mongoKey, options)
+    .then(() => console.log(`MongoDB Connected...`))
+    .catch(err => console.log(err));
 // End Database config
 
 // Use Routes

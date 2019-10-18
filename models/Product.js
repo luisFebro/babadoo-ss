@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const collectionName = "products";
-// Moment
 const moment = require('moment');
 
 //Set local time:
@@ -9,7 +8,7 @@ const moment = require('moment');
 moment.locale('pt-BR');
 let brTime = moment(Date.now()).format('MMMM Do YYYY, h:mm:ss a');
 
-const productSchema = new Schema({
+const data = {
     title: {
         type: String,
         required: true,
@@ -60,9 +59,10 @@ const productSchema = new Schema({
         type: Date,
         default: Date.now
     }
-});
+}
 
-module.exports = Product = mongoose.model('Product', productSchema, collectionName);
+const productSchema = new Schema(data);
+module.exports = mongoose.model('Product', productSchema, collectionName);
 
 
 

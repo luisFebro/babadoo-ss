@@ -79,9 +79,11 @@ export const authReducer = {
             case 'LOGOUT_SUCCESS':
             case 'REGISTER_FAIL':
                 localStorage.removeItem('token');
+                let userAuth;
+                setTimeout(() => userAuth = true, 6000);
                 return {
                     ...state,
-                    isUserAuthenticated: false,
+                    isUserAuthenticated: false, //this is comment out to animate zoomOut when logout
                     token: null,
                     isLoading: false,
                     user: {

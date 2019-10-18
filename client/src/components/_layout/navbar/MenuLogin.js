@@ -23,7 +23,13 @@ export default function MenuLogin() {
         }));
         const dispatch = useStoreDispatch();
         // End Redux
+        const animateZoomOut = () => {
+            //NOT WORKING
+            const mainNav = document.querySelector('#mainNav');
 
+            mainNav.classList.add('animated', 'zoomOut', 'slow');
+            mainNav.style.animationDelay = '0s';
+        }
         const changeCss = () => {
           const navElement = document.querySelector("#mainNav");
           if(isRealObj(navElement)) {
@@ -96,7 +102,10 @@ export default function MenuLogin() {
                                 <button
                                     style={{cursor: 'pointer', padding: '0 4px', border: 'none'}}
                                     className="logout-btn badge badge-danger"
-                                    onClick={() => logout(dispatch)}
+                                    onClick={() => {
+                                        animateZoomOut();
+                                        logout(dispatch);
+                                    }}
                                 >
                                     sair
                                 </button>
