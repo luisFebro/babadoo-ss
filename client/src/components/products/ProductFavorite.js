@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 // Redux
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
-import { addFavorite, removeFavorite } from '../../redux/actions/productActions';
+import { addFieldUser, deleteFieldUser } from '../../redux/actions/userActions';
+import { getItem } from '../../redux/actions/productActions';
 import { showSnackbarBlack } from '../../redux/actions/snackbarActions';
 import { closeModal } from '../../redux/actions/modalActions';
 // End Redux
@@ -18,23 +19,33 @@ ProductFavorite.propTypes = {
         title: PropTypes.string,
         price: PropTypes.number,
         inCart: PropTypes.bool
-    }).isRequired
+    }).isRequired,
+    allProductsList: PropTypes.arrayOf(PropTypes.object)
 };
 
 export default function ProductFavorite({ product }) {
     const [isFavChanged, setIsFavChanged] = useState(false);
 
-    const { allProductsList, isUserAuthenticated } = useStoreState(state => ({
+    const { allProductsList, isUserAuthenticated, _idUser } = useStoreState(state => ({
         allProductsList: state.productReducer.cases.allProductsList,
-        isUserAuthenticated: state.authReducer.cases.isUserAuthenticated
+        isUserAuthenticated: state.authReducer.cases.isUserAuthenticated,
+        _idUser: state.userReducer.cases.currentUpdatedUser["_id"]
     }));
     const dispatch = useStoreDispatch();
     // console.log("isAuth", isUserAuthenticated); //Check this behavior: auth is running multiple 11 times
     const toggleFav = () => {
         setIsFavChanged(!isFavChanged);
     }
-    const { _id, title, image, price, inCart, isAddedToFav } = product;
-    // const { isFav } = this.state;
+
+    const { _id, title, image, price, inCart } = product;
+
+    const bodyToSendFavorite = (AllProds, _id) => {
+        const obj = getItem(AllProds, _id);
+        return { favoriteList: obj}
+    }
+    const bodyFavorite = bodyToSendFavorite(allProductsList, _id);
+
+
     return (
         <ProductWrapper className="col-6 col-md-4 col-lg-3 mx-auto my-2">
             <div className="card">
@@ -43,7 +54,7 @@ export default function ProductFavorite({ product }) {
                         <div
                             className="img-container p-1 p-sm-3"
                             onClick={() => {
-                                console.log("value.handleDetail(_id)");
+                                console.log("value.handleDetail(_id) from ProductFavorite");
                             }}
                         >
                             <Link to="/detalhes-do-produto">
@@ -58,7 +69,7 @@ export default function ProductFavorite({ product }) {
                                         <i
                                             className="filledHeart fas fa-heart animated heartBeat fast"
                                             onClick = {() => {
-                                                removeFavorite(dispatch, allProductsList, _id)
+                                                deleteFieldUser(dispatch, bodyFavorite, _idUser)
                                                 showSnackbarBlack(dispatch, "Removido dos seus favoritos!")
                                             }}
                                             style={{
@@ -69,7 +80,7 @@ export default function ProductFavorite({ product }) {
                                             <i
                                                 className="emptyHeart far fa-heart"
                                                 onClick={() => {
-                                                    addFavorite(dispatch, allProductsList, _id);
+                                                    addFieldUser(dispatch, bodyFavorite, _idUser);
                                                     showSnackbarBlack(dispatch, "Adicionado aos seus favoritos!")
                                                     // value.openModalFavorite(_id);
                                                 }}

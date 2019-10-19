@@ -6,7 +6,6 @@ import { reducer } from 'easy-peasy';
 // REDUCERS
 const initialState = {
     allProductsList: [],
-    allFavorites: [],
     isLoading: false
 }
 
@@ -46,18 +45,6 @@ export const productReducer = {
                 return {
                     ...state,
                 };
-            // Favorite Products Handling
-            case 'ADD_FAVORITE':
-                return {
-                    ...state,
-                    allFavorites: [action.payload, ...state.allFavorites]
-                };
-            case 'REMOVE_FAVORITE':
-                return {
-                    ...state,
-                    allFavorites: state.allFavorites.filter(product => product._id !== action.payload._id)
-                };
-            // End Favorite Products Handling
             default:
                 return state;
         }

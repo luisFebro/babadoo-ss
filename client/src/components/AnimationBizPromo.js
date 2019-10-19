@@ -31,7 +31,7 @@ export default function AnimationBizPromo() {
         <div style={{zIndex: 1490}}>
             <ModalDefault
                 propTitle={`Parabéns, ${name}!`}
-                propMsg={"Você ganhou um cupom de desconto de 10% na sua primeira conta"}
+                propMsg={"Você ganhou um coupon de desconto de 10% na sua primeira conta"}
                 propTxtBtn={"aplicar desconto"}
                 objToSend={{couponsList: {type: "10% desconto qualquer produto"}}}
                 closeAnimation={closeBtn}

@@ -7,6 +7,7 @@ import { reducer } from 'easy-peasy';
 const initialState = {
     updatedUsers: [{name: "init", couponsList: "init"}],
     currentUpdatedUser: [],
+    allFavProductsList: [],
     gotCoupons: false,
 }
 
@@ -29,6 +30,7 @@ export const userReducer = {
                 return {
                     ...state,
                     currentUpdatedUser: action.payload,
+                    allFavProductsList: action.payload.favoriteList,
                     gotCoupons: gotAtLeastOneCupon,
                 }
             default:

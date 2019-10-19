@@ -13,13 +13,13 @@ import PropTypes from 'prop-types';
 
 Favorites.propTypes = {
     name: PropTypes.string,
-    allFavorites: PropTypes.object
+    allFavProductsList: PropTypes.arrayOf(PropTypes.object),
 }
 
 export default function Favorites() {
-    const { name, allFavorites } = useStoreState(state => ({
+    const { name, allFavProductsList } = useStoreState(state => ({
         name: state.authReducer.cases.user.name,
-        allFavorites: state.productReducer.cases.allFavorites
+        allFavProductsList: state.userReducer.cases.allFavProductsList
     }));
 
     return (
@@ -27,12 +27,11 @@ export default function Favorites() {
             {(name !== null) ?
                 <div>
                     <Title title={`Seus Favaritos, ${name}`} /> :
-                    { (allFavorites.length >= 1) ?
+                    { (allFavProductsList.length >= 1) ?
                     <div className="py-2">
                         <div className="container">
                             <div className="row">
-                                {allFavorites.map(product => {
-                                    console.log("productIDfavorites", product._id)
+                                {allFavProductsList.map(product => {
                                     return <ProductFavorite key={product._id} product={product} />
                                 })}
                             </div>

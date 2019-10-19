@@ -23,9 +23,9 @@ export const changeFieldUser = async (dispatch, objToSend, _idUser) => {
     const body = getBodyRequest(objToSend);
     try {
         const res = await axios.put(`api/users/lists/change-field/${_idUser}`, body, config);
-        dispatch({ type: 'ALL_USERS_UPDATE', payload: res.data });
+        dispatch({ type: 'USER_CURRENT_UPDATED', payload: res.data });
     } catch(e) {
-        console.log(e);
+        console.log("changeFieldUserERROR: " + e);
     }
 };
 
@@ -34,10 +34,10 @@ export const addFieldUser = async (dispatch, objToSend, _idUser) => {
     const body = getBodyRequest(objToSend);
     try {
         const res = await axios.post(`api/users/lists/add-field-array/${_idUser}`, body, config);
-        console.log("ALL_USERS_UPDATE from addFieldUser", res.data);
-        dispatch({ type: 'ALL_USERS_UPDATE', payload: res.data });
+        console.log("USER_CURRENT_UPDATED from addFieldUser", res.data);
+        dispatch({ type: 'USER_CURRENT_UPDATED', payload: res.data });
     } catch(e) {
-        console.log(e);
+        console.log("addFieldUserERROR: " + e);
     }
 };
 
@@ -45,9 +45,10 @@ export const addFieldUser = async (dispatch, objToSend, _idUser) => {
 export const deleteFieldUser = async (dispatch, objToSend, _idUser) => {
     const body = getBodyRequest(objToSend);
     try {
-        const res = await axios.delete(`api/users/lists/delete-field-array/${_idUser}`, body, config);
-        dispatch({ type: 'ALL_USERS_UPDATE', payload: res.data });
+        const res = await axios.put(`api/users/lists/delete-field-array/${_idUser}`, body, config);
+        dispatch({ type: 'USER_CURRENT_UPDATED', payload: res.data });
+        console.log("field deleted successfully!");
     } catch(e) {
-        console.log(e);
+        console.log("deleteFieldUserERROR: " + e);
     }
 };

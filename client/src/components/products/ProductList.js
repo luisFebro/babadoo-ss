@@ -19,14 +19,18 @@ ProductList.propTypes = {
 export default function ProductList() {
     const [isError, setIsError] = useState(false);
     // Redux
-    const { isLoading, allProductsList, serverStatus, allFavorites } = useStoreState(state => ({
+    const { isLoading, allProductsList, serverStatus, allFavProductsList } = useStoreState(state => ({
+        allFavProductsList: state.userReducer.cases.allFavProductsList,
         isLoading: state.productReducer.cases.isLoading,
         allProductsList: state.productReducer.cases.allProductsList,
-        allFavorites: state.productReducer.cases.allFavorites,
         serverStatus: state.errorReducer.cases.status
     }));
     const dispatch = useStoreDispatch();
     // End Redux
+
+    const IdFavList = allFavProductsList.map(fav => {
+        return fav._id;
+    });
 
     useEffect(() => {
         if(checkForServerError(serverStatus)) {
@@ -50,14 +54,16 @@ export default function ProductList() {
                                 <LoadingIndicator />
                             </div>
                         ) : (
-                            allProductsList.map((product, ind) => {
-                                // Check if the product is favorite
-                                // let isAddedFav = false;
-                                // if(allProductsList.includes(allFavorites[ind])) {
-                                //     isAddedFav = true;
-                                // }
-                                // console.log(isAddedFav);
-                                return <Product key={product._id} product={product} isFav={false} />
+                            allProductsList.map(product => {
+                                // Check if the product was added as favorite
+                                // Warning: this iterator is being called multiple times
+                                let isAddedFav = false;
+                                if(IdFavList) {
+                                    if(IdFavList.includes(product._id)) {
+                                        isAddedFav = true;
+                                    }
+                                }
+                                return <Product key={product._id} product={product} isFav={isAddedFav} />
                             })
                         )}
                     </div>

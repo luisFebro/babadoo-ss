@@ -116,22 +116,24 @@ router.delete('/lists/delete-field/:id', (req, res) => {
     let targetField = req.body;
     User.findById(req.params.id, (err, selectedUser) => {
         selectedUser.set(targetField, undefined, {strict: false} );
-        selectedUser.save(() => res.json({msg: "deleted a field succesfully"}))
+        selectedUser.save(() => res.json({msg: "delete-field: deleted a field succesfully"}))
     })
 });
 
-// @route   DELETE an array element from a field api/users/lists/delete-field-array/:id
-// @desc    Find a User(doc) and field and delete an array element
+// @route   UPDATE (Delete) an array element from a field api/users/lists/delete-field-array/:id
+// @desc    Find a User(doc) and field and delete an array element || put is needed to fetch the body, with delete, it returns an empty obj.
 // @access  Private
 // eg. req.body = { couponsList: { type: "10% desconto qualquer produto" }};
-router.delete('/lists/delete-field-array/:id', (req, res) => {
+router.put('/lists/delete-field-array/:id', (req, res) => {
+    console.log("req.body from delete-field-array", req.body);
     User.findByIdAndUpdate(req.params.id, { $pull: req.body}, (err, data) => {
         if (err) {
             return res
                 .status(500)
                 .json({error: "unsuccessful. not deleted"})
         };
-        res.json({msg: "deleted a field inside an array properly"});
+        data.save(() => res.json({msg: "delete-field-array: deleted a field inside an array properly"}));
+        // res.json({msg: "delete-field-array: deleted a field inside an array properly"});
     })
 });
 

@@ -13,13 +13,20 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { bizWhatsapp } from '../../../data/dataBiz';
 
+MenuLogin.propTypes = {
+    isUserAuthenticated: PropTypes.bool,
+    picture: PropTypes.string,
+    name: PropTypes.string,
+    allFavProductsList: PropTypes.arrayOf(PropTypes.object),
+};
+
 export default function MenuLogin() {
         // Redux
-        const { isUserAuthenticated, name, picture, allFavorites } = useStoreState(state => ({
+        const { isUserAuthenticated, name, picture, allFavProductsList } = useStoreState(state => ({
             isUserAuthenticated: state.authReducer.cases.isUserAuthenticated,
             name: state.authReducer.cases.user.name,
             picture: state.authReducer.cases.user.picture,
-            allFavorites: state.productReducer.cases.allFavorites
+            allFavProductsList: state.userReducer.cases.allFavProductsList
         }));
         const dispatch = useStoreDispatch();
         // End Redux
@@ -76,7 +83,7 @@ export default function MenuLogin() {
                                     <span style={{ position: 'relative' }} >
                                         <i className="fas fa-heart animated bounce slow">
                                             <span  style={{ position: 'absolute', top: '-.5em', left: '1.6em', marginLeft: '.01em', padding: '.9px 3px' }} className="badge badge-danger">
-                                                {allFavorites.length}
+                                                {!allFavProductsList.length ? null : allFavProductsList.length }
                                             </span>
                                         </i>
                                     </span>
@@ -118,13 +125,6 @@ export default function MenuLogin() {
         </Fragment>
     );
 }
-
-MenuLogin.propTypes = {
-    isRealObj: PropTypes.bool,
-    isUserLoggedIn: PropTypes.bool,
-    picture: PropTypes.string,
-    name: PropTypes.string,
-};
 
 const DivWrapper = styled.div`
     background: linear-gradient(to right, #0f2027, #203a43, #2c5364);

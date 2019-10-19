@@ -67,6 +67,7 @@ export const deleteProduct = id => async (dispatch, getState) => {
 };
 //END CRUD PATTERN
 
+// get an obj with all infos of a item from a specific id
 export const getItem = (allProductsList, _id) => {
     const product = allProductsList.find(item => item._id === _id);
     return product;
@@ -77,30 +78,6 @@ export const handleDetail = id => {
     // this.setState(() => {
     //     return { detailProduct: product };
     // });
-};
-
-export const addFavorite = async (dispatch, allProductsList, _idProduct, _idUser) => {
-    const selectedProduct = getItem(allProductsList, _idProduct);
-    selectedProduct.isAddedToFav = true;
-    const body = getBodyRequest({ favoriteList: selectedProduct }); // Obj
-    try {
-        const res = await axios.put(`api/users/list/favorite/${_idUser}`, body, config);
-        dispatch({ type: 'ADD_FAVORITE', payload: selectedProduct });
-    } catch(e) {
-        console.log(e);
-    }
-};
-
-export const removeFavorite = async (dispatch, allProductsList, _idProduct, _idUser) => {
-   const selectedProduct = getItem(allProductsList, _idProduct);
-   selectedProduct.isAddedToFav = false;
-   try {
-       dispatch({ type: 'REMOVE_FAVORITE', payload: selectedProduct });
-       const res = await axios.delete(`api/users/list/favorite/${_idUser}`, config);
-       console.log("removeFav", res);
-   } catch(e) {
-       console.log(e);
-   }
 };
 
 export const addToCart = id => {

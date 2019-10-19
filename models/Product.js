@@ -35,14 +35,6 @@ const data = {
         type: String,
         default: ""
     },
-    inCart: {
-        type: Boolean,
-        default: false
-    },
-    isAddedToFav: {
-        type: Boolean,
-        default: false
-    },
     count: {
         type: Number,
         default: 0

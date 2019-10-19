@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { returnErrors } from './errorActions';
+import { getAllProducts } from './productActions';
 // import { postDataWithJsonObj } from '../../utils/promises/postDataWithJsonObj.js'
 // naming structure: action > type > speficification e.g action: GET_MODAL_BLUE / func: getModalBlue
 
@@ -30,6 +31,8 @@ export const loadUser = () => (dispatch, getState) => {
     const getUpdatedUsers = () => {
       return axios.get('/api/users/list', config);
     }
+
+    getAllProducts(dispatch);
 
     axios.all([getAuthUser(), getUpdatedUsers()])
       .then(axios.spread((auth, updatedUser) => {
