@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 // Redux
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { closeModal } from '../../redux/actions/modalActions';
-import { updateUser } from '../../redux/actions/userActions';
+import { addFieldUser } from '../../redux/actions/userActions';
 // End Redux
 import { Link } from 'react-router-dom';
 import { showSnackbarBlack } from '../../redux/actions/snackbarActions';
@@ -45,7 +45,7 @@ export default function ModalDefault({ propTitle, propMsg, propTxtBtn, objToSend
 
     const setCoupon = () => {
         let data = objToSend;
-        updateUser(dispatch, data, _idUser);
+        addFieldUser(dispatch, data, _idUser);
     }
 
     const classes = useStyles();

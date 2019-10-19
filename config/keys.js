@@ -6,4 +6,6 @@ module.exports = {
   jwtSecret: process.env.JWT_SECRET,
   nodemailerEmail: process.env.NODEMAILER_EMAIL,
   nodemailerPassword: process.env.NODEMAILER_PASSWORD,
+  pusherKey: process.env.PUSHER_KEY,
+  pusherSecret: process.env.PUSHER_SECRET
 };

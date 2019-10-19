@@ -66,7 +66,7 @@ router.post('/', (req, res) => {
         })
 });
 
-// @route   GET api/items
+// @route   GET api/users/list
 // @desc    Get All Updated User Info (including lists)
 // @access  Public
 router.get("/list", (req, res) => {
@@ -74,6 +74,68 @@ router.get("/list", (req, res) => {
         .sort({ systemDate: -1 }) // ordered descending - most recently
         .then(users => res.json(users))
 })
+
+// MODIFYING USER'S FIELDS
+// @route   UPDATE (Change/Add a primary field) api/users/lists/change-field/:id
+// @desc    Change/Add a primaryfield
+// @access  Private
+// req.body = { "couponsList": [{"type": "30% desconto"}]}
+router.put('/lists/change-field/:id', (req, res) => {
+    User.findByIdAndUpdate(req.params.id, req.body, { strict: false, upsert:true }, (err, data) => {
+        if (err) {
+            return res
+                .status(500)
+                .json({error: "unsuccessful. not added"})
+        }
+        data.save();
+        res.json( data );
+    });
+});
+
+// @route   ADD ARRAY-LIKE FIELDS api/users/lists/add-field/:id
+// @desc    Push an obj inside an array-like data
+// @access  Private
+// eg. req.body = { "couponsList": {type: '30% de desconto'}};
+// req.body = {sex: "male"} (add male as ind 0 from an array)
+router.post('/lists/add-field-array/:id', (req, res) => {
+    User.findByIdAndUpdate(req.params.id,{ $push: req.body }, { strict: false, upsert:true }, (err, data) => {
+        if (err) {
+            return res
+                .status(500)
+                .json({error: "unsuccessful. not added"})
+        };
+        data.save();
+        res.json( data );
+    });
+});
+
+// @route   DELETE a Primary Field api/users/lists/delete-field/:id
+// @desc    Find a User(doc) and field and delete a primary element
+// @access  Private
+router.delete('/lists/delete-field/:id', (req, res) => {
+    let targetField = req.body;
+    User.findById(req.params.id, (err, selectedUser) => {
+        selectedUser.set(targetField, undefined, {strict: false} );
+        selectedUser.save(() => res.json({msg: "deleted a field succesfully"}))
+    })
+});
+
+// @route   DELETE an array element from a field api/users/lists/delete-field-array/:id
+// @desc    Find a User(doc) and field and delete an array element
+// @access  Private
+router.delete('/lists/delete-field-array/:id', (req, res) => {
+    req.body = { couponsList: { type: "10% desconto qualquer produto" }};
+    User.findByIdAndUpdate(req.params.id, { $pull: req.body}, (err, data) => {
+        if (err) {
+            return res
+                .status(500)
+                .json({error: "unsuccessful. not deleted"})
+        };
+        res.json({msg: "deleted a field inside an array properly"});
+    })
+});
+
+// END MODIFYING USER'S FIELDS
 
 // @route   GET api/users/list
 // @desc    Get a list of all users from db
@@ -88,36 +150,6 @@ router.get("/list", (req, res) => {
 //         res.send(userMap);
 //     })
 // });
-
-// LISTS
-// @route   ADD/UPDATE api/users/:id
-// @desc    Push an array-like data
-// @access  Private
-router.put('/lists/:id', (req, res) => {
-    User.findByIdAndUpdate(req.params.id,{ $push: req.body}, { strict: false, upsert:true }, (err, data) => {
-        if (err) {
-            return res
-                .status(500)
-                .json({error: "unsuccessful. not added"})
-        };
-        res.json( data );
-    });
-});
-
-// @route   REMOVE FAVORITE api/users/list/favorite/:id
-// @desc    Remove an Item from the User list of favorites
-// @access  Private
-// router.put('/list/favorite/:id', (req, res) => {
-//     User.findByIdAndUpdate(req.params.id,{ $push: req.body}, { strict: false, upsert:true }, (err, value) => {
-//         if (err) {
-//             return res
-//                 .status(500)
-//                 .json({error: "unsuccessful. not added"})
-//         };
-//         res.json({success: "success"});
-//     });
-// });
-
 
 // END LISTS
 module.exports = router;

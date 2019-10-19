@@ -12,7 +12,7 @@ export const userReducer = {
     cases: reducer((state = initialState, action) => {
         switch (action.type) {
             case 'USER_UPDATE':
-                console.log("USER_UPDATE", action.payload);
+                console.log("USER_ADD_FIELD_LIST", action.payload);
                 return {
                     ...state,
                     updatedUsers: action.payload,

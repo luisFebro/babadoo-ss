@@ -18,16 +18,24 @@ const getBodyRequest = objToSend => {
 }
 //END UTILS
 
-// Update/Add Array-like data from user
-export const updateUser = async (dispatch, objToSend, _idUser) => {
+// Add/Change a field of a user in the database
+export const changeFieldUser = async (dispatch, objToSend, _idUser) => {
     const body = getBodyRequest(objToSend);
     try {
-        const res = await axios.put(`api/users/lists/${_idUser}`, body, config);
-        console.log("updateUser", res);
-        dispatch({ type: 'USER_UPDATE', payload: res.data });
+        const res = await axios.put(`api/users/lists/change-field/${_idUser}`, body, config);
+        dispatch({ type: 'USER_CHANGE_FIELD', payload: res.data });
     } catch(e) {
-        console.log("updateUserError", e);
-        console.log("updateUserError2", e.response);
+        console.log(e);
+    }
+};
+
+// Add An obj inside an Array-like data from user
+export const addFieldUser = async (dispatch, objToSend, _idUser) => {
+    const body = getBodyRequest(objToSend);
+    try {
+        const res = await axios.put(`api/users/lists/add-field-array/${_idUser}`, body, config);
+        dispatch({ type: 'USER_ADD_FIELD_LIST', payload: res.data });
+    } catch(e) {
         console.log(e);
     }
 };

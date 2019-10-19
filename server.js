@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const changeStreamUser = require('./models/change-streams/changeStreamUser');
 // Database MongoDB
 const mongoose = require('mongoose');
 const { mongoKey } = require('./config/keys.js');
@@ -8,22 +9,35 @@ const { mongoKey } = require('./config/keys.js');
 //Init Express
 const app = express();
 
+// CORS - configure an Express server with CORS headers (because the React app is going to be published in a different port), JSON requests, and /api as the path
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+    next();
+});
+
 // Bodyparser Middleware
 // Allow the app to accept JSON on req.body
 app.use(express.json());
 
-//  Connect to Mongo
-// Database config
+// DATABASE CONFIG
+// Connect to Mongo
 const options = {
     useNewUrlParser: true,
     useCreateIndex: true,
-    useUnifiedTopology: true //Applied after DeprecationWarning and goal: new Server Discover and Monitoring engine
+    useUnifiedTopology: true, //Applied after DeprecationWarning and goal: new Server Discover and Monitoring engine
+    useFindAndModify: false // DeprecationWarning: Mongoose: `findOneAndUpdate()` and `findOneAndDelete()` without the `useFindAndModify` option set to false are deprecated
 }
 mongoose
     .connect(mongoKey, options)
     .then(() => console.log(`MongoDB Connected...`))
     .catch(err => console.log(err));
-// End Database config
+// collection changeStreams
+changeStreamUser();
+// Endcollection changeStreams
+
+// END DATABASE CONFIG
 
 // Use Routes
 app.use('/api/form', require('./routes/api/emailPurchaseRequest'));
@@ -41,7 +55,6 @@ app.get('*', (req, res) => {
 // End
 
 const PORT = process.env.PORT || 5000;
-
 app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`);
 });
