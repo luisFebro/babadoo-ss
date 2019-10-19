@@ -22,6 +22,7 @@ ModalDefault.propTypes = {
     propMsg: PropTypes.string,
     propTxtBtn: PropTypes.string,
     objToSend: PropTypes.object,
+    closeAnimation: PropTypes.func
 }
 // End Material UI
 
@@ -36,7 +37,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-export default function ModalDefault({ propTitle, propMsg, propTxtBtn, objToSend }) {
+export default function ModalDefault({ propTitle, propMsg, propTxtBtn, objToSend, closeAnimation }) {
     const { isModalDefaultOpen, _idUser } = useStoreState(state => ({
         isModalDefaultOpen: state.modalReducers.cases.isModalDefaultOpen,
         _idUser: state.authReducer.cases.user['_id']
@@ -81,6 +82,7 @@ export default function ModalDefault({ propTitle, propMsg, propTxtBtn, objToSend
                               setCoupon();
                               showSnackbarBlack(dispatch, `Cupom de Desconto Adicionado!`);
                               closeModal(dispatch);
+                              closeAnimation();
                             }}
                             variant="contained"
                             color="primary"

@@ -11,26 +11,12 @@ import styled from 'styled-components';
 export default function AnimationBizPromo() {
     const [ isClosed, setIsClosed ] = useState(false);
 
-    const { isAuthenticated, name, updatedUsers } = useStoreState(state => ({
+    const { isAuthenticated, name, gotCoupons } = useStoreState(state => ({
             isAuthenticated: state.authReducer.cases.isUserAuthenticated,
             name: state.authReducer.cases.user.name,
-            updatedUsers: state.userReducer.cases.updatedUsers
+            gotCoupons: state.userReducer.cases.gotCoupons
         }));
     const dispatch = useStoreDispatch();
-
-    // Check if there is an discount item in the array,
-    // If so, the maskot with discount will not appear when user log in.
-    let gotCoupons = false;
-    const checkUserCoupon = () => {
-        updatedUsers.forEach(user => {
-            if(name === user.name) {
-                if(user.couponsList.length >= 1) {
-                    gotCoupons = true;
-                }
-            }
-        });
-    }
-    checkUserCoupon();
 
     const closeBtn = () => {
         const mainSection = document.getElementById('main-section'),
@@ -48,6 +34,7 @@ export default function AnimationBizPromo() {
                 propMsg={"Você ganhou um cupom de desconto de 10% na sua primeira conta"}
                 propTxtBtn={"aplicar desconto"}
                 objToSend={{couponsList: {type: "10% desconto qualquer produto"}}}
+                closeAnimation={closeBtn}
             />
             {isAuthenticated ?
                 // Pass if the modal is not closed and the user does not have a coupon

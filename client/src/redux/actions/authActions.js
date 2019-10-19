@@ -27,11 +27,11 @@ export const loadUser = () => (dispatch, getState) => {
       return axios.get('/api/auth/user', tokenConfig(getState));
     }
 
-    const getUpdatedUser = () => {
+    const getUpdatedUsers = () => {
       return axios.get('/api/users/list', config);
     }
 
-    axios.all([getAuthUser(), getUpdatedUser()])
+    axios.all([getAuthUser(), getUpdatedUsers()])
       .then(axios.spread((auth, updatedUser) => {
         // Both requests are now complete
         dispatch({
@@ -39,7 +39,11 @@ export const loadUser = () => (dispatch, getState) => {
             payload: auth.data
         })
         dispatch({
-            type: 'USER_UPDATE',
+            type: 'USER_CURRENT_UPDATED',
+            payload: auth.data
+        })
+        dispatch({
+            type: 'ALL_USERS_UPDATE',
             payload: updatedUser.data
         })
       }))

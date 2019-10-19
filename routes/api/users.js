@@ -123,8 +123,8 @@ router.delete('/lists/delete-field/:id', (req, res) => {
 // @route   DELETE an array element from a field api/users/lists/delete-field-array/:id
 // @desc    Find a User(doc) and field and delete an array element
 // @access  Private
+// eg. req.body = { couponsList: { type: "10% desconto qualquer produto" }};
 router.delete('/lists/delete-field-array/:id', (req, res) => {
-    req.body = { couponsList: { type: "10% desconto qualquer produto" }};
     User.findByIdAndUpdate(req.params.id, { $pull: req.body}, (err, data) => {
         if (err) {
             return res

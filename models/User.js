@@ -12,7 +12,7 @@ const data = {
   name: {
     type: String,
     required: true,
-    lowercase: true
+    lowercase: false
   },
   email: {
     type: String,

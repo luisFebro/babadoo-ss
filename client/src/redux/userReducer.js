@@ -6,18 +6,31 @@ import { reducer } from 'easy-peasy';
 // REDUCERS
 const initialState = {
     updatedUsers: [{name: "init", couponsList: "init"}],
+    currentUpdatedUser: [],
+    gotCoupons: false,
 }
 
 export const userReducer = {
     cases: reducer((state = initialState, action) => {
         switch (action.type) {
-            case 'USER_UPDATE':
-                console.log("USER_ADD_FIELD_LIST", action.payload);
+            case 'ALL_USERS_UPDATE':
+                console.log("ALL_USERS_UPDATE from userReducer", action.payload);
                 return {
                     ...state,
                     updatedUsers: action.payload,
-                    gotCoupons: "resCoupons"
                 };
+            case 'USER_CURRENT_UPDATED':
+                console.log("USER_CURRENT_UPDATED from userReducer", action.payload);
+                //Check if user have coupons (If so, the maskot with discount will not appear when user log in)
+                let gotAtLeastOneCupon = false;
+                if(action.payload.couponsList.length >= 1) {
+                    gotAtLeastOneCupon = true;
+                }
+                return {
+                    ...state,
+                    currentUpdatedUser: action.payload,
+                    gotCoupons: gotAtLeastOneCupon,
+                }
             default:
                 return state;
         }

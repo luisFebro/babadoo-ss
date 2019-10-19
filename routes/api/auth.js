@@ -56,7 +56,8 @@ router.post('/', (req, res) => {
 router.get('/user', auth, (req, res) => {
   User.findById(req.user.id)
     .select('-password')
-    .then(user => res.json(user));
+    .then(user => res.json(user))
+    .catch(err => res.json("There is a issue in api/auth/user: " + err))
 });
 
 module.exports = router;
