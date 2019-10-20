@@ -54,6 +54,7 @@ router.post('/', (req, res) => {
 // @access  Private
 // //auth = require('../../middleware/auth')
 router.get('/user', auth, (req, res) => {
+    console.log("req.user", req.user);
     User.findById(req.user.id)
         .select('-password')
         .then(user => res.json(user))

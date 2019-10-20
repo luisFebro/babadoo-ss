@@ -8,7 +8,7 @@ const initialState = {
     updatedUsers: [],
     currentUpdatedUser: [],
     allFavProductsList: [],
-    allRegisteredUsersList: ["admin"],
+    allRegisteredUsersList: [],
     gotCoupons: false,
 }
 

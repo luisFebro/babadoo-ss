@@ -3,7 +3,8 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import ScrollToTop from 'react-router-scroll-top';
 import { useStoreDispatch } from 'easy-peasy';
 import { getAllProducts } from '../redux/actions/productActions';
-import { loadUser } from '../redux/actions/authActions';
+import { getUpdatedUsers } from '../redux/actions/userActions';
+import { loadUser, tokenConfig } from '../redux/actions/authActions';
 import './App.css';
 import UserProvider from '../data/contexts/UserProvider';
 //GENERAL COMPONENTS
@@ -50,6 +51,7 @@ export default function App() {
     useEffect(() => {
         dispatch(loadUser());
         getAllProducts(dispatch);
+        getUpdatedUsers(dispatch);
     }, []);
 
     return (

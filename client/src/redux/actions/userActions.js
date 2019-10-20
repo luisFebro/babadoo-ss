@@ -18,6 +18,15 @@ const getBodyRequest = objToSend => {
 }
 //END UTILS
 
+// UPDATED DATA
+export const getUpdatedUsers = async (dispatch) => {
+    const res = await axios.get('/api/users/list', config);
+    dispatch({
+        type: 'ALL_USERS_UPDATE',
+        payload: res.data
+    })
+}
+
 // update user for a real-time database fetching
 export const updateCurrentUser = async (dispatch, _userId) => {
     const res = await axios.get(`/api/users/${_userId}`, config);
@@ -26,6 +35,7 @@ export const updateCurrentUser = async (dispatch, _userId) => {
         type: 'USER_CURRENT_UPDATED',
         payload: res.data
     })
+// END UPDATED DATA
 }
 
 // Add/Change a field of a user in the database

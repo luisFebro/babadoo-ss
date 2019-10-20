@@ -20,6 +20,7 @@ const getBodyRequest = objToSend => {
 
 // Check token & load user
 export const loadUser = () => (dispatch, getState) => {
+    console.log("getState", getState);
     // User loading
     dispatch({ type: 'USER_LOADING' });
 

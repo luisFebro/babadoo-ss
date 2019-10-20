@@ -58,12 +58,9 @@ export default function ModalLogin() {
     });
 
     const { name, email, password } = data;
-    console.log("allRegisteredUsersList from modallogin", allRegisteredUsersList);
-    console.log("name from modallogin", name);
     const classes = useStyles();
 
     const compareNameWithSystem = (nameFromEmail) => {
-        console.log("compareNmaeBol", allRegisteredUsersList.includes(nameFromEmail));
         // if the user name is already registered, then set this name
         if(allRegisteredUsersList.includes(nameFromEmail)) {
             setData({...data, name: nameFromEmail})
@@ -154,7 +151,6 @@ export default function ModalLogin() {
                     />
                     <TextField
                       required
-                      autoFocus
                       margin="dense"
                       error={error.msg.msg ? true : false}
                       id="password"
