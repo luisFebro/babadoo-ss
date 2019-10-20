@@ -4,16 +4,18 @@ import styled, { keyframes } from 'styled-components';
 
 export default function Preloader() {
     return (
-        <DivWrapper>
-            <section className="loading-container">
-                <h2 className="">Carregando</h2>
-                <div className="spinner">
-                    <div className="bounce1"></div>
-                    <div className="bounce2"></div>
-                    <div className="bounce3"></div>
-                </div>
-            </section>
-        </DivWrapper>
+        <div className="col-10 mx-auto">
+            <DivWrapper>
+                    <section className="loading-container">
+                        <h2 className="">Carregando</h2>
+                        <div className="spinner">
+                            <div className="bounce1"></div>
+                            <div className="bounce2"></div>
+                            <div className="bounce3"></div>
+                        </div>
+                    </section>
+            </DivWrapper>
+        </div>
     );
 }
 

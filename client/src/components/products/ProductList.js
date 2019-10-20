@@ -50,9 +50,7 @@ export default function ProductList() {
                     <div className="row text-center">
                         {isError && <div className="text-center text-sub-title">Ocorreu um problema no servidor.<br />Tente recarregar a página novamente<br />ou<br />Verifique sua conexão à internet</div>}
                         {isLoading ? (
-                            <div className="col-10 mx-auto">
-                                <LoadingIndicator />
-                            </div>
+                            <LoadingIndicator />
                         ) : (
                             allProductsList.map(product => {
                                 // Check if the product was added as favorite
