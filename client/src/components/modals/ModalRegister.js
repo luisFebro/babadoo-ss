@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 // Redux
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { showSnackbarBlack } from '../../redux/actions/snackbarActions';
-import { showModalUnderConstruction, closeModal } from '../../redux/actions/modalActions';
+import { showModalLogin, showModalUnderConstruction, closeModal } from '../../redux/actions/modalActions';
 import { clearErrors } from '../../redux/actions/errorActions';
 import { registerEmail } from '../../redux/actions/authActions';
 // Material UI
@@ -116,7 +116,14 @@ export default function ModalRegister() {
                 image='img/babadoo-logo_no-slogon.png'
                 title='loja babadoo'
             />
-            <DialogTitle id="form-dialog-title">Registre sua Conta</DialogTitle>
+            <DialogTitle id="form-dialog-title">
+                Registre sua Conta<br />
+                <span
+                    className="text-default"
+                >
+                ou faça <button style={{ padding: "2px 5px", borderRadius: '20px', backgroundColor: 'var(--mainYellow)'}} onClick={() => showModalLogin(dispatch)}>Seu Login</button>
+                </span>
+            </DialogTitle>
             <DialogContent>
               <DialogContentText>
                 {error.msg.msg ? (

@@ -105,8 +105,8 @@ export const addToCart = id => {
 }
 
 // set loading to true to stop the animation loader and starting loading files
-// false: animation loader running
-// true: data is being displayed to the user.
+// false: no loading indicator displaying
+// true: loading indicator displaying as long as fetchingdata
 const setProductsLoading = () => {
     return {
         type: 'PRODUCTS_LOADING'

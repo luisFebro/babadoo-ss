@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import ScrollToTop from 'react-router-scroll-top';
 import { useStoreDispatch } from 'easy-peasy';
+import { getAllProducts } from '../redux/actions/productActions';
 import { loadUser } from '../redux/actions/authActions';
 import './App.css';
 import UserProvider from '../data/contexts/UserProvider';
@@ -48,6 +49,7 @@ export default function App() {
 
     useEffect(() => {
         dispatch(loadUser());
+        getAllProducts(dispatch);
     }, []);
 
     return (

@@ -75,6 +75,15 @@ router.get("/list", (req, res) => {
         .then(users => res.json(users))
 })
 
+// @route   GET api/users/:id
+// @desc    get data from one authenticated user
+// @access  Public
+router.get("/:id", (req, res) => {
+    User.findById(req.params.id)
+    .then(userData => res.json(userData))
+    .catch(err => res.json({msg: "this error happened: " + err}))
+})
+
 // MODIFYING USER'S FIELDS
 // @route   UPDATE (Change/Add a primary field) api/users/lists/change-field/:id
 // @desc    Change/Add a primaryfield
@@ -112,7 +121,7 @@ router.post('/lists/add-field-array/:id', (req, res) => {
 // @route   DELETE a Primary Field api/users/lists/delete-field/:id
 // @desc    Find a User(doc) and field and delete a primary element
 // @access  Private
-router.delete('/lists/delete-field/:id', (req, res) => {
+router.put('/lists/delete-field/:id', (req, res) => {
     let targetField = req.body;
     User.findById(req.params.id, (err, selectedUser) => {
         selectedUser.set(targetField, undefined, {strict: false} );
@@ -125,15 +134,14 @@ router.delete('/lists/delete-field/:id', (req, res) => {
 // @access  Private
 // eg. req.body = { couponsList: { type: "10% desconto qualquer produto" }};
 router.put('/lists/delete-field-array/:id', (req, res) => {
-    console.log("req.body from delete-field-array", req.body);
-    User.findByIdAndUpdate(req.params.id, { $pull: req.body}, (err, data) => {
+    User.findByIdAndUpdate(req.params.id, { $pull: req.body }, (err, data) => {
         if (err) {
             return res
                 .status(500)
                 .json({error: "unsuccessful. not deleted"})
         };
-        data.save(() => res.json({msg: "delete-field-array: deleted a field inside an array properly"}));
-        // res.json({msg: "delete-field-array: deleted a field inside an array properly"});
+        data.save();
+        res.json(data);
     })
 });
 

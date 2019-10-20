@@ -5,7 +5,7 @@ import { reducer } from 'easy-peasy';
 
 // REDUCERS
 const initialState = {
-    updatedUsers: [{name: "init", couponsList: "init"}],
+    updatedUsers: [],
     currentUpdatedUser: [],
     allFavProductsList: [],
     gotCoupons: false,
@@ -15,7 +15,6 @@ export const userReducer = {
     cases: reducer((state = initialState, action) => {
         switch (action.type) {
             case 'ALL_USERS_UPDATE':
-                console.log("ALL_USERS_UPDATE from userReducer", action.payload);
                 return {
                     ...state,
                     updatedUsers: action.payload,

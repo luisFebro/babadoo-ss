@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { returnErrors } from './errorActions';
-import { getAllProducts } from './productActions';
 // import { postDataWithJsonObj } from '../../utils/promises/postDataWithJsonObj.js'
 // naming structure: action > type > speficification e.g action: GET_MODAL_BLUE / func: getModalBlue
 
@@ -32,8 +31,6 @@ export const loadUser = () => (dispatch, getState) => {
       return axios.get('/api/users/list', config);
     }
 
-    getAllProducts(dispatch);
-
     axios.all([getAuthUser(), getUpdatedUsers()])
       .then(axios.spread((auth, updatedUser) => {
         // Both requests are now complete
@@ -49,22 +46,21 @@ export const loadUser = () => (dispatch, getState) => {
             type: 'ALL_USERS_UPDATE',
             payload: updatedUser.data
         })
-      }))
-
-    axios
-        .get('/api/auth/user', tokenConfig(getState))
-        .then(res =>
-            dispatch({
-                type: 'USER_LOADED',
-                payload: res.data
-            })
-        )
-        .catch(err => {
+      })).catch(err => {
             dispatch(returnErrors(err.response.data, err.response.status));
             // dispatch({
             //   type: 'AUTH_ERROR'
             // });
         });
+
+    // axios
+    //     .get('/api/auth/user', tokenConfig(getState))
+    //     .then(res =>
+    //         dispatch({
+    //             type: 'USER_LOADED',
+    //             payload: res.data
+    //         })
+    //     )
 };
 
 // login Email

@@ -24,6 +24,7 @@ Product.propTypes = {
 
 export default function Product({ product, isFav }) {
     const [isFavChanged, setIsFavChanged] = useState(false);
+    // const [isAddedAsFav, setIsAddedAsFav] = useState(isFav);
 
     const { allProductsList, isUserAuthenticated, _idUser } = useStoreState(state => ({
         allProductsList: state.productReducer.cases.allProductsList,
@@ -67,7 +68,7 @@ export default function Product({ product, isFav }) {
                                             className="filledHeart fas fa-heart animated heartBeat fast"
                                             onClick = {() => {
                                                 deleteFieldUser(dispatch, bodyFavorite, _idUser);
-                                                showSnackbarBlack(dispatch, "Removido dos seus favoritos!")
+                                                showSnackbarBlack(dispatch, "Removido dos seus favoritos!");
                                             }}
                                             style={{
                                                 animationIterationCount: 3

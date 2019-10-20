@@ -10,6 +10,7 @@ import ShareSocialMediaButtons from '../../components/buttons/ShareSocialMediaBu
 import { HashLink } from 'react-router-hash-link';
 import ProductFavorite from '../../components/products/ProductFavorite';
 import PropTypes from 'prop-types';
+import LoadingIndicator from '../../components/LoadingIndicator';
 
 Favorites.propTypes = {
     name: PropTypes.string,
@@ -17,10 +18,16 @@ Favorites.propTypes = {
 }
 
 export default function Favorites() {
-    const { name, allFavProductsList } = useStoreState(state => ({
+    const { name, allFavProductsList, isLoading } = useStoreState(state => ({
         name: state.authReducer.cases.user.name,
-        allFavProductsList: state.userReducer.cases.allFavProductsList
+        allFavProductsList: state.userReducer.cases.allFavProductsList,
+        isLoading: state.productReducer.cases.isLoading
     }));
+
+    const favProducts =
+    allFavProductsList.map(product => {
+        return <ProductFavorite key={product._id} product={product} />
+    })
 
     return (
         <Fragment>
@@ -31,9 +38,7 @@ export default function Favorites() {
                     <div className="py-2">
                         <div className="container">
                             <div className="row">
-                                {allFavProductsList.map(product => {
-                                    return <ProductFavorite key={product._id} product={product} />
-                                })}
+                                {isLoading ? <LoadingIndicator /> : favProducts}
                             </div>
                         </div>
                     </div> :
