@@ -17,6 +17,14 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 // End Material UI
 
+ModalLogin.propTypes = {
+    isUserAuthenticated: PropTypes.bool,
+    error: PropTypes.object,
+    login: PropTypes.func,
+    clearErrors: PropTypes.func,
+    allRegisteredUsersList: PropTypes.arrayOf(PropTypes.string)
+}
+
 const useStyles = makeStyles(theme => ({
     button: {
         margin: theme.spacing(1),
@@ -32,23 +40,35 @@ const useStyles = makeStyles(theme => ({
 export default function ModalLogin() {
     // Redux
     // > set state
-    const { isModalLoginOpen, isUserAuthenticated, error } = useStoreState(state => ({
+    const { isModalLoginOpen, isUserAuthenticated, error, allRegisteredUsersList } = useStoreState(state => ({
             isModalLoginOpen: state.modalReducers.cases.isModalLoginOpen,
             isUserAuthenticated: state.authReducer.cases.isUserAuthenticated,
-            error: state.errorReducer.cases
+            error: state.errorReducer.cases,
+            allRegisteredUsersList: state.userReducer.cases.allRegisteredUsersList
         }));
     const dispatch = useStoreDispatch();
     // End Redux
 
+
     const [data, setData] = useState({
+        name: "", //This is not a field. just for checking either name or email
         email: "",
         password: "",
         hasErrorMsg: null
     });
 
-    const { email, password } = data;
+    const { name, email, password } = data;
+    console.log("allRegisteredUsersList from modallogin", allRegisteredUsersList);
+    console.log("name from modallogin", name);
     const classes = useStyles();
 
+    const compareNameWithSystem = (nameFromEmail) => {
+        console.log("compareNmaeBol", allRegisteredUsersList.includes(nameFromEmail));
+        // if the user name is already registered, then set this name
+        if(allRegisteredUsersList.includes(nameFromEmail)) {
+            setData({...data, name: nameFromEmail})
+        }
+    }
 
   // componentDidUpdate(prevProps) {
   //   const { error, isUserAuthenticated } = this.props;
@@ -78,7 +98,8 @@ export default function ModalLogin() {
             }, 3000);
           }
       }
-  }, [isUserAuthenticated, isModalLoginOpen]);
+      compareNameWithSystem(email);
+  }, [isModalLoginOpen, isUserAuthenticated, email]);
 
   // }
 
@@ -91,6 +112,7 @@ export default function ModalLogin() {
     // e.preventDefault();
 
     const user = {
+        name,
         email,
         password
     };
@@ -110,7 +132,7 @@ export default function ModalLogin() {
                 image='img/babadoo-logo_no-slogon.png'
                 title='loja babadoo'
             />
-            <DialogTitle id="form-dialog-title">Entrar com Email</DialogTitle>
+            <DialogTitle id="form-dialog-title">Entrar com Nome ou Email</DialogTitle>
             <DialogContent>
               <DialogContentText>
                   {error.msg.msg ? (
@@ -125,7 +147,7 @@ export default function ModalLogin() {
                       id="email"
                       name="email"
                       type="email"
-                      label="Email"
+                      label="Nome ou Email"
                       autoComplete="email"
                       fullWidth
                     />
@@ -178,9 +200,3 @@ export default function ModalLogin() {
     );
 }
 
-ModalLogin.propTypes = {
-    isAuthenticated: PropTypes.bool,
-    error: PropTypes.object,
-    login: PropTypes.func,
-    clearErrors: PropTypes.func
-}

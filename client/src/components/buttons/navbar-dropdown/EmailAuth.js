@@ -19,7 +19,7 @@ export default function EmailAuth() {
                   alt="ícone de login de email"
                   className="btn-icon"
               />
-             <span className="btn-txt">Entrar com <strong>Email</strong></span>
+             <span className="btn-txt">Entrar com <strong>Nome/Email</strong></span>
          </button>
     );
 }

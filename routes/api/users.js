@@ -8,6 +8,7 @@ const validateEmail = require('../../utils/validateEmail');
 // User Model
 const User = require('../../models/User');
 
+// REGISTER
 // @route   POST api/users
 // @desc    Register new user
 // @access  Public
@@ -28,10 +29,14 @@ router.post('/', (req, res) => {
         return res.status(400).json({ msg: 'Sua senha deve conter pelo menos 6 dígitos'})
     }
 
-    // Check for existing user
-    User.findOne({ email })
+    // Check Register for existing user by name or email
+    User.findOne({ $or: [{ name }, { email }]})
         .then(user => {
+            // Check if this user NAME is already registered
+            if (user.name === name) return res.status(400).json({ msg: 'Esse NOME de usuário já foi registrado. Tente um outro.' });
+            if (user.email === email) return res.status(400).json({ msg: 'Esse EMAIL de usuário já foi registrado. Tente um outro.' });
             if (user) return res.status(400).json({ msg: 'Usuário já existe' });
+            // Check if this user EMAIL is already registered
 
             const newUser = new User({
                 name,
@@ -47,7 +52,7 @@ router.post('/', (req, res) => {
                     newUser.save()
                         .then(user => {
                             jwt.sign({ id: user.id },
-                                jwtSecret, { expiresIn: 10080 }, //7 days
+                                jwtSecret, { expiresIn: 100000 }, //7 days
                                 (err, token) => {
                                     if (err) throw err;
                                     res.json({

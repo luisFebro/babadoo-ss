@@ -8,6 +8,7 @@ const initialState = {
     updatedUsers: [],
     currentUpdatedUser: [],
     allFavProductsList: [],
+    allRegisteredUsersList: ["admin"],
     gotCoupons: false,
 }
 
@@ -18,6 +19,7 @@ export const userReducer = {
                 return {
                     ...state,
                     updatedUsers: action.payload,
+                    allRegisteredUsersList: action.payload.map(data => data.name)
                 };
             case 'USER_CURRENT_UPDATED':
                 console.log("USER_CURRENT_UPDATED from userReducer", action.payload);
@@ -30,7 +32,7 @@ export const userReducer = {
                     ...state,
                     currentUpdatedUser: action.payload,
                     allFavProductsList: action.payload.favoriteList,
-                    gotCoupons: gotAtLeastOneCupon,
+                    gotCoupons: gotAtLeastOneCupon
                 }
             default:
                 return state;

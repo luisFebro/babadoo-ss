@@ -67,6 +67,7 @@ export const loadUser = () => (dispatch, getState) => {
 // postDataWithJsonObj returns a promise
 export const loginEmail = (objToSend) => async (dispatch, isSocialOn = false) => {
     // Request body
+    console.log(objToSend);
     const body = getBodyRequest(objToSend);
 
     try {

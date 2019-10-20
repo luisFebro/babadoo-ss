@@ -33,13 +33,13 @@ export default function ProductList() {
     });
 
     useEffect(() => {
-        if(checkForServerError(serverStatus)) {
-            console.log("errorServerDetected", serverStatus);
-            setIsError(true);
-        } else {
-            console.log("ServerFine", serverStatus);
-            getAllProducts(dispatch);
-        }
+        getAllProducts(dispatch);
+        // if(checkForServerError(serverStatus)) {
+        //     console.log("errorServerDetected", serverStatus);
+        //     setIsError(true);
+        // } else {
+        //     console.log("ServerFine", serverStatus);
+        // }
 
     }, [serverStatus, setIsError]);
 
