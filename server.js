@@ -34,7 +34,7 @@ mongoose
     .then(() => console.log(`MongoDB Connected...`))
     .catch(err => console.log(err));
 // collection changeStreams
-changeStreamUser();
+// changeStreamUser();
 // Endcollection changeStreams
 
 // END DATABASE CONFIG
