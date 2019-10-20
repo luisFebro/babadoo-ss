@@ -148,11 +148,13 @@ export default function ModalLogin() {
                       name="email"
                       type="email"
                       label="Nome ou Email"
+                      autoFocus
                       autoComplete="email"
                       fullWidth
                     />
                     <TextField
                       required
+                      autoFocus
                       margin="dense"
                       error={error.msg.msg ? true : false}
                       id="password"

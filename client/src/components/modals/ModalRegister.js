@@ -132,6 +132,7 @@ export default function ModalRegister() {
               </DialogContentText>
               <form onChange={onChange}>
                   <TextField
+                    autoFocus
                     required
                     error={error.msg.msg ? true : false}
                     margin="dense"
@@ -142,6 +143,7 @@ export default function ModalRegister() {
                     fullWidth
                   />
                     <TextField
+                        autoFocus
                       required
                       margin="dense"
                       error={error.msg.msg ? true : false}
@@ -153,6 +155,7 @@ export default function ModalRegister() {
                       fullWidth
                     />
                     <TextField
+                        autoFocus
                       required
                       margin="dense"
                       error={error.msg.msg ? true : false}
