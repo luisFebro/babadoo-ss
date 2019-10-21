@@ -68,7 +68,8 @@ export default function ProductFavorite({ product }) {
                                     !isFavChanged ? ( //starting with filledHeart product cart
                                         <i
                                             className="filledHeart fas fa-heart animated heartBeat fast"
-                                            onClick = {() => {
+                                            onClick = {(e) => {
+                                                e.preventDefault();
                                                 deleteFieldUser(dispatch, bodyFavorite, _idUser)
                                                 showSnackbarBlack(dispatch, "Removido dos seus favoritos!")
                                             }}

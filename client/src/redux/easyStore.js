@@ -5,6 +5,7 @@ import { snackbarReducer } from './snackbarReducer';
 import { errorReducer } from './errorReducer';
 import { authReducer } from './authReducer';
 import { userReducer } from './userReducer';
+import { globalReducer } from './globalReducer';
 
 //Main store
 export const easyStore = {
@@ -14,4 +15,5 @@ export const easyStore = {
     modalReducers,
     errorReducer,
     snackbarReducer,
+    globalReducer
 }

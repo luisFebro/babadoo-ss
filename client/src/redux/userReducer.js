@@ -22,7 +22,6 @@ export const userReducer = {
                     allRegisteredUsersList: action.payload.map(data => data.name)
                 };
             case 'USER_CURRENT_UPDATED':
-                console.log("USER_CURRENT_UPDATED from userReducer", action.payload);
                 //Check if user have coupons (If so, the maskot with discount will not appear when user log in)
                 let gotAtLeastOneCupon = false;
                 if(action.payload.couponsList.length >= 1) {
@@ -33,6 +32,10 @@ export const userReducer = {
                     currentUpdatedUser: action.payload,
                     allFavProductsList: action.payload.favoriteList,
                     gotCoupons: gotAtLeastOneCupon
+                }
+            case 'USER_DELETED':
+                return {
+                    updatedUsers: state.updatedUsers.filter(user => user._id !== action.payload)
                 }
             default:
                 return state;

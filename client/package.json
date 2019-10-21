@@ -24,6 +24,7 @@
     "react-router-sitemap": "^1.2.0",
     "react-scripts": "3.1.1",
     "react-slick": "^0.25.2",
+    "react-swipeable-views": "^0.13.3",
     "semantic-ui-react": "^0.88.1",
     "sharethis-reactjs": "^1.5.0",
     "styled-components": "^4.3.2"

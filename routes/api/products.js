@@ -51,11 +51,11 @@ router.get("/", (req, res) => {
 // @route   DELETE api/products/:id
 // @desc    Delete a Product
 // @access  Private
-// router.delete('/:id', (req, auth, res) => { //needs to put auth as middleware
-//     Product.findById(req.params.id)
-//         .then(product => product.remove().then(() => res.json({ success: "id deleted" }))) // then(() => res.json({ success: true }) = this response is completely up to you
-//         .catch(err => res.status(404).json({ success: "id not found" }));
-// });
+router.delete('/:id', (req, auth, res) => { //needs to put auth as middleware
+    Product.findById(req.params.id)
+        .then(product => product.remove().then(() => res.json({ success: "id deleted" }))) // then(() => res.json({ success: true }) = this response is completely up to you
+        .catch(err => res.status(404).json({ failure: "id not found" }));
+});
 
 
 module.exports = router;

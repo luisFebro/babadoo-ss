@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { returnErrors } from './errorActions';
 import { updateCurrentUser } from './userActions';
-// import { postDataWithJsonObj } from '../../utils/promises/postDataWithJsonObj.js'
 // naming structure: action > type > speficification e.g action: GET_MODAL_BLUE / func: getModalBlue
+// import { postDataWithJsonObj } from '../../utils/promises/postDataWithJsonObj.js'
 
 //UTILS
 // Headers
@@ -21,7 +21,6 @@ const getBodyRequest = objToSend => {
 
 // Check token & load user
 export const loadUser = () => (dispatch, getState) => {
-    console.log("getState", getState);
     // User loading
     dispatch({ type: 'USER_LOADING' });
 
@@ -69,7 +68,6 @@ export const loadUser = () => (dispatch, getState) => {
 // loginEMail with Async/Await
 export const loginEmail = (objToSend) => async (dispatch, isSocialOn = false) => {
     // Request body
-    console.log(objToSend);
     const body = getBodyRequest(objToSend);
 
     try {
@@ -101,7 +99,6 @@ export const loginEmail = (objToSend) => async (dispatch, isSocialOn = false) =>
 // objToSend: { name, email, password }
 export const registerEmail = (objToSend) => (dispatch, isSocialOn = null) => {
     // Request body
-    console.log("==Register: Starting Register==", objToSend)
     const body = getBodyRequest(objToSend);
 
     axios

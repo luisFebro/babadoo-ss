@@ -94,6 +94,15 @@ router.get("/:id", (req, res) => {
     .catch(err => res.json({msg: "this error happened: " + err}))
 })
 
+// @route   DELETE api/users/:id
+// @desc    Delete a User
+// @access  Private
+router.delete('/:id', (req, auth, res) => { //needs to put auth as middleware
+    User.findById(req.params.id)
+        .then(user => user.remove().then(() => res.json({ success: "id deleted" }))) // then(() => res.json({ success: true }) = this response is completely up to you
+        .catch(err => res.status(404).json({ failure: "id not found" }));
+});
+
 // MODIFYING USER'S FIELDS
 // @route   UPDATE (Change/Add a primary field) api/users/lists/change-field/:id
 // @desc    Change/Add a primaryfield
@@ -154,7 +163,6 @@ router.put('/lists/delete-field-array/:id', (req, res) => {
         res.json(data);
     })
 });
-
 // END MODIFYING USER'S FIELDS
 
 // @route   GET api/users/list

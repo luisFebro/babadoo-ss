@@ -1,58 +1,84 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 // Redux
-import { useStoreDispatch } from 'easy-peasy';
-// import { getEmailAllRegisteredUsers } from '../../redux/actions/authActions.js'
+import { useStoreState } from 'easy-peasy';
 // End Redux
 import axios from 'axios';
 import RegisteredUser from './RegisteredUser';
-
-
-const getDataFromRes = (res) => {
-    let name = [], email = [];
-    for(let userId in res) {
-        name.push(res[userId].name);
-        email.push(res[userId].email);
-    }
-    return [name, email];
-}
+import LoadingIndicator from '../../components/LoadingIndicator';
 
 export default function RegisteredUsersList() {
-    const [data, setData] = useState({ name: [], email: [] });
-    const [load, setLoad] = useState(false);
-    const [error, setError] = useState("");
+    const [total, setTotal] = useState({
+        allFavorites: [],
+        allItemsInCart: [],
+    });
 
-    const dispatch = useStoreDispatch();
-    // empty array as a second argument acts like componentDidMount.
+    const { updatedUsers, isLoading, gotError, errorMsg } = useStoreState(state => ({
+        updatedUsers: state.userReducer.cases.updatedUsers,
+        isLoading: state.globalReducer.cases.isLoading,
+        gotError: state.globalReducer.cases.gotError,
+        errorMsg: state.globalReducer.cases.errorMsg
+    }))
+    const getArray = obj => {
+        obj.forEach(user => {
+            total.allFavorites.push(user.favoriteList.length);
+            total.allItemsInCart.push(user.inCartList.length);
+        });
+    }
+
+    const getTotals = () => {
+        const totalFav = total.allFavorites.reduce((tot, cur) => tot + cur);
+        const totalCart = total.allItemsInCart.reduce((tot, cur) => tot + cur);
+        const totals = {
+            fav: totalFav,
+            cart: totalCart,
+        }
+        return totals;
+    }
+
+    // const finalTotals = getTotals();
+
     useEffect(() => {
-        axios.get('api/users/list')
-          .then(response => {
-                let data = getDataFromRes(response.data);
-                setData({ name: data[0], email: data[1] });
-                setLoad(true);
-          })
-          .catch(err => {
-                setError(err.message);
-                setLoad(true);
-           })
-    }, [])
+        getArray(updatedUsers);
+        // let tot = getTotals();
+        // console.log("tot", tot);
+    }, [updatedUsers])
 
-    if (load) {
-        return (<div style={{maxHeight: '300px',
-    overflow: 'scroll'}}>
-            <h2 className="text-title text-center">Lista de Todos os Usuários Cadastrados</h2>
-            <h2 className="text-sub-title text-left pl-5">Total de Usuários: <strong>{data.name.length}</strong></h2>
-            {error ? <p>{error.message}</p> :
-            <p className="text-default">
-            {data.name.map((nam, ind) => <RegisteredUser key={ind} name={nam} email={data.email[ind]} />)}
-            </p>
+    console.log("total", total)
 
-        }
-        </div>);
-        } else {
-            return (
-                <div>
-                    <h2 className="text-default">Carregando...</h2>
-                </div>
-            );
-        }
-    };
+    const registeredUserList = updatedUsers.map(user => <RegisteredUser key={user._id} data={user} />);
+
+    return (
+        <Fragment>
+            {isLoading ? (
+                <LoadingIndicator />
+            ) : (
+                <section>
+                <h2 className="text-title text-center">Dados dos Usuários Cadastrados</h2>
+                    <h2
+                        className="text-sub-title text-left pl-5">
+                        <section>
+                            <h2 className="text-main-container text-center">Totais de Todos Usuários:</h2>
+                            <div className="container-center" style={{flexDirection: 'column'}}>
+                                <div>
+                                    Itens
+                                    <i
+                                        style={{animationIterationCount: 20, animationDelay: '2s', fontSize: "2.3rem", color: "var(--mainRed)"}}
+                                        className=" animated heartBeat fast fas fa-heart"></i>: <strong>{null}</strong></div>
+                                <div>Itens <i style={{animationDelay: '4s', fontSize: "2.3rem", color: "var(--mainYellow)"}} className="animated lightSpeedIn slow fas fa-shopping-cart"></i>: <strong>{null}</strong></div>
+                            </div>
+                        </section>
+                        <br />
+                        Total de Usuários: <strong>{updatedUsers.length}</strong>
+                    </h2>
+                    {gotError ? (
+                        <p>{errorMsg}</p>
+                    ) : (
+                        <div className="text-default">
+                            {registeredUserList}
+                        </div>
+                    )}
+                </section>
+            )}
+        </Fragment>
+    );
+}

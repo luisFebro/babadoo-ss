@@ -3,6 +3,7 @@ import axios from 'axios';
 import { returnErrors } from './errorActions';
 import { tokenConfig } from './authActions';
 import { getAllProducts } from './productActions';
+import { setLoadingOn, setLoadingOff, setErrorOn } from './globalActions';
 //UTILS
 // Headers
 const config = {
@@ -20,11 +21,17 @@ const getBodyRequest = objToSend => {
 
 // UPDATED DATA
 export const getUpdatedUsers = async (dispatch) => {
-    const res = await axios.get('/api/users/list', config);
-    dispatch({
-        type: 'ALL_USERS_UPDATE',
-        payload: res.data
-    })
+    try {
+        setLoadingOn(dispatch);
+        const res = await axios.get('/api/users/list', config);
+        dispatch({
+            type: 'ALL_USERS_UPDATE',
+            payload: res.data
+        })
+        setLoadingOff(dispatch);
+    } catch(e) {
+        setErrorOn(dispatch, e.msg);
+    }
 }
 
 // update user for a real-time database fetching
@@ -38,6 +45,13 @@ export const updateCurrentUser = async (dispatch, _userId) => {
 }
 // END UPDATED DATA
 
+export const deleteUser = async (dispatch, _idUser) => {
+    const res = await axios.delete(`/api/users/${_idUser}`, config);
+    dispatch({ type: 'USER_DELETED', payload: _idUser });
+}
+
+
+// HANDLING A USER FIELDS
 // Add/Change a field of a user in the database
 export const changeFieldUser = async (dispatch, objToSend, _idUser) => {
     const body = getBodyRequest(objToSend);
@@ -76,3 +90,4 @@ export const deleteFieldUser = async (dispatch, objToSend, _idUser) => {
         console.log("ERRORdeleteFieldUser: " + e);
     }
 };
+// END HANDLING A USER FIELDS
