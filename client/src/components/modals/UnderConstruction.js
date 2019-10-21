@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
+// Redux
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
+import { closeModal } from '../../redux/actions/modalActions';
+// End Redux
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { underConstruction } from '../../data/dataIllustrations';
@@ -26,7 +29,7 @@ export default function UnderConstruction()  {
                             <h2>Em Manutenção.</h2>
                             <h2>Logo ficará disponível! :)</h2>
                         </section>
-                        <DarkBtn className="my-4" onClick={() => dispatch({type: 'TOGGLE_MODAL_UNDER_CONSTRUCTION', payload: isModalUnderConstructionOpen})}>
+                        <DarkBtn className="my-4" onClick={() => closeModal(dispatch)}>
                                 Entendi.
                         </DarkBtn>
                     </div>

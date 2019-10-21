@@ -21,27 +21,21 @@ export default function ProductList() {
     // Redux
     const { isLoading, allProductsList, serverStatus, allFavProductsList } = useStoreState(state => ({
         allFavProductsList: state.userReducer.cases.allFavProductsList,
-        isLoading: state.productReducer.cases.isLoading,
+        isLoading: state.globalReducer.cases.isLoading,
         allProductsList: state.productReducer.cases.allProductsList,
         serverStatus: state.errorReducer.cases.status
     }));
     const dispatch = useStoreDispatch();
     // End Redux
 
-    const IdFavList = allFavProductsList.map(fav => {
+    //Comparing the id from Favorite list with id of main store's showcase
+    const idsFromFavList = allFavProductsList.map(fav => {
         return fav._id;
     });
 
     useEffect(() => {
         getAllProducts(dispatch);
-        // if(checkForServerError(serverStatus)) {
-        //     console.log("errorServerDetected", serverStatus);
-        //     setIsError(true);
-        // } else {
-        //     console.log("ServerFine", serverStatus);
-        // }
-
-    }, [serverStatus, setIsError]);
+    }, []);
 
     return (
         <Fragment>
@@ -56,8 +50,8 @@ export default function ProductList() {
                                 // Check if the product was added as favorite
                                 // Warning: this iterator is being called multiple times
                                 let isAddedFav = false;
-                                if(IdFavList) {
-                                    if(IdFavList.includes(product._id)) {
+                                if(idsFromFavList) {
+                                    if(idsFromFavList.includes(product._id)) {
                                         isAddedFav = true;
                                     }
                                 }

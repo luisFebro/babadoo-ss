@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useStoreDispatch } from 'easy-peasy';
-import { deleteUser, getUpdatedUsers } from '../../redux/actions/userActions';
+import { deleteUser, getUpdatedUsers } from '../../../redux/actions/userActions';
 import PropTypes from 'prop-types';
 // Material UI
 import { makeStyles } from '@material-ui/core/styles';
@@ -38,7 +38,7 @@ export default function RegisteredUser({ data }) {
     const dispatch = useStoreDispatch();
 
     return (
-        <DivWrapper id="container-user" className="text-default" style={{position: 'relative'}}>
+        <DivWrapper className="text-default" style={{position: 'relative'}}>
             <div>
                 <p>Name: {name}</p>
             </div>
@@ -58,8 +58,8 @@ export default function RegisteredUser({ data }) {
             <div style={{position: 'absolute', top: '-10px', right: '-15px'}}>
                 <IconButton
                     onClick={() => {
-                        let container = document.querySelector("#container-user");
-                        container.classList.add("animated", "hinge", "slower")
+                        // let container = document.querySelector(`div[key="${_id}"]`);
+                        // container.classList.add("animated", "hinge", "slower")
                         deleteUser(dispatch, _id);
                         setTimeout(() => {
                             getUpdatedUsers(dispatch);

@@ -1,4 +1,5 @@
-import RegisteredUsersList from './RegisteredUsersList';
+import RegisteredUsersList from './dash-users/RegisteredUsersList';
+import EditableProductsList from './dash-products/EditableProductsList';
 
 // Material UI
 import React from 'react';
@@ -121,7 +122,6 @@ export default function GroupedDashSessions() {
           aria-label="Sessões do painel de contorlee - Babadoo"
         >
           <Tab label="Usuários" {...a11yProps(0)} />
-          <Tab label="Produtos" {...a11yProps(1)} />
         </Tabs>
       </AppBar>
       <SwipeableViews

@@ -6,17 +6,11 @@ import { reducer } from 'easy-peasy';
 // REDUCERS
 const initialState = {
     allProductsList: [],
-    isLoading: false
 }
 
 export const productReducer = {
     cases: reducer((state = initialState, action) => {
         switch (action.type) {
-            case 'PRODUCTS_LOADING':
-                return {
-                    ...state,
-                    isLoading: true
-                };
             // CRUD PATTERN
             case 'ADD_PRODUCT':
                 return {
@@ -27,7 +21,6 @@ export const productReducer = {
                 return {
                     ...state,
                     allProductsList: action.payload, //n1
-                    isLoading: false
                 };
             case 'CHANGE_PRODUCT':
                 return {
@@ -40,7 +33,6 @@ export const productReducer = {
                     allProductsList: state.allProductsList.filter(product => product._id !== action.payload._id)
                 };
             // END CRUD PATTERN
-
             case 'DETAIL_PRODUCT':
                 return {
                     ...state,

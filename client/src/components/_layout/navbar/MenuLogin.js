@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { logout } from '../../../redux/actions/authActions';
 import { showSnackbarBlack } from '../../../redux/actions/snackbarActions';
+import { showModalUnderConstruction } from '../../../redux/actions/modalActions';
 // End Redux
 // Utils
 import isRealObj from '../../../utils/isRealObj';
@@ -92,9 +93,9 @@ export default function MenuLogin() {
                         </ul>
                         <ul className="navbar-nav ml-3">
                             <li className="nav-item">
-                                <Link to="/seu-carrinho" className="nav-link">
+                                <Link to="/" className="nav-link" onClick={() => showModalUnderConstruction(dispatch)}>
                                     <span>
-                                        <i className="fas fa-shopping-bag animated bounce slow"></i>
+                                        <i className="fas fa-bell animated bounce slow"></i>
                                     </span>
                                 </Link>
                             </li>

@@ -4,7 +4,7 @@ import { useStoreState } from 'easy-peasy';
 // End Redux
 import axios from 'axios';
 import RegisteredUser from './RegisteredUser';
-import LoadingIndicator from '../../components/LoadingIndicator';
+import LoadingIndicator from '../../../components/LoadingIndicator';
 
 export default function RegisteredUsersList() {
     const [total, setTotal] = useState({
@@ -53,16 +53,17 @@ export default function RegisteredUsersList() {
                 <LoadingIndicator />
             ) : (
                 <section>
-                <h2 className="text-title text-center">Dados dos Usuários Cadastrados</h2>
+                <h2 className="text-title text-center pb-5">Dados dos Usuários Cadastrados</h2>
                     <h2
-                        className="text-sub-title text-left pl-5">
+                        className="text-sub-title text-left pl-5"
+                    >
                         <section>
-                            <h2 className="text-main-container text-center">Totais de Todos Usuários:</h2>
+                            <h2 className="text-main-container text-center">Totais de Todos os Usuários:</h2>
                             <div className="container-center" style={{flexDirection: 'column'}}>
                                 <div>
                                     Itens
                                     <i
-                                        style={{animationIterationCount: 20, animationDelay: '2s', fontSize: "2.3rem", color: "var(--mainRed)"}}
+                                        style={{animationIterationCount: 10, animationDelay: '2s', fontSize: "2.3rem", color: "var(--mainRed)"}}
                                         className=" animated heartBeat fast fas fa-heart"></i>: <strong>{null}</strong></div>
                                 <div>Itens <i style={{animationDelay: '4s', fontSize: "2.3rem", color: "var(--mainYellow)"}} className="animated lightSpeedIn slow fas fa-shopping-cart"></i>: <strong>{null}</strong></div>
                             </div>

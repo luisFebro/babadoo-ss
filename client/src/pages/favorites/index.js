@@ -2,15 +2,15 @@ import React, { Fragment } from 'react';
 // Redux
 import { useStoreState } from 'easy-peasy';
 // End Redux
+import ProductFavorite from './ProductFavorite';
 import Title from '../../components/Title';
 import parse from 'html-react-parser';
 import EmptyContent from '../../components/EmptyContent';
 import { ButtonContainerPressedEffectDark as Dark } from '../../components/buttons/Default';
 import ShareSocialMediaButtons from '../../components/buttons/ShareSocialMediaButtons';
 import { HashLink } from 'react-router-hash-link';
-import ProductFavorite from '../../components/products/ProductFavorite';
-import PropTypes from 'prop-types';
 import LoadingIndicator from '../../components/LoadingIndicator';
+import PropTypes from 'prop-types';
 
 Favorites.propTypes = {
     name: PropTypes.string,
@@ -21,7 +21,7 @@ export default function Favorites() {
     const { name, allFavProductsList, isLoading } = useStoreState(state => ({
         name: state.authReducer.cases.user.name,
         allFavProductsList: state.userReducer.cases.allFavProductsList,
-        isLoading: state.productReducer.cases.isLoading
+        isLoading: state.globalReducer.cases.isLoading
     }));
 
     const favProducts =
