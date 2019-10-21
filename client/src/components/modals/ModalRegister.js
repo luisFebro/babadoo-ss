@@ -100,7 +100,6 @@ export default function ModalRegister() {
             email,
             password
         };
-
         // Attempt to register
         registerEmail(newUser)(dispatch);
     };
@@ -183,6 +182,7 @@ export default function ModalRegister() {
                         </Button>
                         <Button
                               onClick={() => {
+                                console.log("==Register: Submitting current user==")
                                 onSubmit();
                                 showSnackbarBlack(dispatch, "Carregando...");
                               }}

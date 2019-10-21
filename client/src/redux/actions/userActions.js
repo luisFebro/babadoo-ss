@@ -35,8 +35,8 @@ export const updateCurrentUser = async (dispatch, _userId) => {
         type: 'USER_CURRENT_UPDATED',
         payload: res.data
     })
-// END UPDATED DATA
 }
+// END UPDATED DATA
 
 // Add/Change a field of a user in the database
 export const changeFieldUser = async (dispatch, objToSend, _idUser) => {

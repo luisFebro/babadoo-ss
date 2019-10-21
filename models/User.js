@@ -12,7 +12,8 @@ const data = {
   name: {
     type: String,
     required: true,
-    lowercase: false
+    lowercase: false,
+    unique: true
   },
   email: {
     type: String,

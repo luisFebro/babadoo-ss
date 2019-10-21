@@ -12,9 +12,9 @@ const User = require('../../models/User');
 // @route   POST api/users
 // @desc    Register new user
 // @access  Public
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
     const { name, email, password } = req.body;
-
+    console.log("req.body api/users", req.body)
     // Check if fields are filled
     if (!name || !email || !password) {
         return res.status(400).json({ msg: 'Por favor, entre todos os campos' });
@@ -29,46 +29,51 @@ router.post('/', (req, res) => {
         return res.status(400).json({ msg: 'Sua senha deve conter pelo menos 6 dígitos'})
     }
 
-    // Check Register for existing user by name or email
-    User.findOne({ $or: [{ name }, { email }]})
-        .then(user => {
-            // Check if this user NAME is already registered
-            if (user.name === name) return res.status(400).json({ msg: 'Esse NOME de usuário já foi registrado. Tente um outro.' });
-            if (user.email === email) return res.status(400).json({ msg: 'Esse EMAIL de usuário já foi registrado. Tente um outro.' });
-            if (user) return res.status(400).json({ msg: 'Usuário já existe' });
-            // Check if this user EMAIL is already registered
+    try {
+        // Check Register for existing user for either already registered email or name.
+        const user = await User.findOne({ $or: [{ email }, { name }] })
+        // Check if this user was found a match, if so validate name and email.
+        if (user) {
+            if (user.name === name) return res.status(400).json({ msg: 'Esse Nome de usuário já foi registrado. Tente um outro.' });
+            if (user.email === email) return res.status(400).json({ msg: 'Esse Email de usuário já foi registrado. Tente um outro.' });
+            return res.status(400).json({ msg: 'Usuário já existe' });
+        }
 
-            const newUser = new User({
-                name,
-                email,
-                password
-            });
+        const newUser = new User({
+            name,
+            email,
+            password
+        });
 
-            // Create salt & hash
-            bcrypt.genSalt(10, (err, salt) => {
-                bcrypt.hash(newUser.password, salt, (err, hash) => {
-                    if (err) throw err;
-                    newUser.password = hash;
-                    newUser.save()
-                        .then(user => {
-                            jwt.sign({ id: user.id },
-                                jwtSecret, { expiresIn: 100000 }, //7 days
-                                (err, token) => {
-                                    if (err) throw err;
-                                    res.json({
-                                        token,
-                                        user: {
-                                            id: user.id,
-                                            name: user.name,
-                                            email: user.email
-                                        }
-                                    });
-                                }
-                            )
-                        });
+        // Create salt & hash
+        bcrypt.genSalt(10, (err, salt) => {
+            bcrypt.hash(newUser.password, salt, (err, hash) => {
+                if (err) throw err;
+                newUser.password = hash;
+                newUser.save()
+                    .then(user => {
+                        jwt.sign({ id: user.id },
+                            jwtSecret, { expiresIn: 100000 }, //7 days
+                            (err, token) => {
+                                if (err) throw err;
+                                res.json({
+                                    token,
+                                    user: {
+                                        id: user.id,
+                                        name: user.name,
+                                        email: user.email
+                                    }
+                                });
+                            }
+                        )
+                    });
                 })
             })
-        })
+    } catch(e) {
+        // statements
+        console.log("This error occured: " + e);
+        res.json({msg: "An error occured:" + e})
+    }
 });
 
 // @route   GET api/users/list

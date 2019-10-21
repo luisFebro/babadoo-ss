@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { returnErrors } from './errorActions';
+import { updateCurrentUser } from './userActions';
 // import { postDataWithJsonObj } from '../../utils/promises/postDataWithJsonObj.js'
 // naming structure: action > type > speficification e.g action: GET_MODAL_BLUE / func: getModalBlue
 
@@ -65,7 +66,7 @@ export const loadUser = () => (dispatch, getState) => {
 };
 
 // login Email
-// postDataWithJsonObj returns a promise
+// loginEMail with Async/Await
 export const loginEmail = (objToSend) => async (dispatch, isSocialOn = false) => {
     // Request body
     console.log(objToSend);
@@ -78,10 +79,12 @@ export const loginEmail = (objToSend) => async (dispatch, isSocialOn = false) =>
                 return;
             }
         } else {
-            return dispatch({
+            dispatch({
                 type: 'LOGIN_SUCCESS',
                 payload: res.data
-            })
+            });
+            console.log("==Login: Updating current user==")
+            updateCurrentUser(dispatch, res.data.user.id);
         }
     } catch(err) {
         dispatch(
@@ -94,10 +97,11 @@ export const loginEmail = (objToSend) => async (dispatch, isSocialOn = false) =>
 };
 
 // Register User
-// postDataWithJsonObj returns a promise
+// Register with Default Promises Handling
 // objToSend: { name, email, password }
 export const registerEmail = (objToSend) => (dispatch, isSocialOn = null) => {
     // Request body
+    console.log("==Register: Starting Register==", objToSend)
     const body = getBodyRequest(objToSend);
 
     axios
@@ -108,10 +112,12 @@ export const registerEmail = (objToSend) => (dispatch, isSocialOn = null) => {
                     return;
                 }
             } else {
-                return dispatch({
+                dispatch({
                     type: 'REGISTER_SUCCESS',
                     payload: res.data
-                })
+                });
+                console.log("==Register: Updating current user==")
+                updateCurrentUser(dispatch, res.data.user.id);
             }
         })
         .catch(err => {
