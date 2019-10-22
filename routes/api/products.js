@@ -35,18 +35,21 @@ router.get("/", (req, res) => {
         .then(products => res.json(products))
 })
 
-// @route   UPDATE api/products
-// @desc    Update a Product
+// @route UPDATE (Change/Add a primary field) api/products/:id
+// @desc    Change/Add a primaryfield
 // @access  Private
-// router.put('/', (req, res) => {
-//     let query = req.body; // e.g { isAddedToFav: false }
-//     // req.body.isAddedToFav = true;
-//     Product.findOneAndUpdate(query, req.body.favoriteList, {upsert:true}, (err, doc) => { // upsert: option creates the object if it doesn't exist
-//         if (err) return res.json({ error: "it was not possible to update. Reason: " + err });
-//         console.log("updated");
-//         return res.json({ msg: "new product properties updated successfully!" });
-//     });
-// });
+// req.body = { "title": "new product"}
+router.put('/:id', (req, res) => {
+    User.findByIdAndUpdate(req.params.id, req.body, { strict: false, upsert:true }, (err, data) => {
+        if (err) {
+            return res
+                .status(500)
+                .json({error: "unsuccessful. not added"})
+        }
+        data.save();
+        res.json( data );
+    });
+});
 
 // @route   DELETE api/products/:id
 // @desc    Delete a Product

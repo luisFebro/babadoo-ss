@@ -9,6 +9,11 @@ export const showModalUnderConstruction = dispatch => {
 export const showModalDefault = dispatch => {
     return dispatch({ type: 'SHOW_MODAL_DEFAULT', payload: true });
 }
+// confirmation
+export const showModalConfirmationWithOneField = dispatch => {
+    console.log("clicked on showModalConfirmationWithOneField")
+    return dispatch({ type: 'SHOW_MODAL_CONF_ONE_FIELD', payload: true });
+}
 // Auth Modals
 export const showModalLogin = dispatch => {
     return dispatch({ type: 'SHOW_MODAL_LOGIN', payload: true });

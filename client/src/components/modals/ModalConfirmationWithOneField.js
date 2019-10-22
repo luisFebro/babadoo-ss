@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 // Redux
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { closeModal } from '../../redux/actions/modalActions';
-import { addFieldUser } from '../../redux/actions/userActions';
+import { changeProduct } from '../../redux/actions/productActions';
 // End Redux
 import { Link } from 'react-router-dom';
 import { showSnackbarBlack } from '../../redux/actions/snackbarActions';
@@ -10,6 +10,7 @@ import { showSnackbarBlack } from '../../redux/actions/snackbarActions';
 import { makeStyles } from '@material-ui/core/styles';
 import { CardMedia } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 // import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -37,24 +38,29 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-export default function ModalDefault({ propTitle, propMsg, propTxtBtn, objToSend, closeAnimation }) {
-    const { isModalDefaultOpen, _idUser } = useStoreState(state => ({
-        isModalDefaultOpen: state.modalReducers.cases.isModalDefaultOpen,
-        _idUser: state.authReducer.cases.user['_id']
+export default function ModalDefault({ propTitle, propMsg, propTxtBtn, keyToChange, label, _idProduct }) {
+    const [newInfo, setNewInfo] = useState("");
+    const { isModalConfOneFieldOpen } = useStoreState(state => ({
+        isModalConfOneFieldOpen: state.modalReducers.cases.isModalConfOneFieldOpen,
     }));
     const dispatch = useStoreDispatch();
 
-    const setObjToSend = () => {
-        let data = objToSend;
-        addFieldUser(dispatch, data, _idUser);
+    const setObjectToSend = () => {
+        let data = {[`${keyToChange}`]: newInfo};
+        changeProduct(dispatch, data, _idProduct);
     }
+
+    const onChange = e => {
+      const { name, value } = e.target;
+      setNewInfo({ ...newInfo, [name]: value });
+    };
 
     const classes = useStyles();
     return (
         <div>
           <Dialog
                 style={{zIndex: 1500}}
-                open={isModalDefaultOpen}
+                open={isModalConfOneFieldOpen}
                 aria-labelledby="form-dialog-title"
             >
             <CardMedia
@@ -67,6 +73,19 @@ export default function ModalDefault({ propTitle, propMsg, propTxtBtn, objToSend
               <DialogContentText>
                     <span className="text-main-container">{propMsg}</span>
               </DialogContentText>
+              <form onChange={onChange}>
+                    <TextField
+                      required
+                      margin="dense"
+                      id="changeInfo"
+                      name="changeInfo"
+                      type="changeInfo"
+                      label={label}
+                      autoFocus
+                      autoComplete="changeInfo"
+                      fullWidth
+                    />
+                </form>
               <section>
                   <div style={{display: 'flex', justifyContent: 'center', marginTop: '28px'}}>
                       <Button
@@ -79,10 +98,10 @@ export default function ModalDefault({ propTitle, propMsg, propTxtBtn, objToSend
                       </Button>
                       <Button
                             onClick={() => {
-                              setObjToSend();
-                              showSnackbarBlack(dispatch, `Cupom de Desconto Adicionado!`);
+                              showSnackbarBlack(dispatch, `Alterando...`);
+                              setObjectToSend();
+                              showSnackbarBlack(dispatch, `Alterado com sucesso!`);
                               closeModal(dispatch);
-                              closeAnimation();
                             }}
                             variant="contained"
                             color="primary"

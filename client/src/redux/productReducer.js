@@ -24,8 +24,7 @@ export const productReducer = {
                 };
             case 'CHANGE_PRODUCT':
                 return {
-                    ...state,
-                    allProductsList: action.payload, //n1
+                    ...state
                 };
             case 'DELETE_PRODUCT':
                 return {

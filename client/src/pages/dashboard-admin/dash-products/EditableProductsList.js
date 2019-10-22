@@ -6,6 +6,7 @@ import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { getAllProducts } from '../../../redux/actions/productActions';
 // End Redux
 import LoadingIndicator from '../../../components/LoadingIndicator';
+import DashSectionTitle from '../DashSectionTitle';
 import PropTypes from 'prop-types';
 
 ProductList.propTypes = {
@@ -29,6 +30,21 @@ export default function ProductList() {
 
     return (
         <Fragment>
+            <DashSectionTitle title="Editar Informações dos Produtos" />
+            <div>
+                <p
+                    className="text-sub-title text-center">
+                    As funcionalidades dos produtos abaixo estão desativadas para exclusiva modificação dos produtos.
+                </p>
+            </div>
+            <br />
+            <br />
+            <br />
+            <h2
+                className="text-sub-title text-left pl-5"
+            >
+                Total de Produtos: <strong>{allProductsList.length}</strong>
+            </h2>
             <div className="py-5">
                 <div className="container">
                     <div className="row text-center">

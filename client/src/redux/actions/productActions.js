@@ -49,9 +49,11 @@ export const getAllProducts = async (dispatch) => {
 };
 
 // update product
-export const changeProduct = id => async (dispatch, getState) => {
+export const changeProduct = async (dispatch, bodyToSend, _idProduct) => {
+    const body = getBodyRequest(bodyToSend);
     try {
-        // statements
+        const res = axios.put(`/api/products/${_idProduct}`, body, config)
+        dispatch({ type: "CHANGE_PRODUCT", payload: res.data })
     } catch(e) {
         // statements
         console.log(e);

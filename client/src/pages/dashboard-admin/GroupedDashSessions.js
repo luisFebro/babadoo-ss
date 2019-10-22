@@ -119,9 +119,10 @@ export default function GroupedDashSessions() {
           indicatorColor="primary"
           textColor="primary"
           variant="fullWidth"
-          aria-label="Sessões do painel de contorlee - Babadoo"
+          aria-label="Sessões do painel de controle - Babadoo"
         >
           <Tab label="Usuários" {...a11yProps(0)} />
+          <Tab label="Produtos" {...a11yProps(1)} />
         </Tabs>
       </AppBar>
       <SwipeableViews
@@ -133,27 +134,9 @@ export default function GroupedDashSessions() {
           <RegisteredUsersList />
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
-          Item Two
-        </TabPanel>
-        <TabPanel value={value} index={2} dir={theme.direction}>
-          Item Three
+          <EditableProductsList />
         </TabPanel>
       </SwipeableViews>
-      {fabs.map((fab, index) => (
-        <Zoom
-          key={fab.color}
-          in={value === index}
-          timeout={transitionDuration}
-          style={{
-            transitionDelay: `${value === index ? transitionDuration.exit : 0}ms`,
-          }}
-          unmountOnExit
-        >
-          <Fab aria-label={fab.label} className={fab.className} color={fab.color}>
-            {fab.icon}
-          </Fab>
-        </Zoom>
-      ))}
     </div>
   );
 }

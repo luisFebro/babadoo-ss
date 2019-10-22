@@ -6,6 +6,7 @@ import { reducer } from 'easy-peasy';
 // REDUCERS
 const initialState = {
     isModalDefaultOpen: false,
+    isModalConfOneFieldOpen: false,
     isModalUnderConstructionOpen: false,
     // Authentification
     isModalLoginOpen: false,
@@ -32,6 +33,10 @@ export const modalReducers = {
             case 'SHOW_MODAL_UNDER_CONSTRUCTION':
                 return {
                     isModalUnderConstructionOpen: action.payload,
+                }
+            case 'SHOW_MODAL_CONF_ONE_FIELD':
+                return {
+                    isModalConfOneFieldOpen: action.payload,
                 }
 
             // CLOSE
