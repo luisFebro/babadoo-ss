@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 // Redux
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { showSnackbarBlack } from '../../redux/actions/snackbarActions';
@@ -104,6 +105,21 @@ export default function ModalRegister() {
         registerEmail(newUser)(dispatch);
     };
 
+    const config = {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    };
+    const sendWelcomeEmail = async () => {
+        try {
+            const res = await axios.post('/api/form/client/welcome', { name, email }, config)
+            console.log("resSENDwELCOMEemail", res);
+        } catch(e) {
+            // statements
+            console.log("sendWelcomeEmailERROR", e);
+        }
+    }
+
     return (
         <div>
           <Dialog
@@ -184,6 +200,7 @@ export default function ModalRegister() {
                               onClick={() => {
                                 console.log("==Register: Submitting current user==")
                                 onSubmit();
+                                sendWelcomeEmail();
                                 showSnackbarBlack(dispatch, "Carregando...");
                               }}
                               variant="contained"

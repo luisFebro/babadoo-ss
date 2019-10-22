@@ -14,7 +14,6 @@ const User = require('../../models/User');
 // @access  Public
 router.post('/', async (req, res) => {
     const { name, email, password } = req.body;
-    console.log("req.body api/users", req.body)
     // Check if fields are filled
     if (!name || !email || !password) {
         return res.status(400).json({ msg: 'Por favor, entre todos os campos' });
