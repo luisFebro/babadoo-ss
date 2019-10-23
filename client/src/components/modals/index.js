@@ -11,12 +11,13 @@ import ModalLogin from './ModalLogin';
 import ModalRegister from './ModalRegister';
 // confirmation
 import ModalChangeTitle from './confirmation/ModalChangeTitle';
+import ModalConfYesNo from './confirmation/ModalConfYesNo';
 // end confirmation
 // END MODALS
 
 export default function AllModals() {
     const { currentItemFound } = useStoreState(state => ({
-        currentItemFound: state.productReducer.cases.currentItemFound,
+        currentItemFound: state.globalReducer.cases.currentItemFound,
     }));
     return (
         <Fragment>
@@ -27,6 +28,7 @@ export default function AllModals() {
             <ModalLogin />
             <ModalRegister />
             <ModalChangeTitle currItemFound={currentItemFound} />
+            <ModalConfYesNo currItemFound={currentItemFound} />
         </Fragment>
     );
 }

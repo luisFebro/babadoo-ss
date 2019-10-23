@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 // Redux
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { addFieldUser, deleteFieldUser } from '../../../redux/actions/userActions';
-import { findAnItem } from '../../../redux/actions/productActions';
-// import { showSnackbarBlack } from '../../../redux/actions/snackbarActions';
-import { showModalConfTitle } from '../../../redux/actions/modalActions';
+import { findAnItem } from '../../../redux/actions/globalActions';
+import { showModalConfTitle, showModalConfYesNo } from '../../../redux/actions/modalActions';
 import ModalChangeTitle from '../../../components/modals/confirmation/ModalChangeTitle';
 // End Redux
 import styled from 'styled-components';
@@ -126,7 +125,24 @@ export default function EditableProduct({ product, isFav }) {
                         }} />
                     </h5>
                 </div>
-                <DeleteButton top={-20} left={50} onClick={null} />
+                <DeleteButton
+                    top={-20}
+                    left={50}
+                    onClick={() => {
+                        const attachedObj = {
+                            action: {
+                                noun: "Exclusão",
+                                verb: "Excluir"
+                            },
+                            mainSubject: "Produto",
+                        }
+                        findAnItem(dispatch, allProductsList, _id, attachedObj);
+                        showModalConfYesNo(dispatch);
+                        // let container = document.querySelector(`div[key="${_id}"]`);
+                        // container.classList.add("animated", "hinge", "slower")
+
+                    }}
+                />
             </div>
        </ProductWrapper>
     );

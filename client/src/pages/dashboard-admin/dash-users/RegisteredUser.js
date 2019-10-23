@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useStoreDispatch } from 'easy-peasy';
-import { deleteUser, getUpdatedUsers } from '../../../redux/actions/userActions';
+import { useStoreState, useStoreDispatch } from 'easy-peasy';
+import { findAnItem } from '../../../redux/actions/globalActions'
+import { showModalConfYesNo } from '../../../redux/actions/modalActions'
 import DeleteButton from '../../../components/buttons/DeleteButton';
 import PropTypes from 'prop-types';
 // Material UI
@@ -32,6 +33,9 @@ const useStyles = makeStyles(theme => ({
 
 
 export default function RegisteredUser({ data }) {
+    const { updatedUsers } = useStoreState(state => ({
+        updatedUsers: state.userReducer.cases.updatedUsers
+    }));
     const { _id, name, email, favoriteList, inCartList, registerDate } = data;
     const classes = useStyles();
 
@@ -61,12 +65,18 @@ export default function RegisteredUser({ data }) {
                         top={-20}
                         left={245}
                         onClick={() => {
+                            const attachedObj = {
+                                action: {
+                                    noun: "Exclusão",
+                                    verb: "Excluir"
+                                },
+                                mainSubject: "Usuário",
+                            }
+                            findAnItem(dispatch, updatedUsers, _id, attachedObj);
+                            showModalConfYesNo(dispatch);
                             // let container = document.querySelector(`div[key="${_id}"]`);
                             // container.classList.add("animated", "hinge", "slower")
-                            deleteUser(dispatch, _id);
-                            setTimeout(() => {
-                                getUpdatedUsers(dispatch);
-                            }, 4000)
+
                         }}
                     />) : null
                 }

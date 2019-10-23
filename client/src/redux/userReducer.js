@@ -35,6 +35,7 @@ export const userReducer = {
                 }
             case 'USER_DELETED':
                 return {
+                    ...state,
                     updatedUsers: state.updatedUsers.filter(user => user._id !== action.payload)
                 }
             default:

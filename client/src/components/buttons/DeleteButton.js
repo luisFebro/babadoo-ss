@@ -17,12 +17,12 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function DeleteButton({ top, right, left, bottom }) {
+export default function DeleteButton({ top, right, left, bottom, onClick }) {
   const classes = useStyles();
 
   return (
     <div>
-      <Fab size="small" style={{position: 'absolute', top: `${top || 0}px`, right: `${right || 0}px`, left: `${left || 0}px`, bottom: `${bottom || 0}px`, outline: 'none', color: 'var(--mainWhite)', backgroundColor: '#4834d4'}} aria-label="edit" className={classes.fab}>
+      <Fab onClick={onClick} size="small" style={{position: 'absolute', top: `${top || 0}px`, right: `${right || 0}px`, left: `${left || 0}px`, bottom: `${bottom || 0}px`, outline: 'none', color: 'var(--mainWhite)', backgroundColor: '#4834d4'}} aria-label="edit" className={classes.fab}>
         <DeleteIcon />
       </Fab>
     </div>

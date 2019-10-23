@@ -34,7 +34,7 @@ export default function Favorites() {
             {(name !== null) ?
                 <div>
                     <Title title={`Seus Favaritos, ${name}`} /> :
-                    { (allFavProductsList.length >= 1) ?
+                    { (allFavProductsList.length !== 0) ?
                     <div className="py-2">
                         <div className="container">
                             <div className="row">

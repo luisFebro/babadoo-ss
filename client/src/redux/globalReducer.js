@@ -7,28 +7,39 @@ const initialState = {
     isLoading: false,
     gotError: false,
     errorMsg: "", // eg. err.message
+    currentItemFound: null,
 }
 
 export const globalReducer = {
     cases: reducer((state = initialState, action) => {
         switch(action.type) {
+            // Objs
+            case 'CURRENT_ITEM_FOUND':
+                return {
+                    ...state,
+                    currentItemFound: action.payload,
+                };
             //Show
             case 'SHOW_LOADING':
                 return {
+                   ...state,
                    isLoading: true,
                 };
             case 'SHOW_ERROR':
                 return {
-                   gotError: true,
-                   errorMsg: action.payload,
+                    ...state,
+                    gotError: true,
+                    errorMsg: action.payload,
                 };
             //Close
             case 'CLOSE_LOADING':
                 return {
+                   ...state,
                    isLoading: false,
                 }
             case 'CLEAR_ERROR':
                 return {
+                    ...state,
                     gotError: false,
                     errorMsg: "",
                 }

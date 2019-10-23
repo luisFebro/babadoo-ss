@@ -10,11 +10,13 @@ export const showModalDefault = dispatch => {
     return dispatch({ type: 'SHOW_MODAL_DEFAULT', payload: true });
 }
 // CONFIRMATION MODALS
-// product dashboards - change title
+// product dashboards - change a field
 export const showModalConfTitle = dispatch => {
     return dispatch({ type: 'SHOW_MODAL_CONF_TITLE', payload: true });
 }
-// end product dashboards - change title
+export const showModalConfYesNo = dispatch => {
+    return dispatch({ type: 'SHOW_MODAL_CONF_YES_NO', payload: true });
+}
 // END CONFIRMATION MODALS
 // Auth Modals
 export const showModalLogin = dispatch => {

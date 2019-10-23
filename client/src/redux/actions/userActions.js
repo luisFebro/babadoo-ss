@@ -79,10 +79,13 @@ export const addFieldUser = async (dispatch, objToSend, _idUser) => {
 
 // Delete An obj inside an Array-like data from user
 export const deleteFieldUser = async (dispatch, objToSend, _idUser) => {
+    console.log("deleteFieldUser objToSend", objToSend);
+    console.log("deleteFieldUser _idUser", _idUser);
     const body = getBodyRequest(objToSend);
     try {
         const res = await axios.put(`api/users/lists/delete-field-array/${_idUser}`, body, config);
         dispatch({ type: 'USER_CURRENT_UPDATED', payload: res.data });
+        console.log("===FIELD DELETED===");
         updateCurrentUser(dispatch, _idUser);
         // This updates the products to display the favorites and card infos properly
         getAllProducts(dispatch);

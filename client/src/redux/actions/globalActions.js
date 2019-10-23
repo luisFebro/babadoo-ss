@@ -15,3 +15,13 @@ export const setErrorOn = (dispatch, msgError) => {
 export const setErrorOff = (dispatch, msgError) => {
     return dispatch({ type: 'CLEAR_ERROR' })
 }
+
+// Find an object according to an id
+export const findAnItem = (dispatch, allItemsList, _id, attachedObj) => {
+    const item = allItemsList.find(item => item._id === _id);
+    // Putting together the current object with additional obj to change dynamically data from component
+    const finalItem = Object.assign({}, item, attachedObj);
+    console.log("item from globalActions.js", finalItem);
+    dispatch({ type: 'CURRENT_ITEM_FOUND', payload: finalItem });
+    return finalItem;
+}

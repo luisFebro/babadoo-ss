@@ -19,22 +19,12 @@ const getBodyRequest = objToSend => {
 }
 //END UTILS
 
-// FIND ITEMS
 // get an obj with all infos of a item from a specific id
 export const getItem = (allProductsList, _id) => {
     const product = allProductsList.find(item => item._id === _id);
     return product;
 }
 
-export const findAnItem = (dispatch, allProductsList, _id, attachedObj) => {
-    const product = allProductsList.find(item => item._id === _id);
-    // Putting together the current object with additional obj to change dynamically data from component
-    const finalProduct = Object.assign({}, product, attachedObj);
-    console.log("finalProduct", finalProduct);
-    dispatch({ type: 'CURRENT_ITEM_FOUND', payload: finalProduct });
-    return product;
-}
-// END FIND ITEMS
 
 //CRUD PATTERN
 // create product

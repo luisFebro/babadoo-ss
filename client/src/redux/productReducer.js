@@ -5,8 +5,7 @@ import { reducer } from 'easy-peasy';
 
 // REDUCERS
 const initialState = {
-    allProductsList: [],
-    currentItemFound: null,
+    allProductsList: []
 }
 
 export const productReducer = {
@@ -32,11 +31,6 @@ export const productReducer = {
                     allProductsList: state.allProductsList.filter(product => product._id !== action.payload._id)
                 };
             // END CRUD PATTERN
-            case 'CURRENT_ITEM_FOUND':
-                return {
-                    ...state,
-                    currentItemFound: action.payload,
-                };
             case 'DETAIL_PRODUCT':
                 return {
                     ...state,

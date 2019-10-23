@@ -11,7 +11,10 @@ const initialState = {
     isModalLoginOpen: false,
     isModalRegisterOpen: false,
     // End Authentification
-    isModalConfTitleOpen: false
+    // Confirmation Modals
+    isModalConfTitleOpen: false,
+    isModalConfYesNoOpen: false
+    // End Confirmation Modals
 }
 
 export const modalReducers = {
@@ -42,6 +45,11 @@ export const modalReducers = {
                 return {
                     ...state,
                     isModalConfTitleOpen: action.payload,
+                }
+            case 'SHOW_MODAL_CONF_YES_NO':
+                return {
+                    ...state,
+                    isModalConfYesNoOpen: action.payload
                 }
             // CLOSE
             case 'CLOSE_ALL_MODALS':

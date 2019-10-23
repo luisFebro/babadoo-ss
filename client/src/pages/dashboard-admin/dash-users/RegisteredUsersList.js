@@ -28,8 +28,6 @@ export default function RegisteredUsersList() {
         });
         const totalFav = fav.reduce((tot, cur) => tot + cur);
         const totalCart = cart.reduce((tot, cur) => tot + cur);
-        console.log("totalFav", totalFav)
-        console.log("totalCart", totalCart)
         setTotal({
             allFavorites: totalFav,
             allItemsInCart: totalCart,
