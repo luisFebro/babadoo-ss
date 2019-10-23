@@ -39,7 +39,7 @@ export default class FormCheckoutWithNodeMailer extends Component {
         }, 4000);
         const { name, phone, address, additional, itemDescription, totalPay } = this.state;
 
-        await axios.post('/api/form', {
+        await axios.post('/api/emails/admin/buy-request', {
             name,
             phone,
             address,

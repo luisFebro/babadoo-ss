@@ -28,12 +28,13 @@ export default function SnackbarBlack() {
   return (
      <div>
        <Snackbar
+         style={{zIndex: 1501}}
          open={isBlackSnackbarOpen}
          anchorOrigin={{
            vertical: 'top',
            horizontal: 'center',
          }}
-         autoHideDuration={4000}
+         autoHideDuration={3000}
          onClose={() => closeSnackbarBlack(dispatch)}
          ContentProps={{
            'aria-describedby': 'message-id',
@@ -63,8 +64,4 @@ export default function SnackbarBlack() {
        />
      </div>
   );
-}
-
-SnackbarBlack.propTypes = {
-    closeBlackSnackbar: PropTypes.func,
 }

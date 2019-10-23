@@ -79,7 +79,7 @@ export default function Product({ product, isFav }) {
                                                 className="emptyHeart far fa-heart"
                                                 onClick={() => {
                                                     addFieldUser(dispatch, bodyFavorite, _idUser);
-                                                    showSnackbarBlack(dispatch, "Adicionado aos seus favoritos!")
+                                                    showSnackbarBlack(dispatch, "Adicionado aos Seus Favoritos");
                                                     // value.openModalFavorite(_id);
                                                 }}
                                             ></i>

@@ -1,31 +1,27 @@
 import React, { Component, useState } from 'react';
 // Redux
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
-import { closeModal } from '../../redux/actions/modalActions';
-import { changeProduct } from '../../redux/actions/productActions';
+import { closeModal } from '../../../redux/actions/modalActions';
+import { showSnackbarBlack } from '../../../redux/actions/snackbarActions';
+import { changeProduct } from '../../../redux/actions/productActions';
 // End Redux
 import { Link } from 'react-router-dom';
-import { showSnackbarBlack } from '../../redux/actions/snackbarActions';
 // Material UI
 import { makeStyles } from '@material-ui/core/styles';
 import { CardMedia } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-// import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import parse from 'html-react-parser';
+// End Material UI
 import PropTypes from 'prop-types';
 
-ModalDefault.propTypes = {
-    propTitle: PropTypes.string,
-    propMsg: PropTypes.string,
-    propTxtBtn: PropTypes.string,
-    objToSend: PropTypes.object,
-    closeAnimation: PropTypes.func
+ModalChangeTitle.propTypes = {
+    currItemFound: PropTypes.object,
 }
-// End Material UI
 
 const useStyles = makeStyles(theme => ({
     button: {
@@ -38,16 +34,29 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-export default function ModalDefault({ propTitle, propMsg, propTxtBtn, keyToChange, label, _idProduct }) {
+export default function ModalChangeTitle({ currItemFound }) {
     const [newInfo, setNewInfo] = useState("");
-    const { isModalConfOneFieldOpen } = useStoreState(state => ({
-        isModalConfOneFieldOpen: state.modalReducers.cases.isModalConfOneFieldOpen,
+    const { isModalConfTitleOpen } = useStoreState(state => ({
+        isModalConfTitleOpen: state.modalReducers.cases.isModalConfTitleOpen,
     }));
+
+    let subject = currItemFound ? currItemFound.title : null;
+
+    //This is a self-invoked function to attach price to title
+    const gotPrice = (() => {
+        if(currItemFound) {
+            if(currItemFound.nameForm === 'price') {
+                subject = currItemFound ? (parse(`${currItemFound.title}<br />(R$ ${currItemFound.price})`)) : null;
+            }
+        }
+    })();
+
     const dispatch = useStoreDispatch();
 
     const setObjectToSend = () => {
-        let data = {[`${keyToChange}`]: newInfo};
-        changeProduct(dispatch, data, _idProduct);
+        let data = newInfo;
+        const id = currItemFound ? currItemFound._id : null
+        changeProduct(dispatch, data, id);
     }
 
     const onChange = e => {
@@ -60,7 +69,7 @@ export default function ModalDefault({ propTitle, propMsg, propTxtBtn, keyToChan
         <div>
           <Dialog
                 style={{zIndex: 1500}}
-                open={isModalConfOneFieldOpen}
+                open={isModalConfTitleOpen}
                 aria-labelledby="form-dialog-title"
             >
             <CardMedia
@@ -68,24 +77,29 @@ export default function ModalDefault({ propTitle, propMsg, propTxtBtn, keyToChan
                 image='img/babadoo-logo_no-slogon.png'
                 title='loja babadoo'
             />
-            <DialogTitle id="form-dialog-title">{propTitle}</DialogTitle>
+            <DialogTitle id="form-dialog-title">
+               <span className="text-main-container">{`Alterar ${currItemFound ? currItemFound.mainField: null} do Produto`}</span>
+            </DialogTitle>
             <DialogContent>
               <DialogContentText>
-                    <span className="text-main-container">{propMsg}</span>
+                    <span className="text-default">
+                        {`Insira o novo ${currItemFound ? currItemFound.mainField : null} do atual:`}<br />
+                        <strong>{subject}</strong>. <br /><br />
+                        para...
+                    </span>
               </DialogContentText>
-              <form onChange={onChange}>
-                    <TextField
-                      required
-                      margin="dense"
-                      id="changeInfo"
-                      name="changeInfo"
-                      type="changeInfo"
-                      label={label}
-                      autoFocus
-                      autoComplete="changeInfo"
-                      fullWidth
-                    />
-                </form>
+            <form onChange={onChange} style={{marginTop: '5px'}}>
+                  <TextField
+                    required
+                    margin="dense"
+                    id="changeInfo"
+                    name={currItemFound ? currItemFound.nameForm : null}
+                    type={currItemFound ? currItemFound.typeForm : null}
+                    label={`Novo ${currItemFound ? currItemFound.mainField: null} aqui:`}
+                    autoComplete="changeInfo"
+                    fullWidth
+                  />
+              </form>
               <section>
                   <div style={{display: 'flex', justifyContent: 'center', marginTop: '28px'}}>
                       <Button
@@ -98,16 +112,15 @@ export default function ModalDefault({ propTitle, propMsg, propTxtBtn, keyToChan
                       </Button>
                       <Button
                             onClick={() => {
-                              showSnackbarBlack(dispatch, `Alterando...`);
                               setObjectToSend();
-                              showSnackbarBlack(dispatch, `Alterado com sucesso!`);
+                              showSnackbarBlack(dispatch, `${currItemFound ? currItemFound.mainField : null} do Produto Alterado com Sucesso!`);
                               closeModal(dispatch);
                             }}
                             variant="contained"
                             color="primary"
                             className={classes.button}
                         >
-                        {propTxtBtn}
+                        mudar
                         <i className="fas fa-paper-plane" style={{marginLeft: '5px'}}></i>
                       </Button>
                   </div>

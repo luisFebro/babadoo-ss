@@ -40,7 +40,7 @@ mongoose
 // END DATABASE CONFIG
 
 // Use Routes
-app.use('/api/form', require('./routes/api/emailPurchaseRequest'));
+app.use('/api/emails', require('./routes/api/emailPurchaseRequest'));
 app.use('/api/users', require('./routes/api/users'));
 app.use('/api/products', require('./routes/api/products'));
 app.use('/api/auth', require('./routes/api/auth'));

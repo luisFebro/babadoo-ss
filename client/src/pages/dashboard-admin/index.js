@@ -6,7 +6,7 @@ import GroupedDashSessions from './GroupedDashSessions';
 
 export default function Dashboard() {
     const { email } = useStoreState(state => ({
-        email: state.userReducer.cases.currentUpdatedUser.email
+        email: state.userReducer.cases.currentUpdatedUser.email,
     }));
 
     return (

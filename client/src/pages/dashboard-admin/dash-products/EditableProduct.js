@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 // Redux
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { addFieldUser, deleteFieldUser } from '../../../redux/actions/userActions';
-import { getItem } from '../../../redux/actions/productActions';
-import { showSnackbarBlack } from '../../../redux/actions/snackbarActions';
-import { showModalConfirmationWithOneField } from '../../../redux/actions/modalActions';
-import ModalConfirmationWithOneField from '../../../components/modals/ModalConfirmationWithOneField';
+import { findAnItem } from '../../../redux/actions/productActions';
+// import { showSnackbarBlack } from '../../../redux/actions/snackbarActions';
+import { showModalConfTitle } from '../../../redux/actions/modalActions';
+import ModalChangeTitle from '../../../components/modals/confirmation/ModalChangeTitle';
 // End Redux
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
@@ -13,6 +13,8 @@ import PropTypes from 'prop-types';
 import truncateWords from '../../../utils/truncateWords'
 import DeleteButton from '../../../components/buttons/DeleteButton';
 import EditButton from '../../../components/buttons/EditButton';
+
+
 EditableProduct.propTypes = {
     product: PropTypes.shape({
         id: PropTypes.string,
@@ -27,10 +29,11 @@ export default function EditableProduct({ product, isFav }) {
     const [isFavChanged, setIsFavChanged] = useState(false);
     // const [isAddedAsFav, setIsAddedAsFav] = useState(isFav);
 
-    const { allProductsList, isUserAuthenticated, _idUser } = useStoreState(state => ({
+    const { allProductsList, isUserAuthenticated, _idUser, modalConfProps } = useStoreState(state => ({
         allProductsList: state.productReducer.cases.allProductsList,
         isUserAuthenticated: state.authReducer.cases.isUserAuthenticated,
-        _idUser: state.userReducer.cases.currentUpdatedUser["_id"]
+        _idUser: state.userReducer.cases.currentUpdatedUser["_id"],
+        modalConfProps: state.modalReducers.cases.modalConfProps
     }));
     const dispatch = useStoreDispatch();
     // console.log("isAuth", isUserAuthenticated); //Check this behavior: auth is running multiple 11 times
@@ -39,15 +42,9 @@ export default function EditableProduct({ product, isFav }) {
     }
     const { _id, title, image, price, inCart } = product;
 
-    const bodyToSendFavorite = (AllProds, _id) => {
-        const obj = getItem(AllProds, _id);
-        return { favoriteList: obj}
-    }
-    const bodyFavorite = bodyToSendFavorite(allProductsList, _id);
-
     return (
         <ProductWrapper className="col-6 col-md-4 col-lg-3 mx-auto my-2">
-            <div className="card" style={{position: 'relative'}}>
+            <div className="card">
                 <div
                     className="img-container p-1 p-sm-3"
                     onClick={() => {
@@ -97,24 +94,39 @@ export default function EditableProduct({ product, isFav }) {
                 </div>
                 {/*card footer*/}
                 <div className="text-product-title p-1 card-footer d-flex flex-column text-center justify-content-between">
-                    <p style={{ height: '4em', overflow: 'hidden' }} className="mb-0 text-capitalize">
+                    <p
+                        style={{position: 'relative', height: '4em', overflow: 'hidden' }}
+                        className="mb-0 text-capitalize"
+                    >
                         {truncateWords(title, 40)}
+                        <EditButton top={1} left={-5} onClick={() => {
+                            const attachedObj = {
+                                mainField: "Título",
+                                nameForm: "title",
+                                typeForm: "text"
+                            }
+                            findAnItem(dispatch, allProductsList, _id, attachedObj);
+                            showModalConfTitle(dispatch);
+                        }} />
                     </p>
-                    <h5 className="mt-2 text-right mb-2 mr-2">
+                    <h5
+                        style={{position: 'relative'}}
+                        className="mt-2 text-right mb-2 mr-2"
+                    >
                         <span>R$</span>
                         {price}
+                        <EditButton top={-40} left={105} onClick={() => {
+                            const attachedObj = {
+                                mainField: "Preço",
+                                nameForm: "price",
+                                typeForm: "number"
+                            }
+                            findAnItem(dispatch, allProductsList, _id, attachedObj);
+                            showModalConfTitle(dispatch);
+                        }} />
                     </h5>
                 </div>
-                <div>
-                    <DeleteButton top={-20} left={50} />
-                </div>
-                {/*Title*/}
-                <div onClick={() => showModalConfirmationWithOneField(dispatch)}>
-                    <EditButton top={130} left={115} />
-                </div>
-                {/*Price*/}
-                <EditButton top={200} left={25} onClick={() => showModalConfirmationWithOneField(dispatch)} />
-                <ModalConfirmationWithOneField propTitle="Alterar Título do Produto" propMsg="Insira o novo título." propTxtBtn="alterar" keyToChange="title" label="Novo Título:" _idProduct={_id}/>
+                <DeleteButton top={-20} left={50} onClick={null} />
             </div>
        </ProductWrapper>
     );

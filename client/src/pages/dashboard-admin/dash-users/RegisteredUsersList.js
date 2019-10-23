@@ -9,8 +9,8 @@ import DashSectionTitle from '../DashSectionTitle';
 
 export default function RegisteredUsersList() {
     const [total, setTotal] = useState({
-        allFavorites: [],
-        allItemsInCart: [],
+        allFavorites: 0,
+        allItemsInCart: 0,
     });
 
     const { updatedUsers, isLoading, gotError, errorMsg } = useStoreState(state => ({
@@ -19,32 +19,26 @@ export default function RegisteredUsersList() {
         gotError: state.globalReducer.cases.gotError,
         errorMsg: state.globalReducer.cases.errorMsg
     }))
-    const getArray = obj => {
-        obj.forEach(user => {
-            total.allFavorites.push(user.favoriteList.length);
-            total.allItemsInCart.push(user.inCartList.length);
+
+    const getTotals = (updatedUsers) => {
+        const fav = [0], cart = [0];
+        updatedUsers.forEach(user => {
+            fav.push(user.favoriteList.length);
+            cart.push(user.inCartList.length);
         });
+        const totalFav = fav.reduce((tot, cur) => tot + cur);
+        const totalCart = cart.reduce((tot, cur) => tot + cur);
+        console.log("totalFav", totalFav)
+        console.log("totalCart", totalCart)
+        setTotal({
+            allFavorites: totalFav,
+            allItemsInCart: totalCart,
+        })
     }
-
-    const getTotals = () => {
-        const totalFav = total.allFavorites.reduce((tot, cur) => tot + cur);
-        const totalCart = total.allItemsInCart.reduce((tot, cur) => tot + cur);
-        const totals = {
-            fav: totalFav,
-            cart: totalCart,
-        }
-        return totals;
-    }
-
-    // const finalTotals = getTotals();
 
     useEffect(() => {
-        getArray(updatedUsers);
-        // let tot = getTotals();
-        // console.log("tot", tot);
+        let tot = getTotals(updatedUsers);
     }, [updatedUsers])
-
-    console.log("total", total)
 
     const registeredUserList = updatedUsers.map(user => <RegisteredUser key={user._id} data={user} />);
 
@@ -63,8 +57,16 @@ export default function RegisteredUsersList() {
                                     Itens
                                     <i
                                         style={{animationIterationCount: 10, animationDelay: '2s', fontSize: "2.3rem", color: "var(--mainRed)"}}
-                                        className=" animated heartBeat fast fas fa-heart"></i>: <strong>{3}</strong></h2>
-                                <h2>Itens <i style={{animationDelay: '4s', fontSize: "2.3rem", color: "var(--mainYellow)"}} className="animated lightSpeedIn slow fas fa-shopping-cart"></i>: <strong>{0}</strong></h2>
+                                        className=" animated heartBeat fast fas fa-heart">
+                                    </i>: <strong>{total.allFavorites}</strong>
+                                </h2>
+                                <h2>
+                                    Itens
+                                    <i
+                                        style={{animationDelay: '2s', fontSize: "2.3rem", color: "var(--mainYellow)"}}
+                                        className="animated lightSpeedIn slow fas fa-shopping-cart">
+                                    </i>: <strong>{total.allItemsInCart}</strong>
+                                </h2>
                             </div>
                             <br />
                             <h2

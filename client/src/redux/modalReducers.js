@@ -6,12 +6,12 @@ import { reducer } from 'easy-peasy';
 // REDUCERS
 const initialState = {
     isModalDefaultOpen: false,
-    isModalConfOneFieldOpen: false,
     isModalUnderConstructionOpen: false,
     // Authentification
     isModalLoginOpen: false,
     isModalRegisterOpen: false,
     // End Authentification
+    isModalConfTitleOpen: false
 }
 
 export const modalReducers = {
@@ -20,32 +20,34 @@ export const modalReducers = {
             //SHOW
             case 'SHOW_MODAL_DEFAULT':
                 return {
+                    ...state,
                     isModalDefaultOpen: action.payload
                 }
             case 'SHOW_MODAL_LOGIN':
                 return {
+                    ...state,
                     isModalLoginOpen: action.payload
                 }
             case 'SHOW_MODAL_REGISTER':
                 return {
+                    ...state,
                     isModalRegisterOpen: action.payload
                 }
             case 'SHOW_MODAL_UNDER_CONSTRUCTION':
                 return {
+                    ...state,
                     isModalUnderConstructionOpen: action.payload,
                 }
-            case 'SHOW_MODAL_CONF_ONE_FIELD':
+            case 'SHOW_MODAL_CONF_TITLE':
                 return {
-                    isModalConfOneFieldOpen: action.payload,
+                    ...state,
+                    isModalConfTitleOpen: action.payload,
                 }
-
             // CLOSE
             case 'CLOSE_ALL_MODALS':
-                return {
-                    isModalDefaultOpen: false,
-                    isModalLoginOpen: false,
-                    isModalRegisterOpen: false,
-                    isModalUnderConstructionOpen: false
+                //Change all the keys to false
+                for(let key in state) {
+                    state[key] = false
                 }
             default:
                 return state;

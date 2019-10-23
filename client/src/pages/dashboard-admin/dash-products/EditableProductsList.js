@@ -51,9 +51,7 @@ export default function ProductList() {
                         {isLoading ? (
                             <LoadingIndicator />
                         ) : (
-                            allProductsList.map(product => {
-                                return <EditableProduct key={product._id} product={product} />
-                            })
+                            allProductsList.map(product => <EditableProduct key={product._id} product={product} />)
                         )}
                     </div>
                 </div>

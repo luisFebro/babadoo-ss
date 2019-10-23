@@ -4,7 +4,7 @@ const nodemailer = require("nodemailer");
 const { nodemailerEmail, nodemailerPassword } = require('../../config/keys');
 
 
-// @route   POST api/form/client/welcome
+// @route   POST api/emails/client/welcome
 // @desc    Send Email to client after register
 // @access  Private
 router.post('/client/welcome', (req, res) => {
@@ -25,14 +25,14 @@ router.post('/client/welcome', (req, res) => {
         </ul>
         <footer>
             <h3><strong>Contato/Whatsapp: (92) 99506-6603</strong></h3>
-            <h3><strong>Visite a loja Babadoo <a href="https://babadoo.herokuapp.com">AQUI</a></strong></h3>
         </footer>
     `;
 
     let transporter = nodemailer.createTransport({
-        host: 'smtp.gmail.com',
-        port: 587,
-        secure: false, // true for 465, false for other ports
+        service: "Hotmail", //No need to specify host and port // resrc: https://nodemailer.com/smtp/well-known/
+        // host: 'smtp.gmail.com',
+        // port: 465, // or 587 for insecure port (secure: false)
+        // secure: true, // true for 465, false for other ports
         auth: {
             user: nodemailerEmail, // generated ethereal user
             pass: nodemailerPassword // generated ethereal password
@@ -43,7 +43,8 @@ router.post('/client/welcome', (req, res) => {
     });
 
     let mailOptions = {
-        from: `"Babadoo - ${client}, você foi registrado com sucesso" babadooweb@gmail.com`, // sender address
+        // The title along with the email replaces the usual account's name as a title
+        from: `"Babadoo - ${client}, cadastro" babadooweb@hotmail.com`,
         to: req.body.email, //'babadoosexy@gmail.com'  , list of receivers
         subject: `Seja Bem Vindo a Babadoo, ${client}`, // Subject line
         text: 'no-message-sent-ignore-here', // plain text body
@@ -58,14 +59,14 @@ router.post('/client/welcome', (req, res) => {
         console.log('Message sent: %s', info.messageId);
         console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
     });
-
+    res.json({ msg: "email sent successfully!"})
 });
 
 
-// @route   POST api/form
+// @route   POST api/emails/admin/buy-request
 // @desc    Send Email to Admin when a client makes a purchase Request
 // @access  Private
-router.post('/', (req, res) => {
+router.post('/admin/buy-request', (req, res) => {
     const owner = 'Babadoo';
     const clientRaw = req.body.name;
     const client = clientRaw.charAt(0).toUpperCase() + clientRaw.slice(1)
@@ -94,9 +95,9 @@ router.post('/', (req, res) => {
         </footer>
     `;
 
-    let transporter = nodemailer.createTransport({
+    const credentials = {
         host: 'smtp.gmail.com',
-        port: 587,
+        port: 587, // or 587 for insecure port (secure: false)
         secure: false, // true for 465, false for other ports
         auth: {
             user: nodemailerEmail, // generated ethereal user
@@ -105,7 +106,9 @@ router.post('/', (req, res) => {
         tls: {
             rejectUnauthorized: false
         }
-    });
+    }
+
+    let transporter = nodemailer.createTransport(credentials);
 
     let mailOptions = {
         from: `"${owner} - Pedidos de Compra" babadooweb@gmail.com`, // sender address
@@ -123,7 +126,7 @@ router.post('/', (req, res) => {
         console.log('Message sent: %s', info.messageId);
         console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
     });
-
+    res.json({ msg: "email sent successfully!"})
 });
 
 module.exports = router;

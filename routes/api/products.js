@@ -40,7 +40,7 @@ router.get("/", (req, res) => {
 // @access  Private
 // req.body = { "title": "new product"}
 router.put('/:id', (req, res) => {
-    User.findByIdAndUpdate(req.params.id, req.body, { strict: false, upsert:true }, (err, data) => {
+    Product.findByIdAndUpdate(req.params.id, req.body, { strict: false, upsert:true }, (err, data) => {
         if (err) {
             return res
                 .status(500)

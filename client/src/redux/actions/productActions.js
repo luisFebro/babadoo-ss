@@ -19,6 +19,23 @@ const getBodyRequest = objToSend => {
 }
 //END UTILS
 
+// FIND ITEMS
+// get an obj with all infos of a item from a specific id
+export const getItem = (allProductsList, _id) => {
+    const product = allProductsList.find(item => item._id === _id);
+    return product;
+}
+
+export const findAnItem = (dispatch, allProductsList, _id, attachedObj) => {
+    const product = allProductsList.find(item => item._id === _id);
+    // Putting together the current object with additional obj to change dynamically data from component
+    const finalProduct = Object.assign({}, product, attachedObj);
+    console.log("finalProduct", finalProduct);
+    dispatch({ type: 'CURRENT_ITEM_FOUND', payload: finalProduct });
+    return product;
+}
+// END FIND ITEMS
+
 //CRUD PATTERN
 // create product
 export const addProduct = product => async (dispatch, getState) => {
@@ -30,7 +47,7 @@ export const addProduct = product => async (dispatch, getState) => {
     }
 };
 
-// read product
+// read / update product
 export const getAllProducts = async (dispatch) => {
     // let didCancel = false; //n1
     try {
@@ -54,6 +71,8 @@ export const changeProduct = async (dispatch, bodyToSend, _idProduct) => {
     try {
         const res = axios.put(`/api/products/${_idProduct}`, body, config)
         dispatch({ type: "CHANGE_PRODUCT", payload: res.data })
+        //updating product after change one item
+        getAllProducts(dispatch);
     } catch(e) {
         // statements
         console.log(e);
@@ -70,12 +89,6 @@ export const deleteProduct = id => async (dispatch, getState) => {
     }
 };
 //END CRUD PATTERN
-
-// get an obj with all infos of a item from a specific id
-export const getItem = (allProductsList, _id) => {
-    const product = allProductsList.find(item => item._id === _id);
-    return product;
-}
 
 export const handleDetail = id => {
     // const product = this.getItem(id);

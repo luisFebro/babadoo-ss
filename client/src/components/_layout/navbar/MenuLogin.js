@@ -102,11 +102,11 @@ export default function MenuLogin() {
                         </ul>
                         <ul className="navbar-nav ml-auto">
                             <li className="nav-item">
-                                <Link to="/" className="nav-link" style={{position: 'relative'}}>
+                                <div className="nav-link" style={{position: 'relative'}}>
                                     <i className="fab fa-whatsapp mr-2 pt-0"></i>
                                     <span>{ bizWhatsapp }</span>
                                     <span style={{position: "absolute", top: "0.1rem", right: "2.7rem"}}>Dúvidas?</span>
-                                </Link>
+                                </div>
                                 <button
                                     style={{cursor: 'pointer', padding: '0 4px', border: 'none'}}
                                     className="logout-btn badge badge-danger"

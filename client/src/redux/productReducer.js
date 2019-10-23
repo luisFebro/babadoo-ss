@@ -6,6 +6,7 @@ import { reducer } from 'easy-peasy';
 // REDUCERS
 const initialState = {
     allProductsList: [],
+    currentItemFound: null,
 }
 
 export const productReducer = {
@@ -23,15 +24,19 @@ export const productReducer = {
                     allProductsList: action.payload, //n1
                 };
             case 'CHANGE_PRODUCT':
-                return {
-                    ...state
-                };
+                // No update needed since we run getAllProducts to update all products
+                return;
             case 'DELETE_PRODUCT':
                 return {
                     ...state,
                     allProductsList: state.allProductsList.filter(product => product._id !== action.payload._id)
                 };
             // END CRUD PATTERN
+            case 'CURRENT_ITEM_FOUND':
+                return {
+                    ...state,
+                    currentItemFound: action.payload,
+                };
             case 'DETAIL_PRODUCT':
                 return {
                     ...state,
