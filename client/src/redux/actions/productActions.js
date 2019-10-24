@@ -59,13 +59,17 @@ export const getAllProducts = async (dispatch) => {
 // update product
 export const changeProduct = async (dispatch, bodyToSend, _idProduct) => {
     const body = getBodyRequest(bodyToSend);
+    // Switching obj keys dynamically to update in Reducer
+    const targetKey = Object.keys(bodyToSend)[0];
+    const dataToUpdate = {
+        _id:_idProduct,
+        [`${targetKey}`]: bodyToSend[targetKey],
+    }
     try {
         const res = axios.put(`/api/products/${_idProduct}`, body, config)
         console.log("==CHANGING PRODUCT==")
-        console.log("==CHANGING PRODUCT INFO==", res.data);
-        dispatch({ type: "CHANGE_PRODUCT", payload: res.data })
-        //updating product after change one item
-        getAllProducts(dispatch);
+        console.log("==CHANGING PRODUCT DATA==", dataToUpdate)
+        dispatch({ type: "CHANGE_PRODUCT", payload: dataToUpdate })
     } catch(e) {
         // statements
         console.log(e);

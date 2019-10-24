@@ -49,7 +49,7 @@ export default function App() {
     const dispatch = useStoreDispatch();
 
     useEffect(() => {
-        dispatch(loadUser());
+        // dispatch(loadUser());
         getAllProducts(dispatch);
         getUpdatedUsers(dispatch);
     }, []);

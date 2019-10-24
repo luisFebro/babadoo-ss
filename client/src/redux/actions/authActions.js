@@ -64,15 +64,6 @@ export const loadUser = () => (dispatch, getState) => {
             //   type: 'AUTH_ERROR'
             // });
         });
-
-    // axios
-    //     .get('/api/auth/user', tokenConfig(getState))
-    //     .then(res =>
-    //         dispatch({
-    //             type: 'USER_LOADED',
-    //             payload: res.data
-    //         })
-    //     )
 }
 
 // login Email

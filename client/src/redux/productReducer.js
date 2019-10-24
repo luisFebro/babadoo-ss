@@ -23,11 +23,15 @@ export const productReducer = {
                     allProductsList: action.payload, //n1
                 };
             case 'CHANGE_PRODUCT':
-                return;
-                // return {
-                //     ...state,
-                //     allProductsList: action.payload,
-                // }
+                // Updating Info Isntantly
+                const targetKey = Object.keys(action.payload)[1];
+                const _id = action.payload._id;
+                const value = action.payload[targetKey];
+                const objIndex = state.allProductsList.findIndex((obj => obj._id == _id));
+                state.allProductsList[objIndex][targetKey] = value;
+                return {
+                    ...state,
+                }
             case 'DELETE_PRODUCT':
                 return {
                     ...state,
