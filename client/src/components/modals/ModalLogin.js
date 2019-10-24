@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { showSnackbarBlack } from '../../redux/actions/snackbarActions';
 import { showModalUnderConstruction, closeModal } from '../../redux/actions/modalActions';
-import { getAllProducts } from '../../redux/actions/productActions';
+import { getUpdatedUsers } from '../../redux/actions/userActions';
 import { clearErrors } from '../../redux/actions/errorActions';
 import { loginEmail } from '../../redux/actions/authActions';
 // Material UI
@@ -182,8 +182,8 @@ export default function ModalLogin() {
                         <Button
                               onClick={() => {
                                 onSubmit();
+                                setTimeout(() => getUpdatedUsers(dispatch), 3000);
                                 showSnackbarBlack(dispatch, "Carregando...");
-                                getAllProducts(dispatch);
                               }}
                               variant="contained"
                               color="primary"

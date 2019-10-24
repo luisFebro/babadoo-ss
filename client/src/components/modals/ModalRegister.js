@@ -5,7 +5,7 @@ import axios from 'axios';
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { showSnackbarBlack } from '../../redux/actions/snackbarActions';
 import { showModalLogin, showModalUnderConstruction, closeModal } from '../../redux/actions/modalActions';
-import { getAllProducts } from '../../redux/actions/productActions';
+import { getUpdatedUsers } from '../../redux/actions/userActions';
 import { clearErrors } from '../../redux/actions/errorActions';
 import { registerEmail } from '../../redux/actions/authActions';
 // Material UI
@@ -201,9 +201,9 @@ export default function ModalRegister() {
                               onClick={() => {
                                 console.log("==Register: Submitting current user==")
                                 onSubmit();
+                                setTimeout(() => getUpdatedUsers(dispatch), 3000);
                                 sendWelcomeEmail();
                                 showSnackbarBlack(dispatch, "Carregando...");
-                                getAllProducts(dispatch);
                               }}
                               variant="contained"
                               color="primary"

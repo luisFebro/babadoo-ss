@@ -20,7 +20,6 @@ export default function AllModals() {
         currentItemFound: state.globalReducer.cases.currentItemFound,
     }));
 
-    console.log("currentItemFOund from index Modal", currentItemFound);
     let ItemsYesNo = null, ItemsField = null, checkCondition = null;
     if(currentItemFound) {
         checkCondition = (currentItemFound.mainSubject === 'Preço' || currentItemFound.mainSubject === 'Título');
