@@ -61,6 +61,8 @@ export const changeProduct = async (dispatch, bodyToSend, _idProduct) => {
     const body = getBodyRequest(bodyToSend);
     try {
         const res = axios.put(`/api/products/${_idProduct}`, body, config)
+        console.log("==CHANGING PRODUCT==")
+        console.log("==CHANGING PRODUCT INFO==", res.data);
         dispatch({ type: "CHANGE_PRODUCT", payload: res.data })
         //updating product after change one item
         getAllProducts(dispatch);

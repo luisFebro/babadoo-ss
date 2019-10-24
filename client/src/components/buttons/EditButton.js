@@ -21,10 +21,8 @@ export default function EditButton({ top, right, left, bottom, onClick }) {
   const classes = useStyles();
 
   return (
-    <div>
       <Fab onClick={onClick} size="small" style={{position: 'absolute', top: `${top || 0}px`, right: `${right || 0}px`, left: `${left || 0}px`, bottom: `${bottom || 0}px`, zIndex: 1500, outline: 'none', color: 'var(--mainWhite)', backgroundColor: 'var(--mainYellow)'}} aria-label="edit" className={classes.fab}>
         <EditIcon />
       </Fab>
-    </div>
   );
 }

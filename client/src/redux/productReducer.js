@@ -23,8 +23,11 @@ export const productReducer = {
                     allProductsList: action.payload, //n1
                 };
             case 'CHANGE_PRODUCT':
-                // No update needed since we run getAllProducts to update all products
                 return;
+                // return {
+                //     ...state,
+                //     allProductsList: action.payload,
+                // }
             case 'DELETE_PRODUCT':
                 return {
                     ...state,

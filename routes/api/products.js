@@ -46,8 +46,8 @@ router.put('/:id', (req, res) => {
                 .status(500)
                 .json({error: "unsuccessful. not added"})
         }
-        data.save();
-        res.json( data );
+        // data.save();
+        res.json(data);
     });
 });
 
