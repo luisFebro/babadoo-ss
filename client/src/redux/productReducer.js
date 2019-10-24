@@ -24,6 +24,8 @@ export const productReducer = {
                 };
             case 'CHANGE_PRODUCT':
                 // Updating Info Isntantly
+                //The obj needs to have this format: {id: "123", targetKey: "targetKey"}
+                //targetKey will get whatever key in the second position to update.
                 const targetKey = Object.keys(action.payload)[1];
                 const _id = action.payload._id;
                 const value = action.payload[targetKey];

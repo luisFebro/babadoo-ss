@@ -49,10 +49,10 @@ export default function App() {
     const dispatch = useStoreDispatch();
 
     useEffect(() => {
-        // dispatch(loadUser());
         getAllProducts(dispatch);
         getUpdatedUsers(dispatch);
     }, []);
+    dispatch(loadUser());
 
     return (
         <BrowserRouter>

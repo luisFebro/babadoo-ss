@@ -42,27 +42,31 @@ export default function ModalChangeTitle({ currItemFound }) {
 
     let mainItem = currItemFound ? currItemFound.title : null;
     let mainSubject = currItemFound ? currItemFound.mainSubject: null;
+    let mainField;
 
-    //This is a self-invoked function to attach price to title
-    const gotPrice = (() => {
-        if(currItemFound) {
-            if(currItemFound.nameForm === 'price') {
-                mainItem = currItemFound ? (parse(`${currItemFound.title}<br />(R$ ${currItemFound.price})`)) : null;
-            }
+    if(currItemFound) {
+        if(currItemFound.nameForm === 'price') {
+            mainField = 'price'
+            mainItem =  parse(`${currItemFound.title}<br />(R$ ${currItemFound.price})`);
+        } else {
+            mainField = 'title'
         }
-    })();
+    }
 
     const dispatch = useStoreDispatch();
-
+    console.log('newInfo', newInfo)
+    console.log('mainField', mainField)
     const setObjectToSend = () => {
         let data = newInfo;
+        console.log("obj", data);
         const id = currItemFound ? currItemFound._id : null
         changeProduct(dispatch, data, id);
     }
 
     const onChange = e => {
       const { name, value } = e.target;
-      setNewInfo({ ...newInfo, [name]: value });
+      // no need to write ...newInfo because we want one single key. Not adda new key
+      setNewInfo({ [name]: value });
     };
 
     const classes = useStyles();
@@ -94,7 +98,7 @@ export default function ModalChangeTitle({ currItemFound }) {
                     required
                     margin="dense"
                     id="changeInfo"
-                    name={currItemFound ? currItemFound.nameForm : null}
+                    name={mainField}
                     type={currItemFound ? currItemFound.typeForm : null}
                     label={`Novo ${mainSubject} aqui:`}
                     autoComplete="changeInfo"
@@ -114,7 +118,7 @@ export default function ModalChangeTitle({ currItemFound }) {
                       <Button
                             onClick={() => {
                               setObjectToSend();
-                              showSnackbarBlack(dispatch, `${mainSubject} do Item Alterado com Sucesso!`);
+                              showSnackbarBlack(dispatch, `${mainSubject} do Item foi Alterado para "${newInfo}"!`);
                               closeModal(dispatch);
                             }}
                             variant="contained"
