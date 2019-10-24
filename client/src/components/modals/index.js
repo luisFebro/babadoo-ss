@@ -19,12 +19,11 @@ export default function AllModals() {
     const { currentItemFound } = useStoreState(state => ({
         currentItemFound: state.globalReducer.cases.currentItemFound,
     }));
-
+    // Checkingthe right places to send data to confirmation modals
     let ItemsYesNo = null, ItemsField = null, checkCondition = null;
     if(currentItemFound) {
         checkCondition = (currentItemFound.mainSubject === 'Preço' || currentItemFound.mainSubject === 'Título');
     }
-    console.log("checkCondition", checkCondition);
     if(checkCondition) {
         ItemsField = currentItemFound;
     } else {

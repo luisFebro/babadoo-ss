@@ -2,7 +2,7 @@ import React, { useEffect, useState, Fragment } from 'react';
 // Redux
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { getAllProducts } from '../../redux/actions/productActions';
-import { checkForServerError } from '../../redux/actions/errorActions';
+// import { checkForServerError } from '../../redux/actions/errorActions';
 // End Redux
 import LoadingIndicator from '../LoadingIndicator';
 import Product from './Product';

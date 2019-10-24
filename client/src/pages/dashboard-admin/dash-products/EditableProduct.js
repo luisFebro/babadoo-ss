@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 // Redux
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
-import { addFieldUser, deleteFieldUser } from '../../../redux/actions/userActions';
+// import { addFieldUser, deleteFieldUser } from '../../../redux/actions/userActions';
 import { findAnItem } from '../../../redux/actions/globalActions';
 import { showModalConfTitle, showModalConfYesNo } from '../../../redux/actions/modalActions';
-import ModalChangeTitle from '../../../components/modals/confirmation/ModalChangeTitle';
+// import ModalChangeTitle from '../../../components/modals/confirmation/ModalChangeTitle';
 // End Redux
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
