@@ -114,7 +114,7 @@ export default function EditableProduct({ product, isFav }) {
                     >
                         <span>R$</span>
                         {price}
-                        <EditButton top={-48} left={125} onClick={() => {
+                        <EditButton top={-48} left={100} onClick={() => {
                             const attachedObj = {
                                 mainSubject: "Preço",
                                 nameForm: "price",

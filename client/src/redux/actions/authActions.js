@@ -25,20 +25,30 @@ export const loadUser = () => (dispatch, getState) => {
     dispatch({ type: 'USER_LOADING' });
 
     const getAuthUser = () => {
+      console.log("==USER LOADING==");
       return axios.get('/api/auth/user', tokenConfig(getState));
+    }
+
+    const getAllProducts = () => {
+        console.log("==ALL PRODUCTS LOADING==");
+        return axios.get('/api/products');
     }
 
     // const getUpdatedUsers = () => {
     //   return axios.get('/api/users/list', config);
     // }
 
-    axios.all([getAuthUser()/* getUpdatedUsers()*/])
-      .then(axios.spread((auth) => {
+    axios.all([getAuthUser(), getAllProducts()])
+      .then(axios.spread((auth, products) => {
         // Both requests are now complete
         console.log("auth from authActions", auth.data)
         dispatch({
             type: 'USER_LOADED',
             payload: auth.data
+        })
+        dispatch({
+            type: 'GET_ALL_PRODUCTS',
+            payload: products.data
         })
         // dispatch({
         //     type: 'USER_CURRENT_UPDATED',
@@ -63,7 +73,7 @@ export const loadUser = () => (dispatch, getState) => {
     //             payload: res.data
     //         })
     //     )
-};
+}
 
 // login Email
 // loginEMail with Async/Await

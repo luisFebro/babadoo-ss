@@ -8,7 +8,7 @@ import { reducer } from 'easy-peasy';
 const initialState = {
     token: localStorage.getItem('token'),
     isUserAuthenticated: false,
-    isLoading: false,
+    // isLoading: false,
     user: {
         id: null,
         name: null,
@@ -54,7 +54,7 @@ export const authReducer = {
                     ...state,
                     ...action.payload,
                     isUserAuthenticated: true,
-                    isLoading: false,
+                    // isLoading: false,
                     user: {
                         id: action.payload.user.id,
                         name: action.payload.user.name,
