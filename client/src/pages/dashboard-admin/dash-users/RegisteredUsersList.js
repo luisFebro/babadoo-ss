@@ -73,7 +73,7 @@ export default function RegisteredUsersList() {
                             </h2>
                         </div>
                         {gotError ? (
-                            <p>{errorMsg}</p>
+                            <p className="py-3 text-default">{errorMsg}</p>
                         ) : (
                             <div className="text-default">
                                 {registeredUserList}

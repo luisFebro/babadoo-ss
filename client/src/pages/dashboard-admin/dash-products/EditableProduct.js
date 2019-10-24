@@ -100,7 +100,7 @@ export default function EditableProduct({ product, isFav }) {
                         {truncateWords(title, 40)}
                         <EditButton top={1} left={-5} onClick={() => {
                             const attachedObj = {
-                                mainField: "Título",
+                                mainSubject: "Título",
                                 nameForm: "title",
                                 typeForm: "text"
                             }
@@ -114,9 +114,9 @@ export default function EditableProduct({ product, isFav }) {
                     >
                         <span>R$</span>
                         {price}
-                        <EditButton top={-40} left={105} onClick={() => {
+                        <EditButton top={-48} left={125} onClick={() => {
                             const attachedObj = {
-                                mainField: "Preço",
+                                mainSubject: "Preço",
                                 nameForm: "price",
                                 typeForm: "number"
                             }

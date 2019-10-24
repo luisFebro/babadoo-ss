@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { showSnackbarBlack } from '../../redux/actions/snackbarActions';
 import { showModalLogin, showModalUnderConstruction, closeModal } from '../../redux/actions/modalActions';
+import { getAllProducts } from '../../redux/actions/productActions';
 import { clearErrors } from '../../redux/actions/errorActions';
 import { registerEmail } from '../../redux/actions/authActions';
 // Material UI
@@ -202,6 +203,7 @@ export default function ModalRegister() {
                                 onSubmit();
                                 sendWelcomeEmail();
                                 showSnackbarBlack(dispatch, "Carregando...");
+                                getAllProducts(dispatch);
                               }}
                               variant="contained"
                               color="primary"

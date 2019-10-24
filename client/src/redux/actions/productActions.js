@@ -41,10 +41,11 @@ export const addProduct = product => async (dispatch, getState) => {
 export const getAllProducts = async (dispatch) => {
     // let didCancel = false; //n1
     try {
-        setLoadingOn(dispatch);
+        // setLoadingOn(dispatch);
         const res = await axios.get('/api/products');
+        console.log("==GOT ALL PRODUCTS==");
         dispatch({ type: 'GET_ALL_PRODUCTS', payload: res.data });
-        setLoadingOff(dispatch);
+        // setLoadingOff(dispatch);
         // if(!didCancel) {
         // }
     } catch (err) {
@@ -70,10 +71,10 @@ export const changeProduct = async (dispatch, bodyToSend, _idProduct) => {
 }
 
 // delete product
-export const deleteProduct = id => async (dispatch, getState) => {
-    const res = await axios.delete(`/api/products/${id}`, tokenConfig(getState));
+export const deleteProduct = async (dispatch, _idProduct) => {
+    const res = await axios.delete(`/api/products/${_idProduct}`, config);
     try {
-        dispatch({ type: 'DELETE_PRODUCT', payload: id });
+        dispatch({ type: 'DELETE_PRODUCT', payload: _idProduct });
     } catch(err) {
         dispatch(returnErrors(err.response.data, err.response.status));
     }

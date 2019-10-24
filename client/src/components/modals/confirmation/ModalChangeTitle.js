@@ -40,13 +40,14 @@ export default function ModalChangeTitle({ currItemFound }) {
         isModalConfTitleOpen: state.modalReducers.cases.isModalConfTitleOpen,
     }));
 
-    let subject = currItemFound ? currItemFound.title : null;
+    let mainItem = currItemFound ? currItemFound.title : null;
+    let mainSubject = currItemFound ? currItemFound.mainSubject: null;
 
     //This is a self-invoked function to attach price to title
     const gotPrice = (() => {
         if(currItemFound) {
             if(currItemFound.nameForm === 'price') {
-                subject = currItemFound ? (parse(`${currItemFound.title}<br />(R$ ${currItemFound.price})`)) : null;
+                mainItem = currItemFound ? (parse(`${currItemFound.title}<br />(R$ ${currItemFound.price})`)) : null;
             }
         }
     })();
@@ -78,13 +79,13 @@ export default function ModalChangeTitle({ currItemFound }) {
                 title='loja babadoo'
             />
             <DialogTitle id="form-dialog-title">
-               <span className="text-main-container">{`Alterar ${currItemFound ? currItemFound.mainField: null} do Produto`}</span>
+               <span className="text-main-container">{`Alterar ${mainSubject} do Produto`}</span>
             </DialogTitle>
             <DialogContent>
               <DialogContentText>
                     <span className="text-default">
-                        {`Insira o novo ${currItemFound ? currItemFound.mainField : null} do atual:`}<br />
-                        <strong>{subject}</strong>. <br /><br />
+                        {`Insira o novo ${mainSubject} do atual:`}<br />
+                        <strong>{mainItem}</strong>. <br /><br />
                         para...
                     </span>
               </DialogContentText>
@@ -95,7 +96,7 @@ export default function ModalChangeTitle({ currItemFound }) {
                     id="changeInfo"
                     name={currItemFound ? currItemFound.nameForm : null}
                     type={currItemFound ? currItemFound.typeForm : null}
-                    label={`Novo ${currItemFound ? currItemFound.mainField: null} aqui:`}
+                    label={`Novo ${mainSubject} aqui:`}
                     autoComplete="changeInfo"
                     fullWidth
                   />
@@ -113,7 +114,7 @@ export default function ModalChangeTitle({ currItemFound }) {
                       <Button
                             onClick={() => {
                               setObjectToSend();
-                              showSnackbarBlack(dispatch, `${currItemFound ? currItemFound.mainField : null} do Produto Alterado com Sucesso!`);
+                              showSnackbarBlack(dispatch, `${mainSubject} do Item Alterado com Sucesso!`);
                               closeModal(dispatch);
                             }}
                             variant="contained"

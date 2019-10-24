@@ -22,15 +22,16 @@ const getBodyRequest = objToSend => {
 // UPDATED DATA
 export const getUpdatedUsers = async (dispatch) => {
     try {
-        setLoadingOn(dispatch);
+        // setLoadingOn(dispatch);
         const res = await axios.get('/api/users/list', config);
+        console.log("==ALL USERS UPDATED==")
         dispatch({
             type: 'ALL_USERS_UPDATE',
             payload: res.data
         })
-        setLoadingOff(dispatch);
+        // setLoadingOff(dispatch);
     } catch(e) {
-        setErrorOn(dispatch, e.msg);
+        setErrorOn(dispatch, "Algo deu errado ao carregar a página. Detalhes:" + e);
     }
 }
 

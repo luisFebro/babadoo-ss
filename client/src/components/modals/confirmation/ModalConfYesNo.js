@@ -5,6 +5,7 @@ import { closeModal } from '../../../redux/actions/modalActions';
 import { showSnackbarBlack } from '../../../redux/actions/snackbarActions';
 import { changeProduct } from '../../../redux/actions/productActions';
 import { deleteUser, getUpdatedUsers } from '../../../redux/actions/userActions';
+import { deleteProduct, getAllProducts } from '../../../redux/actions/productActions';
 // End Redux
 import { Link } from 'react-router-dom';
 // Material UI
@@ -48,17 +49,30 @@ export default function ModalConfYesNo({ currItemFound }) {
 
     const dispatch = useStoreDispatch();
 
+    const _idUser = currItemFound ? currItemFound._id : null
+
+    let name;
+    if(currItemFound) {
+        switch(currItemFound.mainSubject) {
+            case 'Usuário':
+                name = currItemFound ? currItemFound.name : null;
+                break;
+            case 'Produto':
+                name = currItemFound ? currItemFound.title : null;
+                break;
+            default:
+                console.log("No matching for mainSubject")
+        }
+    }
+
+
+    // For any case
     const action = {
         noun: currItemFound ? currItemFound.action.noun : null,
         verb: currItemFound ? currItemFound.action.verb : null,
     }
     const mainSubject = currItemFound ? currItemFound.mainSubject : null;
-    let name;
-    if(typeof name !== 'undefined') {
-        name = currItemFound ? currItemFound.name : null;
-    } else {
-        name = currItemFound ? currItemFound.title : null;
-    }
+    // End For any case
 
     const classes = useStyles();
     return (
@@ -95,13 +109,22 @@ export default function ModalConfYesNo({ currItemFound }) {
                       </Button>
                       <Button
                             onClick={() => {
-                                let _idUser = currItemFound ? currItemFound._id : null
-                                showSnackbarBlack(dispatch, `O ${mainSubject} ${currItemFound ? currItemFound.mainField : null} excluído com sucesso!`);
-                                deleteUser(dispatch, _idUser);
+                                if(currItemFound) {
+                                    switch(currItemFound.mainSubject) {
+                                        case 'Usuário':
+                                            deleteUser(dispatch, _idUser);
+                                            setTimeout(() => getUpdatedUsers(dispatch), 4000);
+                                            break;
+                                        case 'Produto':
+                                            deleteProduct(dispatch, _idUser);
+                                            setTimeout(() => getAllProducts(dispatch), 4000);
+                                            break;
+                                        default:
+                                            console.log("no matching for main Subject");
+                                    }
+                                }
+                                showSnackbarBlack(dispatch, `O ${mainSubject} ${name} excluído com sucesso!`);
                                 closeModal(dispatch);
-                                setTimeout(() => {
-                                    getUpdatedUsers(dispatch);
-                                }, 4000);
                             }}
                             variant="contained"
                             color="primary"
