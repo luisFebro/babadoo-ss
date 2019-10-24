@@ -96,7 +96,7 @@ router.get("/:id", (req, res) => {
 // @route   DELETE api/users/:id
 // @desc    Delete a User
 // @access  Private
-router.delete('/:id', (req, auth, res) => { //needs to put auth as middleware
+router.delete('/:id', (req, res) => { //needs to put auth as middleware
     User.findById(req.params.id)
         .then(user => user.remove().then(() => res.json({ success: "id deleted" }))) // then(() => res.json({ success: true }) = this response is completely up to you
         .catch(err => res.status(404).json({ failure: "id not found" }));
