@@ -54,8 +54,6 @@ export default function ModalChangeTitle({ currItemFound }) {
     }
 
     const dispatch = useStoreDispatch();
-    console.log('newInfo', newInfo)
-    console.log('mainField', mainField)
     const setObjectToSend = () => {
         let data = newInfo;
         console.log("obj", data);
@@ -118,7 +116,7 @@ export default function ModalChangeTitle({ currItemFound }) {
                       <Button
                             onClick={() => {
                               setObjectToSend();
-                              showSnackbarBlack(dispatch, `${mainSubject} do Item foi Alterado para "${newInfo}"!`);
+                              showSnackbarBlack(dispatch, `${mainSubject} do Item foi Alterado para " ${newInfo[mainField]} "!`);
                               closeModal(dispatch);
                             }}
                             variant="contained"

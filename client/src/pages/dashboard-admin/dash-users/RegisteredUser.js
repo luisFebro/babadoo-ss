@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { findAnItem } from '../../../redux/actions/globalActions'
@@ -33,16 +33,30 @@ const useStyles = makeStyles(theme => ({
 
 
 export default function RegisteredUser({ data }) {
-    const { updatedUsers } = useStoreState(state => ({
-        updatedUsers: state.userReducer.cases.updatedUsers
+    const animateRef = useRef(null);
+    const { updatedUsers, setAnimationTimer } = useStoreState(state => ({
+        updatedUsers: state.userReducer.cases.updatedUsers,
+        setAnimationTimer: state.animationReducer.cases.setAnimationTimer
     }));
     const { _id, name, email, favoriteList, inCartList, registerDate } = data;
     const classes = useStyles();
-
     const dispatch = useStoreDispatch();
 
+    const animateHinge = () => {
+        const currElem = animateRef.current;
+        currElem.className += " animated hinge slower";
+        // it is required to reinsert the style of the container after applying animation. Otherwise, all style is gone
+        currElem.style.cssText = `
+            width: 90%;
+            border-radius: 10px;
+            padding: 20px 10px;
+            margin: 15px auto;
+            background-color: #f39c12;
+            color: #ecf0f1;`;
+    }
+
     return (
-        <DivWrapper className="text-default" style={{position: 'relative'}}>
+        <DivWrapper ref={animateRef} className="text-default" style={{position: 'relative'}}>
             <div>
                 <p>Name: {name}</p>
             </div>
@@ -74,9 +88,9 @@ export default function RegisteredUser({ data }) {
                             }
                             findAnItem(dispatch, updatedUsers, _id, attachedObj);
                             showModalConfYesNo(dispatch);
-                            // let container = document.querySelector(`div[key="${_id}"]`);
-                            // container.classList.add("animated", "hinge", "slower")
-
+                            setTimeout(() => {
+                                animateHinge();
+                            }, 6000);
                         }}
                     />) : null
                 }

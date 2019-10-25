@@ -10,20 +10,26 @@ const Product = require('../../models/Product');
 // @desc    Create a Product
 // @access  Private
 router.post('/', (req, res) => { //needs to put auth as middleware
-    const newProduct = new Product({
-        title: req.body.title, //required
-        description: req.body.description, //required
-        image: req.body.image,
-        price: req.body.price, //required
-        company: req.body.company,
-        info: req.body.info,
-        inCart: req.body.inCart,
-        isAddedToFav: req.body.isAddedToFav,
-        count: req.body.count,
-        total: req.body.total,
-    });
+    Product.findOne({ title })
+    .then(product => {
+        // Need to be fixed. title not found.
+        // Check if the product is already posted
+        if(product)res.status(400).json({msg: "O produto já foi postado!"})
+            const newProduct = new Product({
+                title: req.body.title, //required
+                description: req.body.description, //required
+                image: req.body.image,
+                price: req.body.price, //required
+                company: req.body.company,
+                info: req.body.info,
+                inCart: req.body.inCart,
+                isAddedToFav: req.body.isAddedToFav,
+                count: req.body.count,
+                total: req.body.total,
+            });
 
-    newProduct.save().then(product => res.json(product));
+            newProduct.save().then(product => res.json(product));
+    })
 });
 
 // @route   GET api/items

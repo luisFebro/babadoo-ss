@@ -6,6 +6,7 @@ import { showSnackbarBlack } from '../../../redux/actions/snackbarActions';
 import { changeProduct } from '../../../redux/actions/productActions';
 import { deleteUser, getUpdatedUsers } from '../../../redux/actions/userActions';
 import { deleteProduct, getAllProducts } from '../../../redux/actions/productActions';
+// import { animateAnotherComponent } from '../../../redux/actions/animationActions';
 // End Redux
 import { Link } from 'react-router-dom';
 // Material UI
@@ -109,11 +110,16 @@ export default function ModalConfYesNo({ currItemFound }) {
                       </Button>
                       <Button
                             onClick={() => {
+                                showSnackbarBlack(dispatch, `O ${mainSubject} ${name} excluído com sucesso!`);
+                                closeModal(dispatch);
+                                // animateAnotherComponent(dispatch);
                                 if(currItemFound) {
                                     switch(currItemFound.mainSubject) {
                                         case 'Usuário':
-                                            deleteUser(dispatch, _idUser);
-                                            setTimeout(() => getUpdatedUsers(dispatch), 3000);
+                                            setTimeout(() => {
+                                                deleteUser(dispatch, _idUser);
+                                                getUpdatedUsers(dispatch);
+                                            }, 7000);
                                             break;
                                         case 'Produto':
                                             deleteProduct(dispatch, _idUser);
@@ -123,8 +129,6 @@ export default function ModalConfYesNo({ currItemFound }) {
                                             console.log("no matching for main Subject");
                                     }
                                 }
-                                showSnackbarBlack(dispatch, `O ${mainSubject} ${name} excluído com sucesso!`);
-                                closeModal(dispatch);
                             }}
                             variant="contained"
                             color="primary"

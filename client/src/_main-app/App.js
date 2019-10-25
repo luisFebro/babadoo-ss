@@ -52,6 +52,7 @@ export default function App() {
         getAllProducts(dispatch);
         getUpdatedUsers(dispatch);
     }, []);
+    // This is running before rendering because if not, some variable will return undeflined and crash app
     dispatch(loadUser());
 
     return (

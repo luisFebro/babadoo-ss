@@ -41,11 +41,11 @@ export const addProduct = product => async (dispatch, getState) => {
 export const getAllProducts = async (dispatch) => {
     // let didCancel = false; //n1
     try {
-        // setLoadingOn(dispatch);
+        setLoadingOn(dispatch);
         const res = await axios.get('/api/products');
         console.log("==GOT ALL PRODUCTS==");
         dispatch({ type: 'GET_ALL_PRODUCTS', payload: res.data });
-        // setLoadingOff(dispatch);
+        setLoadingOff(dispatch);
         // if(!didCancel) {
         // }
     } catch (err) {
@@ -68,7 +68,6 @@ export const changeProduct = async (dispatch, bodyToSend, _idProduct) => {
     try {
         const res = axios.put(`/api/products/${_idProduct}`, body, config)
         console.log("==CHANGING PRODUCT==")
-        console.log("==CHANGING PRODUCT DATA==", dataToUpdate)
         dispatch({ type: "CHANGE_PRODUCT", payload: dataToUpdate })
     } catch(e) {
         // statements
