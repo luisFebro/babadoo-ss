@@ -117,13 +117,15 @@ export default function ModalConfYesNo({ currItemFound }) {
                                     switch(currItemFound.mainSubject) {
                                         case 'Usuário':
                                             setTimeout(() => {
-                                                deleteUser(dispatch, _idUser);
+                                                // deleteUser(dispatch, _idUser);
                                                 getUpdatedUsers(dispatch);
                                             }, 7000);
                                             break;
                                         case 'Produto':
-                                            deleteProduct(dispatch, _idUser);
-                                            setTimeout(() => getAllProducts(dispatch), 3000);
+                                            setTimeout(() => {
+                                                // deleteProduct(dispatch, _idUser);
+                                                getAllProducts(dispatch);
+                                            }, 7000);
                                             break;
                                         default:
                                             console.log("no matching for main Subject");

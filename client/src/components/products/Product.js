@@ -45,7 +45,7 @@ export default function Product({ product, isFav }) {
     const bodyFavorite = bodyToSendFavorite(allProductsList, _id);
 
     return (
-        <ProductWrapper className="col-6 col-md-4 col-lg-3 mx-auto my-2">
+        <ProductWrapper className="animated jackInTheBox slow col-6 col-md-4 col-lg-3 mx-auto my-2">
             <div className="card">
                 <ProductConsumer>
                     {value => (

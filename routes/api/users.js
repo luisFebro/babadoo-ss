@@ -108,7 +108,6 @@ router.delete('/:id', (req, res) => { //needs to put auth as middleware
 // @access  Private
 // req.body = { "couponsList": [{"type": "30% desconto"}]}
 router.put('/lists/change-field/:id', (req, res) => {
-    console.log('req.params.id from users', req.params.id)
     User.findByIdAndUpdate(req.params.id, req.body, { strict: false, upsert:true }, (err, data) => {
         if (err) {
             return res

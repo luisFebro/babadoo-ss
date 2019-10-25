@@ -8,7 +8,7 @@ const initialState = {
     updatedUsers: [],
     currentUpdatedUser: [],
     allFavProductsList: [],
-    allMessagesList: [{id: '1234556', time: '12:30', message: "Hi there, Iam a new Message!"}, {id: '123455sds6', time: '14:30', message: "Hi there, Luis!"}],
+    allMessagesList: [{sender: 'Babadoo', id: '123hgfssax4556', time: '12:30', message: "Hi there, Iam a new Message!"}, {sender: 'Babadoo', id: '1234556', time: '12:30', message: "Hi there, Iam a new Message!"}, {sender: 'Babadoo', id: '123455sdshg6', time: '14:30', message: "Hi there, Luis!"}],
     allRegisteredUsersList: [],
     gotCoupons: false,
 }

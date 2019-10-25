@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 // Redux
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { addFieldUser, deleteFieldUser } from '../../redux/actions/userActions';
 import { getItem } from '../../redux/actions/productActions';
 import { showSnackbarBlack } from '../../redux/actions/snackbarActions';
+import { animateHinge } from '../../redux/actions/animationActions';
 import { closeModal } from '../../redux/actions/modalActions';
 // End Redux
 import styled from 'styled-components';
@@ -24,6 +25,7 @@ ProductFavorite.propTypes = {
 };
 
 export default function ProductFavorite({ product }) {
+    const animateRef = useRef(null);
     const [isFavChanged, setIsFavChanged] = useState(false);
 
     const { allProductsList, isUserAuthenticated, _idUser } = useStoreState(state => ({
@@ -33,11 +35,13 @@ export default function ProductFavorite({ product }) {
     }));
     const dispatch = useStoreDispatch();
     // console.log("isAuth", isUserAuthenticated); //Check this behavior: auth is running multiple 11 times
+
+    const { _id, title, image, price, inCart } = product;
+
     const toggleFav = () => {
         setIsFavChanged(!isFavChanged);
     }
 
-    const { _id, title, image, price, inCart } = product;
 
     const bodyToSendFavorite = (AllProds, _id) => {
         const obj = getItem(AllProds, _id);
@@ -45,9 +49,8 @@ export default function ProductFavorite({ product }) {
     }
     const bodyFavorite = bodyToSendFavorite(allProductsList, _id);
 
-
     return (
-        <ProductWrapper className="col-6 col-md-4 col-lg-3 mx-auto my-2">
+        <ProductWrapper ref={animateRef} className="animated jackInTheBox slow col-6 col-md-4 col-lg-3 mx-auto my-2">
             <div className="card">
                 <ProductConsumer>
                     {value => (
@@ -70,7 +73,8 @@ export default function ProductFavorite({ product }) {
                                             className="filledHeart fas fa-heart animated heartBeat fast"
                                             onClick = {(e) => {
                                                 e.preventDefault();
-                                                deleteFieldUser(dispatch, bodyFavorite, _idUser)
+                                                animateHinge(animateRef);
+                                                setTimeout(() => deleteFieldUser(dispatch, bodyFavorite, _idUser), 3000);
                                                 showSnackbarBlack(dispatch, "Removido dos seus favoritos!")
                                             }}
                                             style={{

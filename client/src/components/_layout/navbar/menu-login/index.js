@@ -29,7 +29,7 @@ export default function MenuLogin() {
             name: state.authReducer.cases.user.name,
             picture: state.authReducer.cases.user.picture,
             allFavProductsList: state.userReducer.cases.allFavProductsList,
-            allMessagesList: state.userReducer.cases.allFavProductsList,
+            allMessagesList: state.userReducer.cases.allMessagesList,
         }));
         const dispatch = useStoreDispatch();
         // End Redux

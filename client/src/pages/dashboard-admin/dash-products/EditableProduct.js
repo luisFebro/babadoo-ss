@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 // Redux
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 // import { addFieldUser, deleteFieldUser } from '../../../redux/actions/userActions';
 import { findAnItem } from '../../../redux/actions/globalActions';
 import { showModalConfTitle, showModalConfYesNo } from '../../../redux/actions/modalActions';
-// import ModalChangeTitle from '../../../components/modals/confirmation/ModalChangeTitle';
+// import { showSnackbarBlack } from '../../../redux/actions/snackbarActions';
+import { animateHinge } from '../../../redux/actions/animationActions';
 // End Redux
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
@@ -25,6 +26,7 @@ EditableProduct.propTypes = {
 };
 
 export default function EditableProduct({ product, isFav }) {
+    const animateRef = useRef(null);
     const [isFavChanged, setIsFavChanged] = useState(false);
     // const [isAddedAsFav, setIsAddedAsFav] = useState(isFav);
 
@@ -42,7 +44,7 @@ export default function EditableProduct({ product, isFav }) {
     const { _id, title, image, price, inCart } = product;
 
     return (
-        <ProductWrapper className="col-6 col-md-4 col-lg-3 mx-auto my-2">
+        <ProductWrapper ref={animateRef} className="col-6 col-md-4 col-lg-3 mx-auto my-2">
             <div className="card">
                 <div
                     className="img-container p-1 p-sm-3"
@@ -138,9 +140,7 @@ export default function EditableProduct({ product, isFav }) {
                         }
                         findAnItem(dispatch, allProductsList, _id, attachedObj);
                         showModalConfYesNo(dispatch);
-                        // let container = document.querySelector(`div[key="${_id}"]`);
-                        // container.classList.add("animated", "hinge", "slower")
-
+                        animateHinge(animateRef, 9000);
                     }}
                 />
             </div>

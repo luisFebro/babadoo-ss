@@ -1,8 +1,11 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
+// Redux
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { findAnItem } from '../../../redux/actions/globalActions'
 import { showModalConfYesNo } from '../../../redux/actions/modalActions'
+import { animateHinge } from '../../../redux/actions/animationActions'
+// End Redux
 import DeleteButton from '../../../components/buttons/DeleteButton';
 import PropTypes from 'prop-types';
 // Material UI
@@ -42,19 +45,6 @@ export default function RegisteredUser({ data }) {
     const classes = useStyles();
     const dispatch = useStoreDispatch();
 
-    const animateHinge = () => {
-        const currElem = animateRef.current;
-        currElem.className += " animated hinge slower";
-        // it is required to reinsert the style of the container after applying animation. Otherwise, all style is gone
-        currElem.style.cssText = `
-            width: 90%;
-            border-radius: 10px;
-            padding: 20px 10px;
-            margin: 15px auto;
-            background-color: #f39c12;
-            color: #ecf0f1;`;
-    }
-
     return (
         <DivWrapper ref={animateRef} className="text-default" style={{position: 'relative'}}>
             <div>
@@ -89,8 +79,15 @@ export default function RegisteredUser({ data }) {
                             findAnItem(dispatch, updatedUsers, _id, attachedObj);
                             showModalConfYesNo(dispatch);
                             setTimeout(() => {
-                                animateHinge();
-                            }, 6000);
+                                const cssText = `
+                                    width: 90%;
+                                    border-radius: 10px;
+                                    padding: 20px 10px;
+                                    margin: 15px auto;
+                                    background-color: #f39c12;
+                                    color: #ecf0f1;`;
+                                animateHinge(animateRef, cssText);
+                            }, 9000);
                         }}
                     />) : null
                 }
