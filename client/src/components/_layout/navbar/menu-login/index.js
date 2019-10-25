@@ -1,18 +1,19 @@
 import React, { Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import NotifDropDown from './notification/NotifDropDown';
 // Redux
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
-import { logout } from '../../../redux/actions/authActions';
-import { showSnackbarBlack } from '../../../redux/actions/snackbarActions';
-import { showModalUnderConstruction } from '../../../redux/actions/modalActions';
+import { logout } from '../../../../redux/actions/authActions';
+import { showSnackbarBlack } from '../../../../redux/actions/snackbarActions';
+import { showModalUnderConstruction } from '../../../../redux/actions/modalActions';
 // End Redux
 // Utils
-import isRealObj from '../../../utils/isRealObj';
-import truncateWords from '../../../utils/truncateWords';
+import isRealObj from '../../../../utils/isRealObj';
+import truncateWords from '../../../../utils/truncateWords';
 // End Utils
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { bizWhatsapp } from '../../../data/dataBiz';
+import { bizWhatsapp } from '../../../../data/dataBiz';
 
 MenuLogin.propTypes = {
     isUserAuthenticated: PropTypes.bool,
@@ -23,11 +24,12 @@ MenuLogin.propTypes = {
 
 export default function MenuLogin() {
         // Redux
-        const { isUserAuthenticated, name, picture, allFavProductsList } = useStoreState(state => ({
+        const { isUserAuthenticated, name, picture, allFavProductsList, allMessagesList } = useStoreState(state => ({
             isUserAuthenticated: state.authReducer.cases.isUserAuthenticated,
             name: state.authReducer.cases.user.name,
             picture: state.authReducer.cases.user.picture,
-            allFavProductsList: state.userReducer.cases.allFavProductsList
+            allFavProductsList: state.userReducer.cases.allFavProductsList,
+            allMessagesList: state.userReducer.cases.allFavProductsList,
         }));
         const dispatch = useStoreDispatch();
         // End Redux
@@ -91,11 +93,14 @@ export default function MenuLogin() {
                                 </Link>
                             </li>
                         </ul>
-                        <ul className="navbar-nav ml-3">
+                        <ul className="navbar-nav ml-3 align-items-center">
                             <li className="nav-item">
-                                <Link to="/" className="nav-link" onClick={() => showModalUnderConstruction(dispatch)}>
+                                <Link to="/" className="nav-link">
                                     <span>
-                                        <i className="fas fa-bell animated bounce slow"></i>
+                                        <NotifDropDown />
+                                        <span  style={{ position: 'absolute', top: '-.5em', left: '1.6em', marginLeft: '.01em', padding: '.9px 3px' }} className="badge badge-danger">
+                                            {!allMessagesList.length ? null : allMessagesList.length }
+                                        </span>
                                     </span>
                                 </Link>
                             </li>

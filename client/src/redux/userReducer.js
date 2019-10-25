@@ -8,6 +8,7 @@ const initialState = {
     updatedUsers: [],
     currentUpdatedUser: [],
     allFavProductsList: [],
+    allMessagesList: [{id: '1234556', time: '12:30', message: "Hi there, Iam a new Message!"}, {id: '123455sds6', time: '14:30', message: "Hi there, Luis!"}],
     allRegisteredUsersList: [],
     gotCoupons: false,
 }
@@ -31,6 +32,7 @@ export const userReducer = {
                     ...state,
                     currentUpdatedUser: action.payload,
                     allFavProductsList: action.payload.favoriteList,
+                    // allMessagesList: action.payload.messageList,
                     gotCoupons: gotAtLeastOneCupon
                 }
             case 'USER_DELETED':
