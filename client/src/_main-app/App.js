@@ -53,7 +53,7 @@ export default function App() {
         getUpdatedUsers(dispatch);
     }, []);
     // This is running before rendering because if not, some variable will return undeflined and crash app
-    // dispatch(loadUser());
+    dispatch(loadUser());
 
     return (
         <BrowserRouter>
