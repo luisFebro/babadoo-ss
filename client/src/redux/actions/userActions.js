@@ -53,6 +53,25 @@ export const deleteUser = async (dispatch, _idUser) => {
 
 
 // HANDLING A USER FIELDS
+// Send a notification to admin or client
+export const sendNotification = async (dispatch, objToSend, _idUser) => {
+    console.log("objTOsend form userActions", objToSend);
+    // if the sender is not the admin, then get his/her id and send to it
+    // if admin, thenget the current_idUser and send to it
+    if(objToSend.sender !== 'admin') {
+        _idUser = "5db4301ed39a4e12546277a8";
+    }
+    console.log("idUser userActions", _idUser);
+    const body = getBodyRequest(objToSend);
+    try {
+        const res = await axios.put(`api/users/lists/change-field/notifications/${_idUser}`, body, config);
+        dispatch({ type: 'USER_NOTIFICATIONS', payload: res.data });
+        updateCurrentUser(dispatch, _idUser);
+    } catch(e) {
+        console.log("changeFieldUserERROR: " + e);
+    }
+};
+
 // Add/Change a field of a user in the database
 export const changeFieldUser = async (dispatch, objToSend, _idUser) => {
     const body = getBodyRequest(objToSend);

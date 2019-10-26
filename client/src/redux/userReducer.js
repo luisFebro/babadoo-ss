@@ -32,13 +32,18 @@ export const userReducer = {
                     ...state,
                     currentUpdatedUser: action.payload,
                     allFavProductsList: action.payload.favoriteList,
-                    // allMessagesList: action.payload.messageList,
+                    allMessagesList: action.payload.messageList,
                     gotCoupons: gotAtLeastOneCupon
                 }
             case 'USER_DELETED':
                 return {
                     ...state,
                     updatedUsers: state.updatedUsers.filter(user => user._id !== action.payload)
+                }
+            case 'USER_NOTIFICATIONS':
+                return {
+                    ...state,
+                    allMessagesList: action.payload,
                 }
             default:
                 return state;

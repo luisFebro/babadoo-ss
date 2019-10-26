@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 // Redux
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { closeModal } from '../../redux/actions/modalActions';
-import { addFieldUser } from '../../redux/actions/userActions';
+import { sendNotification } from '../../redux/actions/userActions';
 // End Redux
 import { Link } from 'react-router-dom';
 import { showSnackbarBlack } from '../../redux/actions/snackbarActions';
@@ -24,9 +24,9 @@ ModalTextField.propTypes = {
         propTitle: PropTypes.string,
         propSubTitle: PropTypes.string,
         propTxtBtn: PropTypes.string,
-        mainSubject: PropTypes.string,
+        // mainSubject: PropTypes.string,
         objToSend: PropTypes.object
-    }).isRequired
+    })
 }
 // End Material UI
 
@@ -46,6 +46,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function ModalTextField({ currItemFound }) {
+    const [newMessage, setNewMessage] = useState("");
     const { isModalTextFieldOpen, _idUser } = useStoreState(state => ({
         isModalTextFieldOpen: state.modalReducers.cases.isModalTextFieldOpen,
         _idUser: state.authReducer.cases.user['_id']
@@ -53,15 +54,23 @@ export default function ModalTextField({ currItemFound }) {
     const dispatch = useStoreDispatch();
     const name = currItemFound ? currItemFound.name : null;
     const propTxtBtn = currItemFound ? currItemFound.propTxtBtn : null;
-    const mainSubject = currItemFound ? currItemFound.mainSubject : null;
+    // const mainSubject = currItemFound ? currItemFound.mainSubject : null;
+    const objToSend = currItemFound ? currItemFound.objToSend : null;
     const propTitle = currItemFound ? currItemFound.propTitle : null;
     const propSubTitle = currItemFound ? currItemFound.propSubTitle : null;
-    const objToSend = currItemFound ? currItemFound.objToSend : null;
+    const mainKey = currItemFound ? currItemFound.objToSend.mainKey : null;
 
     const setObjToSend = () => {
         let data = objToSend;
-        addFieldUser(dispatch, data, _idUser);
+        data.message = newMessage;
+        console.log("data from MOdal TextField", data)
+        sendNotification(dispatch, data, _idUser);
     }
+
+    const onChange = e => {
+      const { name, value } = e.target;
+      setNewMessage({ [name]: value });
+    };
 
     const classes = useStyles();
     return (
@@ -81,17 +90,20 @@ export default function ModalTextField({ currItemFound }) {
               <DialogContentText>
                     <span className="">{propSubTitle}</span>
               </DialogContentText>
-              <TextField
-                  id="outlined-multiline-static"
-                  label={parse(`Digite aqui sua Mensagem para <br /><strong>${name}</strong>`)}
-                  multiline
-                  fullWidth
-                  rows="5"
-                  autoComplete="Mensagem aqui"
-                  className={classes.textField}
-                  margin="normal"
-                  variant="outlined"
-                />
+              <form onChange={onChange}>
+                  <TextField
+                      id="outlined-multiline-static"
+                      label={parse(`Digite aqui <br /> sua Mensagem para <br /><strong>${name}</strong>`)}
+                      multiline
+                      fullWidth
+                      name={mainKey}
+                      rows="5"
+                      autoComplete="Mensagem aqui"
+                      className={classes.textField}
+                      margin="normal"
+                      variant="outlined"
+                    />
+              </form>
               <section>
                   <div style={{display: 'flex', justifyContent: 'center', marginTop: '28px'}}>
                       <Button

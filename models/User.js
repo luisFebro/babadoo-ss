@@ -36,6 +36,10 @@ const data = {
     type: Array,
     default: []
   },
+  messageList: {
+    type: Array,
+    default: []
+  },
   couponsList: {
     type: Array,
     default: []

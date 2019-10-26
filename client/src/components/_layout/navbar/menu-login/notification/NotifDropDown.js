@@ -64,10 +64,11 @@ export default function NotifDropDown() {
     const classes = useStyles();
     // Redux
     //> Set State
-    const { allMessagesList, updatedUsers, _idUser } = useStoreState(state => ({
+    const { allMessagesList, updatedUsers, _idUser, userName } = useStoreState(state => ({
         updatedUsers: state.userReducer.cases.updatedUsers,
         allMessagesList: state.userReducer.cases.allMessagesList,
         _idUser: state.userReducer.cases.currentUpdatedUser._id,
+        userName: state.userReducer.cases.currentUpdatedUser.name,
     }));
     //> Dispatch Actions to Reducer
     const dispatch = useStoreDispatch();
@@ -110,7 +111,11 @@ export default function NotifDropDown() {
                                         propSubTitle: "Enviar mensagem para loja",
                                         mainSubject: "Mensagem",
                                         objToSend: {
-
+                                            mainKey: "message",
+                                            sender: `${userName}`,
+                                            id: "123-dadsalkdas",
+                                            time: "12:45",
+                                            message: "" // this will b the message catch by modal text field
                                         }
                                     }
                                     findAnItem(dispatch, updatedUsers, _idUser, attachedObj);

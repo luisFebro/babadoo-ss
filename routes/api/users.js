@@ -102,6 +102,25 @@ router.delete('/:id', (req, res) => { //needs to put auth as middleware
         .catch(err => res.status(404).json({ failure: "id not found" }));
 });
 
+
+// NOTIFICATION SYSTEM
+// @route   UPDATE (Change/Add a primary field) api/users/lists/change-field/notifications/admin-id
+// @desc    Send notifications (clients <==> admin)
+// @access  Private
+// req.body = { "<message>  </message>List": [{sender: 'LuisCliente', id: '123hgfssax4556', time: '12:30', message: "Hi there, Iam a new client!"}]}
+router.put('/lists/change-field/notifications/:id', (req, res) => {
+    User.findByIdAndUpdate(req.params.id, req.body, { strict: false, upsert:true }, (err, data) => {
+        if (err) {
+            return res
+                .status(500)
+                .json({error: "unsuccessful. message no sent"})
+        }
+        data.save();
+        res.json( data );
+    });
+});
+// END NOTIFICATION SYSTEM
+
 // MODIFYING USER'S FIELDS
 // @route   UPDATE (Change/Add a primary field) api/users/lists/change-field/:id
 // @desc    Change/Add a primaryfield
