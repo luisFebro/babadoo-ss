@@ -13,7 +13,8 @@ const initialState = {
     // End Authentification
     // Confirmation Modals
     isModalConfTitleOpen: false,
-    isModalConfYesNoOpen: false
+    isModalConfYesNoOpen: false,
+    isModalTextFieldOpen: false,
     // End Confirmation Modals
 }
 
@@ -50,6 +51,11 @@ export const modalReducers = {
                 return {
                     ...state,
                     isModalConfYesNoOpen: action.payload
+                }
+            case 'SHOW_MODAL_TEXT_FIELD':
+                return {
+                    ...state,
+                    isModalTextFieldOpen: action.payload
                 }
             // CLOSE
             case 'CLOSE_ALL_MODALS':

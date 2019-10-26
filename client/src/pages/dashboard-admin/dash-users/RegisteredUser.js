@@ -3,10 +3,11 @@ import styled from 'styled-components';
 // Redux
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { findAnItem } from '../../../redux/actions/globalActions'
-import { showModalConfYesNo } from '../../../redux/actions/modalActions'
+import { showModalConfYesNo, showModalTextField } from '../../../redux/actions/modalActions'
 import { animateHinge } from '../../../redux/actions/animationActions'
 // End Redux
 import DeleteButton from '../../../components/buttons/DeleteButton';
+import MessageButton from '../../../components/buttons/MessageButton';
 import PropTypes from 'prop-types';
 // Material UI
 import { makeStyles } from '@material-ui/core/styles';
@@ -65,31 +66,51 @@ export default function RegisteredUser({ data }) {
             </section>
             <div>
                 {name !== "admin" ? (
-                    <DeleteButton
-                        top={-20}
-                        left={245}
-                        onClick={() => {
-                            const attachedObj = {
-                                action: {
-                                    noun: "Exclusão",
-                                    verb: "Excluir"
-                                },
-                                mainSubject: "Usuário",
-                            }
-                            findAnItem(dispatch, updatedUsers, _id, attachedObj);
-                            showModalConfYesNo(dispatch);
-                            setTimeout(() => {
-                                const cssText = `
-                                    width: 90%;
-                                    border-radius: 10px;
-                                    padding: 20px 10px;
-                                    margin: 15px auto;
-                                    background-color: #f39c12;
-                                    color: #ecf0f1;`;
-                                animateHinge(animateRef, cssText);
-                            }, 9000);
-                        }}
-                    />) : null
+                    <div>
+                        <MessageButton
+                            top={-20}
+                            left={190}
+                            onClick={() => {
+                                const attachedObj = {
+                                    propTitle: "Envio de Mensagem Instantânea",
+                                    propSubTitle: "Enviar mensagem para usuário",
+                                    propTxtBtn: "Enviar",
+                                    mainSubject: "Mensagem",
+                                    objToSend: {
+
+                                    }
+                                }
+                                findAnItem(dispatch, updatedUsers, _id, attachedObj);
+                                showModalTextField(dispatch);
+                            }}
+                        />
+                        <DeleteButton
+                            top={-20}
+                            left={245}
+                            onClick={() => {
+                                const attachedObj = {
+                                    action: {
+                                        noun: "Exclusão",
+                                        verb: "Excluir"
+                                    },
+                                    mainSubject: "Usuário",
+                                }
+                                findAnItem(dispatch, updatedUsers, _id, attachedObj);
+                                showModalConfYesNo(dispatch);
+                                setTimeout(() => {
+                                    const cssText = `
+                                        width: 90%;
+                                        border-radius: 10px;
+                                        padding: 20px 10px;
+                                        margin: 15px auto;
+                                        background-color: #f39c12;
+                                        color: #ecf0f1;`;
+                                    animateHinge(animateRef, cssText);
+                                }, 9000);
+                            }}
+                        />
+                    </div>
+                    ) : null
                 }
             </div>
 

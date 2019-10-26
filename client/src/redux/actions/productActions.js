@@ -77,9 +77,12 @@ export const changeProduct = async (dispatch, bodyToSend, _idProduct) => {
 
 // delete product
 export const deleteProduct = async (dispatch, _idProduct) => {
-    const res = await axios.delete(`/api/products/${_idProduct}`, config);
     try {
+        const res = await axios.delete(`/api/products/${_idProduct}`, config);
+        console.log("==PRODUCT DELETED==")
         dispatch({ type: 'DELETE_PRODUCT', payload: _idProduct });
+        // update
+        getAllProducts(dispatch);
     } catch(err) {
         dispatch(returnErrors(err.response.data, err.response.status));
     }

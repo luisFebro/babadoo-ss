@@ -1,8 +1,12 @@
 import React from 'react';
+// Redux
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { Link } from 'react-router-dom';
-import { withStyles, makeStyles } from '@material-ui/core/styles';
+import { findAnItem } from '../../../../../redux/actions/globalActions';
+import { showModalTextField } from '../../../../../redux/actions/modalActions';
+// End Redux
 // MENU COMPOSITION
+import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import MessagesList from './MessagesList';
@@ -60,8 +64,10 @@ export default function NotifDropDown() {
     const classes = useStyles();
     // Redux
     //> Set State
-    const { allMessagesList } = useStoreState(state => ({
+    const { allMessagesList, updatedUsers, _idUser } = useStoreState(state => ({
+        updatedUsers: state.userReducer.cases.updatedUsers,
         allMessagesList: state.userReducer.cases.allMessagesList,
+        _idUser: state.userReducer.cases.currentUpdatedUser._id,
     }));
     //> Dispatch Actions to Reducer
     const dispatch = useStoreDispatch();
@@ -90,7 +96,30 @@ export default function NotifDropDown() {
                             Sem notificações
                         </div>
                     </StyledMenuItem>
-                ) : <MessagesList data={allMessagesList} />}
+                ) : (
+                    <section>
+                        <MessagesList data={allMessagesList} />
+                        <div className="mt-3">
+                            <button
+                                className="shadow-elevation badge badge-warning"
+                                onClick={() => {
+                                    const attachedObj = {
+                                        name: "Loja Babadoo", //this will replace the curr user name
+                                        propTitle: "Envio de Mensagem Instantânea",
+                                        propTxtBtn: "Enviar",
+                                        propSubTitle: "Enviar mensagem para loja",
+                                        mainSubject: "Mensagem",
+                                        objToSend: {
+
+                                        }
+                                    }
+                                    findAnItem(dispatch, updatedUsers, _idUser, attachedObj);
+                                    showModalTextField(dispatch);
+                                }}
+                            >Enviar Mensagem para Loja</button>
+                        </div>
+                    </section>
+                )}
             </StyledMenu>
         </div>
     );

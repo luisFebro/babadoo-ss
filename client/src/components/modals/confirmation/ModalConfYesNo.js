@@ -27,7 +27,7 @@ ModalConfYesNo.propTypes = {
         action: PropTypes.objectOf(PropTypes.string),
         _idUser: PropTypes.string,
         mainSubject: PropTypes.string,
-        name: PropTypes.string.isRequired,
+        name: PropTypes.string,
     }),
 }
 
@@ -110,7 +110,7 @@ export default function ModalConfYesNo({ currItemFound }) {
                       </Button>
                       <Button
                             onClick={() => {
-                                showSnackbarBlack(dispatch, `O ${mainSubject} ${name} excluído com sucesso!`);
+                                showSnackbarBlack(dispatch, `O ${mainSubject} ${name} foi excluído com sucesso!`);
                                 closeModal(dispatch);
                                 // animateAnotherComponent(dispatch);
                                 if(currItemFound) {

@@ -6,9 +6,10 @@ Message.propTypes = {
     data: PropTypes.objectOf(PropTypes.string).isRequired
 }
 export default function Message({ data }) {
-    const { message, time } = data;
+    const { sender, message, time } = data;
     return (
         <DivWrapper>
+            <p className="text-default text-capitalize">{sender}</p>
             {message}
             <span> {time}</span>
         </DivWrapper>

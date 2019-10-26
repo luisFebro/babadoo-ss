@@ -6,6 +6,7 @@ import ModalFavorite from './ModalFavorite';
 import UnderConstruction from './UnderConstruction';
 // default
 import ModalDefault from './ModalDefault';
+import ModalTextField from './ModalTextField';
 // auth
 import ModalLogin from './ModalLogin';
 import ModalRegister from './ModalRegister';
@@ -20,16 +21,24 @@ export default function AllModals() {
         currentItemFound: state.globalReducer.cases.currentItemFound,
     }));
     // Checkingthe right places to send data to confirmation modals
-    let ItemsYesNo = null, ItemsField = null, checkCondition = null;
+    let itemsYesNo = null, itemsField = null, textField = null, checkCondition = null;
     if(currentItemFound) {
-        checkCondition = (currentItemFound.mainSubject === 'Preço' || currentItemFound.mainSubject === 'Título');
+        switch(currentItemFound.mainSubject) {
+            case 'Preço':
+            case 'Título':
+                itemsField = currentItemFound;
+                break;
+            case 'Usuário':
+            case 'Produto':
+                itemsYesNo = currentItemFound;
+                break;
+            case 'Mensagem':
+                textField = currentItemFound;
+                break;
+            default:
+                console.log("no item found...")
+        }
     }
-    if(checkCondition) {
-        ItemsField = currentItemFound;
-    } else {
-        ItemsYesNo = currentItemFound;
-    }
-
 
     return (
         <Fragment>
@@ -39,8 +48,9 @@ export default function AllModals() {
             <UnderConstruction />
             <ModalLogin />
             <ModalRegister />
-            <ModalChangeTitle currItemFound={ItemsField} />
-            <ModalConfYesNo currItemFound={ItemsYesNo} />
+            <ModalChangeTitle currItemFound={itemsField} />
+            <ModalConfYesNo currItemFound={itemsYesNo} />
+            <ModalTextField currItemFound={textField} />
         </Fragment>
     );
 }
