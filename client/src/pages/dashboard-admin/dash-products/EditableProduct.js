@@ -140,7 +140,10 @@ export default function EditableProduct({ product, isFav }) {
                         }
                         findAnItem(dispatch, allProductsList, _id, attachedObj);
                         showModalConfYesNo(dispatch);
-                        animateHinge(animateRef, 9000);
+                        setTimeout(() => {
+                            animateHinge(animateRef);
+                        }, 9000);
+
                     }}
                 />
             </div>

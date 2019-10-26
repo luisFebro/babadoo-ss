@@ -11,12 +11,10 @@ export const animateAnotherComponent = (dispatch) => {
  * @param  {string} cssText    [optional with css styling]
  * @param  {number} timer    [miliseconds to start off animation]
  */
-export const animateHinge = (animateRef, timer = 0, cssText = null) => {
+export const animateHinge = (animateRef, cssText = null) => {
     const currElem = animateRef.current;
-    setTimeout(() => {
-        currElem.className += " animated hinge slower";
-        // it is required to reinsert the style of the container after applying animation. Otherwise, all style is gone
-        // Try not using any at first.If no stylying issues happens, you can ignore it.
-        currElem.style.cssText = cssText;
-    }, timer)
+    currElem.className += " animated hinge slower";
+    // it is required to reinsert the style of the container after applying animation. Otherwise, all style is gone
+    // Try not using any at first.If no stylying issues happens, you can ignore it.
+    currElem.style.cssText = cssText;
 }

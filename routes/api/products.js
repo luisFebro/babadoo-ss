@@ -13,6 +13,7 @@ router.post('/', (req, res) => { //needs to put auth as middleware
     const title = req.body.title;
     Product.findOne({ title })
     .then(product => {
+        if(product) return res.status(404).json({ msg: "O produto já foi postado!" })
         const newProduct = new Product({
             title: req.body.title, //required
             description: req.body.description, //required
@@ -28,7 +29,7 @@ router.post('/', (req, res) => { //needs to put auth as middleware
 
         newProduct.save().then(product => res.json(product));
     })
-    .catch(err => res.status(404).json({ msg: "O produto já foi postado!" }));
+    .catch(err => console.log("O produto já foi postado"));
 });
 
 // @route   GET api/items
