@@ -8,7 +8,7 @@ const initialState = {
     updatedUsers: [],
     currentUpdatedUser: [],
     allFavProductsList: [],
-    allMessagesList: [{sender: 'Babadoo', id: '123hgfssax4556', time: '12:30', message: "Hi there, Iam a new Message!"}, {sender: 'Babadoo', id: '1234556', time: '12:30', message: "Hi there, Iam a new Message!"}, {sender: 'Babadoo', id: '123455sdshg6', time: '14:30', message: "Hi there, Luis!"}],
+    allMessagesList: [],
     allRegisteredUsersList: [],
     gotCoupons: false,
 }
@@ -39,11 +39,6 @@ export const userReducer = {
                 return {
                     ...state,
                     updatedUsers: state.updatedUsers.filter(user => user._id !== action.payload)
-                }
-            case 'USER_NOTIFICATIONS':
-                return {
-                    ...state,
-                    allMessagesList: action.payload,
                 }
             default:
                 return state;

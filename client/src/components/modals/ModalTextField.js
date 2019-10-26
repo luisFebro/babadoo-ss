@@ -47,24 +47,23 @@ const useStyles = makeStyles(theme => ({
 
 export default function ModalTextField({ currItemFound }) {
     const [newMessage, setNewMessage] = useState("");
-    const { isModalTextFieldOpen, _idUser } = useStoreState(state => ({
+    const { isModalTextFieldOpen } = useStoreState(state => ({
         isModalTextFieldOpen: state.modalReducers.cases.isModalTextFieldOpen,
-        _idUser: state.authReducer.cases.user['_id']
     }));
     const dispatch = useStoreDispatch();
     const name = currItemFound ? currItemFound.name : null;
+    const _idClient = currItemFound ? currItemFound._id : null;
     const propTxtBtn = currItemFound ? currItemFound.propTxtBtn : null;
     // const mainSubject = currItemFound ? currItemFound.mainSubject : null;
     const objToSend = currItemFound ? currItemFound.objToSend : null;
     const propTitle = currItemFound ? currItemFound.propTitle : null;
     const propSubTitle = currItemFound ? currItemFound.propSubTitle : null;
-    const mainKey = currItemFound ? currItemFound.objToSend.mainKey : null;
+    const mainKey = currItemFound ? currItemFound.mainKey : null;
 
     const setObjToSend = () => {
         let data = objToSend;
-        data.message = newMessage;
-        console.log("data from MOdal TextField", data)
-        sendNotification(dispatch, data, _idUser);
+        objToSend.messageList.message = newMessage.message;
+        sendNotification(dispatch, data, _idClient);
     }
 
     const onChange = e => {
@@ -93,7 +92,7 @@ export default function ModalTextField({ currItemFound }) {
               <form onChange={onChange}>
                   <TextField
                       id="outlined-multiline-static"
-                      label={parse(`Digite aqui <br /> sua Mensagem para <br /><strong>${name}</strong>`)}
+                      label={parse(`Mensagem para <br /><strong>${name}</strong>`)}
                       multiline
                       fullWidth
                       name={mainKey}

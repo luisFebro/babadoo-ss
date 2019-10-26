@@ -55,19 +55,18 @@ export const deleteUser = async (dispatch, _idUser) => {
 
 // HANDLING A USER FIELDS
 // Send a notification to admin or client
-export const sendNotification = async (dispatch, objToSend, _idUser) => {
-    console.log("objTOsend form userActions", objToSend);
+export const sendNotification = async (dispatch, objToSend, _idClient) => {
     // if the sender is not the admin, then get his/her id and send to it
-    // if admin, thenget the current_idUser and send to it
-    if(objToSend.sender !== 'admin') {
-        _idUser = "5db4301ed39a4e12546277a8";
+    // if admin, then get the current_idClient and send to it
+    if(objToSend.messageList.sender !== 'Loja Babadoo') {
+        _idClient = "5db4301ed39a4e12546277a8";
     }
-    console.log("idUser userActions", _idUser);
+
     const body = getBodyRequest(objToSend);
     try {
-        const res = await axios.put(`api/users/lists/change-field/notifications/${_idUser}`, body, config);
-        dispatch({ type: 'USER_NOTIFICATIONS', payload: res.data });
-        updateCurrentUser(dispatch, _idUser);
+        const res = await axios.put(`api/users/lists/change-field/notifications/${_idClient}`, body, config);
+        console.log("res from user Action", res);
+        getUpdatedUsers(dispatch);
     } catch(e) {
         console.log("changeFieldUserERROR: " + e);
     }
@@ -105,6 +104,7 @@ export const deleteFieldUser = async (dispatch, objToSend, _idUser) => {
     const body = getBodyRequest(objToSend);
     try {
         // Making the logout of the user firstly to make sure the system will not crash with a remaining activate token left by the deleted user
+        // Warning: Do not delete users directly from database without logout
         logout(dispatch);
         const res = await axios.put(`api/users/lists/delete-field-array/${_idUser}`, body, config);
         dispatch({ type: 'USER_CURRENT_UPDATED', payload: res.data });

@@ -1,5 +1,7 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
+import moment from 'moment';
+import uuidv1 from 'uuid/v1';
 // Redux
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { findAnItem } from '../../../redux/actions/globalActions'
@@ -38,13 +40,16 @@ const useStyles = makeStyles(theme => ({
 
 export default function RegisteredUser({ data }) {
     const animateRef = useRef(null);
-    const { updatedUsers, setAnimationTimer } = useStoreState(state => ({
+    let { updatedUsers, setAnimationTimer, userName } = useStoreState(state => ({
         updatedUsers: state.userReducer.cases.updatedUsers,
-        setAnimationTimer: state.animationReducer.cases.setAnimationTimer
+        setAnimationTimer: state.animationReducer.cases.setAnimationTimer,
+        userName: state.userReducer.cases.currentUpdatedUser.name,
     }));
-    const { _id, name, email, favoriteList, inCartList, registerDate } = data;
     const classes = useStyles();
     const dispatch = useStoreDispatch();
+    const { _id, name, email, favoriteList, inCartList, registerDate } = data;
+    moment.locale('pt-BR');
+    const timeNow = moment(Date.now()).format('lll');
 
     return (
         <DivWrapper ref={animateRef} className="text-default" style={{position: 'relative'}}>
@@ -71,13 +76,20 @@ export default function RegisteredUser({ data }) {
                             top={-20}
                             left={190}
                             onClick={() => {
+                                if(userName === "admin") userName = "Loja Babadoo";
                                 const attachedObj = {
                                     propTitle: "Envio de Mensagem Instantânea",
-                                    propSubTitle: "Enviar mensagem para usuário",
+                                    propSubTitle: "Escreva abaixo sua mensagem para usuário",
                                     propTxtBtn: "Enviar",
                                     mainSubject: "Mensagem",
+                                    mainKey: "message",
                                     objToSend: {
-
+                                        messageList: {
+                                            sender: `${userName}`,
+                                            id: uuidv1(),
+                                            time: `envio em: ${timeNow}`,
+                                            message: "" //this will be the message catch by modal text field
+                                        }
                                     }
                                 }
                                 findAnItem(dispatch, updatedUsers, _id, attachedObj);

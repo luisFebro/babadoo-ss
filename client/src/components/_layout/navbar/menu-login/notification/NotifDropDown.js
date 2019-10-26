@@ -64,7 +64,7 @@ export default function NotifDropDown() {
     const classes = useStyles();
     // Redux
     //> Set State
-    const { allMessagesList, updatedUsers, _idUser, userName } = useStoreState(state => ({
+    let { allMessagesList, updatedUsers, _idUser, userName } = useStoreState(state => ({
         updatedUsers: state.userReducer.cases.updatedUsers,
         allMessagesList: state.userReducer.cases.allMessagesList,
         _idUser: state.userReducer.cases.currentUpdatedUser._id,
@@ -79,18 +79,21 @@ export default function NotifDropDown() {
             <button
                 className="shadow-elevation badge badge-warning"
                 onClick={() => {
+                    if(userName === "admin") userName = "Loja Babadoo";
                     const attachedObj = {
                         name: "Loja Babadoo", //this will replace the curr user name
                         propTitle: "Envio de Mensagem Instantânea",
                         propTxtBtn: "Enviar",
-                        propSubTitle: "Enviar mensagem para loja",
+                        propSubTitle: "Escreva abaixo sua mensagem para loja",
                         mainSubject: "Mensagem",
+                        mainKey: "message",
                         objToSend: {
-                            mainKey: "message",
-                            sender: `${userName}`,
-                            id: "123-dadsalkdas",
-                            time: "12:45",
-                            message: "" // this will b the message catch by modal text field
+                            messageList: {
+                                sender: `${userName}`,
+                                id: "123-dadsalkdas",
+                                time: "12:45",
+                                message: "", // this will be the message catch by modal text field
+                            }
                         }
                     }
                     findAnItem(dispatch, updatedUsers, _idUser, attachedObj);

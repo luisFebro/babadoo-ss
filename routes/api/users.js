@@ -104,12 +104,12 @@ router.delete('/:id', (req, res) => { //needs to put auth as middleware
 
 
 // NOTIFICATION SYSTEM
-// @route   UPDATE (Change/Add a primary field) api/users/lists/change-field/notifications/admin-id
-// @desc    Send notifications (clients <==> admin)
+// @route   ADD (a primary field) api/users/lists/change-field/notifications/:id
+// @desc    Send/Add a notification (clients <==> admin)
 // @access  Private
-// req.body = { "<message>  </message>List": [{sender: 'LuisCliente', id: '123hgfssax4556', time: '12:30', message: "Hi there, Iam a new client!"}]}
+// req.body = { "messageList": [{sender: 'LuisCliente', id: '123hgfssax4556', time: '12:30', message: "Hi there, Iam a new client!"}]}
 router.put('/lists/change-field/notifications/:id', (req, res) => {
-    User.findByIdAndUpdate(req.params.id, req.body, { strict: false, upsert:true }, (err, data) => {
+    User.findByIdAndUpdate(req.params.id, { $push: req.body }, { strict: false, upsert:true }, (err, data) => {
         if (err) {
             return res
                 .status(500)
@@ -118,6 +118,20 @@ router.put('/lists/change-field/notifications/:id', (req, res) => {
         data.save();
         res.json( data );
     });
+});
+// @route   DELETE (a primary field) api/users/lists/change-field/notifications/:id
+// @desc    Delete a notification (clients <==> admin)
+// @access  Private
+router.put('/lists/delete-field-array/notifications/:id', (req, res) => {
+    User.findByIdAndUpdate(req.params.id, { $pull: req.body }, (err, data) => {
+        if (err) {
+            return res
+                .status(500)
+                .json({error: "unsuccessful. not deleted"})
+        };
+        data.save();
+        res.json(data);
+    })
 });
 // END NOTIFICATION SYSTEM
 
@@ -158,11 +172,12 @@ router.post('/lists/add-field-array/:id', (req, res) => {
 // @route   DELETE a Primary Field api/users/lists/delete-field/:id
 // @desc    Find a User(doc) and field and delete a primary element
 // @access  Private
+// eg. req.body.fieldToBeDeleted = { "fieldToBeDeleted": "message" }
 router.put('/lists/delete-field/:id', (req, res) => {
-    let targetField = req.body;
+    let targetField = req.body.fieldToBeDeleted;
     User.findById(req.params.id, (err, selectedUser) => {
         selectedUser.set(targetField, undefined, {strict: false} );
-        selectedUser.save(() => res.json({msg: "delete-field: deleted a field succesfully"}))
+        selectedUser.save(() => res.json({msg: `delete-field: the field ${targetField.toUpperCase()} was deleted succesfully`}))
     })
 });
 
