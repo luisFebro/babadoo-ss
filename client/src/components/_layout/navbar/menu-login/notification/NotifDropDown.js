@@ -73,6 +73,32 @@ export default function NotifDropDown() {
     //> Dispatch Actions to Reducer
     const dispatch = useStoreDispatch();
     // End Redux
+
+    const notificationButton = () => {
+        return (
+            <button
+                className="shadow-elevation badge badge-warning"
+                onClick={() => {
+                    const attachedObj = {
+                        name: "Loja Babadoo", //this will replace the curr user name
+                        propTitle: "Envio de Mensagem Instantânea",
+                        propTxtBtn: "Enviar",
+                        propSubTitle: "Enviar mensagem para loja",
+                        mainSubject: "Mensagem",
+                        objToSend: {
+                            mainKey: "message",
+                            sender: `${userName}`,
+                            id: "123-dadsalkdas",
+                            time: "12:45",
+                            message: "" // this will b the message catch by modal text field
+                        }
+                    }
+                    findAnItem(dispatch, updatedUsers, _idUser, attachedObj);
+                    showModalTextField(dispatch);
+                }}
+            >Enviar Mensagem para Loja</button>
+        );
+    }
     return (
         <div style={{ float: 'right' }}>
             {/*Notification Button*/}
@@ -87,42 +113,25 @@ export default function NotifDropDown() {
                     <p>Suas Notificações</p>
                 </h1>
                 {allMessagesList.length === 0 ? (
-                    <StyledMenuItem
-                        onClick={() => {
-                            handleClose();
-                        }}
-                    >
+                    <section>
                         <div
                             className="text-center text-sub-container">
                             Sem notificações
                         </div>
-                    </StyledMenuItem>
+                        {userName !== 'admin' ? (
+                            <div className="mt-3">
+                                {notificationButton()}
+                            </div>
+                        ) : null }
+                    </section>
                 ) : (
                     <section>
                         <MessagesList data={allMessagesList} />
-                        <div className="mt-3">
-                            <button
-                                className="shadow-elevation badge badge-warning"
-                                onClick={() => {
-                                    const attachedObj = {
-                                        name: "Loja Babadoo", //this will replace the curr user name
-                                        propTitle: "Envio de Mensagem Instantânea",
-                                        propTxtBtn: "Enviar",
-                                        propSubTitle: "Enviar mensagem para loja",
-                                        mainSubject: "Mensagem",
-                                        objToSend: {
-                                            mainKey: "message",
-                                            sender: `${userName}`,
-                                            id: "123-dadsalkdas",
-                                            time: "12:45",
-                                            message: "" // this will b the message catch by modal text field
-                                        }
-                                    }
-                                    findAnItem(dispatch, updatedUsers, _idUser, attachedObj);
-                                    showModalTextField(dispatch);
-                                }}
-                            >Enviar Mensagem para Loja</button>
-                        </div>
+                        {userName !== 'admin' ? (
+                            <div className="mt-3">
+                                {notificationButton()}
+                            </div>
+                        ) : null }
                     </section>
                 )}
             </StyledMenu>

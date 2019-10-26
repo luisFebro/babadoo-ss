@@ -4,6 +4,7 @@ import { returnErrors } from './errorActions';
 import { tokenConfig } from './authActions';
 import { getAllProducts } from './productActions';
 import { setLoadingOn, setLoadingOff, setErrorOn } from './globalActions';
+import { logout } from './authActions';
 //UTILS
 // Headers
 const config = {
@@ -103,6 +104,8 @@ export const deleteFieldUser = async (dispatch, objToSend, _idUser) => {
     console.log("deleteFieldUser _idUser", _idUser);
     const body = getBodyRequest(objToSend);
     try {
+        // Making the logout of the user firstly to make sure the system will not crash with a remaining activate token left by the deleted user
+        logout(dispatch);
         const res = await axios.put(`api/users/lists/delete-field-array/${_idUser}`, body, config);
         dispatch({ type: 'USER_CURRENT_UPDATED', payload: res.data });
         console.log("===FIELD DELETED===");
