@@ -48,6 +48,10 @@ export const updateCurrentUser = async (dispatch, _userId) => {
 // END UPDATED DATA
 
 export const deleteUser = async (dispatch, _idUser) => {
+    // Making the logout of the user firstly to make sure the system will not crash with a remaining activate token left by the deleted user
+    // Warning: Do not delete users directly from database without logout
+    // This does not work!!!
+    // logout(dispatch);
     const res = await axios.delete(`/api/users/${_idUser}`, config);
     dispatch({ type: 'USER_DELETED', payload: _idUser });
 }
@@ -103,9 +107,6 @@ export const deleteFieldUser = async (dispatch, objToSend, _idUser) => {
     console.log("deleteFieldUser _idUser", _idUser);
     const body = getBodyRequest(objToSend);
     try {
-        // Making the logout of the user firstly to make sure the system will not crash with a remaining activate token left by the deleted user
-        // Warning: Do not delete users directly from database without logout
-        logout(dispatch);
         const res = await axios.put(`api/users/lists/delete-field-array/${_idUser}`, body, config);
         dispatch({ type: 'USER_CURRENT_UPDATED', payload: res.data });
         console.log("===FIELD DELETED===");

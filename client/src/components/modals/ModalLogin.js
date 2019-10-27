@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import ToggleVisibilityPassword from '../forms/fields/ToggleVisibilityPassword';
 // Redux
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { showSnackbarBlack } from '../../redux/actions/snackbarActions';
@@ -44,7 +45,7 @@ export default function ModalLogin() {
     const { isModalLoginOpen, isUserAuthenticated, error, allRegisteredUsersList } = useStoreState(state => ({
             isModalLoginOpen: state.modalReducers.cases.isModalLoginOpen,
             isUserAuthenticated: state.authReducer.cases.isUserAuthenticated,
-            error: state.errorReducer.cases,
+            error: state.errorReducer.cases.msg,
             allRegisteredUsersList: state.userReducer.cases.allRegisteredUsersList
         }));
     const dispatch = useStoreDispatch();
@@ -55,12 +56,15 @@ export default function ModalLogin() {
         name: "", //This is not a field. just for checking either name or email
         email: "",
         password: "",
+        showPassword: false,
         hasErrorMsg: null
     });
 
     const { name, email, password } = data;
+    console.log("passwordCheck", password);
     const classes = useStyles();
 
+    // Check and insert "name" key to the request body
     const compareNameWithSystem = (nameFromEmail) => {
         // if the user name is already registered, then set this name
         if(allRegisteredUsersList.includes(nameFromEmail)) {
@@ -133,15 +137,16 @@ export default function ModalLogin() {
             <DialogTitle id="form-dialog-title">Entrar com Nome ou Email</DialogTitle>
             <DialogContent>
               <DialogContentText>
-                  {error.msg.msg ? (
-                    <span className="text-red text-main-container">{error.msg.msg}</span>
+                  {error.msg ? (
+                    <span className="text-red text-main-container">{error.msg}</span>
                   ) : "Falta pouco para você entrar na sua conta novamente"}
               </DialogContentText>
-              <form onChange={onChange}>
+              <form>
                     <TextField
                       required
+                      onChange={onChange}
                       margin="dense"
-                      error={error.msg.msg ? true : false}
+                      error={error.msg ? true : false}
                       id="email"
                       name="email"
                       type="email"
@@ -150,17 +155,7 @@ export default function ModalLogin() {
                       autoComplete="email"
                       fullWidth
                     />
-                    <TextField
-                      required
-                      margin="dense"
-                      error={error.msg.msg ? true : false}
-                      id="password"
-                      name="password"
-                      type="password"
-                      label="Senha"
-                      autoComplete="senha"
-                      fullWidth
-                    />
+                    <ToggleVisibilityPassword data={data} onChange={onChange} setData={setData} error={error} />
                     <div style={{display: 'flex', justifyContent: 'center', marginTop: '28px'}}>
                         <Button
                                 onClick={() => {

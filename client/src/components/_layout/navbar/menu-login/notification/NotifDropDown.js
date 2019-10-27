@@ -1,4 +1,8 @@
 import React from 'react';
+import moment from 'moment';
+import 'moment/locale/pt-br';
+import uuidv1 from 'uuid/v1';
+
 // Redux
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { Link } from 'react-router-dom';
@@ -62,6 +66,9 @@ export default function NotifDropDown() {
     const handleClick = event => setAnchorEl(event.currentTarget);
     const handleClose = () => setAnchorEl(null);
     const classes = useStyles();
+
+    moment.locale('pt-BR');
+    const timeNow = moment(Date.now()).format('Do MMM [às] h:mm, YYYY[.]');
     // Redux
     //> Set State
     let { allMessagesList, updatedUsers, _idUser, userName } = useStoreState(state => ({
@@ -90,9 +97,14 @@ export default function NotifDropDown() {
                         objToSend: {
                             messageList: {
                                 sender: `${userName}`,
-                                id: "123-dadsalkdas",
-                                time: "12:45",
+                                id: uuidv1(),
+                                time: `envio em: ${timeNow}`,
                                 message: "", // this will be the message catch by modal text field
+                                isMessageChecked: false,
+                                history: {
+                                    senderMsgs: [],
+                                    recipientMsgs: [],
+                                }
                             }
                         }
                     }

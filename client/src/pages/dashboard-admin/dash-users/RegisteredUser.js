@@ -1,7 +1,8 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
-import uuidv1 from 'uuid/v1';
+import 'moment/locale/pt-br';
+import uuidv1 from 'uuid/v1'
 // Redux
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { findAnItem } from '../../../redux/actions/globalActions'
@@ -49,7 +50,8 @@ export default function RegisteredUser({ data }) {
     const dispatch = useStoreDispatch();
     const { _id, name, email, favoriteList, inCartList, registerDate } = data;
     moment.locale('pt-BR');
-    const timeNow = moment(Date.now()).format('lll');
+    const timeNow = moment(Date.now()).format('Do MMM [às] h:mm, YYYY[.]');
+    console.log("timeNow", timeNow);
 
     return (
         <DivWrapper ref={animateRef} className="text-default" style={{position: 'relative'}}>
@@ -88,7 +90,12 @@ export default function RegisteredUser({ data }) {
                                             sender: `${userName}`,
                                             id: uuidv1(),
                                             time: `envio em: ${timeNow}`,
-                                            message: "" //this will be the message catch by modal text field
+                                            message: "", //this will be the message catch by modal text field
+                                            isMessageChecked: false,
+                                            history: {
+                                                senderMsgs: [],
+                                                recipientMsgs: [],
+                                            }
                                         }
                                     }
                                 }

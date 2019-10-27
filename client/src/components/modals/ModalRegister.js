@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import ToggleVisibilityPassword from '../forms/fields/ToggleVisibilityPassword';
 // Redux
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { showSnackbarBlack } from '../../redux/actions/snackbarActions';
@@ -37,7 +38,7 @@ export default function ModalRegister() {
     const { isModalRegisterOpen, isUserAuthenticated, error } = useStoreState(state => ({
         isModalRegisterOpen: state.modalReducers.cases.isModalRegisterOpen,
         isUserAuthenticated: state.authReducer.cases.isUserAuthenticated,
-        error: state.errorReducer.cases
+        error: state.errorReducer.cases.msg,
     }));
     const dispatch = useStoreDispatch();
     // End Redux
@@ -142,15 +143,15 @@ export default function ModalRegister() {
             </DialogTitle>
             <DialogContent>
               <DialogContentText>
-                {error.msg.msg ? (
-                  <span className="text-red text-main-container">{error.msg.msg}</span>
+                {error.msg ? (
+                  <span className="text-red text-main-container">{error.msg}</span>
                 ) : "quase lá!"}
               </DialogContentText>
               <form onChange={onChange}>
                   <TextField
                     autoFocus
                     required
-                    error={error.msg.msg ? true : false}
+                    error={error.msg ? true : false}
                     margin="dense"
                     id="name"
                     name="name"
@@ -161,7 +162,7 @@ export default function ModalRegister() {
                     <TextField
                       required
                       margin="dense"
-                      error={error.msg.msg ? true : false}
+                      error={error.msg ? true : false}
                       id="email"
                       name="email"
                       type="email"
@@ -169,16 +170,7 @@ export default function ModalRegister() {
                       autoComplete="email"
                       fullWidth
                     />
-                    <TextField
-                      required
-                      margin="dense"
-                      error={error.msg.msg ? true : false}
-                      id="password"
-                      name="password"
-                      type="password"
-                      label="Senha"
-                      fullWidth
-                    />
+                    <ToggleVisibilityPassword data={data} onChange={onChange} setData={setData} error={error} />
                     <div style={{display: 'flex', justifyContent: 'center', marginTop: '28px'}}>
                         <Button
                               onClick={() => {
