@@ -3,17 +3,61 @@ import React, { useState, useRef } from 'react';
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 // import { addFieldUser, deleteFieldUser } from '../../../redux/actions/userActions';
 import { findAnItem } from '../../../redux/actions/globalActions';
-import { showModalConfTitle, showModalConfYesNo } from '../../../redux/actions/modalActions';
+import { showModalConfTitle, showModalConfYesNo, showModalUnderConstruction } from '../../../redux/actions/modalActions';
 // import { showSnackbarBlack } from '../../../redux/actions/snackbarActions';
 import { animateHinge } from '../../../redux/actions/animationActions';
 // End Redux
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import truncateWords from '../../../utils/truncateWords'
+import truncateWords from '../../../utils/truncateWords';
+import MultiIconButton from '../../../components/buttons/MultiIconButton';
+// SpeedDial Buttons and Icons
+import SpeedDialButton from '../../../components/buttons/SpeedDialButton';
+import EditIcon from '@material-ui/icons/Edit';
+import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
+import TitleIcon from '@material-ui/icons/Title';
+import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
+import DeleteIcon from '@material-ui/icons/Delete';
+import FormatListNumberedIcon from '@material-ui/icons/FormatListNumbered';
+// End SpeedDial Buttons and Icons
 import DeleteButton from '../../../components/buttons/DeleteButton';
 import EditButton from '../../../components/buttons/EditButton';
 
+// Functions to get modals
+const showModalForTitle = (dispatch, allProductsList, _id) => {
+    const attachedObj = {
+        mainSubject: "Título",
+        nameForm: "title",
+        typeForm: "text"
+    }
+    findAnItem(dispatch, allProductsList, _id, attachedObj);
+    showModalConfTitle(dispatch);
+}
+const showModalForPrice = (dispatch, allProductsList, _id) => {
+    const attachedObj = {
+        mainSubject: "Preço",
+        nameForm: "price",
+        typeForm: "number"
+    }
+    findAnItem(dispatch, allProductsList, _id, attachedObj);
+    showModalConfTitle(dispatch);
+}
+const showModalForDeleteProd = (dispatch, allProductsList, _id, animateRef) => {
+    const attachedObj = {
+        action: {
+            noun: "Exclusão",
+            verb: "Excluir"
+        },
+        mainSubject: "Produto",
+    }
+    findAnItem(dispatch, allProductsList, _id, attachedObj);
+    showModalConfYesNo(dispatch);
+    setTimeout(() => {
+        animateHinge(animateRef);
+    }, 9000);
+}
+// End Functions to get modal
 
 EditableProduct.propTypes = {
     product: PropTypes.shape({
@@ -38,10 +82,21 @@ export default function EditableProduct({ product, isFav }) {
     }));
     const dispatch = useStoreDispatch();
     // console.log("isAuth", isUserAuthenticated); //Check this behavior: auth is running multiple 11 times
+
+    const { _id, title, image, price, inCart } = product;
+
+    const speedDial = {
+        actions: [ //the order rendered is inverse from the bottom to top
+          { icon: <DeleteIcon />, name: 'Excluir Produto', backColor: '#4834d4', onClick: () => showModalForDeleteProd(dispatch, allProductsList, _id, animateRef) },
+          { icon: <MonetizationOnIcon />, name: 'Mudar Preço', backColor: 'var(--mainYellow)', onClick: () => showModalForPrice(dispatch, allProductsList, _id) },
+          { icon: <TitleIcon />, name: 'Editar Título', backColor: 'var(--mainYellow)', onClick: () => showModalForTitle(dispatch, allProductsList, _id) },
+          { icon: <FormatListNumberedIcon />, name: 'Modificar Fotos', backColor: 'var(--mainYellow)', onClick: () => alert("Construindo...") },
+        ]
+    }
+
     const toggleFav = () => {
         setIsFavChanged(!isFavChanged);
     }
-    const { _id, title, image, price, inCart } = product;
 
     return (
         <ProductWrapper ref={animateRef} className="col-6 col-md-4 col-lg-3 mx-auto my-2">
@@ -52,7 +107,7 @@ export default function EditableProduct({ product, isFav }) {
                         console.log("value.handleDetail(_id)");
                     }}
                 >
-                    <Link to="/detalhes-do-produto">
+                    <Link to="">
                         <img className="card-img-top" src={image} alt="product" />
                     </Link>
                     <button
@@ -100,15 +155,6 @@ export default function EditableProduct({ product, isFav }) {
                         className="mb-0 text-capitalize"
                     >
                         {truncateWords(title, 40)}
-                        <EditButton top={1} left={-5} onClick={() => {
-                            const attachedObj = {
-                                mainSubject: "Título",
-                                nameForm: "title",
-                                typeForm: "text"
-                            }
-                            findAnItem(dispatch, allProductsList, _id, attachedObj);
-                            showModalConfTitle(dispatch);
-                        }} />
                     </p>
                     <h5
                         style={{position: 'relative'}}
@@ -116,36 +162,19 @@ export default function EditableProduct({ product, isFav }) {
                     >
                         <span>R$</span>
                         {price}
-                        <EditButton top={-48} left={100} onClick={() => {
-                            const attachedObj = {
-                                mainSubject: "Preço",
-                                nameForm: "price",
-                                typeForm: "number"
-                            }
-                            findAnItem(dispatch, allProductsList, _id, attachedObj);
-                            showModalConfTitle(dispatch);
-                        }} />
+                        {/*Add pictures btn*/}
+                        <MultiIconButton
+                            backColor="var(--mainYellow)"
+                            buttonIcon={<AddAPhotoIcon />}
+                            top={-115}
+                            left={60}
+                            onClick = {() => {
+                                showModalUnderConstruction(dispatch);
+                            }}
+                        />
+                        <SpeedDialButton actions={speedDial.actions} />
                     </h5>
                 </div>
-                <DeleteButton
-                    top={-20}
-                    left={50}
-                    onClick={() => {
-                        const attachedObj = {
-                            action: {
-                                noun: "Exclusão",
-                                verb: "Excluir"
-                            },
-                            mainSubject: "Produto",
-                        }
-                        findAnItem(dispatch, allProductsList, _id, attachedObj);
-                        showModalConfYesNo(dispatch);
-                        setTimeout(() => {
-                            animateHinge(animateRef);
-                        }, 9000);
-
-                    }}
-                />
             </div>
        </ProductWrapper>
     );

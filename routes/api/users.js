@@ -90,7 +90,7 @@ router.get("/list", (req, res) => {
 router.get("/:id", (req, res) => {
     User.findById(req.params.id)
     .then(userData => res.json(userData))
-    .catch(err => res.json({msg: "this error happened: " + err}))
+    .catch(err => console.log("This error happened:" + err))
 })
 
 // @route   DELETE api/users/:id

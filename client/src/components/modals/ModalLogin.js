@@ -61,7 +61,6 @@ export default function ModalLogin() {
     });
 
     const { name, email, password } = data;
-    console.log("passwordCheck", password);
     const classes = useStyles();
 
     // Check and insert "name" key to the request body

@@ -117,13 +117,13 @@ export default function ModalConfYesNo({ currItemFound }) {
                                     switch(currItemFound.mainSubject) {
                                         case 'Usuário':
                                             setTimeout(() => {
-                                                // deleteUser(dispatch, _idUser);
+                                                deleteUser(dispatch, _idUser);
                                                 getUpdatedUsers(dispatch);
                                             }, 8000);
                                             break;
                                         case 'Produto':
                                             setTimeout(() => {
-                                                // deleteProduct(dispatch, _idUser);
+                                                deleteProduct(dispatch, _idUser);
                                                 getAllProducts(dispatch);
                                             }, 8000);
                                             break;

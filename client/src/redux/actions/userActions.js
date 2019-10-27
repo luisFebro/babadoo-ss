@@ -39,7 +39,7 @@ export const getUpdatedUsers = async (dispatch) => {
 // update user for a real-time database fetching
 export const updateCurrentUser = async (dispatch, _userId) => {
     const res = await axios.get(`/api/users/${_userId}`, config);
-    console.log("===USER UPDATED===");
+    console.log("===CURRENT USER UPDATED===");
     dispatch({
         type: 'USER_CURRENT_UPDATED',
         payload: res.data

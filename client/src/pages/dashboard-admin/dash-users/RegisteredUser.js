@@ -51,7 +51,6 @@ export default function RegisteredUser({ data }) {
     const { _id, name, email, favoriteList, inCartList, registerDate } = data;
     moment.locale('pt-BR');
     const timeNow = moment(Date.now()).format('Do MMM [às] h:mm, YYYY[.]');
-    console.log("timeNow", timeNow);
 
     return (
         <DivWrapper ref={animateRef} className="text-default" style={{position: 'relative'}}>

@@ -8,23 +8,33 @@ import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { Link } from 'react-router-dom';
 import { findAnItem } from '../../../../../redux/actions/globalActions';
 import { showModalTextField } from '../../../../../redux/actions/modalActions';
+import MessagesList from './MessagesList';
 // End Redux
-// MENU COMPOSITION
+// MATERIAL UI
+// menu composition
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import MessagesList from './MessagesList';
-// END MENU COMPOSITION
-
-// ICONS
+// badges
+import Badge from '@material-ui/core/Badge';
+// icons
 import IconButton from '@material-ui/core/IconButton';
-// END ICONS
+// END MATERIAL UI
 
 const useStyles = makeStyles({
     root: {
         color: 'var(--mainYellow)'
     }
 });
+
+const BorderedBadge = withStyles(theme => ({
+  badge: {
+    // right: -3,
+    border: `2px solid var(--mainDark)`,
+    // padding: '0 4px',
+    backgroundColor: 'var(--mainRed)'
+  },
+}))(Badge);
 
 const StyledMenu = withStyles({
     paper: {
@@ -117,9 +127,11 @@ export default function NotifDropDown() {
     return (
         <div style={{ float: 'right' }}>
             {/*Notification Button*/}
-            <IconButton href="" className="no-outline" style={{ color: 'var(--mainWhite)' }} onClick={handleClick}>
-                <i className="fas fa-bell animated bounce slow"></i>
-            </IconButton>
+            <BorderedBadge badgeContent={allMessagesList.length}>
+                <IconButton href="" className="no-outline" style={{ color: 'var(--mainWhite)' }} onClick={handleClick}>
+                    <i className="fas fa-bell animated bounce slow"></i>
+                </IconButton>
+            </BorderedBadge>
 
             <StyledMenu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
                 <h1

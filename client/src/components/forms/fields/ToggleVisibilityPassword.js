@@ -14,7 +14,7 @@ ToggleVisibilityPassword.propTypes = {
     onChange: PropTypes.func.isRequired,
     data: PropTypes.object.isRequired,
     setData: PropTypes.func.isRequired,
-    error: PropTypes.string.isRequired,
+    // error: PropTypes.string.isRequired,
 }
 
 

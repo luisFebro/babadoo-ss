@@ -25,8 +25,10 @@ export const userReducer = {
             case 'USER_CURRENT_UPDATED':
                 //Check if user have coupons (If so, the maskot with discount will not appear when user log in)
                 let gotAtLeastOneCupon = false;
-                if(action.payload.couponsList.length >= 1) {
-                    gotAtLeastOneCupon = true;
+                if(typeof action.payload.couponsList !== 'undefined') {
+                    if(action.payload.couponsList.length >= 1) {
+                        gotAtLeastOneCupon = true;
+                    }
                 }
                 return {
                     ...state,

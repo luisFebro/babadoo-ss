@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import ScrollToTop from 'react-router-scroll-top';
-import { useStoreDispatch } from 'easy-peasy';
-import { getAllProducts } from '../redux/actions/productActions';
-import { getUpdatedUsers } from '../redux/actions/userActions';
+// Redux
+import { useStoreState, useStoreDispatch } from 'easy-peasy';
+import { getUpdatedUsers, updateCurrentUser } from '../redux/actions/userActions';
+// End Redux
 import { loadUser, tokenConfig } from '../redux/actions/authActions';
 import './App.css';
 import UserProvider from '../data/contexts/UserProvider';
@@ -46,14 +47,24 @@ import AllSnackbars from '../components/snackbars';
 import WhatsappIcon from '../components/buttons/WhatsappIcon';
 // END BUTTONS
 export default function App() {
+    const { isUserAuthenticated } = useStoreState(state => ({
+        isUserAuthenticated: state.authReducer.cases.isUserAuthenticated,
+    }));
+
     const dispatch = useStoreDispatch();
 
     useEffect(() => {
-        getAllProducts(dispatch);
         getUpdatedUsers(dispatch);
+        // Every time the user clicks on the screen,he/she is updated
+        if(isUserAuthenticated) {
+            window.addEventListener('click', () => {
+                console.log("clicked");
+                updateCurrentUser(dispatch)
+            });
+        }
+        dispatch(loadUser());
     }, []);
     // This is running before rendering because if not, some variable will return undeflined and crash app
-    dispatch(loadUser());
 
     return (
         <BrowserRouter>

@@ -18,18 +18,16 @@ import { bizWhatsapp } from '../../../../data/dataBiz';
 MenuLogin.propTypes = {
     isUserAuthenticated: PropTypes.bool,
     picture: PropTypes.string,
-    name: PropTypes.string,
-    allFavProductsList: PropTypes.arrayOf(PropTypes.object),
+    name: PropTypes.string
 };
 
 export default function MenuLogin() {
         // Redux
-        const { isUserAuthenticated, name, picture, allFavProductsList, allMessagesList } = useStoreState(state => ({
+        const { isUserAuthenticated, name, picture, allFavProductsList } = useStoreState(state => ({
             isUserAuthenticated: state.authReducer.cases.isUserAuthenticated,
             name: state.authReducer.cases.user.name,
             picture: state.authReducer.cases.user.picture,
             allFavProductsList: state.userReducer.cases.allFavProductsList,
-            allMessagesList: state.userReducer.cases.allMessagesList,
         }));
         const dispatch = useStoreDispatch();
         // End Redux
@@ -98,9 +96,6 @@ export default function MenuLogin() {
                                 <Link to="/" className="nav-link">
                                     <span>
                                         <NotifDropDown />
-                                        <span  style={{ position: 'absolute', top: '-.5em', left: '1.6em', marginLeft: '.01em', padding: '.9px 3px' }} className="badge badge-danger">
-                                            {!allMessagesList.length ? null : allMessagesList.length }
-                                        </span>
                                     </span>
                                 </Link>
                             </li>
