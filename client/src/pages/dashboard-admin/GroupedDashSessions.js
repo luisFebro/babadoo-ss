@@ -164,7 +164,7 @@ export default function GroupedDashSessions() {
             <DashAnalytics />
         </TabPanel>
         <TabPanel value={value} index={5} dir={theme.direction}>
-            <DashAnalytics />
+            <DashStore />
         </TabPanel>
       </SwipeableViews>
     </div>

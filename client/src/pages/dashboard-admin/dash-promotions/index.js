@@ -5,7 +5,7 @@ export default function DashPromotions() {
     return (
         <Fragment>
             <div>
-                <DashSectionTitle title="Promoções da Loja" />
+                <DashSectionTitle title="Modificar Promoções da Loja" />
             </div>
             <div>
                 <h2 className="text-sub-title text-center">
