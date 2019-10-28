@@ -11,7 +11,7 @@ MultiIconButton.propTypes = {
     right: PropTypes.number,
     onClick: PropTypes.func,
     size: PropTypes.string,
-    buttonIcon:PropTypes.elementType
+    buttonIcon: PropTypes.element.isRequired
 }
 
 const useStyles = makeStyles(theme => ({

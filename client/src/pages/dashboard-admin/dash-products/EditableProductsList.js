@@ -31,12 +31,6 @@ export default function ProductList() {
     return (
         <Fragment>
             <DashSectionTitle title="Editar Informações dos Produtos" />
-            <div>
-                <p
-                    className="text-sub-title text-center">
-                    As funcionalidades dos produtos abaixo estão desativadas para exclusiva modificação dos produtos.
-                </p>
-            </div>
             <br />
             <br />
             <br />

@@ -93,11 +93,11 @@ export default function MenuLogin() {
                         </ul>
                         <ul className="navbar-nav ml-3 align-items-center">
                             <li className="nav-item">
-                                <Link to="/" className="nav-link">
+                                <div className="nav-link">
                                     <span>
                                         <NotifDropDown />
                                     </span>
-                                </Link>
+                                </div>
                             </li>
                         </ul>
                         <ul className="navbar-nav ml-auto">

@@ -23,8 +23,8 @@ const useStyles2 = makeStyles({
 const useStyles = makeStyles(theme => ({
   root: {
     zIndex: 1501,
-    top: -115,
-    left: 130,
+    top: 10,
+    left: 100,
     position: 'absolute',
     display: 'flex',
     justifyContent: 'center',
@@ -71,11 +71,11 @@ export default function SpeedDialButton({ actions }) {
         className={classes.speedDial}
         hidden={false}
         icon={<SpeedDialIcon openIcon={<EditIcon />} />}
-        ButtonProps={{ color: 'secondary'}}
         style={{outline: 'none'}}
         onClose={handleClose}
         onOpen={handleOpen}
         open={isOpen}
+        direction="down"
       >
         {isOpen ? (
             actions.map(action => (

@@ -87,10 +87,10 @@ export default function EditableProduct({ product, isFav }) {
 
     const speedDial = {
         actions: [ //the order rendered is inverse from the bottom to top
-          { icon: <DeleteIcon />, name: 'Excluir Produto', backColor: '#4834d4', onClick: () => showModalForDeleteProd(dispatch, allProductsList, _id, animateRef) },
-          { icon: <MonetizationOnIcon />, name: 'Mudar Preço', backColor: 'var(--mainYellow)', onClick: () => showModalForPrice(dispatch, allProductsList, _id) },
+          { icon: <FormatListNumberedIcon />, name: 'Mudar Quantidade', backColor: 'var(--mainYellow)', onClick: () => showModalUnderConstruction(dispatch) },
           { icon: <TitleIcon />, name: 'Editar Título', backColor: 'var(--mainYellow)', onClick: () => showModalForTitle(dispatch, allProductsList, _id) },
-          { icon: <FormatListNumberedIcon />, name: 'Modificar Fotos', backColor: 'var(--mainYellow)', onClick: () => alert("Construindo...") },
+          { icon: <MonetizationOnIcon />, name: 'Mudar Preço', backColor: 'var(--mainYellow)', onClick: () => showModalForPrice(dispatch, allProductsList, _id) },
+          { icon: <DeleteIcon />, name: 'Excluir Produto', backColor: '#4834d4', onClick: () => showModalForDeleteProd(dispatch, allProductsList, _id, animateRef) },
         ]
     }
 
@@ -100,7 +100,7 @@ export default function EditableProduct({ product, isFav }) {
 
     return (
         <ProductWrapper ref={animateRef} className="col-6 col-md-4 col-lg-3 mx-auto my-2">
-            <div className="card">
+            <div style={{position: 'relative'}} className="card">
                 <div
                     className="img-container p-1 p-sm-3"
                     onClick={() => {
@@ -151,7 +151,7 @@ export default function EditableProduct({ product, isFav }) {
                 {/*card footer*/}
                 <div className="text-product-title p-1 card-footer d-flex flex-column text-center justify-content-between">
                     <p
-                        style={{position: 'relative', height: '4em', overflow: 'hidden' }}
+                        style={{ height: '4em', overflow: 'hidden' }}
                         className="mb-0 text-capitalize"
                     >
                         {truncateWords(title, 40)}
@@ -162,19 +162,19 @@ export default function EditableProduct({ product, isFav }) {
                     >
                         <span>R$</span>
                         {price}
-                        {/*Add pictures btn*/}
-                        <MultiIconButton
-                            backColor="var(--mainYellow)"
-                            buttonIcon={<AddAPhotoIcon />}
-                            top={-115}
-                            left={60}
-                            onClick = {() => {
-                                showModalUnderConstruction(dispatch);
-                            }}
-                        />
-                        <SpeedDialButton actions={speedDial.actions} />
                     </h5>
                 </div>
+                {/*managing buttons*/}
+                <MultiIconButton
+                    backColor="var(--mainYellow)"
+                    buttonIcon={<AddAPhotoIcon />}
+                    top={10}
+                    left={40}
+                    onClick = {() => {
+                        showModalUnderConstruction(dispatch);
+                    }}
+                />
+                <SpeedDialButton actions={speedDial.actions} />
             </div>
        </ProductWrapper>
     );

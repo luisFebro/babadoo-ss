@@ -14,7 +14,14 @@ export default function Dashboard() {
             { (email === bizEmail) ?
                 <Fragment>
                     <Title title="Painel de Controle Babadoo" />
-                    <h2 className="text-sub-title text-center">Somente a Conta Admin tem acesso a esta página com autentificação válida</h2>
+                    <div>
+                        <h2 className="text-sub-title text-center">Somente a Conta Admin tem acesso a esta página com autentificação válida.</h2>
+                        <br/>
+                        <h2
+                            className="text-sub-title text-center">
+                            Todas as modificações aqui são atualizadas no site em tempo real.
+                        </h2>
+                    </div>
                     <br />
                     <GroupedDashSessions />
                 </Fragment> :

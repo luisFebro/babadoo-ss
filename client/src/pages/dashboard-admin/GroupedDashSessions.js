@@ -1,9 +1,15 @@
-import RegisteredUsersList from './dash-users/RegisteredUsersList';
-import EditableProductsList from './dash-products/EditableProductsList';
-
-// Material UI
 import React from 'react';
 import PropTypes from 'prop-types';
+// Dash Sessions
+import RegisteredUsersList from './dash-users/RegisteredUsersList';
+import EditableProductsList from './dash-products/EditableProductsList';
+import DashPromotions from './dash-promotions';
+import DashAnalytics from './dash-analytics';
+import DashSales from './dash-sales';
+import DashStore from './dash-store';
+// End Dash Sessions
+
+// Material UI
 import clsx from 'clsx';
 import SwipeableViews from 'react-swipeable-views';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -18,6 +24,13 @@ import EditIcon from '@material-ui/icons/Edit';
 import UpIcon from '@material-ui/icons/KeyboardArrowUp';
 import { green } from '@material-ui/core/colors';
 import Box from '@material-ui/core/Box';
+// Icons from Tabs
+import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
+import LocalMallIcon from '@material-ui/icons/LocalMall';
+import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
+import LoyaltyIcon from '@material-ui/icons/Loyalty';
+import TrendingUpIcon from '@material-ui/icons/TrendingUp';
+import StorefrontIcon from '@material-ui/icons/Storefront';
 // End Material UI
 
 function TabPanel(props) {
@@ -112,29 +125,46 @@ export default function GroupedDashSessions() {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static" color="default">
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          indicatorColor="primary"
-          textColor="primary"
-          variant="fullWidth"
-          aria-label="Sessões do painel de controle - Babadoo"
-        >
-          <Tab label="Usuários" {...a11yProps(0)} />
-          <Tab label="Produtos" {...a11yProps(1)} />
-        </Tabs>
-      </AppBar>
+        <AppBar position="static" color="default">
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            variant="scrollable" // prior:fullWidth
+            scrollButtons="on"
+            indicatorColor="primary"
+            textColor="primary"
+            aria-label="scrollable force with icon"
+          >
+            <Tab label="Usuários" icon={<SupervisedUserCircleIcon />} {...a11yProps(0)} />
+            <Tab label="Produtos" icon={<LocalMallIcon />} {...a11yProps(1)} />
+            <Tab label="Vendas" icon={<MonetizationOnIcon />} {...a11yProps(2)} />
+            <Tab label="Promoções" icon={<LoyaltyIcon />} {...a11yProps(3)} />
+            <Tab label="Análises e Gráficos" icon={<TrendingUpIcon />} {...a11yProps(4)} />
+            <Tab label="Sobre a Loja" icon={<StorefrontIcon />} {...a11yProps(5)} />
+          </Tabs>
+        </AppBar>
       <SwipeableViews
         axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
         index={value}
         onChangeIndex={handleChangeIndex}
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
-          <RegisteredUsersList />
+            <RegisteredUsersList />
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
-          <EditableProductsList />
+            <EditableProductsList />
+        </TabPanel>
+        <TabPanel value={value} index={2} dir={theme.direction}>
+            <DashSales />
+        </TabPanel>
+        <TabPanel value={value} index={3} dir={theme.direction}>
+            <DashPromotions />
+        </TabPanel>
+        <TabPanel value={value} index={4} dir={theme.direction}>
+            <DashAnalytics />
+        </TabPanel>
+        <TabPanel value={value} index={5} dir={theme.direction}>
+            <DashAnalytics />
         </TabPanel>
       </SwipeableViews>
     </div>

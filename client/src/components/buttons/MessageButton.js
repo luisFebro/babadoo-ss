@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
-import MessageIcon from '@material-ui/icons/Message';
+import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer';
 import PropTypes from 'prop-types';
 
 MessageButton.propTypes = {
@@ -27,7 +27,7 @@ export default function MessageButton({ top, right, left, bottom, onClick }) {
         style={{position: 'absolute', top: `${top || 0}px`, right: `${right || 0}px`, left: `${left || 0}px`, bottom: `${bottom || 0}px`, outline: 'none', color: 'var(--mainWhite)', backgroundColor: 'var(--mainDark)'}}
         aria-label="Botão de Messagem"
         className={classes.fab}>
-        <MessageIcon />
+        <QuestionAnswerIcon />
       </Fab>
   );
 }
