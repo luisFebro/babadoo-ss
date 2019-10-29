@@ -11,13 +11,13 @@ import styled from 'styled-components';
 export default function AnimationBizPromo() {
     const [ isClosed, setIsClosed ] = useState(false);
 
-    const { isAuthenticated, name, gotCoupons } = useStoreState(state => ({
+    const { isAuthenticated, name, gotCoupons, isFirstBuyCouponOn } = useStoreState(state => ({
             isAuthenticated: state.authReducer.cases.isUserAuthenticated,
             name: state.authReducer.cases.user.name,
-            gotCoupons: state.userReducer.cases.gotCoupons
+            gotCoupons: state.userReducer.cases.gotCoupons,
+            isFirstBuyCouponOn: state.adminReducer.cases.isFirstBuyCouponOn,
         }));
     const dispatch = useStoreDispatch();
-
     const closeBtn = () => {
         const mainSection = document.getElementById('main-section'),
             closeBtn = document.getElementById('closeBtn');
@@ -37,8 +37,8 @@ export default function AnimationBizPromo() {
                 closeAnimation={closeBtn}
             />
             {isAuthenticated ?
-                // Pass if the modal is not closed and the user does not have a coupon
-                (!isClosed && !gotCoupons) ? (
+                // Pass if admin allow, the modal is not closed and the user does not have a coupon
+                (isFirstBuyCouponOn && !isClosed && !gotCoupons) ? (
                     <section
                         id="main-section"
                         className="animated slideInRight slower"

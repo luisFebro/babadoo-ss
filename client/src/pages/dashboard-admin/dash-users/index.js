@@ -1,15 +1,19 @@
-import React, { Fragment } from 'react';
+import React from 'react';
+import RegisteredUsersList from './RegisteredUsersList';
 import DashSectionTitle from '../DashSectionTitle';
 import ExpansiblePanel from '../../../components/expansion-panels/ExpansiblePanel';
 import ExpansiblePanelContent from '../ExpansiblePanelContent';
 
 // Expansion Panel Content
 const done = [
+    { task: "Mensagens Instantâneas" },
+    { task: "Excluir Usuários" },
+    { task: "Informações de Cadastro" },
+    { task: "Totais Favoritos, Carrinho" },
 ]
 const inProgress = [
-    { task: "Gráfico Produtos mais Favoritados" },
-    { task: "Gráfico Produtos mais Adicionado Carrinho" },
-    { task: "Gráfico Produtos mais Vendidos" },
+    { task: "Chat em Tempo Real" },
+    { task: "Totais de Vendas por Cliente" },
 ]
 
 const expansiblePanelActions = [
@@ -21,11 +25,13 @@ const expansiblePanelActions = [
     },
 ]
 // End Expansion Panel Content
-export default function DashAnalytics() {
+
+export default function DashUsers() {
     return (
-        <Fragment>
-            <DashSectionTitle title="Gráficos Analíticos da Loja" />
+        <div>
+            <DashSectionTitle title="Dados dos Usuários Cadastrados" />
             <ExpansiblePanel actions={expansiblePanelActions} />
-        </Fragment>
+            <RegisteredUsersList />
+        </div>
     );
 }

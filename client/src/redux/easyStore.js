@@ -7,6 +7,7 @@ import { authReducer } from './authReducer';
 import { userReducer } from './userReducer';
 import { globalReducer } from './globalReducer';
 import { animationReducer } from './animationReducer';
+import { adminReducer } from './adminReducer';
 
 //Main store
 export const easyStore = {
@@ -17,5 +18,6 @@ export const easyStore = {
     errorReducer,
     snackbarReducer,
     globalReducer,
-    animationReducer
+    animationReducer,
+    adminReducer,
 }

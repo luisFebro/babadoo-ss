@@ -30,7 +30,6 @@ export default function ProductList() {
 
     return (
         <Fragment>
-            <DashSectionTitle title="Editar Informações dos Produtos" />
             <br />
             <br />
             <br />

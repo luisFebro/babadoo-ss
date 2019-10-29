@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 // Dash Sessions
-import RegisteredUsersList from './dash-users/RegisteredUsersList';
-import EditableProductsList from './dash-products/EditableProductsList';
+import DashUsers from './dash-users';
+import DashProducts from './dash-products';
 import DashPromotions from './dash-promotions';
 import DashAnalytics from './dash-analytics';
 import DashSales from './dash-sales';
@@ -149,10 +149,10 @@ export default function GroupedDashSessions() {
         onChangeIndex={handleChangeIndex}
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
-            <RegisteredUsersList />
+            <DashUsers />
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
-            <EditableProductsList />
+            <DashProducts />
         </TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction}>
             <DashSales />

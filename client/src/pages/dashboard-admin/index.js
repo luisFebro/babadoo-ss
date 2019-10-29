@@ -19,7 +19,7 @@ export default function Dashboard() {
                         <br/>
                         <h2
                             className="text-sub-title text-center">
-                            Todas as modificações aqui são atualizadas no site em tempo real.
+                            Todas as modificações aqui são atualizadas tanto no site e banco de dados em tempo real.
                         </h2>
                     </div>
                     <br />

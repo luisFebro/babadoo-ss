@@ -44,6 +44,7 @@ app.use('/api/emails', require('./routes/api/emailPurchaseRequest'));
 app.use('/api/users', require('./routes/api/users'));
 app.use('/api/products', require('./routes/api/products'));
 app.use('/api/auth', require('./routes/api/auth'));
+app.use('/api/admin', require('./routes/api/admin'));
 // End Use Routes
 
 // Serve static files from the React frontend app

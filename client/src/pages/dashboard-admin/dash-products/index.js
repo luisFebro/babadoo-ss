@@ -1,15 +1,21 @@
 import React, { Fragment } from 'react';
 import DashSectionTitle from '../DashSectionTitle';
+import EditableProductList from './EditableProductsList';
 import ExpansiblePanel from '../../../components/expansion-panels/ExpansiblePanel';
 import ExpansiblePanelContent from '../ExpansiblePanelContent';
 
 // Expansion Panel Content
 const done = [
+    { task: "Trocar o Título dos Produtos" },
+    { task: "Trocar o Preço dos Produtos" },
+    { task: "Deletar Produtos" },
 ]
 const inProgress = [
-    { task: "Gráfico Produtos mais Favoritados" },
-    { task: "Gráfico Produtos mais Adicionado Carrinho" },
-    { task: "Gráfico Produtos mais Vendidos" },
+    { task: "Adicionar Fotos" },
+    { task: "Adicionar Produtos" },
+    { task: "Adicionar Etiquetas: Novo, Esgotado, etc" },
+    { task: "Modificar qtde de cada produto" },
+    { task: "Lixeira: Histórico de Produtos Excluido para fácil recuperação" },
 ]
 
 const expansiblePanelActions = [
@@ -21,11 +27,13 @@ const expansiblePanelActions = [
     },
 ]
 // End Expansion Panel Content
-export default function DashAnalytics() {
+
+export default function DashProducts() {
     return (
         <Fragment>
-            <DashSectionTitle title="Gráficos Analíticos da Loja" />
+            <DashSectionTitle title="Editar Informações dos Produtos" />
             <ExpansiblePanel actions={expansiblePanelActions} />
+            <EditableProductList />
         </Fragment>
     );
 }

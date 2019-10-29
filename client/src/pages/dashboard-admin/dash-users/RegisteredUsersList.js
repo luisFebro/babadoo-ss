@@ -5,7 +5,6 @@ import { useStoreState } from 'easy-peasy';
 import axios from 'axios';
 import RegisteredUser from './RegisteredUser';
 import LoadingIndicator from '../../../components/LoadingIndicator';
-import DashSectionTitle from '../DashSectionTitle';
 
 export default function RegisteredUsersList() {
     const [total, setTotal] = useState({
@@ -42,8 +41,7 @@ export default function RegisteredUsersList() {
 
     return (
         <Fragment>
-            <DashSectionTitle title="Dados dos Usuários Cadastrados" />
-            <section>
+            <div>
                 <h2 className="text-main-container text-center">Totais de Todos os Usuários:</h2>
                 <div className="container-center" style={{flexDirection: 'column'}}>
                     <h2>
@@ -66,7 +64,7 @@ export default function RegisteredUsersList() {
                     className="text-sub-title text-left pl-5">
                     Total de Usuários: <strong>{updatedUsers.length}</strong>
                 </h2>
-            </section>
+            </div>
             {isLoading ? (
                 <LoadingIndicator />
             ) : (
