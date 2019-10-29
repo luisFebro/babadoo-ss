@@ -15,7 +15,7 @@ export default function Message({ data }) {
         <DivWrapper>
             <p className="text-default text-capitalize">{sender}</p>
             <p style={{wordWrap: 'breakWord'}} className="text-sub-container">{message}</p>
-            <span>{time}</span>
+            <span>enviado em: <br/>{time}</span>
         </DivWrapper>
     );
 }

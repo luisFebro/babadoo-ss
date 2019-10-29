@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button';
 
 ButtonYellow.propTypes = {
     text: PropTypes.string.isRequired,
+    onClick: PropTypes.func.isRequired
 }
 
 const useStyles = makeStyles({
@@ -26,10 +27,10 @@ const ColorButton = withStyles(theme => ({
   },
 }))(Button);
 
-export default function ButtonYellow({ text }) {
+export default function ButtonYellow({ text, onClick }) {
     const classes = useStyles();
     return (
-        <ColorButton variant="contained" color="primary">
+        <ColorButton onClick={onClick} variant="contained" color="primary">
             <span className={classes.text}>{ text }</span>
         </ColorButton>
     );

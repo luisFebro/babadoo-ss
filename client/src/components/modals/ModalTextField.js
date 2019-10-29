@@ -5,7 +5,6 @@ import { closeModal } from '../../redux/actions/modalActions';
 import { sendNotification } from '../../redux/actions/userActions';
 // End Redux
 import { Link } from 'react-router-dom';
-import { showSnackbarBlack } from '../../redux/actions/snackbarActions';
 // Material UI
 import { makeStyles } from '@material-ui/core/styles';
 import { CardMedia } from '@material-ui/core';
@@ -116,7 +115,6 @@ export default function ModalTextField({ currItemFound }) {
                       <Button
                             onClick={() => {
                               setObjToSend();
-                              showSnackbarBlack(dispatch, `Mensagem Enviada para ${name}`);
                               closeModal(dispatch);
                             }}
                             variant="contained"

@@ -22,16 +22,20 @@ import IconButton from '@material-ui/core/IconButton';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 // END MATERIAL UI
 
-const styles = {
-  largeIcon: {
-    width: 200,
-    height: 200,
-  },
+// notifications - objs to send
+moment.locale('pt-BR');
+const timeNow = moment(Date.now()).format('Do MMM [às] h:mm a, YYYY[.]');
 
-};
+const getAttachedObj = (userName) => {
+    return
+}
+
+// end notifications - objs to send
+
 
 const StyledMenu = withStyles({
     paper: {
+        width:'60%',
         padding: "0 5px",
         border: '2px solid var(--mainYellow)'
     }
@@ -62,10 +66,9 @@ const StyledMenuItem = withStyles(theme => ({
     },
   },
 }))(MenuItem);
-
 const BorderedBadge = withStyles(theme => ({
   badge: {
-    right: 1, //14
+    right: -3, //14
     top: 1, //18
     border: `2px solid var(--mainDark)`,
     // padding: '0 4px',
@@ -73,13 +76,56 @@ const BorderedBadge = withStyles(theme => ({
   },
 }))(Badge);
 
+const SendMsgToStoreBtn = () => {
+    let {  updatedUsers, _idUser, userName } = useStoreState(state => ({
+        updatedUsers: state.userReducer.cases.updatedUsers,
+        _idUser: state.userReducer.cases.currentUpdatedUser._id,
+        userName: state.userReducer.cases.currentUpdatedUser.name,
+    }));
+    const dispatch = useStoreDispatch();
+
+    return (
+        <ButtonYellow
+            text="Enviar Mensagem para Loja"
+            className="mt-3 shadow-elevation badge badge-warning"
+            onClick={() => {
+                // change name form 'admin'to Loja Babadoo (this is how gonna be displayed to the user)
+                if(userName === "admin") userName = "Loja Babadoo";
+                const objToSend = {
+                    name: "Loja Babadoo", //this will replace the curr user name
+                    propTitle: "Envio de Mensagem Instantânea",
+                    propTxtBtn: "Enviar",
+                    propSubTitle: "Escreva abaixo sua mensagem para loja",
+                    mainSubject: "Mensagem",
+                    mainKey: "message",
+                    objToSend: {
+                        messageList: {
+                            sender: `${userName}`,
+                            id: uuidv1(),
+                            time: timeNow,
+                            message: "", // this will be the message catch by modal text field
+                            isMessageChecked: false,
+                            systemDate: Date.now,
+                            history: {
+                                senderMsgs: [],
+                                recipientMsgs: [],
+                            }
+                        }
+                    }
+                }
+                findAnItem(dispatch, updatedUsers, _idUser, objToSend);
+                showModalTextField(dispatch);
+            }}
+        ></ButtonYellow>
+    );
+}
+
+
 export default function NotifDropDown() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const handleClick = event => setAnchorEl(event.currentTarget);
   const handleClose = () => setAnchorEl(null);
 
-  moment.locale('pt-BR');
-  const timeNow = moment(Date.now()).format('Do MMM [às] h:mm, YYYY[.]');
   // Redux
   //> Set State
   let { allMessagesList, updatedUsers, _idUser, userName } = useStoreState(state => ({
@@ -91,42 +137,6 @@ export default function NotifDropDown() {
   //> Dispatch Actions to Reducer
   const dispatch = useStoreDispatch();
   // End Redux
-
-  const sendMsgToStoreBtn = () => {
-      return (
-          <ButtonYellow
-              text="Enviar Mensagem para Loja"
-              className="shadow-elevation badge badge-warning"
-              onClick={() => {
-                  // change name form 'admin'to Loja Babadoo (this is how gonna be displayed to the user)
-                  if(userName === "admin") userName = "Loja Babadoo";
-                  const attachedObj = {
-                      name: "Loja Babadoo", //this will replace the curr user name
-                      propTitle: "Envio de Mensagem Instantânea",
-                      propTxtBtn: "Enviar",
-                      propSubTitle: "Escreva abaixo sua mensagem para loja",
-                      mainSubject: "Mensagem",
-                      mainKey: "message",
-                      objToSend: {
-                          messageList: {
-                              sender: `${userName}`,
-                              id: uuidv1(),
-                              time: `envio em: ${timeNow}`,
-                              message: "", // this will be the message catch by modal text field
-                              isMessageChecked: false,
-                              history: {
-                                  senderMsgs: [],
-                                  recipientMsgs: [],
-                              }
-                          }
-                      }
-                  }
-                  findAnItem(dispatch, updatedUsers, _idUser, attachedObj);
-                  showModalTextField(dispatch);
-              }}
-          ></ButtonYellow>
-      );
-  }
 
   return (
     <div>
@@ -150,9 +160,7 @@ export default function NotifDropDown() {
                     </div>
                     <div>
                         {userName !== 'admin' ? (
-                                <div className="mt-3">
-                                    {sendMsgToStoreBtn()}
-                                </div>
+                            SendMsgToStoreBtn()
                         ) : null }
                     </div>
                 </section>
@@ -168,9 +176,7 @@ export default function NotifDropDown() {
                     </div>
                     <div>
                         {userName !== 'admin' ? (
-                            <div className="mt-3">
-                                {sendMsgToStoreBtn()}
-                            </div>
+                            SendMsgToStoreBtn()
                         ) : null }
                     </div>
                 </section>

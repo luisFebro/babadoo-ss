@@ -4,6 +4,7 @@ import { returnErrors } from './errorActions';
 import { tokenConfig } from './authActions';
 import { getAllProducts } from './productActions';
 import { setLoadingOn, setLoadingOff, setErrorOn } from './globalActions';
+import { showSnackbarBlack } from './snackbarActions';
 import { logout } from './authActions';
 //UTILS
 // Headers
@@ -71,7 +72,9 @@ export const sendNotification = async (dispatch, objToSend, _idClient) => {
         const res = await axios.put(`api/users/lists/change-field/notifications/${_idClient}`, body, config);
         console.log("res from user Action", res);
         getUpdatedUsers(dispatch);
+        showSnackbarBlack(dispatch, "Mensagem enviada com sucesso!")
     } catch(e) {
+        showSnackbarBlack(dispatch, "Ocorreu um erro ao enviar sua notificação. Tente Novamente!")
         console.log("changeFieldUserERROR: " + e);
     }
 };
