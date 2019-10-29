@@ -67,7 +67,7 @@ export default function App() {
         dispatch(loadUser());
     }, []);
     // This is running before rendering because if not, some variable will return undeflined and crash app
-    // loadUser()
+    // dispatch(loadUser());
     return (
         <BrowserRouter>
             <ScrollToTop>

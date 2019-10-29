@@ -2,7 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import 'moment/locale/pt-br';
 import uuidv1 from 'uuid/v1';
-
+import ButtonYellow from '../../../../buttons/material-ui/ButtonYellow';
 // Redux
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { Link } from 'react-router-dom';
@@ -12,7 +12,7 @@ import MessagesList from './MessagesList';
 // End Redux
 // MATERIAL UI
 // menu composition
-import { withStyles, makeStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 // badges
@@ -21,13 +21,6 @@ import Badge from '@material-ui/core/Badge';
 import IconButton from '@material-ui/core/IconButton';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 // END MATERIAL UI
-
-const useStyles = makeStyles({
-    icon: {
-        width: 96,
-        height: 96,
-    }
-})
 
 const styles = {
   largeIcon: {
@@ -38,24 +31,26 @@ const styles = {
 };
 
 const StyledMenu = withStyles({
-  paper: {
-    border: '1px solid #d3d4d5',
-  },
+    paper: {
+        padding: "0 5px",
+        border: '2px solid var(--mainYellow)'
+    }
 })(props => (
-  <Menu
-    elevation={0}
-    getContentAnchorEl={null}
-    anchorOrigin={{
-      vertical: 'bottom',
-      horizontal: 'center',
-    }}
-    transformOrigin={{
-      vertical: 'top',
-      horizontal: 'center',
-    }}
-    {...props}
-  />
+    <Menu
+        elevation={1}
+        getContentAnchorEl={null}
+        anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'center'
+        }}
+        transformOrigin={{
+            vertical: 'top',
+            horizontal: 'center'
+        }}
+        {...props}
+    />
 ));
+
 
 const StyledMenuItem = withStyles(theme => ({
   root: {
@@ -70,8 +65,8 @@ const StyledMenuItem = withStyles(theme => ({
 
 const BorderedBadge = withStyles(theme => ({
   badge: {
-    right: 14,
-    top: 18,
+    right: 1, //14
+    top: 1, //18
     border: `2px solid var(--mainDark)`,
     // padding: '0 4px',
     backgroundColor: 'var(--mainRed)'
@@ -82,7 +77,6 @@ export default function NotifDropDown() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const handleClick = event => setAnchorEl(event.currentTarget);
   const handleClose = () => setAnchorEl(null);
-  const classes = useStyles();
 
   moment.locale('pt-BR');
   const timeNow = moment(Date.now()).format('Do MMM [às] h:mm, YYYY[.]');
@@ -98,9 +92,10 @@ export default function NotifDropDown() {
   const dispatch = useStoreDispatch();
   // End Redux
 
-  const notificationButton = () => {
+  const sendMsgToStoreBtn = () => {
       return (
-          <button
+          <ButtonYellow
+              text="Enviar Mensagem para Loja"
               className="shadow-elevation badge badge-warning"
               onClick={() => {
                   // change name form 'admin'to Loja Babadoo (this is how gonna be displayed to the user)
@@ -129,47 +124,56 @@ export default function NotifDropDown() {
                   findAnItem(dispatch, updatedUsers, _idUser, attachedObj);
                   showModalTextField(dispatch);
               }}
-          >Enviar Mensagem para Loja</button>
+          ></ButtonYellow>
       );
   }
 
   return (
     <div>
       {/*Notification Button*/}
-      <BorderedBadge className="animated bounce slow" badgeContent={allMessagesList.length}>
-          <IconButton href="" className="no-outline" style={{ color: 'var(--mainWhite)' }} onClick={handleClick}>
-              <NotificationsIcon className="icon-svg" />
-          </IconButton>
-      </BorderedBadge>
+      <IconButton href="" className="no-outline" style={{ color: 'var(--mainWhite)' }} onClick={handleClick}>
+          <BorderedBadge className="animated bounce slow" badgeContent={allMessagesList.length}>
+                <NotificationsIcon className="icon-svg" />
+          </BorderedBadge>
+      </IconButton>
       <StyledMenu
         id="customized-menu"
         anchorEl={anchorEl}
-        keepMounted
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-             {allMessagesList.length === 0 ? (
-                <StyledMenuItem>
+         {allMessagesList.length === 0 ? (
+                <section>
                     <div
                         className="text-center text-sub-container">
                         Sem notificações
                     </div>
-                    {userName !== 'admin' ? (
-                        <div className="mt-3">
-                            {notificationButton()}
-                        </div>
-                    ) : null }
-                </StyledMenuItem>
-
+                    <div>
+                        {userName !== 'admin' ? (
+                                <div className="mt-3">
+                                    {sendMsgToStoreBtn()}
+                                </div>
+                        ) : null }
+                    </div>
+                </section>
             ) : (
-                <StyledMenuItem>
-                    <MessagesList data={allMessagesList} />
-                    {userName !== 'admin' ? (
-                        <div className="mt-3">
-                            {notificationButton()}
-                        </div>
-                    ) : null }
-                </StyledMenuItem>
+                <section>
+                    <div>
+                        <h2
+                        className="text-center text-sub-container pb-3">
+                            Suas Notificações
+                        </h2>
+                        <p className="text-sub-container">Total: {allMessagesList.length}</p>
+                        <MessagesList data={allMessagesList} />
+                    </div>
+                    <div>
+                        {userName !== 'admin' ? (
+                            <div className="mt-3">
+                                {sendMsgToStoreBtn()}
+                            </div>
+                        ) : null }
+                    </div>
+                </section>
             )}
       </StyledMenu>
     </div>
@@ -247,7 +251,7 @@ export default function NotifDropDown() {
 //     const dispatch = useStoreDispatch();
 //     // End Redux
 
-//     const notificationButton = () => {
+//     const nsendMsgToStoreBtn = () => {
 //         return (
 //             <button
 //                 className="shadow-elevation badge badge-warning"

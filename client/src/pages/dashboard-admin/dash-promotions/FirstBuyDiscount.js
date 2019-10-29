@@ -24,7 +24,6 @@ export default function FirstBuyDiscount() {
     let { isFirstBuyCouponOn } = useStoreState(state => ({
             isFirstBuyCouponOn: state.adminReducer.cases.isFirstBuyCouponOn,
         }));
-    console.log('isFirstBuyCouponOn from FirstBuy Dash', isFirstBuyCouponOn)
     const dispatch = useStoreDispatch()
 
     const classes = useStyles();

@@ -148,6 +148,7 @@ export default function EditableProduct({ product, isFav }) {
                         }
                     </button>
                     <button
+                        style={{filter: 'opacity(90%)'}}
                         className="cart-btn"
                         disabled={inCart ? true : false}
                         onClick={() => {
@@ -185,15 +186,13 @@ export default function EditableProduct({ product, isFav }) {
                 <MultiIconButton
                     backColor="var(--mainYellow)"
                     buttonIcon={<AddAPhotoIcon />}
-                    top={90}
-                    left={40}
+                    top={110}
+                    left={-10}
                     onClick = {() => {
                         showModalUnderConstruction(dispatch);
                     }}
                 />
-                <div style={{filter: 'opacity(100%)'}}>
-                    <SpeedDialButton actions={speedDial.actions} />
-                </div>
+                <SpeedDialButton actions={speedDial.actions} className="no-outline"/>
             </div>
        </ProductWrapper>
     );
@@ -205,7 +204,6 @@ const ProductWrapper = styled.div`
         box-shadow: 0 19px 38px rgba(0,0,0,0.20), 0 15px 12px rgba(0,0,0,0.12);
         border-color: transparent;
         transition: all 1s linear;
-        filter: opacity(70%);
     }
     .card-footer {
         background: transparent;

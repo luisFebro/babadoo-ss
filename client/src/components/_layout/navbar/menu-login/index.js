@@ -76,17 +76,17 @@ export default function MenuLogin() {
         <Fragment>
             {isUserAuthenticated ?
                 <DivWrapper id="mainNav" className="animated zoomIn slower">
-                    <nav className="navbar navbar-expand-sm px-sm-5 text-nav-items py-0 my-0">
-                        <ul className="px-1" id="logo-login-wrapper" style={{display: 'none'}}>
+                    <nav className="navbar navbar-expand-sm px-sm-3 text-nav-items py-0 my-0">
+                        <Link to="/" className="px-1" id="logo-login-wrapper" style={{display: 'none'}}>
                             <img
                                 id="logo-login-img"
-                                src= "img/babadoo-logo_no-slogon.png"
+                                src= "img/babadoo-logo_no-slogon-550.jpg"
                                 alt="Logomarca da loja Babadoo Manaus"
                                 width="50rem"
                                 height="50rem"
                                 className="navbar-brand"
                             />
-                        </ul>
+                        </Link>
                         <ul className="navbar-nav container-ul">
                             <li className="nav-item">
                                 <Link to="/perfil" className="nav-link">
@@ -191,7 +191,7 @@ const DivWrapper = styled.div`
         padding: 0 3px;
         position: absolute;
         font: normal 1rem 'Cabin', sans-serif;
-        top: 3.3rem;
+        top: 3.5rem;
     }
 
     .logout-btn {
@@ -223,7 +223,7 @@ const DivWrapper = styled.div`
         .user-name-greeting {
             font: normal 1.1rem 'Cabin', sans-serif;
             padding: 2px 5px;
-            top: 3.4rem;
+            //top: 3.4rem;
         }
     }
 
