@@ -72,9 +72,9 @@ export const sendNotification = async (dispatch, objToSend, _idClient) => {
         const res = await axios.put(`api/users/lists/change-field/notifications/${_idClient}`, body, config);
         console.log("res from user Action", res);
         getUpdatedUsers(dispatch);
-        showSnackbarBlack(dispatch, "Mensagem enviada com sucesso!")
+        showSnackbarBlack(dispatch, `Mensagem enviada com sucesso para ${res.data.name}!`)
     } catch(e) {
-        showSnackbarBlack(dispatch, "Ocorreu um erro ao enviar sua notificação. Tente Novamente!")
+        showSnackbarBlack(dispatch, "Ocorreu um erro ao enviar sua notificação. Tente mais tarde!")
         console.log("changeFieldUserERROR: " + e);
     }
 };
