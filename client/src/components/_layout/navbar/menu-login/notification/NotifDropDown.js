@@ -155,7 +155,7 @@ export default function NotifDropDown() {
          {allMessagesList.length === 0 ? (
                 <section>
                     <div
-                        className="text-center text-sub-container">
+                        className="pb-3 text-center text-sub-container">
                         Sem notificações
                     </div>
                     <div>
