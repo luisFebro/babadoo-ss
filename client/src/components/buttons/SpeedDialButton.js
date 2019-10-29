@@ -23,7 +23,7 @@ const useStyles2 = makeStyles({
 const useStyles = makeStyles(theme => ({
   root: {
     zIndex: 1501,
-    top: 10,
+    top: 90,
     left: 100,
     position: 'absolute',
     display: 'flex',

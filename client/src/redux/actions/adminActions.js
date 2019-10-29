@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { setErrorOn } from './globalActions';
+import { showSnackbarBlack } from './snackbarActions';
 // naming structure: action > type > speficification e.g action: GET_MODAL_BLUE / func: getModalBlue
 //UTILS
 // Headers
@@ -35,15 +36,15 @@ export const getUpdatedAdmin = async (dispatch) => {
 
 // Add/Change a admin's field  in the database
 export const changeFieldAdmin = async (dispatch, objToSend, _idUser) => {
-    console.log('objToSend', objToSend);
     _idUser = "5db4301ed39a4e12546277a8";
     const body = getBodyRequest(objToSend);
     try {
         const res = await axios.put(`/api/admin/coupons/${_idUser}`, body, config);
         dispatch({ type: 'PROMOTION_STATUS', payload: res.data });
-        console.log("==CHANGE UPDATED ADMIN == DATA", res.data);
         getUpdatedAdmin(dispatch, _idUser);
+        showSnackbarBlack(dispatch, "Alterado com sucesso!");
     } catch(e) {
+        showSnackbarBlack(dispatch, "Um Erro aconteceu. Tente novamente.")
         console.log("changeFieldAdminERROR: " + e);
     }
 };

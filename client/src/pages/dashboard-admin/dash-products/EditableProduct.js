@@ -147,6 +147,23 @@ export default function EditableProduct({ product, isFav }) {
                             )
                         }
                     </button>
+                    <button
+                        className="cart-btn"
+                        disabled={inCart ? true : false}
+                        onClick={() => {
+                            // value.addToCart(_id);
+                            // value.openModal(_id);
+                        }}
+                    >
+                        {inCart ? (
+                            <p className="text-capitalize mb-0" disabled>
+                                {' '}
+                                No carrinho
+                            </p>
+                        ) : (
+                            <i className="fas fa-cart-plus"></i>
+                        )}
+                    </button>
                 </div>
                 {/*card footer*/}
                 <div className="text-product-title p-1 card-footer d-flex flex-column text-center justify-content-between">
@@ -168,13 +185,15 @@ export default function EditableProduct({ product, isFav }) {
                 <MultiIconButton
                     backColor="var(--mainYellow)"
                     buttonIcon={<AddAPhotoIcon />}
-                    top={10}
+                    top={90}
                     left={40}
                     onClick = {() => {
                         showModalUnderConstruction(dispatch);
                     }}
                 />
-                <SpeedDialButton actions={speedDial.actions} />
+                <div style={{filter: 'opacity(100%)'}}>
+                    <SpeedDialButton actions={speedDial.actions} />
+                </div>
             </div>
        </ProductWrapper>
     );
@@ -186,6 +205,7 @@ const ProductWrapper = styled.div`
         box-shadow: 0 19px 38px rgba(0,0,0,0.20), 0 15px 12px rgba(0,0,0,0.12);
         border-color: transparent;
         transition: all 1s linear;
+        filter: opacity(70%);
     }
     .card-footer {
         background: transparent;

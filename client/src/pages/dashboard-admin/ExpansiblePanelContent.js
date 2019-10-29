@@ -16,9 +16,10 @@ export default function ExpansiblePanelContent({ doneTasks, inProgressTasks }) {
 
     return (
         <div className="text-center">
-            <div>
+            <section>
                 <div className="text-default text-center mb-3">
                     Funcionalidades Já Implementadas
+                    <DoneIcon />
                 </div>
                 <div>
                     {gotTasksDone ? (
@@ -38,13 +39,14 @@ export default function ExpansiblePanelContent({ doneTasks, inProgressTasks }) {
                         </div>
                     )}
                 </div>
-            </div>
+            </section>
             <br />
             <Divider />
             <br />
-            <div>
+            <section>
                 <div className="text-default text-center mb-3">
                     Funcionalidades em Andamento
+                    <AccessTimeIcon />
                 </div>
                 <div>
                     {gotTasksInProgress ? (
@@ -63,7 +65,7 @@ export default function ExpansiblePanelContent({ doneTasks, inProgressTasks }) {
                         </div>
                     )}
                 </div>
-            </div>
+            </section>
         </div>
     )
 }

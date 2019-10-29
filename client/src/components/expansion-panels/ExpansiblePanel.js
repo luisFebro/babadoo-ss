@@ -56,9 +56,7 @@ export default function ExpansiblePanel({ actions }) {
                 <Typography className={classes.secondaryHeading}>{panel.secondaryHeading}</Typography>
               </ExpansionPanelSummary>
               <ExpansionPanelDetails>
-                <Typography>
-                  {panel.hiddenContent}
-                </Typography>
+                    {panel.hiddenContent}
               </ExpansionPanelDetails>
             </ExpansionPanel>
         ))}

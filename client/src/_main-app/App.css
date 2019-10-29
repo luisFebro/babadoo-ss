@@ -212,6 +212,10 @@ footer {
 /*END MAIN SHADOW AND HOVER*/
 
 /*ICON DEFAULT*/
+/*Material UI icon*/
+.icon-svg {
+    transform: scale(2);
+}
 .icon-default {
     color: var(--mainWhite);
     cursor: pointer;
