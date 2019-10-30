@@ -25,11 +25,6 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 // notifications - objs to send
 moment.locale('pt-BR');
 const timeNow = moment(Date.now()).format('Do MMM [às] h:mm a, YYYY[.]');
-
-const getAttachedObj = (userName) => {
-    return
-}
-
 // end notifications - objs to send
 
 
@@ -76,14 +71,7 @@ const BorderedBadge = withStyles(theme => ({
   },
 }))(Badge);
 
-const SendMsgToStoreBtn = () => {
-    let {  updatedUsers, _idUser, userName } = useStoreState(state => ({
-        updatedUsers: state.userReducer.cases.updatedUsers,
-        _idUser: state.userReducer.cases.currentUpdatedUser._id,
-        userName: state.userReducer.cases.currentUpdatedUser.name,
-    }));
-    const dispatch = useStoreDispatch();
-
+const SendMsgToStoreBtn = (dispatch, updatedUsers, _idUser, userName) => {
     return (
         <ButtonYellow
             text="Enviar Mensagem para Loja"
@@ -160,7 +148,7 @@ export default function NotifDropDown() {
                     </div>
                     <div>
                         {userName !== 'admin' ? (
-                            SendMsgToStoreBtn()
+                            SendMsgToStoreBtn(dispatch, updatedUsers, _idUser, userName)
                         ) : null }
                     </div>
                 </section>
@@ -176,7 +164,7 @@ export default function NotifDropDown() {
                     </div>
                     <div>
                         {userName !== 'admin' ? (
-                            SendMsgToStoreBtn()
+                            SendMsgToStoreBtn(dispatch, updatedUsers, _idUser, userName)
                         ) : null }
                     </div>
                 </section>
