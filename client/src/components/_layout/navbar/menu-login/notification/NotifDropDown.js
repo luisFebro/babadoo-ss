@@ -72,6 +72,8 @@ const BorderedBadge = withStyles(theme => ({
 }))(Badge);
 
 const SendMsgToStoreBtn = (dispatch, updatedUsers, _idUser, userName) => {
+    // Lesson: Never declare hooks here because hooks are meant to be at the top of every function.
+    // Instead, pass all required props from the parent component which onws the hooks already.
     return (
         <ButtonYellow
             text="Enviar Mensagem para Loja"

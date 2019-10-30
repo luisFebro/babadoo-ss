@@ -115,10 +115,11 @@ router.put('/lists/change-field/notifications/:id', (req, res) => {
                 .status(500)
                 .json({error: "unsuccessful. message no sent"})
         }
-        // data.save();
+        data.save();
+        res.json( data )
     })
-    .sort({ systemDate: -1 })
-    .then(not => res.json(not))
+    // .sort({ systemDate: -1 }) try only this next time
+    // .then(not => res.json(not))
 });
 // @route   DELETE (a primary field) api/users/lists/change-field/notifications/:id
 // @desc    Delete a notification (clients <==> admin)
