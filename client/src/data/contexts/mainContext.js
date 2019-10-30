@@ -61,7 +61,7 @@ class ProductProvider extends Component {
         productProps.forEach((obj, i) => {
             obj.title += ` (código: ${categoriesAbbrev[i]}${++i})`;
         });
-        this.getRandomArray(productProps);
+        // this.getRandomArray(productProps);
 
         // const countCategories = categoriesAbbrev.map(each => {
         //     let cat = {"ling": 0 , "cosm": 0, "come": 0,"sado": 0}
@@ -78,11 +78,11 @@ class ProductProvider extends Component {
     };
 
     // For card list random order
-    getRandomArray = array => {
-        return array.sort(function(a, b) {
-            return 0.5 - Math.random();
-        });
-    };
+    // getRandomArray = array => {
+    //     return array.sort(function(a, b) {
+    //         return 0.5 - Math.random();
+    //     });
+    // };
 
     // getItem = id => {
     //     const { products } = this.state;

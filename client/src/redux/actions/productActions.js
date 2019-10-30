@@ -3,27 +3,17 @@ import axios from 'axios';
 import { returnErrors } from './errorActions';
 import { tokenConfig } from './authActions';
 import { setLoadingOn, setLoadingOff } from './globalActions';
-
-//UTILS
-// Headers
-const config = {
-    headers: {
-        'Content-Type': 'application/json'
-    }
-};
-// set body
-const getBodyRequest = objToSend => {
-    return JSON.stringify(objToSend);
-    // json ready to Go Internet - exemple:
-    // {"name":"Luis Febro","email":"mr.febro@gmail.com","password":"12345678910"}
-}
-//END UTILS
+import { getRandomArray } from '../../utils/getRandomArray';
+import { getBodyRequest } from '../../utils/server/getBodyRequest';
+import { configTypeJson } from '../../utils/server/configTypeJson';
 
 // get an obj with all infos of a item from a specific id
 export const getItem = (allProductsList, _id) => {
     const product = allProductsList.find(item => item._id === _id);
     return product;
 }
+//END UTILS
+
 
 
 //CRUD PATTERN
@@ -44,7 +34,8 @@ export const getAllProducts = async (dispatch) => {
         setLoadingOn(dispatch);
         const res = await axios.get('/api/products');
         console.log("==GOT ALL PRODUCTS==");
-        dispatch({ type: 'GET_ALL_PRODUCTS', payload: res.data });
+        const randomOrder = getRandomArray(res.data);
+        dispatch({ type: 'GET_ALL_PRODUCTS', payload: randomOrder });
         setLoadingOff(dispatch);
         // if(!didCancel) {
         // }
@@ -66,7 +57,7 @@ export const changeProduct = async (dispatch, bodyToSend, _idProduct) => {
         [`${targetKey}`]: bodyToSend[targetKey],
     }
     try {
-        const res = axios.put(`/api/products/${_idProduct}`, body, config)
+        const res = axios.put(`/api/products/${_idProduct}`, body, configTypeJson)
         console.log("==CHANGING PRODUCT==")
         dispatch({ type: "CHANGE_PRODUCT", payload: dataToUpdate })
     } catch(e) {
@@ -78,7 +69,7 @@ export const changeProduct = async (dispatch, bodyToSend, _idProduct) => {
 // delete product
 export const deleteProduct = async (dispatch, _idProduct) => {
     try {
-        const res = await axios.delete(`/api/products/${_idProduct}`, config);
+        const res = await axios.delete(`/api/products/${_idProduct}`, configTypeJson);
         console.log("==PRODUCT DELETED==")
         dispatch({ type: 'DELETE_PRODUCT', payload: _idProduct });
         // update

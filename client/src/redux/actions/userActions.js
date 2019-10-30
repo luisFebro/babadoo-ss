@@ -6,26 +6,14 @@ import { getAllProducts } from './productActions';
 import { setLoadingOn, setLoadingOff, setErrorOn } from './globalActions';
 import { showSnackbarBlack } from './snackbarActions';
 import { logout } from './authActions';
-//UTILS
-// Headers
-const config = {
-    headers: {
-        'Content-Type': 'application/json'
-    }
-};
-// set body
-const getBodyRequest = objToSend => {
-    return JSON.stringify(objToSend);
-    // json ready to Go Internet - exemple:
-    // {"name":"Luis Febro","email":"mr.febro@gmail.com","password":"12345678910"}
-}
-//END UTILS
+import { getBodyRequest } from '../../utils/server/getBodyRequest';
+import { configTypeJson } from '../../utils/server/configTypeJson';
 
 // UPDATED DATA
 export const getUpdatedUsers = async (dispatch) => {
     try {
         // setLoadingOn(dispatch);
-        const res = await axios.get('/api/users/list', config);
+        const res = await axios.get('/api/users/list', configTypeJson);
         console.log("==ALL USERS UPDATED==")
         dispatch({
             type: 'ALL_USERS_UPDATE',
@@ -39,7 +27,7 @@ export const getUpdatedUsers = async (dispatch) => {
 
 // update user for a real-time database fetching
 export const updateCurrentUser = async (dispatch, _userId) => {
-    const res = await axios.get(`/api/users/${_userId}`, config);
+    const res = await axios.get(`/api/users/${_userId}`, configTypeJson);
     console.log("===CURRENT USER UPDATED===");
     dispatch({
         type: 'USER_CURRENT_UPDATED',
@@ -53,7 +41,7 @@ export const deleteUser = async (dispatch, _idUser) => {
     // Warning: Do not delete users directly from database without logout
     // This does not work!!!
     // logout(dispatch);
-    const res = await axios.delete(`/api/users/${_idUser}`, config);
+    const res = await axios.delete(`/api/users/${_idUser}`, configTypeJson);
     dispatch({ type: 'USER_DELETED', payload: _idUser });
 }
 
@@ -69,7 +57,7 @@ export const sendNotification = async (dispatch, objToSend, _idClient) => {
 
     const body = getBodyRequest(objToSend);
     try {
-        const res = await axios.put(`api/users/lists/change-field/notifications/${_idClient}`, body, config);
+        const res = await axios.put(`api/users/lists/change-field/notifications/${_idClient}`, body, configTypeJson);
         console.log("res from user Action", res);
         getUpdatedUsers(dispatch);
         // change name form 'admin'to Loja Babadoo (this is how gonna be displayed to the user)
@@ -85,7 +73,7 @@ export const sendNotification = async (dispatch, objToSend, _idClient) => {
 export const changeFieldUser = async (dispatch, objToSend, _idUser) => {
     const body = getBodyRequest(objToSend);
     try {
-        const res = await axios.put(`api/users/lists/change-field/${_idUser}`, body, config);
+        const res = await axios.put(`api/users/lists/change-field/${_idUser}`, body, configTypeJson);
         dispatch({ type: 'USER_CURRENT_UPDATED', payload: res.data });
         updateCurrentUser(dispatch, _idUser);
     } catch(e) {
@@ -97,7 +85,7 @@ export const changeFieldUser = async (dispatch, objToSend, _idUser) => {
 export const addFieldUser = async (dispatch, objToSend, _idUser) => {
     const body = getBodyRequest(objToSend);
     try {
-        const res = await axios.post(`api/users/lists/add-field-array/${_idUser}`, body, config);
+        const res = await axios.post(`api/users/lists/add-field-array/${_idUser}`, body, configTypeJson);
         console.log("USER_CURRENT_UPDATED from addFieldUser", res.data);
         dispatch({ type: 'USER_CURRENT_UPDATED', payload: res.data });
         updateCurrentUser(dispatch, _idUser);
@@ -108,11 +96,9 @@ export const addFieldUser = async (dispatch, objToSend, _idUser) => {
 
 // Delete An obj inside an Array-like data from user
 export const deleteFieldUser = async (dispatch, objToSend, _idUser) => {
-    console.log("deleteFieldUser objToSend", objToSend);
-    console.log("deleteFieldUser _idUser", _idUser);
     const body = getBodyRequest(objToSend);
     try {
-        const res = await axios.put(`api/users/lists/delete-field-array/${_idUser}`, body, config);
+        const res = await axios.put(`api/users/lists/delete-field-array/${_idUser}`, body, configTypeJson);
         dispatch({ type: 'USER_CURRENT_UPDATED', payload: res.data });
         console.log("===FIELD DELETED===");
         updateCurrentUser(dispatch, _idUser);

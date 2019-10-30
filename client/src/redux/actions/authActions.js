@@ -2,23 +2,10 @@ import axios from 'axios';
 import { returnErrors } from './errorActions';
 import { updateCurrentUser } from './userActions';
 import { clearErrors } from './errorActions';
+import { getBodyRequest } from '../../utils/server/getBodyRequest';
+import { configTypeJson } from '../../utils/server/configTypeJson';
 // naming structure: action > type > speficification e.g action: GET_MODAL_BLUE / func: getModalBlue
 // import { postDataWithJsonObj } from '../../utils/promises/postDataWithJsonObj.js'
-
-//UTILS
-// Headers
-const config = {
-    headers: {
-        'Content-Type': 'application/json'
-    }
-};
-// set body
-const getBodyRequest = objToSend => {
-    return JSON.stringify(objToSend);
-    // json ready to Go Internet - exemple:
-    // {"name":"Luis Febro","email":"mr.febro@gmail.com","password":"12345678910"}
-}
-//END UTILS
 
 // Check token & load user
 export const loadUser = () => (dispatch, getState) => {
@@ -30,26 +17,17 @@ export const loadUser = () => (dispatch, getState) => {
       return axios.get('/api/auth/user', tokenConfig(getState));
     }
 
-    const getAllProducts = () => {
-        console.log("==ALL PRODUCTS LOADING==");
-        return axios.get('/api/products');
-    }
-
     const getUpdatedUsers = () => {
-      return axios.get('/api/users/list', config);
+      return axios.get('/api/users/list', configTypeJson);
     }
 
-    axios.all([getAuthUser(), getAllProducts(), getUpdatedUsers()])
+    axios.all([getAuthUser(), getUpdatedUsers()])
       .then(axios.spread((auth, products, users) => {
         // Both requests are now complete
         console.log("auth from authActions", auth.data)
         dispatch({
             type: 'USER_LOADED',
             payload: auth.data
-        })
-        dispatch({
-            type: 'GET_ALL_PRODUCTS',
-            payload: products.data
         })
         dispatch({
             type: 'USER_CURRENT_UPDATED',
@@ -60,12 +38,34 @@ export const loadUser = () => (dispatch, getState) => {
             payload: users.data
         })
       })).catch(err => {
+        if(typeof err.response !== 'undefined') {
             dispatch(returnErrors(err.response.data, err.response.status));
+        }
             // dispatch({
             //   type: 'AUTH_ERROR'
             // });
         });
 }
+//This structure does not work at all. gives errors
+// export const loadUser = () => (dispatch, getState) => {
+//     try {
+//         // User loading
+//         dispatch({ type: 'USER_LOADING' });
+//         console.log("==USER LOADING==");
+//         const res = axios.get('/api/auth/user', tokenConfig(getState));
+//         dispatch({
+//             type: 'USER_LOADED',
+//             payload: res.data
+//         })
+//         dispatch({
+//             type: 'USER_CURRENT_UPDATED',
+//             payload: res.data
+//         })
+//     } catch(err) {
+//         console.log(err);
+//         dispatch(returnErrors(err.response.data, err.response.status));
+//     }
+// }
 
 // login Email
 // loginEMail with Async/Await
@@ -74,7 +74,7 @@ export const loginEmail = (objToSend) => async (dispatch, isSocialOn = false) =>
     const body = getBodyRequest(objToSend);
 
     try {
-        const res = await axios.post('/api/auth', body, config);
+        const res = await axios.post('/api/auth', body, configTypeJson);
         if (isSocialOn) {
             if (isSocialOn === ('google' || 'facebook')) {
                 return;
@@ -105,7 +105,7 @@ export const registerEmail = (objToSend) => (dispatch, isSocialOn = null) => {
     const body = getBodyRequest(objToSend);
 
     axios
-        .post('/api/users', body, config)
+        .post('/api/users', body, configTypeJson)
         .then(res => {
             if (isSocialOn) {
                 if (isSocialOn === ('google' || 'facebook')) {
