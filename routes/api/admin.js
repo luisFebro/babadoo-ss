@@ -4,7 +4,7 @@ const router = express.Router();
 const Admin = require('../../models/Admin');
 
 // PROMOTIONS
-// @route   GET api/admin/coupons
+
 // @desc    Get All Items (return an array)
 // @access  Public
 router.get("/coupons", (req, res) => {

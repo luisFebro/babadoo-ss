@@ -14,6 +14,8 @@ const User = require('../../models/User');
 // @access  Public
 router.post('/', async (req, res) => {
     const { name, email, password } = req.body;
+
+    // VALIDATION
     // Check if fields are filled
     if (!name || !email || !password) {
         return res.status(400).json({ msg: 'Por favor, entre todos os campos' });
@@ -27,11 +29,12 @@ router.post('/', async (req, res) => {
     if(password.length < 6) {
         return res.status(400).json({ msg: 'Sua senha deve conter pelo menos 6 dígitos'})
     }
+    // END VALIDATION
 
     try {
         // Check Register for existing user for either already registered email or name.
         const user = await User.findOne({ $or: [{ email }, { name }] })
-        // Check if this user was found a match, if so validate name and email.
+        // Check if these email/name were already registered, if so indicate which case already was registered.
         if (user) {
             if (user.name === name) return res.status(400).json({ msg: 'Esse Nome de usuário já foi registrado. Tente um outro.' });
             if (user.email === email) return res.status(400).json({ msg: 'Esse Email de usuário já foi registrado. Tente um outro.' });
@@ -51,16 +54,17 @@ router.post('/', async (req, res) => {
                 newUser.password = hash;
                 newUser.save()
                     .then(user => {
-                        jwt.sign({ id: user.id },
-                            jwtSecret, { expiresIn: 100000 }, //7 days
+                        jwt.sign({ id: user._id },
+                            jwtSecret, { expiresIn: '7d' }, //7 days - "expiresIn" should be a number of seconds or string that repesents a timespan eg: "1d", "20h",
                             (err, token) => {
                                 if (err) throw err;
+                                const { _id , name, email } = user
                                 res.json({
                                     token,
                                     user: {
-                                        id: user.id,
-                                        name: user.name,
-                                        email: user.email
+                                        id: _id,
+                                        name,
+                                        email,
                                     }
                                 });
                             }

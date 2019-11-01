@@ -3,7 +3,7 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const { jwtSecret } = require('../../config/keys');
 const jwt = require('jsonwebtoken');
-const auth = require('../../middleware/auth');
+const auth = require('../../middlewares/auth');
 
 // User Model
 const User = require('../../models/User');
@@ -31,14 +31,14 @@ router.post('/', (req, res) => {
                 .then(isMatch => {
                     if (!isMatch) return res.status(400).json({ msg: 'Credenciais Inválidas' });
 
-                    jwt.sign({ id: user.id },
-                        jwtSecret, { expiresIn: 1000000 },
+                    jwt.sign({ id: user._id },
+                        jwtSecret, { expiresIn: '7d' }, //7 days - "expiresIn" should be a number of seconds or string that repesents a timespan eg: "1d", "20h",
                         (err, token) => {
                             if (err) throw err;
                             res.json({
                                 token,
                                 user: {
-                                    id: user.id,
+                                    id: user._id,
                                     name: user.name,
                                     email: user.email
                                 }
@@ -52,7 +52,7 @@ router.post('/', (req, res) => {
 // @route   GET api/auth/user
 // @desc    Get user data
 // @access  Private
-// //auth = require('../../middleware/auth')
+// //auth = require('../../middlewares/auth')
 router.get('/user', auth, (req, res) => {
     User.findById(req.user.id)
         .select('-password')

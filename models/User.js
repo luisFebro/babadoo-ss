@@ -11,6 +11,8 @@ const brTime = moment(Date.now()).format('Do MMM [às] h:mm, YYYY[.]');
 const data = {
   name: {
     type: String,
+    trim: true,
+    maxlength: 40,
     required: true,
     lowercase: false,
     unique: true
