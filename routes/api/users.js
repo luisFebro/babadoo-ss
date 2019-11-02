@@ -4,6 +4,17 @@ const { jwtSecret } = require('../../config/keys');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const validateEmail = require('../../utils/validateEmail');
+// TEST ZONE
+// controllers
+const { read, update, mwUserById } = require("../../controllers/user");
+// end controllers
+// @route  api/users note: both need requireSignin, mwIsAuth
+router.get("/test/:userId", read);
+router.put("/test/:userId", update);
+
+// Everytime there is a userId, this router will run and make this user info available in the request object
+router.param("userId", mwUserById);
+// END TEST ZONE
 
 // User Model
 const User = require('../../models/User');

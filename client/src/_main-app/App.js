@@ -76,16 +76,16 @@ export default function App() {
                 <Switch>
                     {/*Categories Pages*/}
                     <Route exact path="/" render={(props) => (<Home />)} /> {/*This will be routed first, exact make sure only Home content is displayed render based on https://github.com/luisFebro/react_crash_todo/blob/master/src/App.js*/}
-                    <Route path="/lingeries" component={Lingerie} />
-                    <Route path="/cosmeticos" component={Cosmetic} />
-                    <Route path="/comestiveis" component={Edible} />
+                    <Route path="/lingeries" exact component={Lingerie} />
+                    <Route path="/cosmeticos" exact component={Cosmetic} />
+                    <Route path="/comestiveis" exact component={Edible} />
                     {/*End Categories Pages*/}
-                    <Route path="/loja" component={Store} />
-                    <Route path="/detalhes-do-produto" component={Details} />
-                    <Route path="/seu-carrinho" component={Cart} />
-                    <Route path="/finalizar-compra" component={CheckoutLocal} />
-                    <Route path="/favoritos" component={Favorites} />
-                    <Route path="/painel-controle-admin" component={Dashboard} />
+                    <Route path="/loja" exact component={Store} />
+                    <Route path="/detalhes-do-produto" exact component={Details} />
+                    <Route path="/seu-carrinho" exact component={Cart} />
+                    <Route path="/finalizar-compra" exact component={CheckoutLocal} />
+                    <Route path="/favoritos" exact component={Favorites} />
+                    <Route path="/painel-controle-admin" exact component={Dashboard} />
                     <Route component={Default} />
                     {/*<Redirect from="*" to="/" />*/}
                 </Switch>
