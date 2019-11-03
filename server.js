@@ -35,7 +35,7 @@ app.use('/api/auth', require('./routes/api/auth'));
 app.use('/api/admin', require('./routes/api/admin'));
 // Serve static files from the React frontend app
 // This solves the "Not found" issue when loading an URL other than index.html.
-app.use(express.static(path.join(__dirname, 'client/build')))
+app.use(express.static(path.join(__dirname, 'client/public/index.html')))
 app.get('/*', function(req, res) { //n3
   res.sendFile(path.join(__dirname + '/client/public/index.html'), function(err) {
     if (err) {
