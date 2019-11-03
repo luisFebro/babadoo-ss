@@ -22,3 +22,4 @@
 - [ Email Confirmation with React - Jesse Heaslip ](https://blog.bitsrc.io/email-confirmation-with-react-257e5d9de725)
 - [ Real Time CRUD operations in the DataBase using mongoose - Esteban Herrera ](https://hackernoon.com/using-mongodb-as-a-realtime-database-with-change-streams-213cba1dfc2a)
 - [Using useRef hook - Sai Gowtham](https://reactgo.com/react-useref-hook-example/)
+- [How client side routers work (Not Found URL nightmare) - Tyler McGinnis](https://tylermcginnis.com/react-router-cannot-get-url-refresh/)
