@@ -33,16 +33,16 @@ app.use('/api/users', require('./routes/api/users'));
 app.use('/api/products', require('./routes/api/products'));
 app.use('/api/auth', require('./routes/api/auth'));
 app.use('/api/admin', require('./routes/api/admin'));
-// END MIDDLEWARES
-
-
 // Serve static files from the React frontend app
-app.use(express.static(path.join(__dirname, 'client/build')))
-// Anything that doesn't match the above, send back index.html
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname + 'client/build/index.html'))
+// This solves the "Not found" issue when loading an URL other than index.html.
+app.get('/*', function(req, res) { //n3
+  res.sendFile(path.join(__dirname, 'client/public/index.html'), function(err) {
+    if (err) {
+      res.status(500).send(err)
+    }
+  })
 })
-// End
+// END MIDDLEWARES
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
@@ -62,3 +62,11 @@ app.listen(PORT, () => {
 //     next();
 // });
  */
+// n3 : resource: https://tylermcginnis.com/react-router-cannot-get-url-refresh/
+// prior setting:
+/* app.use(express.static(path.join(__dirname, 'client/build')))
+// Anything that doesn't match the above, send back index.html
+// app.get('*', (req, res) => {
+//     res.sendFile(path.join(__dirname + 'client/build/index.html'))
+// })
+*/
