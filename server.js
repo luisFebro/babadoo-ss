@@ -35,6 +35,7 @@ app.use('/api/auth', require('./routes/api/auth'));
 app.use('/api/admin', require('./routes/api/admin'));
 // Serve static files from the React frontend app
 // This solves the "Not found" issue when loading an URL other than index.html.
+app.use(express.static(path.join(__dirname, 'client/build')))
 app.get('/*', function(req, res) { //n3
   res.sendFile(path.join(__dirname + '/client/public/index.html'), function(err) {
     if (err) {
@@ -43,7 +44,6 @@ app.get('/*', function(req, res) { //n3
   })
 })
 // END MIDDLEWARES
-console.log("url without slash", path.join(__dirname + 'client/public/index.html'))
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`);
