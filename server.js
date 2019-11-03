@@ -33,17 +33,17 @@ app.use('/api/users', require('./routes/api/users'));
 app.use('/api/products', require('./routes/api/products'));
 app.use('/api/auth', require('./routes/api/auth'));
 app.use('/api/admin', require('./routes/api/admin'));
-// Serve static files from the React frontend app
+// Serve static files such as images, CSS files, and JavaScript files for the React frontend app
 // This solves the "Not found" issue when loading an URL other than index.html.
 app.use(express.static(path.join(__dirname, 'client/build')))
-app.get('/*', function(req, res) { //n3
-  res.sendFile(path.join(__dirname + '/client/build/index.html'), function(err) {
-    if (err) {
-      res.status(500).send(err)
-    }
+// END MIDDLEWARES
+//
+app.get('/*', (req, res) => { //n3
+  res.sendFile(path.join(__dirname + '/client/build/index.html'), err => {
+    if (err) { res.status(500).send(err) }
   })
 })
-// END MIDDLEWARES
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`);
@@ -67,6 +67,6 @@ app.listen(PORT, () => {
 /* app.use(express.static(path.join(__dirname, 'client/build')))
 // Anything that doesn't match the above, send back index.html
 // app.get('*', (req, res) => {
-//     res.sendFile(path.join(__dirname + 'client/build/index.html'))
+//     res.sendFile(path.join(__dirname + 'client/build/index.html')) // the "not found" issue may be occured becase of this path. client requires a slash before.
 // })
 */
