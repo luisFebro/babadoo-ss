@@ -34,15 +34,20 @@ app.use('/api/products', require('./routes/api/products'));
 app.use('/api/auth', require('./routes/api/auth'));
 app.use('/api/admin', require('./routes/api/admin'));
 // Serve static files such as images, CSS files, and JavaScript files for the React frontend app
-// This solves the "Not found" issue when loading an URL other than index.html.
 app.use(express.static(path.join(__dirname, 'client/build')))
 // END MIDDLEWARES
-//
+// This solves the "Not found" issue when loading an URL other than index.html.
 app.get('/*', (req, res) => { //n3
   res.sendFile(path.join(__dirname + '/client/build/index.html'), err => {
     if (err) { res.status(500).send(err) }
   })
 })
+
+// Preventing App to idle by requesting the main page.
+app.get('/',(req,res) => {
+    return res.send('Preventing the app to sleep');
+});
+
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
