@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import ButtonCart from '../components/buttons/ButtonCart';
 import Title from '../components/Title';
-import ProductList from '../components/products/ProductList';
+import ProductList from '../components/_layout/products/ProductList';
 // import ServiceList from './biz-services/ServiceList';
 import ShareSocialMediaButtons from '../components/buttons/ShareSocialMediaButtons';
 

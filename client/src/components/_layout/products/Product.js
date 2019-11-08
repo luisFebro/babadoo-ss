@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 // Redux
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
-import { addFieldUser, deleteFieldUser } from '../../redux/actions/userActions';
-import { getItem } from '../../redux/actions/productActions';
-import { showSnackbarBlack } from '../../redux/actions/snackbarActions';
-import { showModalRegister } from '../../redux/actions/modalActions';
+import { addFieldUser, deleteFieldUser } from '../../../redux/actions/userActions';
+import { getItem } from '../../../redux/actions/productActions';
+import { showSnackbarBlack } from '../../../redux/actions/snackbarActions';
+import { showModalRegister } from '../../../redux/actions/modalActions';
 // End Redux
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { ProductConsumer } from '../../data/contexts/mainContext';
+import { ProductConsumer } from '../../../data/contexts/mainContext';
 import PropTypes from 'prop-types';
-import truncateWords from '../../utils/truncateWords'
+import truncateWords from '../../../utils/truncateWords'
 
 Product.propTypes = {
     product: PropTypes.shape({
