@@ -10,7 +10,7 @@ import { loadUser, tokenConfig } from '../redux/actions/authActions';
 import './App.css';
 import UserProvider from '../data/contexts/UserProvider';
 //GENERAL COMPONENTS
-// import { CustomPreloader } from 'react-preloaders';
+import { CustomPreloader } from 'react-preloaders';
 import AnimationBizPromo from '../components/AnimationBizPromo';
 // import StoreMap from '../components/StoreMap';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -95,6 +95,9 @@ export default function App() {
                 {/*End Modals and Snackbars*/}
                 <Footer />
                 <WhatsappIcon />
+                <CustomPreloader>
+                    <Preloader />
+                </CustomPreloader>
                 <AnimationBizPromo />
             </ScrollToTop>
         </BrowserRouter>
@@ -102,7 +105,5 @@ export default function App() {
 }
 
 /*
-<CustomPreloader>
-    <Preloader />
-</CustomPreloader>
+
  */

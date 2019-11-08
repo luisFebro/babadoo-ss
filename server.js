@@ -43,11 +43,15 @@ app.get('/*', (req, res) => { //n3
   })
 })
 
-// Preventing App to idle by requesting the main page.
+// Preventing App to idle by requesting the main page. // Not working
 app.get('/',(req,res) => {
     return res.send('Preventing the app to sleep');
 });
 
+var http = require("http");
+setInterval(function() {
+    http.get("http://<your app name>.herokuapp.com");
+}, 300000); // every 5 minutes (300000)
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
