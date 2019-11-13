@@ -4,6 +4,7 @@ const path = require('path');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const { mongoKey } = require('./config/keys.js');
+require('dotenv').config();
 
 //Init Express
 const app = express();
@@ -28,7 +29,7 @@ mongoose
 app.use(express.json()); //n1
 app.use(cors()); //n2
 // routes
-app.use('/api/emails', require('./routes/emailPurchaseRequest'));
+app.use('/api/email', require('./routes/email'));
 app.use('/api/users', require('./routes/users'));
 app.use('/api/products', require('./routes/products'));
 app.use('/api/auth', require('./routes/auth'));
