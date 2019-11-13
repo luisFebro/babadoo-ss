@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const auth = require('../../middlewares/auth');
+const auth = require('../middlewares/auth');
 
 // Mongoose Schema/Model
-const Product = require('../../models/Product');
+const Product = require('../models/Product');
 // CRUD PATTERN
 
 // @route   POST api/products

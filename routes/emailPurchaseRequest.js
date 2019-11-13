@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const nodemailer = require("nodemailer");
-const { nodemailerEmail, nodemailerPassword } = require('../../config/keys');
+const { nodemailerEmail, nodemailerPassword } = require('../config/keys');
 
 
 // @route   POST api/emails/client/welcome

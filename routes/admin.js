@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
-// User Model
-const Admin = require('../../models/Admin');
+const Admin = require('../models/Admin');
 
 // PROMOTIONS
 

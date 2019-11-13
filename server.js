@@ -28,14 +28,15 @@ mongoose
 app.use(express.json()); //n1
 app.use(cors()); //n2
 // routes
-app.use('/api/emails', require('./routes/api/emailPurchaseRequest'));
-app.use('/api/users', require('./routes/api/users'));
-app.use('/api/products', require('./routes/api/products'));
-app.use('/api/auth', require('./routes/api/auth'));
-app.use('/api/admin', require('./routes/api/admin'));
+app.use('/api/emails', require('./routes/emailPurchaseRequest'));
+app.use('/api/users', require('./routes/users'));
+app.use('/api/products', require('./routes/products'));
+app.use('/api/auth', require('./routes/auth'));
+app.use('/api/admin', require('./routes/admin'));
 // Serve static files such as images, CSS files, and JavaScript files for the React frontend app
 app.use(express.static(path.join(__dirname, 'client/build')))
 // END MIDDLEWARES
+
 // This solves the "Not found" issue when loading an URL other than index.html.
 app.get('/*', (req, res) => { //n3
   res.sendFile(path.join(__dirname + '/client/build/index.html'), err => {
