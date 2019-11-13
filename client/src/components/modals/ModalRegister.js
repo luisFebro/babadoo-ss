@@ -114,7 +114,7 @@ export default function ModalRegister() {
     };
     const sendWelcomeEmail = async () => {
         try {
-            const res = await axios.post('/api/emails/client/welcome', { name, email }, config)
+            const res = await axios.post('/api/email/client/welcome-and-confirm', { name, email }, config)
             console.log("resSENDwELCOMEemail", res);
         } catch(e) {
             // statements

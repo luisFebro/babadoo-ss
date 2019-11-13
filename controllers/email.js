@@ -1,12 +1,12 @@
 const sgMail = require('@sendgrid/mail');
-const { welcomeAndConfirmEmail } = require('../templates/email');
+const { getWelcomeAndConfirmTemplate } = require('../templates/email');
 
 // MESSAGES
 const msgs = {
-    confirm: 'Email sent, please check your inbox to confirm',
+    confirm: 'Um email foi enviado para o seu email. Por favor, confirme seu email',
     confirmed: 'Your email is confirmed!',
-    resend: 'Confirmation email resent, maybe check your spam?',
-    couldNotFind: 'Could not find you!',
+    resend: 'Email de Confirmação Reenviado, verifique também sua caixa de spam',
+    couldNotFind: 'Não encontramos você!',
     alreadyConfirmed: 'Your email was already confirmed'
 }
 // END MESSAGES
@@ -20,13 +20,11 @@ const sendEmail = async (toEmail, mainTitle, content) => {
         to: [toEmail, process.env.EMAIL_DEV]
     }
 
-
     // Combining the content and contacts into a single object that can be passed to SendGrid.
     const emailContent = Object.assign({}, content, contacts)
-    console.log("email", email);
     try {
-        const res = await sgMail.send(emailContent);
-        console.log(`Mail sent successfully. details: ${res.body}`);
+        await sgMail.send(emailContent);
+        console.log(`Mail sent successfully.`);
     } catch(error) {
         console.error(error.toString());
     }
@@ -38,11 +36,11 @@ exports.sendBuyRequestEmail = (req, res) => {
 }
 
 exports.sendWelcomeConfirmEmail = (req, res) => {
-    const { client, email } = req.body;
-    const mainTitle = "Seja Bem Vindo(a) a Babadoo"
-    // const client = clientRaw.charAt(0).toUpperCase() + clientRaw.slice(1)
-    // const clientRaw = "visitante";
-    sendEmail(email, mainTitle, welcomeAndConfirmEmail);
+    const { name, email } = req.body;
+    const mainTitle = "Seja Bem Vindo(a) a Sexy Store"
+    const client = name.charAt(0).toUpperCase() + name.slice(1)
+    sendEmail(email, mainTitle, getWelcomeAndConfirmTemplate(client))
+    .then(() => res.json({ msg: msgs.confirm }))
 }
 
 

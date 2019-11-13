@@ -1,8 +1,7 @@
 const bizName= 'Sexy Store';
 
-
-exports.welcomeAndConfirmEmail = client => ({
-    subject: `Seja Bem Vindo(a) a ${bizName}, ${client}`,
+exports.getWelcomeAndConfirmTemplate = client => ({
+    subject: `${client}, confirme a sua conta da ${bizName}`,
     html: `
         <center>
             <header">
@@ -10,6 +9,8 @@ exports.welcomeAndConfirmEmail = client => ({
             </header>
         </center>
         <h1><center>Lingeries e Acessórios Eróticos</center></h1>
+        <p>Tenha acesso a todos as funcionalidades da ${bizName}</p>
+        <p>Confirme seu cadastro acessando: <a href="https://babadoo.herokuapp.com">https://babadoo.herokuapp.com</a></p>
         <ul>
           <li><h3>Embalagens Discretas</h3></li>
           <li><h3>Entregamos por toda a cidade</h3></li>
