@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { setErrorOn } from './globalActions';
 import { showSnackbarBlack } from './snackbarActions';
-import { getBodyRequest } from '../../utils/server/getBodyRequest';
 import { configTypeJson } from '../../utils/server/configTypeJson';
+import { getBodyRequest } from '../../utils/server/getBodyRequest';
 // naming structure: action > type > speficification e.g action: GET_MODAL_BLUE / func: getModalBlue
 
 // UPDATED DATA

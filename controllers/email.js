@@ -1,5 +1,8 @@
 const sgMail = require('@sendgrid/mail');
-const { getWelcomeAndConfirmTemplate } = require('../templates/email');
+const {
+    getWelcomeAndConfirmTemplate,
+    getBuyRequestTemplate,
+} = require('../templates/email');
 
 // MESSAGES
 const msgs = {
@@ -7,7 +10,8 @@ const msgs = {
     confirmed: 'Your email is confirmed!',
     resend: 'Email de Confirmação Reenviado, verifique também sua caixa de spam',
     couldNotFind: 'Não encontramos você!',
-    alreadyConfirmed: 'Your email was already confirmed'
+    alreadyConfirmed: 'Your email was already confirmed',
+    successBuyRequest: "Pedido registrado com sucesso!"
 }
 // END MESSAGES
 
@@ -17,11 +21,12 @@ const sendEmail = async (toEmail, mainTitle, content) => {
     const contacts = {
         isMultiple: true, // the recipients can't see the other ones when this is on
         from: `${mainTitle} <${process.env.EMAIL_BIZ}>`,
-        to: [toEmail, process.env.EMAIL_DEV]
+        to: [toEmail, process.env.EMAIL_DEV] // take EMAIL_DEV away if there is more than 50 emails a day.
     }
 
     // Combining the content and contacts into a single object that can be passed to SendGrid.
     const emailContent = Object.assign({}, content, contacts)
+
     try {
         await sgMail.send(emailContent);
         console.log(`Mail sent successfully.`);
@@ -31,16 +36,20 @@ const sendEmail = async (toEmail, mainTitle, content) => {
 }
 // END SEND EMAIL
 
-exports.sendBuyRequestEmail = (req, res) => {
-
-}
-
 exports.sendWelcomeConfirmEmail = (req, res) => {
     const { name, email } = req.body;
     const mainTitle = "Seja Bem Vindo(a) a Sexy Store"
     const client = name.charAt(0).toUpperCase() + name.slice(1)
     sendEmail(email, mainTitle, getWelcomeAndConfirmTemplate(client))
     .then(() => res.json({ msg: msgs.confirm }))
+}
+
+exports.sendBuyRequestEmail = (req, res) => {
+    const toEmail = req.body.businessInfo.bizEmail;
+    const bizName= req.body.businessInfo.bizName;
+    const mainTitle = `${bizName} - Pedidos de Compra`;
+    sendEmail(toEmail, mainTitle, getWelcomeAndConfirmTemplate(req.body))
+    .then(() => res.json({ msg: msgs.successBuyRequest }));
 }
 
 

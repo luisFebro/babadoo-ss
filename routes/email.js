@@ -5,7 +5,7 @@ const { sendBuyRequestEmail, sendWelcomeConfirmEmail } = require("../controllers
 
 // @ routes api/email/...
 // @desc  Send Admin a Message when a new order request is done.
-router.post('/admin/buy-request', sendBuyRequestEmail);
+router.post('/admin/order-request', sendBuyRequestEmail);
 // @desc  Send Welcome and Confirm Email to client after signup
 router.post('/client/welcome-and-confirm', sendWelcomeConfirmEmail);
 module.exports = router;

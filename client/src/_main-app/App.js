@@ -4,6 +4,7 @@ import ScrollToTop from 'react-router-scroll-top';
 // Redux
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { getUpdatedUsers, updateCurrentUser } from '../redux/actions/userActions';
+import { readBizInfo } from '../redux/actions/businessInfoActions';
 import { getUpdatedAdmin } from '../redux/actions/adminActions';
 // End Redux
 import { loadUser, tokenConfig } from '../redux/actions/authActions';
@@ -55,15 +56,10 @@ export default function App() {
     const dispatch = useStoreDispatch();
 
     useEffect(() => {
+        readBizInfo(dispatch);
         getUpdatedUsers(dispatch);
         getUpdatedAdmin(dispatch);
-        // Every time the user clicks on the screen,he/she is updated
-        if(isUserAuthenticated) {
-            window.addEventListener('click', () => {
-                console.log("clicked");
-                updateCurrentUser(dispatch)
-            });
-        }
+        // CODE NOT WORKING n1
         dispatch(loadUser());
     }, []);
     // This is running before rendering because if not, some variable will return undeflined and crash app
@@ -104,6 +100,10 @@ export default function App() {
     );
 }
 
-/*
-
- */
+// n1 Every time the user clicks on the screen,he/she is updated
+// if(isUserAuthenticated) {
+//     window.addEventListener('click', () => {
+//         console.log("clicked");
+//         updateCurrentUser(dispatch)
+//     });
+// }

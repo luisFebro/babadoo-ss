@@ -8,6 +8,7 @@ import { userReducer } from './userReducer';
 import { globalReducer } from './globalReducer';
 import { animationReducer } from './animationReducer';
 import { adminReducer } from './adminReducer';
+import { businessInfoReducer } from './businessInfoReducer';
 
 //Main store
 export const easyStore = {
@@ -20,4 +21,5 @@ export const easyStore = {
     globalReducer,
     animationReducer,
     adminReducer,
+    businessInfoReducer,
 }

@@ -1,4 +1,7 @@
 const bizName= 'Sexy Store';
+const bizWhatsapp= "(92) 99433-1555"
+const bizEmail= "contato@babadoo.com.br"
+const bizWebsite= "https://babadoo.herokuapp.com"
 
 exports.getWelcomeAndConfirmTemplate = client => ({
     subject: `${client}, confirme a sua conta da ${bizName}`,
@@ -8,18 +11,53 @@ exports.getWelcomeAndConfirmTemplate = client => ({
                  <img style="box-shadow: 0 19px 38px rgba(0,0,0,0.20), 0 15px 12px rgba(0,0,0,0.12);" src="https://imgur.com/9GjtAiW.png" width="200px" height="200px"/>
             </header>
         </center>
-        <h1><center>Lingeries e Acessórios Eróticos</center></h1>
-        <p>Tenha acesso a todos as funcionalidades da ${bizName}</p>
-        <p>Confirme seu cadastro acessando: <a href="https://babadoo.herokuapp.com">https://babadoo.herokuapp.com</a></p>
+        <h1><center>Artigos Eróticos</center></h1>
+        <h3>Tenha acesso a todos as funcionalidades da ${bizName}</h3>
+        <h3>Para ativar sua conta, por favor verifique seu endereço de email:</h3>
+        <h4><a href=${bizWebsite}>CONFIRMAR SEU EMAIL</a></h4>
         <ul>
-          <li><h3>Embalagens Discretas</h3></li>
-          <li><h3>Entregamos por toda a cidade</h3></li>
+          <li><h4>Embalagens Discretas</h4></li>
+          <li><h4>Entregamos por toda a cidade</h4></li>
+          <li><h4>Variedades de Acessórios</h4></li>
         </ul>
         <footer>
-            <h3><strong>Contato/Whatsapp: (92) 99506-6603</strong></h3>
+            <h5>Se você tiver qualquer dúvida, entre em contato com nosso <strong>Whatsapp ${bizWhatsapp}</strong> ou responda a esse email que ficaremos contentes em ajudar.</h5>
         </footer>
     `
 });
+
+exports.getBuyRequestTemplate = reqBody => {
+    const {name, phone, address, additional, itemDescription, totalPay } = reqBody;
+    const client = name.charAt(0).toUpperCase() + name.slice(1);
+    return ({
+        subject: `Opa! Novo Pedido de ${client}`,
+        html: `
+            <center>
+                <header">
+                     <img style="box-shadow: 0 19px 38px rgba(0,0,0,0.20), 0 15px 12px rgba(0,0,0,0.12);" src="https://imgur.com/9GjtAiW.png" width="200px" height="200px"/>
+                </header>
+            </center>
+            <h1><center>Relatório em Tempo Real</center></h1>
+            <h3>Informações do Cliente:</h3>
+            <ul>
+              <li>Nome: ${client}</li>
+              <li>Contato/Whatsapp: ${phone}</li>
+              <li>Endereço para Entrega: ${address}</li>
+              <li>Informações Adicionais: ${additional}</li>
+            </ul>
+            <h3>Informações do Pedido:</h3>
+            <ul>
+              <li>Quantidades e Items(ref): <br/>${itemDescription}</li>
+              <li><h3>${totalPay}</h3></li>
+            </ul>
+            <footer>
+                <h4><strong>Relatório gerado após conclusão de compra da ${bizName} online</strong></h4>
+                <h4><strong>Visite sua loja para ver mais detalhes dos pedidos <a href=${bizWebsite}>AQUI</a></strong></h4>
+                <h4><strong>Ou acesse: <a href=${bizWebsite}>${bizWebsite}/pedidos</a></strong></h4>
+            </footer>
+        `
+    });
+};
 
 
 
