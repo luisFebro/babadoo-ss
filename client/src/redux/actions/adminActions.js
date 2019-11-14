@@ -11,7 +11,6 @@ export const getUpdatedAdmin = async (dispatch) => {
         // setLoadingOn(dispatch);
         const res = await axios.get('/api/admin/coupons', configTypeJson);
         console.log("==ADMIN DATA UPDATED==")
-        console.log("==ADMIN DATA UPDATED== DATA ", res.data)
         dispatch({
             type: 'PROMOTION_UPDATED',
             payload: res.data

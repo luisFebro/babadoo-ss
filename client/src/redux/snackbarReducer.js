@@ -8,6 +8,7 @@ const initialState = {
     isBlackSnackbarOpen: false,
     isSuccessSnackbarOpen: false,
     snackbarMsg: "",
+    snackbarTiming: 0,
 }
 
 export const snackbarReducer = {
@@ -16,12 +17,15 @@ export const snackbarReducer = {
             //Show
             case 'SHOW_SNACKBAR_BLACK':
                 return {
+                    ...state,
                    isBlackSnackbarOpen: true,
-                   snackbarMsg: action.payload
+                   snackbarMsg: action.payload.msg,
+                   snackbarTiming: action.payload.timeRunning
                 };
             //Close
             case 'CLOSE_SNACKBAR_BLACK':
                 return {
+                    ...state,
                    isBlackSnackbarOpen: false,
                    snackbarMsg: ""
                 }

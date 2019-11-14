@@ -2,6 +2,7 @@ import axios from 'axios';
 import { returnErrors } from './errorActions';
 import { updateCurrentUser } from './userActions';
 import { clearErrors } from './errorActions';
+import { showSnackbarBlack } from './snackbarActions';
 import { getBodyRequest } from '../../utils/server/getBodyRequest';
 import { configTypeJson } from '../../utils/server/configTypeJson';
 // naming structure: action > type > speficification e.g action: GET_MODAL_BLUE / func: getModalBlue
@@ -24,7 +25,6 @@ export const loadUser = () => (dispatch, getState) => {
     axios.all([getAuthUser(), getUpdatedUsers()])
       .then(axios.spread((auth, products, users) => {
         // Both requests are now complete
-        console.log("auth from authActions", auth.data)
         dispatch({
             type: 'USER_LOADED',
             payload: auth.data
@@ -148,7 +148,7 @@ export const authenticateFacebook = dispatch => {
 export const logout = dispatch => {
     dispatch({ type: 'LOGOUT_SUCCESS' });
     clearErrors(dispatch);
-    setTimeout(() => dispatch({ type: 'SHOW_SNACKBAR_BLACK', payload: "Sua sessão foi finalizada com sucesso." }), 2000);
+    setTimeout(() => showSnackbarBlack(dispatch, "Sua sessão foi finalizada com sucesso.", 3000), 2000);
 };
 
 // Setup config/headers and token

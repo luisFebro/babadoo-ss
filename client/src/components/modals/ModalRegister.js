@@ -7,6 +7,7 @@ import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { showSnackbarBlack } from '../../redux/actions/snackbarActions';
 import { showModalLogin, showModalUnderConstruction, closeModal } from '../../redux/actions/modalActions';
 import { getUpdatedUsers } from '../../redux/actions/userActions';
+import { sendWelcomeEmail } from '../../redux/actions/emailActions';
 import { clearErrors } from '../../redux/actions/errorActions';
 import { registerEmail } from '../../redux/actions/authActions';
 // Material UI
@@ -35,11 +36,13 @@ const useStyles = makeStyles(theme => ({
 
 export default function ModalRegister() {
     // Redux
-    const { isModalRegisterOpen, isUserAuthenticated, error } = useStoreState(state => ({
+    const { bizInfo, isModalRegisterOpen, isUserAuthenticated, error, success } = useStoreState(state => ({
         isModalRegisterOpen: state.modalReducers.cases.isModalRegisterOpen,
         isUserAuthenticated: state.authReducer.cases.isUserAuthenticated,
+        bizInfo: state.businessInfoReducer.cases.businessInfo,
         error: state.errorReducer.cases.msg,
-    }));
+        success: state.globalReducer.cases
+    }))
     const dispatch = useStoreDispatch();
     // End Redux
     const [data, setData] = useState({
@@ -48,41 +51,20 @@ export default function ModalRegister() {
         password: "",
         hasErrorMsg: null
     });
-
+    const { gotSuccess, successMsg } = success;
+    const { bizName, bizWebsite, bizWhatsapp } = bizInfo;
     const { name, email, password } = data;
+
     const classes = useStyles();
 
-    // componentDidUpdate(prevProps) {
-    //   const { error, isUserAuthenticated } = this.props;
-    //   if (error !== prevProps.error) {
-    //     // Check for register error
-        // if (error.id === 'LOGIN_FAIL') {
-        //   this.setState({ msg: error.msg.msg });
-        // } else {
-        //   this.setState({ msg: null });
-        // }
-    //   }
-
-    // If authenticated, close modal
     useEffect(() => {
-        // Check for register error
-        // if (error.id === 'LOGIN_FAIL') {
-        //   setData({ msg: error.msg.msg });
-        // } else {
-        //   setData({ msg: null });
-        // }
-        //
         if (isModalRegisterOpen) {
             if (isUserAuthenticated) {
               closeModal(dispatch, isModalRegisterOpen);
-              setTimeout(() => {
-                showSnackbarBlack(dispatch, "Cadastro Realizado com Sucesso via Email!");
-              })
             }
         }
 
     }, [isUserAuthenticated, isModalRegisterOpen]);
-
 
     const onChange = e => {
         const { name, value } = e.target;
@@ -95,6 +77,17 @@ export default function ModalRegister() {
         //   console.log("color", test.color); //red
     };
 
+    const sendEmail = () => {
+        const dataEmail = {
+            name,
+            email,
+            bizName,
+            bizWebsite,
+            bizWhatsapp
+        }
+        sendWelcomeEmail(dispatch, dataEmail);
+    }
+
     const onSubmit = e => {
         // e.preventDefault();
 
@@ -106,21 +99,6 @@ export default function ModalRegister() {
         // Attempt to register
         registerEmail(newUser)(dispatch);
     };
-
-    const config = {
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    };
-    const sendWelcomeEmail = async () => {
-        try {
-            const res = await axios.post('/api/email/client/welcome-and-confirm', { name, email }, config)
-            console.log("resSENDwELCOMEemail", res);
-        } catch(e) {
-            // statements
-            console.log("sendWelcomeEmailERROR", e);
-        }
-    }
 
     return (
         <div>
@@ -191,11 +169,13 @@ export default function ModalRegister() {
                         </Button>
                         <Button
                               onClick={() => {
-                                console.log("==Register: Submitting current user==")
                                 onSubmit();
                                 setTimeout(() => getUpdatedUsers(dispatch), 3000);
-                                sendWelcomeEmail();
-                                showSnackbarBlack(dispatch, "Carregando...");
+                                sendEmail();
+                                if(gotSuccess) {
+                                    showSnackbarBlack(dispatch, "Cadastro Realizado com Sucesso via Email!", 3000);
+                                    setTimeout(() => showSnackbarBlack(dispatch, successMsg, 4000), 4000);
+                                }
                               }}
                               variant="contained"
                               color="primary"

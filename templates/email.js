@@ -1,33 +1,33 @@
-const bizName= 'Sexy Store';
-const bizWhatsapp= "(92) 99433-1555"
-const bizEmail= "contato@babadoo.com.br"
-const bizWebsite= "https://babadoo.herokuapp.com"
+exports.getWelcomeAndConfirmTemplate = reqBody => {
+    const { name, bizName, bizWebsite, bizWhatsapp } = reqBody;
+    const client = name.charAt(0).toUpperCase() + name.slice(1);
+    return({
+        subject: `${client}, confirme a sua conta da ${bizName}`,
+        html: `
+            <center>
+                <header">
+                     <img style="box-shadow: 0 19px 38px rgba(0,0,0,0.20), 0 15px 12px rgba(0,0,0,0.12);" src="https://imgur.com/9GjtAiW.png" width="200px" height="200px"/>
+                </header>
+            </center>
+            <h1><center>Artigos Eróticos</center></h1>
+            <h3>Tenha acesso a todos as funcionalidades da ${bizName}</h3>
+            <h3>Para ativar sua conta, por favor verifique seu endereço de email:</h3>
+            <h4><a href=${bizWebsite}>CONFIRMAR SEU EMAIL</a></h4>
+            <ul>
+              <li><h4>Embalagens Discretas</h4></li>
+              <li><h4>Entregamos por toda a cidade</h4></li>
+              <li><h4>Variedades de Acessórios</h4></li>
+            </ul>
+            <footer>
+                <h5>Se você tiver qualquer dúvida, entre em contato com nosso <strong>Whatsapp ${bizWhatsapp}</strong> ou responda a esse email que ficaremos contentes em ajudar.</h5>
+            </footer>
+        `
+    })
 
-exports.getWelcomeAndConfirmTemplate = client => ({
-    subject: `${client}, confirme a sua conta da ${bizName}`,
-    html: `
-        <center>
-            <header">
-                 <img style="box-shadow: 0 19px 38px rgba(0,0,0,0.20), 0 15px 12px rgba(0,0,0,0.12);" src="https://imgur.com/9GjtAiW.png" width="200px" height="200px"/>
-            </header>
-        </center>
-        <h1><center>Artigos Eróticos</center></h1>
-        <h3>Tenha acesso a todos as funcionalidades da ${bizName}</h3>
-        <h3>Para ativar sua conta, por favor verifique seu endereço de email:</h3>
-        <h4><a href=${bizWebsite}>CONFIRMAR SEU EMAIL</a></h4>
-        <ul>
-          <li><h4>Embalagens Discretas</h4></li>
-          <li><h4>Entregamos por toda a cidade</h4></li>
-          <li><h4>Variedades de Acessórios</h4></li>
-        </ul>
-        <footer>
-            <h5>Se você tiver qualquer dúvida, entre em contato com nosso <strong>Whatsapp ${bizWhatsapp}</strong> ou responda a esse email que ficaremos contentes em ajudar.</h5>
-        </footer>
-    `
-});
+};
 
 exports.getBuyRequestTemplate = reqBody => {
-    const {name, phone, address, additional, itemDescription, totalPay } = reqBody;
+    const {bizName, bizWebsite, name, phone, address, additional, itemDescription, totalPay } = reqBody;
     const client = name.charAt(0).toUpperCase() + name.slice(1);
     return ({
         subject: `Opa! Novo Pedido de ${client}`,

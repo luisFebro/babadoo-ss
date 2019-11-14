@@ -37,10 +37,9 @@ const sendEmail = async (toEmail, mainTitle, content) => {
 // END SEND EMAIL
 
 exports.sendWelcomeConfirmEmail = (req, res) => {
-    const { name, email } = req.body;
-    const mainTitle = "Seja Bem Vindo(a) a Sexy Store"
-    const client = name.charAt(0).toUpperCase() + name.slice(1)
-    sendEmail(email, mainTitle, getWelcomeAndConfirmTemplate(client))
+    const { email, bizName } = req.body;
+    const mainTitle = `Seja Bem Vindo(a) a ${bizName}`;
+    sendEmail(email, mainTitle, getWelcomeAndConfirmTemplate(req.body))
     .then(() => res.json({ msg: msgs.confirm }))
 }
 
