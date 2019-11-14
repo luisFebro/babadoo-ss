@@ -6,9 +6,9 @@ import ToggleVisibilityPassword from '../forms/fields/ToggleVisibilityPassword';
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { showSnackbarBlack } from '../../redux/actions/snackbarActions';
 import { showModalLogin, showModalUnderConstruction, closeModal } from '../../redux/actions/modalActions';
+import { setSuccessOff, setErrorOff } from '../../redux/actions/globalActions';
 import { getUpdatedUsers } from '../../redux/actions/userActions';
 import { sendWelcomeEmail } from '../../redux/actions/emailActions';
-import { clearErrors } from '../../redux/actions/errorActions';
 import { registerEmail } from '../../redux/actions/authActions';
 // Material UI
 import { makeStyles } from '@material-ui/core/styles';
@@ -36,22 +36,20 @@ const useStyles = makeStyles(theme => ({
 
 export default function ModalRegister() {
     // Redux
-    const { bizInfo, isModalRegisterOpen, isUserAuthenticated, error, success } = useStoreState(state => ({
+    const { bizInfo, isModalRegisterOpen, isUserAuthenticated, errorMsg, successMsg } = useStoreState(state => ({
         isModalRegisterOpen: state.modalReducers.cases.isModalRegisterOpen,
         isUserAuthenticated: state.authReducer.cases.isUserAuthenticated,
         bizInfo: state.businessInfoReducer.cases.businessInfo,
-        error: state.errorReducer.cases.msg,
-        success: state.globalReducer.cases
+        errorMsg: state.globalReducer.cases.errorMsg,
+        successMsg: state.globalReducer.cases.successMsg
     }))
     const dispatch = useStoreDispatch();
     // End Redux
     const [data, setData] = useState({
         name: "",
         email: "",
-        password: "",
-        hasErrorMsg: null
+        password: ""
     });
-    const { gotSuccess, successMsg } = success;
     const { bizName, bizWebsite, bizWhatsapp } = bizInfo;
     const { name, email, password } = data;
 
@@ -88,7 +86,7 @@ export default function ModalRegister() {
         sendWelcomeEmail(dispatch, dataEmail);
     }
 
-    const onSubmit = e => {
+    const registerThisUser = e => {
         // e.preventDefault();
 
         const newUser = {
@@ -121,15 +119,15 @@ export default function ModalRegister() {
             </DialogTitle>
             <DialogContent>
               <DialogContentText>
-                {error.msg ? (
-                  <span className="text-red text-main-container">{error.msg}</span>
+                {errorMsg ? (
+                  <span className="text-red text-main-container">{errorMsg}</span>
                 ) : "quase lá!"}
               </DialogContentText>
               <form onChange={onChange}>
                   <TextField
                     autoFocus
                     required
-                    error={error.msg ? true : false}
+                    error={errorMsg ? true : false}
                     margin="dense"
                     id="name"
                     name="name"
@@ -140,7 +138,7 @@ export default function ModalRegister() {
                     <TextField
                       required
                       margin="dense"
-                      error={error.msg ? true : false}
+                      error={errorMsg ? true : false}
                       id="email"
                       name="email"
                       type="email"
@@ -148,12 +146,17 @@ export default function ModalRegister() {
                       autoComplete="email"
                       fullWidth
                     />
-                    <ToggleVisibilityPassword data={data} onChange={onChange} setData={setData} error={error} />
+                    <ToggleVisibilityPassword
+                        data={data}
+                        onChange={onChange}
+                        setData={setData}
+                        error={errorMsg}
+                    />
                     <div style={{display: 'flex', justifyContent: 'center', marginTop: '28px'}}>
                         <Button
                               onClick={() => {
                                 closeModal(dispatch);
-                                clearErrors(dispatch);
+                                setErrorOff(dispatch);
                             }}
                               color="primary"
                           >
@@ -169,12 +172,16 @@ export default function ModalRegister() {
                         </Button>
                         <Button
                               onClick={() => {
-                                onSubmit();
+                                registerThisUser();
                                 setTimeout(() => getUpdatedUsers(dispatch), 3000);
-                                sendEmail();
-                                if(gotSuccess) {
+                                // if successful, send a email
+                                if(successMsg && !errorMsg) {
                                     showSnackbarBlack(dispatch, "Cadastro Realizado com Sucesso via Email!", 3000);
-                                    setTimeout(() => showSnackbarBlack(dispatch, successMsg, 4000), 4000);
+                                    setTimeout(() => {
+                                        sendEmail();
+                                        showSnackbarBlack(dispatch, successMsg, 4000);
+                                        setSuccessOff(dispatch)
+                                    }, 4000);
                                 }
                               }}
                               variant="contained"

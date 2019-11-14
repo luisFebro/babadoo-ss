@@ -1,6 +1,5 @@
 // naming structure: action > type > speficification e.g action: GET_MODAL_BLUE / func: getModalBlue
 import axios from 'axios';
-import { returnErrors } from './errorActions';
 import { tokenConfig } from './authActions';
 import { getAllProducts } from './productActions';
 import { setLoadingOn, setLoadingOff, setErrorOn } from './globalActions';

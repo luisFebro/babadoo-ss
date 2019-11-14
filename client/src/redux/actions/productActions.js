@@ -2,7 +2,7 @@
 import axios from 'axios';
 import { returnErrors } from './errorActions';
 import { tokenConfig } from './authActions';
-import { setLoadingOn, setLoadingOff } from './globalActions';
+import { setLoadingOn, setLoadingOff, setErrorOn } from './globalActions';
 import { getRandomArray } from '../../utils/getRandomArray';
 import { getBodyRequest } from '../../utils/server/getBodyRequest';
 import { configTypeJson } from '../../utils/server/configTypeJson';
@@ -23,7 +23,9 @@ export const addProduct = product => async (dispatch, getState) => {
     try {
         dispatch({ type: 'ADD_PRODUCT', payload: res.data });
     } catch(err) {
+        setErrorOn(dispatch, err.response.data.msg);
         dispatch(returnErrors(err.response.data, err.response.status));
+
     }
 };
 
@@ -41,6 +43,7 @@ export const getAllProducts = async (dispatch) => {
         // }
     } catch (err) {
         console.log("getAllProductsError", err);
+        setErrorOn(dispatch, err.response.data.msg);
         dispatch(returnErrors(err.response.data, err.response.status))
         // if(!didCancel) {
         // }
@@ -75,6 +78,7 @@ export const deleteProduct = async (dispatch, _idProduct) => {
         // update
         getAllProducts(dispatch);
     } catch(err) {
+        setErrorOn(dispatch, err.response.data.msg)
         dispatch(returnErrors(err.response.data, err.response.status));
     }
 };

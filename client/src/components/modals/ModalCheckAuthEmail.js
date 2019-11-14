@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { showSnackbarBlack } from '../../redux/actions/snackbarActions';
 import { clearErrors } from '../../redux/actions/errorActions';
+import { setErrorOff } from '../../redux/actions/globalActions';
 import { loginEmail } from '../../redux/actions/authActions';
 // Material UI
 import { makeStyles } from '@material-ui/core/styles';
@@ -150,6 +151,7 @@ export default function ModalCheckAuthEmail() {
                                 onClick={() => {
                                   dispatch({type: 'TOGGLE_MODAL_LOGIN', payload: isModalLoginOpen})
                                   clearErrors(dispatch);
+                                  setErrorOff(dispatch);
                               }}
                               color="primary"
                           >
@@ -179,5 +181,4 @@ ModalLogin.propTypes = {
     isAuthenticated: PropTypes.bool,
     error: PropTypes.object,
     login: PropTypes.func,
-    clearErrors: PropTypes.func
 }

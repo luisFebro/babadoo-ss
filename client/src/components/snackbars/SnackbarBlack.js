@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 // Redux
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
@@ -26,11 +26,6 @@ export default function SnackbarBlack() {
     const { snackbarMsg, snackbarTiming } = snackbar;
     // End Redux
     const classes = useStyles();
-    useEffect(() => {
-        if(!isBlackSnackbarOpen) {
-            setSuccessOff(dispatch);
-        }
-    }, [isBlackSnackbarOpen])
 
   return (
      <div>

@@ -1,6 +1,6 @@
 exports.getWelcomeAndConfirmTemplate = reqBody => {
     const { name, bizName, bizWebsite, bizWhatsapp } = reqBody;
-    const client = name.charAt(0).toUpperCase() + name.slice(1);
+    const client = window.Helper.textCapi(name);
     return({
         subject: `${client}, confirme a sua conta da ${bizName}`,
         html: `
@@ -28,7 +28,7 @@ exports.getWelcomeAndConfirmTemplate = reqBody => {
 
 exports.getBuyRequestTemplate = reqBody => {
     const {bizName, bizWebsite, name, phone, address, additional, itemDescription, totalPay } = reqBody;
-    const client = name.charAt(0).toUpperCase() + name.slice(1);
+    const client = window.Helper.textCapi(name);
     return ({
         subject: `Opa! Novo Pedido de ${client}`,
         html: `

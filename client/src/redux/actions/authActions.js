@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { returnErrors } from './errorActions';
 import { updateCurrentUser } from './userActions';
+import { setErrorOn, setErrorOff } from './globalActions';
 import { clearErrors } from './errorActions';
 import { showSnackbarBlack } from './snackbarActions';
 import { getBodyRequest } from '../../utils/server/getBodyRequest';
@@ -39,6 +40,7 @@ export const loadUser = () => (dispatch, getState) => {
         })
       })).catch(err => {
         if(typeof err.response !== 'undefined') {
+            setErrorOn(dispatch, err.response.data.msg);
             dispatch(returnErrors(err.response.data, err.response.status));
         }
             // dispatch({
@@ -88,6 +90,7 @@ export const loginEmail = (objToSend) => async (dispatch, isSocialOn = false) =>
             updateCurrentUser(dispatch, res.data.user.id);
         }
     } catch(err) {
+        setErrorOn(dispatch, err.response.data.msg);
         dispatch(
             returnErrors(err.response.data, err.response.status, 'LOGIN_FAIL')
         );
@@ -121,7 +124,8 @@ export const registerEmail = (objToSend) => (dispatch, isSocialOn = null) => {
             }
         })
         .catch(err => {
-            console.log(err.response);
+            console.log("err.response", err.response);
+            setErrorOn(dispatch, err.response.data.msg);
             dispatch(
                 returnErrors(err.response.data, err.response.status, 'REGISTER_FAIL')
             );
@@ -147,6 +151,7 @@ export const authenticateFacebook = dispatch => {
 // Logout
 export const logout = dispatch => {
     dispatch({ type: 'LOGOUT_SUCCESS' });
+    setErrorOff(dispatch);
     clearErrors(dispatch);
     setTimeout(() => showSnackbarBlack(dispatch, "Sua sessão foi finalizada com sucesso.", 3000), 2000);
 };

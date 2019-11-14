@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import ToggleVisibilityPassword from '../forms/fields/ToggleVisibilityPassword';
+import parse from 'html-react-parser';
 // Redux
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { showSnackbarBlack } from '../../redux/actions/snackbarActions';
 import { showModalUnderConstruction, closeModal } from '../../redux/actions/modalActions';
 import { getUpdatedUsers } from '../../redux/actions/userActions';
-import { clearErrors } from '../../redux/actions/errorActions';
+import { setErrorOff } from '../../redux/actions/globalActions';
 import { loginEmail } from '../../redux/actions/authActions';
 // Material UI
 import { makeStyles } from '@material-ui/core/styles';
@@ -18,14 +19,6 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 // End Material UI
-
-ModalLogin.propTypes = {
-    isUserAuthenticated: PropTypes.bool,
-    error: PropTypes.object,
-    login: PropTypes.func,
-    clearErrors: PropTypes.func,
-    allRegisteredUsersList: PropTypes.arrayOf(PropTypes.string)
-}
 
 const useStyles = makeStyles(theme => ({
     button: {
@@ -42,10 +35,10 @@ const useStyles = makeStyles(theme => ({
 export default function ModalLogin() {
     // Redux
     // > set state
-    const { isModalLoginOpen, isUserAuthenticated, error, allRegisteredUsersList } = useStoreState(state => ({
+    const { isModalLoginOpen, isUserAuthenticated, errorMsg, allRegisteredUsersList } = useStoreState(state => ({
             isModalLoginOpen: state.modalReducers.cases.isModalLoginOpen,
             isUserAuthenticated: state.authReducer.cases.isUserAuthenticated,
-            error: state.errorReducer.cases.msg,
+            errorMsg: state.globalReducer.cases.errorMsg,
             allRegisteredUsersList: state.userReducer.cases.allRegisteredUsersList
         }));
     const dispatch = useStoreDispatch();
@@ -53,14 +46,14 @@ export default function ModalLogin() {
 
 
     const [data, setData] = useState({
-        name: "", //This is not a field. just for checking either name or email
+        name: "", //This is not a field in DB. just for checking either name or email
         email: "",
         password: "",
         showPassword: false,
         hasErrorMsg: null
     });
 
-    const { name, email, password } = data;
+    let { name, email, password } = data;
     const classes = useStyles();
 
     // Check and insert "name" key to the request body
@@ -71,31 +64,15 @@ export default function ModalLogin() {
         }
     }
 
-  // componentDidUpdate(prevProps) {
-  //   const { error, isUserAuthenticated } = this.props;
-  //   if (error !== prevProps.error) {
-  //     // Check for register error
-      // if (error.id === 'LOGIN_FAIL') {
-      //   this.setState({ msg: error.msg.msg });
-      // } else {
-      //   this.setState({ msg: null });
-      // }
-  //   }
+
 
   // If authenticated, close modal
   useEffect(() => {
-      // Check for register error
-      // if (error.id === 'LOGIN_FAIL') {
-      //   setData({ msg: error.msg.msg });
-      // } else {
-      //   setData({ msg: null });
-      // }
-      //
       if (isModalLoginOpen) {
           if (isUserAuthenticated) {
             closeModal(dispatch);
             setTimeout(() => {
-                showSnackbarBlack(dispatch, `Olá de volta!`);
+                showSnackbarBlack(dispatch, `Olá de volta, ${window.Helper.textCapi(name)}!`);
             }, 3000);
           }
       }
@@ -136,8 +113,8 @@ export default function ModalLogin() {
             <DialogTitle id="form-dialog-title">Entrar com Nome ou Email</DialogTitle>
             <DialogContent>
               <DialogContentText>
-                  {error.msg ? (
-                    <span className="text-red text-main-container">{error.msg}</span>
+                  {errorMsg ? (
+                    <span className="text-red text-main-container">{errorMsg}</span>
                   ) : "Falta pouco para você entrar na sua conta novamente"}
               </DialogContentText>
               <form>
@@ -145,7 +122,7 @@ export default function ModalLogin() {
                       required
                       onChange={onChange}
                       margin="dense"
-                      error={error.msg ? true : false}
+                      error={errorMsg ? true : false}
                       id="email"
                       name="email"
                       type="email"
@@ -154,12 +131,17 @@ export default function ModalLogin() {
                       autoComplete="email"
                       fullWidth
                     />
-                    <ToggleVisibilityPassword data={data} onChange={onChange} setData={setData} error={error} />
+                    <ToggleVisibilityPassword
+                        data={data}
+                        onChange={onChange}
+                        setData={setData}
+                        error={errorMsg}
+                    />
                     <div style={{display: 'flex', justifyContent: 'center', marginTop: '28px'}}>
                         <Button
                                 onClick={() => {
                                   closeModal(dispatch);
-                                  clearErrors(dispatch);
+                                  setErrorOff(dispatch);
                               }}
                               color="primary"
                           >

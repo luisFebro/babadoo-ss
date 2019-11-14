@@ -13,3 +13,13 @@ export const sendWelcomeEmail = async (dispatch, bodyEmail) => {
         setErrorOn(dispatch, e);
     }
 }
+
+export const sendBuyRequestEmail = async (dispatch, bodyEmail) => {
+    try {
+        const res = await axios.post('/api/email/admin/order-request', bodyEmail, configTypeJson)
+        setSuccessOn(dispatch, res.data.msg);
+    } catch(e) {
+        // statements
+        setErrorOn(dispatch, e);
+    }
+}

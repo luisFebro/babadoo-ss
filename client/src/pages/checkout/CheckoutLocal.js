@@ -3,14 +3,14 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { ButtonContainerPressedEffectDark as DarkBtn } from '../../components/buttons/Default';
 import ShoppingSummary from './ShoppingSummary';
-import FormCheckoutWithNodeMailer from '../../components/forms/FormCheckoutWithNodeMailer';
+import FormCheckoutLocal from '../../components/forms/FormCheckoutLocal';
 
 export default function checkoutLocal() {
     return (
         <React.Fragment>
             <DivContainer className="container">
                 <ShoppingSummary />
-                <FormCheckoutWithNodeMailer />
+                <FormCheckoutLocal />
             </DivContainer>
             <div className="container">
                 <div className="row">

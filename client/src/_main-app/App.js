@@ -9,6 +9,7 @@ import { getUpdatedAdmin } from '../redux/actions/adminActions';
 // End Redux
 import { loadUser, tokenConfig } from '../redux/actions/authActions';
 import './App.css';
+import '../utils/globalHelpers';
 import UserProvider from '../data/contexts/UserProvider';
 //GENERAL COMPONENTS
 import { CustomPreloader } from 'react-preloaders';

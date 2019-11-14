@@ -6,7 +6,7 @@ const {
 
 // MESSAGES
 const msgs = {
-    confirm: 'Um email foi enviado para o seu email. Por favor, confirme seu email',
+    confirm: 'Um email de confirmação foi enviado para você.',
     confirmed: 'Your email is confirmed!',
     resend: 'Email de Confirmação Reenviado, verifique também sua caixa de spam',
     couldNotFind: 'Não encontramos você!',

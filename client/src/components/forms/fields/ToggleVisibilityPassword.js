@@ -38,7 +38,7 @@ export default function ToggleVisibilityPassword({ onChange, data, setData, erro
                  label="Senha"
                  type={data.showPassword ? 'text' : 'password'}
                  name="password"
-                 error={error.msg ? true : false}
+                 error={error ? true : false}
                  onChange={onChange}
                  endAdornment={
                    <InputAdornment position="end">

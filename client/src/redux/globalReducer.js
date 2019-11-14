@@ -5,10 +5,8 @@ import { reducer } from 'easy-peasy';
 // REDUCERS
 const initialState = {
     isLoading: false,
-    gotSuccess: false,
-    successMsg: "",
-    gotError: false,
-    errorMsg: "",
+    successMsg: null,
+    errorMsg: null,
     currentItemFound: null,
 }
 
@@ -30,13 +28,11 @@ export const globalReducer = {
             case 'SHOW_SUCCESS':
                 return {
                     ...state,
-                    gotSuccess: true,
                     successMsg: action.payload,
                 }
             case 'SHOW_ERROR':
                 return {
                     ...state,
-                    gotError: true,
                     errorMsg: action.payload,
                 };
             //Clear
@@ -48,13 +44,11 @@ export const globalReducer = {
             case 'CLEAR_SUCCESS':
                 return {
                     ...state,
-                    gotSuccess: false,
                     successMsg: "",
                 }
             case 'CLEAR_ERROR':
                 return {
                     ...state,
-                    gotError: false,
                     errorMsg: "",
                 }
             default:
