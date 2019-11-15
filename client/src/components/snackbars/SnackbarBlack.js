@@ -15,7 +15,7 @@ import Slide from '@material-ui/core/Slide';
 
 const useStyles = makeStyles(theme => ({
   snackbar: {
-    [theme.breakpoints.down('xs')]: {
+    [theme.breakpoints.down('xs')]: { // n2
           bottom: 85,
         },
   },
@@ -65,14 +65,14 @@ export default function SnackbarBlack() {
 
   return (
        <Snackbar
-         className={clsx(classes.success, classes.snackbar)}
-         variant="success"
+         className={clsx(classes.snackbar)}
          disableWindowBlurListener={true} //n1
          TransitionComponent={Slide}
          transitionDuration={{'enter': 300, 'exit': 800}}
          style={{zIndex: 1501}}
          open={isBlackSnackbarOpen}
          autoHideDuration={ snackbarTiming || 3000}
+         resumeHideDuration={4000} // n3
          onClose={() => closeSnackbarBlack(dispatch)}
          ContentProps={{
            'aria-describedby': 'message-id',
@@ -103,4 +103,8 @@ export default function SnackbarBlack() {
   );
 }
 
-// n1If true, the autoHideDuration timer will expire even if the window is not focused.
+/* COMMENTS
+n1: If true, the autoHideDuration timer will expire even if the window is not focused.
+n2: applied to mobile only
+n3: The number of milliseconds to wait before dismissing after user interaction
+*/

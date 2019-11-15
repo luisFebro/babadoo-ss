@@ -12,7 +12,8 @@ const msgs = {
     resend: 'Email de Confirmação Reenviado, verifique também sua caixa de spam',
     couldNotFind: 'Não encontramos você!',
     alreadyConfirmed: 'Your email was already confirmed',
-    successBuyRequest: "Pedido registrado e enviado com sucesso! Acompanhe o andamento do seu pedido!"
+    successBuyRequest: "Pedido registrado e enviado com sucesso! Acompanhe o andamento do seu pedido!",
+    catchAllError: "Ocorreu esse problema: "
 }
 const valMsgs = {
     anyField: "Preencha todas os campos",
@@ -59,7 +60,8 @@ exports.sendBuyRequestEmail = (req, res) => {
     const mainTitle = `${bizName} - Pedidos de Compra`;
     if(validateBuyRequest(req, res) === 'ok'){
         sendEmail(toEmail, mainTitle, getBuyRequestTemplate(req.body))
-        .then(() => res.json({ msg: msgs.successBuyRequest }));
+        .then(() => res.json({ msg: msgs.successBuyRequest }))
+        .catch(err => res.json({ msg: `${msgs.catchAllError} ${err}` }));
     }
 }
 

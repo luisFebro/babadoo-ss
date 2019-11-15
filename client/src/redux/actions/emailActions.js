@@ -12,10 +12,9 @@ export const sendWelcomeEmail = async (dispatch, bodyEmail) => {
     }
 }
 
-export const sendBuyRequestEmail = async (dispatch, bodyEmail, next = f => f) => {
+export const sendBuyRequestEmail = async (dispatch, bodyEmail) => {
     try {
         return await axios.post('/api/email/admin/order-request', bodyEmail, configTypeJson);
-        next();
     } catch(err) {
         err.response && setErrorOn(dispatch, err.response.data.msg); // n1
     }

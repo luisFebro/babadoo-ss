@@ -10,6 +10,21 @@ const dataPromotions = {
 const BizPromotionsSchema = new Schema(dataPromotions, { _id: false, timestamps: true });
 // END BIZ PROMOTIONS
 
+// BIZ WORKING HOUR
+// Object = {start: Number end: Number dayOff: Boolean}
+const dataWorkingHours = {
+    breakTime: Boolean,
+    monday: Object,
+    tuesday: Object,
+    wednesday: Object,
+    thirsday: Object,
+    friday: Object,
+    saturday: Object,
+    sunday: Object,
+}
+const BizWorkingHoursSchema = new Schema(dataWorkingHours, { _id: false, timestamps: true });
+// END WORKING HOUR
+
 // BIZ DEV
 const dataDev = {
     name: String,
@@ -37,7 +52,8 @@ const data = {
     bizInstagram: String,
     bizDev: BizDevSchema,
     bizPromotions: BizPromotionsSchema,
-    bizShippingRates: BizShippingRatesSchema
+    bizShippingRates: BizShippingRatesSchema,
+    bizWorkingHours: BizWorkingHoursSchema
 }
 
 const BusinessInfoSchema = new Schema(data, { timestamps: true });

@@ -14,7 +14,6 @@ export default function FormCheckoutLocal() {
         additional: '',
         itemDescription: '',
         totalPay: '',
-        isFinishedFields: false
     });
     const [redirect, setRedirect] = useState(false);
     const { name, phone, address, additional, itemDescription, totalPay } = values;
@@ -51,15 +50,18 @@ export default function FormCheckoutLocal() {
             bizEmail,
         }
 
-        sendBuyRequestEmail(dispatch, bodyData, () => {setRedirect(true)})
-        .then(data => {
-            if(!data) {
+        sendBuyRequestEmail(dispatch, bodyData)
+        .then(res => {
+            if(!res) {
                 if(errorMsg){
                     showSnackbarBlack(dispatch, errorMsg);
+                    return;
                 }
             } else {
-                showSnackbarBlack(dispatch, data.msg, 4000);
                 resetForm();
+                showSnackbarBlack(dispatch, res.data.msg, 4000);
+                setErrorOff(dispatch);
+                setTimeout(() => setRedirect(true), 5000);
             }
         })
     }
@@ -71,8 +73,11 @@ export default function FormCheckoutLocal() {
     }
 
     const resetForm = () => {
-        // e.preventDefault(); //only allow one click
-        document.getElementById('contactForm').reset();
+        const tempValues = values;
+        for(let key in tempValues) {
+            tempValues[key] = '';
+        }
+        setValues(tempValues);
     }
 
     const needRedirect = redirect => {
@@ -88,32 +93,29 @@ export default function FormCheckoutLocal() {
             </div>
             <form
                 id="contactForm"
-                onChange={handleChange}
-                onSubmit={handleSubmit}
-                method="POST"
-                action="send"
             >
                 <p className="full">
                     <label>Seu Nome</label>
-                    <input type="text" name="name" value={name}/>
+                    <input type="text" name="name" onChange={handleChange} value={name}/> {/*n1*/}
                 </p>
                 <p className="full">
                     <label>Telefone/Whatsapp</label>
-                    <input type="tel" name="phone" value={phone}/>
+                    <input type="tel" name="phone" onChange={handleChange} value={phone}/>
                 </p>
                 <p className="full">
                     <label>
                         Endereço para Entrega
                         <br /> (Rua/Avenida, Número, Bairro, Referência){' '}
                     </label>
-                    <textarea name="address" rows="8" value={address}></textarea>
+                    <textarea name="address" rows="8" onChange={handleChange} value={address}></textarea>
                 </p>
                 <p className="full">
                     <label>Alguma Informação Adicional? (Opcional)</label>
-                    <textarea name="additional" rows="8" value={additional}></textarea>
+                    <textarea name="additional" rows="8" onChange={handleChange} value={additional}></textarea>
                 </p>
                 <p className="full">
                     <button
+                        onClick={handleSubmit}
                         type="submit"
                         style={{
                             color: 'var(--mainWhite)',
@@ -130,8 +132,8 @@ export default function FormCheckoutLocal() {
     return (
         <DivContainer className="container">
             <div className="contact animated rotateInDownLeft slower delay-3s">
+                {needRedirect(redirect)}
                 {showForm()}
-                {JSON.stringify(values)}
             </div>
         </DivContainer>
     );
@@ -250,3 +252,7 @@ const DivContainer = styled.div`
         text-align: left;
     }
 `;
+
+/* COMMENTS
+n1: onChange and value works together, especially when resets the form fields and avoid this error: defaultValue used because this error:  Failed prop type: You provided a `value` prop to a form field without an `onChange` handler. This will render a read-only field. If the field should be mutable use `defaultValue`. Otherwise, set either `onChange` or `readOnly`.
+*/

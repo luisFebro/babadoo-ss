@@ -63,15 +63,15 @@ export default class Details extends Component {
                                     </p>
                                     {/* buttons */}
                                     <div className="d-flex flex-row mr-2">
-                                        <Link to="/">
+                                        <Link to="finalizar-compra">
                                             <DarkBtn>Vitrine</DarkBtn>
                                             <YellowBtn
                                                 cart
                                                 className="mt-3"
                                                 disabled={inCart ? true : false}
                                                 onClick={() => {
-                                                    value.addToCart(id);
-                                                    value.openModal(id);
+                                                    // value.addToCart(id);
+                                                    // value.openModal(id);
                                                 }}
                                             >
                                                 {inCart
