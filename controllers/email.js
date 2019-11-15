@@ -13,7 +13,7 @@ const msgs = {
     couldNotFind: 'Não encontramos você!',
     alreadyConfirmed: 'Your email was already confirmed',
     successBuyRequest: "Pedido registrado e enviado com sucesso! Acompanhe o andamento do seu pedido!",
-    catchAllError: "Ocorreu esse problema: "
+    catchAllError: "Ocorreu esse problema técnico <eng>: "
 }
 const valMsgs = {
     anyField: "Preencha todas os campos",
@@ -52,6 +52,7 @@ exports.sendWelcomeConfirmEmail = (req, res) => {
     const mainTitle = `Seja Bem Vindo(a) a ${bizName}`;
     sendEmail(email, mainTitle, getWelcomeAndConfirmTemplate(req.body))
     .then(() => res.json({ msg: msgs.confirm }))
+    .catch(err => res.json({ msg: `${msgs.catchAllError} ${err}` }));
 }
 
 exports.sendBuyRequestEmail = (req, res) => {
@@ -88,10 +89,15 @@ const validateBuyRequest = (req, res) => {
     if(!validateContact(phone)) {
         return res.status(400).json({ msg: valMsgs.wrongFormat.number })
     }
-    return "ok";
+
+
+    return "ok"; //n1
 }
 // END VALIDATION
 
+/* COMMENTS
+n1: // if any blocking condition is true, then "ok" will be the word to allow sending the email
+*/
 
 // EXEMPLE
 // const User = require('../user.model')
