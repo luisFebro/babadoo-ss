@@ -23,7 +23,7 @@ export const addProduct = product => async (dispatch, getState) => {
     try {
         dispatch({ type: 'ADD_PRODUCT', payload: res.data });
     } catch(err) {
-        setErrorOn(dispatch, err.response.data.msg);
+        setErrorOn(dispatch, err.response.data.msg) ;
         dispatch(returnErrors(err.response.data, err.response.status));
 
     }
@@ -43,7 +43,7 @@ export const getAllProducts = async (dispatch) => {
         // }
     } catch (err) {
         console.log("getAllProductsError", err);
-        setErrorOn(dispatch, err.response.data.msg);
+        setErrorOn(dispatch, err.response.data.msg) ;
         dispatch(returnErrors(err.response.data, err.response.status))
         // if(!didCancel) {
         // }

@@ -3,7 +3,7 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const { jwtSecret } = require('../config/keys');
 const jwt = require('jsonwebtoken');
-const auth = require('../middlewares/auth');
+const { mwAuth } = require('../controllers/auth');
 const User = require('../models/User');
 
 // LOGIN
@@ -51,7 +51,7 @@ router.post('/', (req, res) => {
 // @desc    Get user data
 // @access  Private
 // //auth = require('../../middlewares/auth')
-router.get('/user', auth, (req, res) => {
+router.get('/user', mwAuth, (req, res) => {
     User.findById(req.user.id)
         .select('-password')
         .then(user => res.json(user))

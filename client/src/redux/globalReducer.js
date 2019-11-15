@@ -5,7 +5,6 @@ import { reducer } from 'easy-peasy';
 // REDUCERS
 const initialState = {
     isLoading: false,
-    successMsg: null,
     errorMsg: null,
     currentItemFound: null,
 }
@@ -25,11 +24,6 @@ export const globalReducer = {
                    ...state,
                    isLoading: true,
                 };
-            case 'SHOW_SUCCESS':
-                return {
-                    ...state,
-                    successMsg: action.payload,
-                }
             case 'SHOW_ERROR':
                 return {
                     ...state,
@@ -40,11 +34,6 @@ export const globalReducer = {
                 return {
                    ...state,
                    isLoading: false,
-                }
-            case 'CLEAR_SUCCESS':
-                return {
-                    ...state,
-                    successMsg: "",
                 }
             case 'CLEAR_ERROR':
                 return {

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const auth = require('../middlewares/auth');
+const { mwAuth } = require('../controllers/auth');
 
 // Mongoose Schema/Model
 const Product = require('../models/Product');
@@ -9,7 +9,7 @@ const Product = require('../models/Product');
 // @route   POST api/products
 // @desc    Create a Product
 // @access  Private
-router.post('/', (req, res) => { //needs to put auth as middleware
+router.post('/', (req, res) => { //needs to put mwAuth as middleware
     const title = req.body.title;
     Product.findOne({ title })
     .then(product => {
@@ -60,7 +60,7 @@ router.put('/:id', (req, res) => {
 // @route   DELETE api/products/:id
 // @desc    Delete a Product
 // @access  Private
-router.delete('/:id', (req, auth, res) => { //needs to put auth as middleware
+router.delete('/:id', (req, mwAuth, res) => { //needs to put mwAuth as middleware
     Product.findById(req.params.id)
         .then(product => product.remove().then(() => res.json({ success: "id deleted" }))) // then(() => res.json({ success: true }) = this response is completely up to you
         .catch(err => res.status(404).json({ failure: "id not found" }));

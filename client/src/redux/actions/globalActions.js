@@ -21,17 +21,7 @@ export const setLoadingOff = (dispatch) => {
 }
 // END SET LOADING
 
-// Important: do not forget to clear both success and error methods off since they will after other unrelated parts of the project
-// SUCCESS
-export const setSuccessOn = (dispatch, successMsg) => {
-    return dispatch({ type: 'SHOW_SUCCESS', payload: successMsg})
-}
-export const setSuccessOff = dispatch => {
-    return dispatch({ type: 'CLEAR_SUCCESS' })
-}
-// END SUCCESS
-
-
+// Important: do not forget to clear error methods off
 // ERROR
 export const setErrorOn = (dispatch, errorMsg) => {
     return dispatch({ type: 'SHOW_ERROR', payload: errorMsg})

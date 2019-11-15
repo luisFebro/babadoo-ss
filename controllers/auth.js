@@ -1,6 +1,8 @@
 const { jwtSecret } = require('../config/keys');
 const jwt = require('jsonwebtoken');
 
+
+// MIDDLEWARES
 /*this middleware is created so that
 we can have private routes that are only
 accessed if we send along the token from routes/api/auth*/
@@ -10,7 +12,7 @@ the token that's sent from either react
 or postman angular whatever front-end
 you're using where it's gonna send along
 a token*/
-function auth(req, res, next) {
+exports.mwAuth = (req, res, next) => {
   const token = req.header('x-auth-token');
 
   // Check for token if it exists
@@ -29,5 +31,4 @@ function auth(req, res, next) {
     // res.status(400).json({ msg: 'Ocorreu um pequeno erro. Mas tente fazer seu acesso normalmente...' }); //Token is not valid
   }
 }
-
-module.exports = auth;
+// END MIDDLEWARES

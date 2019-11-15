@@ -1,3 +1,4 @@
+const validateContact = require('../utils/validation/validateContact');
 const sgMail = require('@sendgrid/mail');
 const {
     getWelcomeAndConfirmTemplate,
@@ -11,7 +12,16 @@ const msgs = {
     resend: 'Email de Confirmação Reenviado, verifique também sua caixa de spam',
     couldNotFind: 'Não encontramos você!',
     alreadyConfirmed: 'Your email was already confirmed',
-    successBuyRequest: "Pedido registrado com sucesso!"
+    successBuyRequest: "Pedido registrado e enviado com sucesso! Acompanhe o andamento do seu pedido!"
+}
+const valMsgs = {
+    anyField: "Preencha todas os campos",
+    noName: "Por favor, insira seu nome",
+    noContact: "Por favor, insira seu whatsapp",
+    noAddress: "Por favor, insira seu endereço",
+    wrongFormat: {
+        number: "Você digitou um formato de número errado",
+    }
 }
 // END MESSAGES
 
@@ -44,12 +54,41 @@ exports.sendWelcomeConfirmEmail = (req, res) => {
 }
 
 exports.sendBuyRequestEmail = (req, res) => {
-    const toEmail = req.body.businessInfo.bizEmail;
-    const bizName= req.body.businessInfo.bizName;
+    const toEmail = req.body.bizEmail;
+    const bizName = req.body.bizName;
     const mainTitle = `${bizName} - Pedidos de Compra`;
-    sendEmail(toEmail, mainTitle, getWelcomeAndConfirmTemplate(req.body))
-    .then(() => res.json({ msg: msgs.successBuyRequest }));
+    if(validateBuyRequest(req, res) === 'ok'){
+        sendEmail(toEmail, mainTitle, getBuyRequestTemplate(req.body))
+        .then(() => res.json({ msg: msgs.successBuyRequest }));
+    }
 }
+
+// VALIDATION
+const validateBuyRequest = (req, res) => {
+    console.log(req.body)
+    const { name, phone, address } = req.body;
+
+    if(!name && !phone && !address ) {
+        return res.status(400).json({ msg: valMsgs.anyField });
+    }
+
+    if(!name || !phone || !address ) {
+        if(!name){
+            return res.status(400).json({ msg: valMsgs.noName });
+        }
+        if(!phone){
+            return res.status(400).json({ msg: valMsgs.noContact });
+        }
+        if(!address){
+            return res.status(400).json({ msg: valMsgs.noAddress });
+        }
+    }
+    if(!validateContact(phone)) {
+        return res.status(400).json({ msg: valMsgs.wrongFormat.number })
+    }
+    return "ok";
+}
+// END VALIDATION
 
 
 // EXEMPLE

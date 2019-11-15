@@ -1,20 +1,56 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import clsx from 'clsx';
 // Redux
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { closeSnackbarBlack } from '../../redux/actions/snackbarActions';
 import { setSuccessOff } from '../../redux/actions/globalActions';
 // End Redux
+import { amber, green } from '@material-ui/core/colors';
 import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import Snackbar from '@material-ui/core/Snackbar';
 import CloseIcon from '@material-ui/icons/Close';
+import Slide from '@material-ui/core/Slide';
 
 const useStyles = makeStyles(theme => ({
+  snackbar: {
+    [theme.breakpoints.down('xs')]: {
+          bottom: 85,
+        },
+  },
   close: {
     padding: theme.spacing(0.5),
   },
+  //icons colors
+  success: {
+      backgroundColor: green[600],
+    },
+    error: {
+      backgroundColor: theme.palette.error.dark,
+    },
+    info: {
+      backgroundColor: theme.palette.primary.main,
+    },
+    warning: {
+      backgroundColor: amber[700],
+    },
+    icon: {
+      fontSize: 20,
+    },
+    iconVariant: {
+      opacity: 0.9,
+      marginRight: theme.spacing(1),
+    },
+  //
 }));
+
+// const variantIcon = {
+//   success: CheckCircleIcon,
+//   warning: WarningIcon,
+//   error: ErrorIcon,
+//   info: InfoIcon,
+// };
 
 export default function SnackbarBlack() {
     // Redux
@@ -28,14 +64,14 @@ export default function SnackbarBlack() {
     const classes = useStyles();
 
   return (
-     <div>
        <Snackbar
+         className={clsx(classes.success, classes.snackbar)}
+         variant="success"
+         disableWindowBlurListener={true} //n1
+         TransitionComponent={Slide}
+         transitionDuration={{'enter': 300, 'exit': 800}}
          style={{zIndex: 1501}}
          open={isBlackSnackbarOpen}
-         anchorOrigin={{
-           vertical: 'top',
-           horizontal: 'center',
-         }}
          autoHideDuration={ snackbarTiming || 3000}
          onClose={() => closeSnackbarBlack(dispatch)}
          ContentProps={{
@@ -64,6 +100,7 @@ export default function SnackbarBlack() {
            </IconButton>,
          ]}
        />
-     </div>
   );
 }
+
+// n1If true, the autoHideDuration timer will expire even if the window is not focused.

@@ -2,24 +2,24 @@
 import axios from 'axios';
 import { configTypeJson } from '../../utils/server/configTypeJson';
 import { getBodyRequest } from '../../utils/server/getBodyRequest';
-import { setSuccessOn, setErrorOn } from './globalActions';
+import { setErrorOn } from './globalActions';
 
 export const sendWelcomeEmail = async (dispatch, bodyEmail) => {
     try {
-        const res = await axios.post('/api/email/client/welcome-and-confirm', bodyEmail, configTypeJson)
-        setSuccessOn(dispatch, res.data.msg);
-    } catch(e) {
-        // statements
-        setErrorOn(dispatch, e);
+        return await axios.post('/api/email/client/welcome-and-confirm', bodyEmail, configTypeJson)
+    } catch(err) {
+        err.response && setErrorOn(dispatch, err.response.data.msg);
     }
 }
 
-export const sendBuyRequestEmail = async (dispatch, bodyEmail) => {
+export const sendBuyRequestEmail = async (dispatch, bodyEmail, next = f => f) => {
     try {
-        const res = await axios.post('/api/email/admin/order-request', bodyEmail, configTypeJson)
-        setSuccessOn(dispatch, res.data.msg);
-    } catch(e) {
-        // statements
-        setErrorOn(dispatch, e);
+        return await axios.post('/api/email/admin/order-request', bodyEmail, configTypeJson);
+        next();
+    } catch(err) {
+        err.response && setErrorOn(dispatch, err.response.data.msg); // n1
     }
 }
+
+//n1 -here err.response makes sure if response is defined before setting Error. This avoids a popup error
+// n2 - This next will redirect the page to home after user send message succefully

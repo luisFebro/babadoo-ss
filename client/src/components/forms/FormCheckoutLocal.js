@@ -1,7 +1,9 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import styled from 'styled-components';
+import { Redirect } from 'react-router-dom';
 import { showSnackbarBlack } from '../../redux/actions/snackbarActions';
 import { sendBuyRequestEmail } from '../../redux/actions/emailActions';
+import { setErrorOff } from '../../redux/actions/globalActions';
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 
 export default function FormCheckoutLocal() {
@@ -14,15 +16,18 @@ export default function FormCheckoutLocal() {
         totalPay: '',
         isFinishedFields: false
     });
+    const [redirect, setRedirect] = useState(false);
+    const { name, phone, address, additional, itemDescription, totalPay } = values;
 
     // REDUX
-    const { bizInfo } = useStoreState(state => ({
-        bizInfo: state.businessInfoReducer.cases.businessInfo
+    const { bizInfo, errorMsg } = useStoreState(state => ({
+        bizInfo: state.businessInfoReducer.cases.businessInfo,
+        errorMsg: state.globalReducer.cases.errorMsg,
     }))
     const dispatch = useStoreDispatch();
+    const { bizName, bizWebsite, bizEmail } = bizInfo;
     // END REDUX
-    const { bizName, bizWebsite } = bizInfo;
-    const { name, phone, address, additional, itemDescription, totalPay } = values;
+
     useEffect(() => {
         setInfoProducts();
     }, []);
@@ -34,13 +39,6 @@ export default function FormCheckoutLocal() {
 
     const handleSubmit = e => {
         e.preventDefault();
-        showSnackbarBlack(dispatch, "Enviando em um instante...", 2500);
-
-        setTimeout(() => {
-            alert('PEDIDO ENVIADO!\nENTRAREMOS EM CONTATO O MAIS BREVE POSSÍVEL\nAGRADECEMOS SUA PREFERÊNCIA!');
-            document.getElementById('wait').innerHTML = '';
-            resetForm();
-        }, 4000);
         const bodyData = {
             name,
             phone,
@@ -49,10 +47,21 @@ export default function FormCheckoutLocal() {
             itemDescription,
             totalPay,
             bizName,
-            bizWebsite
+            bizWebsite,
+            bizEmail,
         }
-        console.log(bodyData);
-        sendBuyRequestEmail(dispatch, bodyData);
+
+        sendBuyRequestEmail(dispatch, bodyData, () => {setRedirect(true)})
+        .then(data => {
+            if(!data) {
+                if(errorMsg){
+                    showSnackbarBlack(dispatch, errorMsg);
+                }
+            } else {
+                showSnackbarBlack(dispatch, data.msg, 4000);
+                resetForm();
+            }
+        })
     }
 
     const setInfoProducts = () => {
@@ -65,11 +74,10 @@ export default function FormCheckoutLocal() {
         // e.preventDefault(); //only allow one click
         document.getElementById('contactForm').reset();
     }
-    const success = "This is a successful message";
-    const showError = () => {}
-    const showSuccess = () => {
-        if(success) {
-            showSnackbarBlack(dispatch, success, 10000);
+
+    const needRedirect = redirect => {
+        if(redirect) {
+            return <Redirect to="/" />
         }
     }
 
@@ -87,22 +95,22 @@ export default function FormCheckoutLocal() {
             >
                 <p className="full">
                     <label>Seu Nome</label>
-                    <input type="text" name="name" required />
+                    <input type="text" name="name" value={name}/>
                 </p>
                 <p className="full">
                     <label>Telefone/Whatsapp</label>
-                    <input type="tel" name="phone" required />
+                    <input type="tel" name="phone" value={phone}/>
                 </p>
                 <p className="full">
                     <label>
                         Endereço para Entrega
                         <br /> (Rua/Avenida, Número, Bairro, Referência){' '}
                     </label>
-                    <textarea name="address" rows="8" required></textarea>
+                    <textarea name="address" rows="8" value={address}></textarea>
                 </p>
                 <p className="full">
                     <label>Alguma Informação Adicional? (Opcional)</label>
-                    <textarea name="additional" rows="8"></textarea>
+                    <textarea name="additional" rows="8" value={additional}></textarea>
                 </p>
                 <p className="full">
                     <button
@@ -117,15 +125,13 @@ export default function FormCheckoutLocal() {
                 </p>
             </form>
         </section>
-
     );
 
     return (
         <DivContainer className="container">
             <div className="contact animated rotateInDownLeft slower delay-3s">
-                {showError()}
-                {""}
                 {showForm()}
+                {JSON.stringify(values)}
             </div>
         </DivContainer>
     );

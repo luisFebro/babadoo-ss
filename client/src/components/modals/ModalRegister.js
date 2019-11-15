@@ -6,7 +6,7 @@ import ToggleVisibilityPassword from '../forms/fields/ToggleVisibilityPassword';
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { showSnackbarBlack } from '../../redux/actions/snackbarActions';
 import { showModalLogin, showModalUnderConstruction, closeModal } from '../../redux/actions/modalActions';
-import { setSuccessOff, setErrorOff } from '../../redux/actions/globalActions';
+import { setErrorOff } from '../../redux/actions/globalActions';
 import { getUpdatedUsers } from '../../redux/actions/userActions';
 import { sendWelcomeEmail } from '../../redux/actions/emailActions';
 import { registerEmail } from '../../redux/actions/authActions';
@@ -94,8 +94,13 @@ export default function ModalRegister() {
             email,
             password
         };
-        // Attempt to register
+        // Attempt to register NEED TO BE REFACTORED
         registerEmail(newUser)(dispatch);
+        // if(!errorMsg) {
+        //     showSnackbarBlack(dispatch, "Cadastro Realizado com Sucesso via Email!", 3000);
+        //         sendEmail();
+        //         showSnackbarBlack(dispatch, successMsg, 4000);
+        // }
     };
 
     return (
@@ -174,15 +179,6 @@ export default function ModalRegister() {
                               onClick={() => {
                                 registerThisUser();
                                 setTimeout(() => getUpdatedUsers(dispatch), 3000);
-                                // if successful, send a email
-                                if(successMsg && !errorMsg) {
-                                    showSnackbarBlack(dispatch, "Cadastro Realizado com Sucesso via Email!", 3000);
-                                    setTimeout(() => {
-                                        sendEmail();
-                                        showSnackbarBlack(dispatch, successMsg, 4000);
-                                        setSuccessOff(dispatch)
-                                    }, 4000);
-                                }
                               }}
                               variant="contained"
                               color="primary"

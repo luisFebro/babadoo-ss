@@ -3,7 +3,7 @@ const router = express.Router();
 const { jwtSecret } = require('../config/keys');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const validateEmail = require('../utils/validateEmail');
+const validateEmail = require('../utils/validation/validateEmail');
 const User = require('../models/User');
 // TEST ZONE
 // controllers
