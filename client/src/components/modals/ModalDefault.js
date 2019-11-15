@@ -23,7 +23,7 @@ ModalDefault.propTypes = {
     propTxtBtn: PropTypes.string,
     objToSend: PropTypes.object,
     closeAnimation: PropTypes.func
-}
+};
 // End Material UI
 
 const useStyles = makeStyles(theme => ({
@@ -47,55 +47,46 @@ export default function ModalDefault({ propTitle, propMsg, propTxtBtn, objToSend
     const setObjToSend = () => {
         let data = objToSend;
         addFieldUser(dispatch, data, _idUser);
-    }
+    };
 
     const classes = useStyles();
     return (
         <div>
-          <Dialog
-                style={{zIndex: 1500}}
-                open={isModalDefaultOpen}
-                aria-labelledby="form-dialog-title"
-            >
-            <CardMedia
-                className={classes.media}
-                image='img/babadoo-logo_no-slogon.png'
-                title='loja babadoo'
-            />
-            <DialogTitle id="form-dialog-title">{propTitle}</DialogTitle>
-            <DialogContent>
-              <DialogContentText>
-                    <span className="text-main-container">{propMsg}</span>
-              </DialogContentText>
-              <section>
-                  <div style={{display: 'flex', justifyContent: 'center', marginTop: '28px'}}>
-                      <Button
-                              onClick={() => {
-                                closeModal(dispatch);
-                            }}
-                            color="primary"
-                        >
-                        Sair
-                      </Button>
-                      <Button
-                            onClick={() => {
-                              setObjToSend();
-                              showSnackbarBlack(dispatch, `Cupom de Desconto Adicionado!`);
-                              closeModal(dispatch);
-                              closeAnimation();
-                            }}
-                            variant="contained"
-                            color="primary"
-                            className={classes.button}
-                        >
-                        {propTxtBtn}
-                        <i className="fas fa-paper-plane" style={{marginLeft: '5px'}}></i>
-                      </Button>
-                  </div>
-              </section>
-            </DialogContent>
-          </Dialog>
+            <Dialog style={{ zIndex: 1500 }} open={isModalDefaultOpen} aria-labelledby="form-dialog-title">
+                <CardMedia className={classes.media} image="img/babadoo-logo_no-slogon.png" title="loja babadoo" />
+                <DialogTitle id="form-dialog-title">{propTitle}</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        <span className="text-main-container">{propMsg}</span>
+                    </DialogContentText>
+                    <section>
+                        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '28px' }}>
+                            <Button
+                                onClick={() => {
+                                    closeModal(dispatch);
+                                }}
+                                color="primary"
+                            >
+                                Sair
+                            </Button>
+                            <Button
+                                onClick={() => {
+                                    setObjToSend();
+                                    showSnackbarBlack(dispatch, `Cupom de Desconto Adicionado!`);
+                                    closeModal(dispatch);
+                                    closeAnimation();
+                                }}
+                                variant="contained"
+                                color="primary"
+                                className={classes.button}
+                            >
+                                {propTxtBtn}
+                                <i className="fas fa-paper-plane" style={{ marginLeft: '5px' }}></i>
+                            </Button>
+                        </div>
+                    </section>
+                </DialogContent>
+            </Dialog>
         </div>
     );
-
 }

@@ -27,8 +27,8 @@ class ProductProvider extends Component {
     }
 
     //Get Data from login button components
-    getDataLogin = (data) => {
-        this.setState({dataLogin: data});
+    getDataLogin = data => {
+        this.setState({ dataLogin: data });
     };
     // copying the array elements to not being only references
     setProducts = () => {
@@ -134,7 +134,7 @@ class ProductProvider extends Component {
     //             this.countItems();
     //         }
     //     );
-        /*
+    /*
         Insert this chunk of code (( } HERE );)) for testing and check the current state which is being rendered.
         , () => {
             console.log(this.state);

@@ -12,7 +12,9 @@ export default function GetPeriodOfDay() {
     return (
         <DivWrapper className="container">
             <img className="shadow-elevation" src={img} alt={alt} />
-            <p style={{color}} className="text-main-container top-centered text-nowrap border-white"><strong>{getData.greeting}</strong></p>
+            <p style={{ color }} className="text-main-container top-centered text-nowrap border-white">
+                <strong>{getData.greeting}</strong>
+            </p>
         </DivWrapper>
     );
 }
@@ -44,5 +46,4 @@ const DivWrapper = styled.div`
     @media only screen and (min-width: 500px) {
         width: 80%;
     }
-
 `;

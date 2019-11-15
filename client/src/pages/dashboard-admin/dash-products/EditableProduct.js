@@ -3,7 +3,11 @@ import React, { useState, useRef } from 'react';
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 // import { addFieldUser, deleteFieldUser } from '../../../redux/actions/userActions';
 import { findAnItem } from '../../../redux/actions/globalActions';
-import { showModalConfTitle, showModalConfYesNo, showModalUnderConstruction } from '../../../redux/actions/modalActions';
+import {
+    showModalConfTitle,
+    showModalConfYesNo,
+    showModalUnderConstruction
+} from '../../../redux/actions/modalActions';
 // import { showSnackbarBlack } from '../../../redux/actions/snackbarActions';
 import { animateHinge } from '../../../redux/actions/animationActions';
 // End Redux
@@ -27,36 +31,36 @@ import EditButton from '../../../components/buttons/EditButton';
 // Functions to get modals
 const showModalForTitle = (dispatch, allProductsList, _id) => {
     const attachedObj = {
-        mainSubject: "Título",
-        nameForm: "title",
-        typeForm: "text"
-    }
+        mainSubject: 'Título',
+        nameForm: 'title',
+        typeForm: 'text'
+    };
     findAnItem(dispatch, allProductsList, _id, attachedObj);
     showModalConfTitle(dispatch);
-}
+};
 const showModalForPrice = (dispatch, allProductsList, _id) => {
     const attachedObj = {
-        mainSubject: "Preço",
-        nameForm: "price",
-        typeForm: "number"
-    }
+        mainSubject: 'Preço',
+        nameForm: 'price',
+        typeForm: 'number'
+    };
     findAnItem(dispatch, allProductsList, _id, attachedObj);
     showModalConfTitle(dispatch);
-}
+};
 const showModalForDeleteProd = (dispatch, allProductsList, _id, animateRef) => {
     const attachedObj = {
         action: {
-            noun: "Exclusão",
-            verb: "Excluir"
+            noun: 'Exclusão',
+            verb: 'Excluir'
         },
-        mainSubject: "Produto",
-    }
+        mainSubject: 'Produto'
+    };
     findAnItem(dispatch, allProductsList, _id, attachedObj);
     showModalConfYesNo(dispatch);
     setTimeout(() => {
         animateHinge(animateRef);
     }, 9000);
-}
+};
 // End Functions to get modal
 
 EditableProduct.propTypes = {
@@ -77,7 +81,7 @@ export default function EditableProduct({ product, isFav }) {
     const { allProductsList, isUserAuthenticated, _idUser, modalConfProps } = useStoreState(state => ({
         allProductsList: state.productReducer.cases.allProductsList,
         isUserAuthenticated: state.authReducer.cases.isUserAuthenticated,
-        _idUser: state.userReducer.cases.currentUpdatedUser["_id"],
+        _idUser: state.userReducer.cases.currentUpdatedUser['_id'],
         modalConfProps: state.modalReducers.cases.modalConfProps
     }));
     const dispatch = useStoreDispatch();
@@ -86,25 +90,46 @@ export default function EditableProduct({ product, isFav }) {
     const { _id, title, image, price, inCart } = product;
 
     const speedDial = {
-        actions: [ //the order rendered is inverse from the bottom to top
-          { icon: <FormatListNumberedIcon />, name: 'Mudar Quantidade', backColor: 'var(--mainYellow)', onClick: () => showModalUnderConstruction(dispatch) },
-          { icon: <TitleIcon />, name: 'Editar Título', backColor: 'var(--mainYellow)', onClick: () => showModalForTitle(dispatch, allProductsList, _id) },
-          { icon: <MonetizationOnIcon />, name: 'Mudar Preço', backColor: 'var(--mainYellow)', onClick: () => showModalForPrice(dispatch, allProductsList, _id) },
-          { icon: <DeleteIcon />, name: 'Excluir Produto', backColor: '#4834d4', onClick: () => showModalForDeleteProd(dispatch, allProductsList, _id, animateRef) },
+        actions: [
+            //the order rendered is inverse from the bottom to top
+            {
+                icon: <FormatListNumberedIcon />,
+                name: 'Mudar Quantidade',
+                backColor: 'var(--mainYellow)',
+                onClick: () => showModalUnderConstruction(dispatch)
+            },
+            {
+                icon: <TitleIcon />,
+                name: 'Editar Título',
+                backColor: 'var(--mainYellow)',
+                onClick: () => showModalForTitle(dispatch, allProductsList, _id)
+            },
+            {
+                icon: <MonetizationOnIcon />,
+                name: 'Mudar Preço',
+                backColor: 'var(--mainYellow)',
+                onClick: () => showModalForPrice(dispatch, allProductsList, _id)
+            },
+            {
+                icon: <DeleteIcon />,
+                name: 'Excluir Produto',
+                backColor: '#4834d4',
+                onClick: () => showModalForDeleteProd(dispatch, allProductsList, _id, animateRef)
+            }
         ]
-    }
+    };
 
     const toggleFav = () => {
         setIsFavChanged(!isFavChanged);
-    }
+    };
 
     return (
         <ProductWrapper ref={animateRef} className="col-6 col-md-4 col-lg-3 mx-auto my-2">
-            <div style={{position: 'relative'}} className="card">
+            <div style={{ position: 'relative' }} className="card">
                 <div
                     className="img-container p-1 p-sm-3"
                     onClick={() => {
-                        console.log("value.handleDetail(_id)");
+                        console.log('value.handleDetail(_id)');
                     }}
                 >
                     <Link to="">
@@ -115,10 +140,10 @@ export default function EditableProduct({ product, isFav }) {
                         // onClick={() => toggleFav()}
                     >
                         {isUserAuthenticated ? (
-                            (isFavChanged || isFav) ? (
+                            isFavChanged || isFav ? (
                                 <i
                                     className="filledHeart fas fa-heart animated heartBeat fast"
-                                    onClick = {() => {
+                                    onClick={() => {
                                         /*deleteFieldUser(dispatch, bodyFavorite, _idUser);
                                         showSnackbarBlack(dispatch, "Removido dos seus favoritos!");*/
                                     }}
@@ -126,29 +151,28 @@ export default function EditableProduct({ product, isFav }) {
                                         animationIterationCount: 3
                                     }}
                                 ></i>
-                                ) : (
-                                    <i
-                                        className="emptyHeart far fa-heart"
-                                        onClick={() => {
-                                            /*addFieldUser(dispatch, bodyFavorite, _idUser);
-                                            showSnackbarBlack(dispatch, "Adicionado aos seus favoritos!")*/
-                                            // value.openModalFavorite(_id);
-                                        }}
-                                    ></i>
-                                )
                             ) : (
                                 <i
                                     className="emptyHeart far fa-heart"
                                     onClick={() => {
-                                        /*showModalRegister(dispatch);
-                                        showSnackbarBlack(dispatch, "Faça seu acesso para adicionar aos favoritos!")*/
+                                        /*addFieldUser(dispatch, bodyFavorite, _idUser);
+                                            showSnackbarBlack(dispatch, "Adicionado aos seus favoritos!")*/
+                                        // value.openModalFavorite(_id);
                                     }}
                                 ></i>
                             )
-                        }
+                        ) : (
+                            <i
+                                className="emptyHeart far fa-heart"
+                                onClick={() => {
+                                    /*showModalRegister(dispatch);
+                                        showSnackbarBlack(dispatch, "Faça seu acesso para adicionar aos favoritos!")*/
+                                }}
+                            ></i>
+                        )}
                     </button>
                     <button
-                        style={{filter: 'opacity(90%)'}}
+                        style={{ filter: 'opacity(90%)' }}
                         className="cart-btn"
                         disabled={inCart ? true : false}
                         onClick={() => {
@@ -168,16 +192,10 @@ export default function EditableProduct({ product, isFav }) {
                 </div>
                 {/*card footer*/}
                 <div className="text-product-title p-1 card-footer d-flex flex-column text-center justify-content-between">
-                    <p
-                        style={{ height: '4em', overflow: 'hidden' }}
-                        className="mb-0 text-capitalize"
-                    >
+                    <p style={{ height: '4em', overflow: 'hidden' }} className="mb-0 text-capitalize">
                         {truncateWords(title, 40)}
                     </p>
-                    <h5
-                        style={{position: 'relative'}}
-                        className="mt-2 text-right mb-2 mr-2"
-                    >
+                    <h5 style={{ position: 'relative' }} className="mt-2 text-right mb-2 mr-2">
                         <span>R$</span>
                         {price}
                     </h5>
@@ -188,16 +206,15 @@ export default function EditableProduct({ product, isFav }) {
                     buttonIcon={<AddAPhotoIcon />}
                     top={110}
                     left={-10}
-                    onClick = {() => {
+                    onClick={() => {
                         showModalUnderConstruction(dispatch);
                     }}
                 />
-                <SpeedDialButton actions={speedDial.actions} className="no-outline"/>
+                <SpeedDialButton actions={speedDial.actions} className="no-outline" />
             </div>
-       </ProductWrapper>
+        </ProductWrapper>
     );
 }
-
 
 const ProductWrapper = styled.div`
     .card {

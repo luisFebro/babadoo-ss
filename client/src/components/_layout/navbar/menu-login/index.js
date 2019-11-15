@@ -24,63 +24,63 @@ MenuLogin.propTypes = {
 };
 
 const BorderedBadge = withStyles(theme => ({
-  badge: {
-    right: 1,
-    top: 7,
-    border: `2px solid var(--mainDark)`,
-    // padding: '0 4px',
-    backgroundColor: 'var(--mainRed)'
-  },
+    badge: {
+        right: 1,
+        top: 7,
+        border: `2px solid var(--mainDark)`,
+        // padding: '0 4px',
+        backgroundColor: 'var(--mainRed)'
+    }
 }))(Badge);
 
 export default function MenuLogin() {
-        // Redux
-        const { isUserAuthenticated, name, picture, allFavProductsList } = useStoreState(state => ({
-            isUserAuthenticated: state.authReducer.cases.isUserAuthenticated,
-            name: state.authReducer.cases.user.name,
-            picture: state.authReducer.cases.user.picture,
-            allFavProductsList: state.userReducer.cases.allFavProductsList,
-        }));
-        const dispatch = useStoreDispatch();
-        // End Redux
-        const animateZoomOut = () => {
-            //NOT WORKING
-            const mainNav = document.querySelector('#mainNav');
+    // Redux
+    const { isUserAuthenticated, name, picture, allFavProductsList } = useStoreState(state => ({
+        isUserAuthenticated: state.authReducer.cases.isUserAuthenticated,
+        name: state.authReducer.cases.user.name,
+        picture: state.authReducer.cases.user.picture,
+        allFavProductsList: state.userReducer.cases.allFavProductsList
+    }));
+    const dispatch = useStoreDispatch();
+    // End Redux
+    const animateZoomOut = () => {
+        //NOT WORKING
+        const mainNav = document.querySelector('#mainNav');
 
-            mainNav.classList.add('animated', 'zoomOut', 'slow');
-            mainNav.style.animationDelay = '0s';
-        }
-        const changeCss = () => {
-          const navElement = document.querySelector("#mainNav");
-          const logo = document.querySelector("#logo-login-wrapper");
-          const logoImg = document.querySelector("#logo-login-img");
-          if(isRealObj(navElement)) {
-            if(window.scrollY > 50) {
+        mainNav.classList.add('animated', 'zoomOut', 'slow');
+        mainNav.style.animationDelay = '0s';
+    };
+    const changeCss = () => {
+        const navElement = document.querySelector('#mainNav');
+        const logo = document.querySelector('#logo-login-wrapper');
+        const logoImg = document.querySelector('#logo-login-img');
+        if (isRealObj(navElement)) {
+            if (window.scrollY > 50) {
                 //transition and animaiton not working at all
-              navElement.className += " shadow-elevation-soft";
-              logo.style.transition = '3s';
-              logoImg.className += "animated slideOutLeft slow"
-              logo.style.display = 'block';
+                navElement.className += ' shadow-elevation-soft';
+                logo.style.transition = '3s';
+                logoImg.className += 'animated slideOutLeft slow';
+                logo.style.display = 'block';
             }
-            if(window.scrollY < 50) {
-              logo.style.transition = '3s';
-              logoImg.className += "animated slideOutLeft slow"
-              logo.style.display = 'none';
+            if (window.scrollY < 50) {
+                logo.style.transition = '3s';
+                logoImg.className += 'animated slideOutLeft slow';
+                logo.style.display = 'none';
             }
-          }
         }
+    };
 
-        useEffect(() => window.addEventListener('scroll', changeCss, true), []);
+    useEffect(() => window.addEventListener('scroll', changeCss, true), []);
 
-        return (
+    return (
         <Fragment>
-            {isUserAuthenticated ?
+            {isUserAuthenticated ? (
                 <DivWrapper id="mainNav" className="animated zoomIn slower">
                     <nav className="navbar navbar-expand-sm px-sm-3 text-nav-items py-0 my-0">
-                        <Link to="/" className="px-1" id="logo-login-wrapper" style={{display: 'none'}}>
+                        <Link to="/" className="px-1" id="logo-login-wrapper" style={{ display: 'none' }}>
                             <img
                                 id="logo-login-img"
-                                src= "img/babadoo-logo_no-slogon-550.jpg"
+                                src="img/babadoo-logo_no-slogon-550.jpg"
                                 alt="Logomarca da loja Babadoo Manaus"
                                 width="50rem"
                                 height="50rem"
@@ -90,32 +90,38 @@ export default function MenuLogin() {
                         <ul className="navbar-nav container-ul">
                             <li className="nav-item">
                                 <Link to="/perfil" className="nav-link">
-                                    {isUserAuthenticated ?
-                                        picture ?
+                                    {isUserAuthenticated ? (
+                                        picture ? (
+                                            <img
+                                                className="profilePic nav-brand"
+                                                src={picture}
+                                                alt={name}
+                                                title={name}
+                                            />
+                                        ) : null
+                                    ) : (
                                         <img
-                                            className="profilePic nav-brand"
-                                            src={picture}
-                                            alt={name}
-                                            title={name}
-                                        /> : null
-                                    : <img className="profilePic" src="img/icons/avatar-woman.png" alt="avatar babadoo"/>
-                                    }
+                                            className="profilePic"
+                                            src="img/icons/avatar-woman.png"
+                                            alt="avatar babadoo"
+                                        />
+                                    )}
                                 </Link>
-                                <p
-                                    className="user-name-greeting badge badge-warning"
-                                >
-                                    {name ?
-                                        `Olá, ${truncateWords(window.Helper.textCapi(name), 12)}` :
-                                        "Olá, Visitante!"
-                                    }
+                                <p className="user-name-greeting badge badge-warning">
+                                    {name
+                                        ? `Olá, ${truncateWords(window.Helper.textCapi(name), 12)}`
+                                        : 'Olá, Visitante!'}
                                 </p>
                             </li>
                         </ul>
                         <ul className="navbar-nav ml-3">
                             <li className="nav-item">
                                 <Link to="/favoritos" className="nav-link">
-                                    <span style={{ position: 'relative' }} >
-                                        <BorderedBadge className="animated bounce slow" badgeContent={allFavProductsList.length}>
+                                    <span style={{ position: 'relative' }}>
+                                        <BorderedBadge
+                                            className="animated bounce slow"
+                                            badgeContent={allFavProductsList.length}
+                                        >
                                             <i className="fas fa-heart animated bounce slow"></i>
                                         </BorderedBadge>
                                     </span>
@@ -133,13 +139,15 @@ export default function MenuLogin() {
                         </ul>
                         <ul className="navbar-nav ml-auto">
                             <li className="nav-item">
-                                <div className="nav-link" style={{position: 'relative'}}>
+                                <div className="nav-link" style={{ position: 'relative' }}>
                                     <i className="fab fa-whatsapp mr-2 pt-0"></i>
-                                    <span>{ bizWhatsapp }</span>
-                                    <span style={{position: "absolute", top: "0.1rem", right: "2.7rem"}}>Dúvidas?</span>
+                                    <span>{bizWhatsapp}</span>
+                                    <span style={{ position: 'absolute', top: '0.1rem', right: '2.7rem' }}>
+                                        Dúvidas?
+                                    </span>
                                 </div>
                                 <button
-                                    style={{cursor: 'pointer', padding: '0 4px', border: 'none'}}
+                                    style={{ cursor: 'pointer', padding: '0 4px', border: 'none' }}
                                     className="logout-btn badge badge-danger"
                                     onClick={() => {
                                         animateZoomOut();
@@ -151,9 +159,8 @@ export default function MenuLogin() {
                             </li>
                         </ul>
                     </nav>
-                </DivWrapper> :
-                    null
-            }
+                </DivWrapper>
+            ) : null}
         </Fragment>
     );
 }
@@ -167,12 +174,17 @@ const DivWrapper = styled.div`
         font-size: 2.5rem;
     }
 
-    p, nav, span, i {
+    p,
+    nav,
+    span,
+    i {
         padding: 0;
         color: var(--mainWhite);
     }
 
-    p, nav, span {
+    p,
+    nav,
+    span {
         font: normal 1rem 'Cabin', sans-serif;
     }
 
@@ -226,5 +238,4 @@ const DivWrapper = styled.div`
             //top: 3.4rem;
         }
     }
-
 `;

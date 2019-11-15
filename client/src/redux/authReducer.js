@@ -13,16 +13,15 @@ const initialState = {
         id: null,
         name: null,
         email: null,
-        picture: "img/icons/avatar-woman.png",
+        picture: 'img/icons/avatar-woman.png'
     }
-}
-
+};
 
 export const authReducer = {
     cases: reducer((state = initialState, action) => {
         switch (action.type) {
             // social network login
-            case "LOGIN_GOOGLE":
+            case 'LOGIN_GOOGLE':
                 // localStorage.setItem('token', action.payload.token);
                 return {
                     ...state,
@@ -33,8 +32,8 @@ export const authReducer = {
                         email: action.payload.profileObj.email,
                         picture: action.payload.profileObj.imageUrl
                     }
-                }
-            case "LOGIN_FACEBOOK":
+                };
+            case 'LOGIN_FACEBOOK':
                 // localStorage.setItem('token', action.payload.token);
                 return {
                     ...state,
@@ -45,7 +44,7 @@ export const authReducer = {
                         email: action.payload.email,
                         picture: action.payload.picture.data.url
                     }
-                }
+                };
             // end social network login
             case 'LOGIN_SUCCESS':
             case 'REGISTER_SUCCESS':
@@ -59,7 +58,7 @@ export const authReducer = {
                         id: action.payload.user.id,
                         name: action.payload.user.name,
                         email: action.payload.user.email,
-                        picture: "img/icons/avatar-woman.png",
+                        picture: 'img/icons/avatar-woman.png'
                     }
                 };
             case 'USER_LOADING':
@@ -73,14 +72,14 @@ export const authReducer = {
                     isUserAuthenticated: true,
                     isLoading: false,
                     user: action.payload
-                }
+                };
             case 'AUTH_ERROR':
             case 'LOGIN_FAIL':
             case 'LOGOUT_SUCCESS':
             case 'REGISTER_FAIL':
                 localStorage.removeItem('token');
                 let userAuth;
-                setTimeout(() => userAuth = true, 6000);
+                setTimeout(() => (userAuth = true), 6000);
                 return {
                     ...state,
                     isUserAuthenticated: false, //this is comment out to animate zoomOut when logout
@@ -90,15 +89,14 @@ export const authReducer = {
                         id: null,
                         name: null,
                         email: null,
-                        picture: "img/icons/avatar-woman.png",
+                        picture: 'img/icons/avatar-woman.png'
                     }
                 };
             default:
                 return state;
         }
-    }),
-}
-
+    })
+};
 
 // closeMenuLogin: action((state, payload) => {
 //     // let nav = document.querySelector('#mainNav');

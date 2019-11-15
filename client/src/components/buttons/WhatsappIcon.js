@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useStoreState } from  'easy-peasy';
+import { useStoreState } from 'easy-peasy';
 
 export default function WhatsappIcon() {
     let { userName } = useStoreState(state => ({
-        userName: state.userReducer.cases.currentUpdatedUser.name,
+        userName: state.userReducer.cases.currentUpdatedUser.name
     }));
     return (
         <DivWrapper>

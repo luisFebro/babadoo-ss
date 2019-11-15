@@ -30,7 +30,7 @@ const useStyles = makeStyles({
 
 const StyledMenu = withStyles({
     paper: {
-        padding: "0 5px",
+        padding: '0 5px',
         border: '2px solid var(--mainYellow)'
     }
 })(props => (
@@ -83,85 +83,66 @@ export default function UserDropDown() {
             </IconButton>
             {/*Icon login*/}
 
-            {isUserAuthenticated ?
+            {isUserAuthenticated ? (
                 <StyledMenu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
                     <h1 className="text-center text-main-container">Seja Bem-Vindo(a)!</h1>
-                     <StyledMenuItem
-                         onClick={handleClose}
-                     >
-                         <ListItemIcon>
-                             <AccountCircleTwoToneIcon fontSize="large" classes={{ root: classes.root }} />
-                         </ListItemIcon>
-                         <ListItemText primary="Minha Conta" />
-                     </StyledMenuItem>
-                     <StyledMenuItem
-                         onClick={handleClose}
-                     >
-                         <ListItemIcon>
-                             <LocalMallTwoToneIcon fontSize="large" classes={{ root: classes.root }} />
-                         </ListItemIcon>
-                         <ListItemText primary="Meus Pedidos" />
-                     </StyledMenuItem>
-                 </StyledMenu> :
-
+                    <StyledMenuItem onClick={handleClose}>
+                        <ListItemIcon>
+                            <AccountCircleTwoToneIcon fontSize="large" classes={{ root: classes.root }} />
+                        </ListItemIcon>
+                        <ListItemText primary="Minha Conta" />
+                    </StyledMenuItem>
+                    <StyledMenuItem onClick={handleClose}>
+                        <ListItemIcon>
+                            <LocalMallTwoToneIcon fontSize="large" classes={{ root: classes.root }} />
+                        </ListItemIcon>
+                        <ListItemText primary="Meus Pedidos" />
+                    </StyledMenuItem>
+                </StyledMenu>
+            ) : (
                 <StyledMenu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
-                    <h1
-                        className="text-center text-main-container"
-                    >
-                        Conecte-se com<br />a Babadoo
+                    <h1 className="text-center text-main-container">
+                        Conecte-se com
+                        <br />a Babadoo
                     </h1>
-                    <h2
-                        className="text-center text-sub-container pb-0 pt-3"
-                    >
-                        Novo(a) por aqui?
-                    </h2>
+                    <h2 className="text-center text-sub-container pb-0 pt-3">Novo(a) por aqui?</h2>
                     <StyledMenuItem
                         onClick={() => {
                             handleClose();
-                            dispatch({type: 'SHOW_MODAL_REGISTER', payload: true});
-                            }
-                        }
+                            dispatch({ type: 'SHOW_MODAL_REGISTER', payload: true });
+                        }}
                     >
                         <RegisterButton />
                     </StyledMenuItem>
                     <div>
-                        <h2
-                            className="text-sub-container"
-                            style={{textAlign: 'center'}}
-                        >
-                        ou
+                        <h2 className="text-sub-container" style={{ textAlign: 'center' }}>
+                            ou
                         </h2>
                     </div>
                     <StyledMenuItem
                         onClick={() => {
                             handleClose();
-                            dispatch({type: 'SHOW_MODAL_LOGIN', payload: true});
-                            }
-                        }
+                            dispatch({ type: 'SHOW_MODAL_LOGIN', payload: true });
+                        }}
                     >
                         <EmailAuth />
                     </StyledMenuItem>
-                    <StyledMenuItem
-                        onClick={handleClose}
-                    >
+                    <StyledMenuItem onClick={handleClose}>
                         <GoogleAuth />
                     </StyledMenuItem>
-                    <StyledMenuItem
-                        onClick={handleClose}
-                    >
+                    <StyledMenuItem onClick={handleClose}>
                         <FacebookAuth />
                     </StyledMenuItem>
                     <StyledMenuItem
                         onClick={() => {
                             handleClose();
-                            dispatch({ type: 'SHOW_MODAL_UNDER_CONSTRUCTION', payload: true })
+                            dispatch({ type: 'SHOW_MODAL_UNDER_CONSTRUCTION', payload: true });
                         }}
                     >
                         <InstagramAuth />
                     </StyledMenuItem>
                 </StyledMenu>
-            }
+            )}
         </div>
     );
 }
-

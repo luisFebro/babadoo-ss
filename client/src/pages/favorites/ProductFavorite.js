@@ -11,7 +11,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { ProductConsumer } from '../../data/contexts/mainContext';
 import PropTypes from 'prop-types';
-import truncateWords from '../../utils/truncateWords'
+import truncateWords from '../../utils/truncateWords';
 
 ProductFavorite.propTypes = {
     product: PropTypes.shape({
@@ -31,7 +31,7 @@ export default function ProductFavorite({ product }) {
     const { allProductsList, isUserAuthenticated, _idUser } = useStoreState(state => ({
         allProductsList: state.productReducer.cases.allProductsList,
         isUserAuthenticated: state.authReducer.cases.isUserAuthenticated,
-        _idUser: state.userReducer.cases.currentUpdatedUser["_id"]
+        _idUser: state.userReducer.cases.currentUpdatedUser['_id']
     }));
     const dispatch = useStoreDispatch();
     // console.log("isAuth", isUserAuthenticated); //Check this behavior: auth is running multiple 11 times
@@ -40,13 +40,12 @@ export default function ProductFavorite({ product }) {
 
     const toggleFav = () => {
         setIsFavChanged(!isFavChanged);
-    }
-
+    };
 
     const bodyToSendFavorite = (AllProds, _id) => {
         const obj = getItem(AllProds, _id);
-        return { favoriteList: obj}
-    }
+        return { favoriteList: obj };
+    };
     const bodyFavorite = bodyToSendFavorite(allProductsList, _id);
 
     return (
@@ -57,50 +56,52 @@ export default function ProductFavorite({ product }) {
                         <div
                             className="img-container p-1 p-sm-3"
                             onClick={() => {
-                                console.log("value.handleDetail(_id) from ProductFavorite");
+                                console.log('value.handleDetail(_id) from ProductFavorite');
                             }}
                         >
                             <Link to="/detalhes-do-produto">
                                 <img className="card-img-top" src={image} alt="product" />
                             </Link>
-                            <button
-                                className="cart-fav"
-                                onClick={() => toggleFav()}
-                            >
+                            <button className="cart-fav" onClick={() => toggleFav()}>
                                 {isUserAuthenticated ? (
                                     !isFavChanged ? ( //starting with filledHeart product cart
                                         <i
                                             className="filledHeart fas fa-heart animated heartBeat fast"
-                                            onClick = {(e) => {
+                                            onClick={e => {
                                                 e.preventDefault();
                                                 animateHinge(animateRef);
-                                                setTimeout(() => deleteFieldUser(dispatch, bodyFavorite, _idUser), 3000);
-                                                showSnackbarBlack(dispatch, "Removido dos seus favoritos!")
+                                                setTimeout(
+                                                    () => deleteFieldUser(dispatch, bodyFavorite, _idUser),
+                                                    3000
+                                                );
+                                                showSnackbarBlack(dispatch, 'Removido dos seus favoritos!');
                                             }}
                                             style={{
                                                 animationIterationCount: 3
                                             }}
                                         ></i>
-                                        ) : (
-                                            <i
-                                                className="emptyHeart far fa-heart"
-                                                onClick={() => {
-                                                    addFieldUser(dispatch, bodyFavorite, _idUser);
-                                                    showSnackbarBlack(dispatch, "Adicionado aos seus favoritos!")
-                                                    // value.openModalFavorite(_id);
-                                                }}
-                                            ></i>
-                                        )
                                     ) : (
                                         <i
                                             className="emptyHeart far fa-heart"
                                             onClick={() => {
-                                                closeModal(dispatch);
-                                                showSnackbarBlack(dispatch, "Faça seu acesso para adicionar aos favoritos!")
+                                                addFieldUser(dispatch, bodyFavorite, _idUser);
+                                                showSnackbarBlack(dispatch, 'Adicionado aos seus favoritos!');
+                                                // value.openModalFavorite(_id);
                                             }}
                                         ></i>
                                     )
-                                }
+                                ) : (
+                                    <i
+                                        className="emptyHeart far fa-heart"
+                                        onClick={() => {
+                                            closeModal(dispatch);
+                                            showSnackbarBlack(
+                                                dispatch,
+                                                'Faça seu acesso para adicionar aos favoritos!'
+                                            );
+                                        }}
+                                    ></i>
+                                )}
                             </button>
                             <button
                                 className="cart-btn"
@@ -135,9 +136,7 @@ export default function ProductFavorite({ product }) {
             </div>
         </ProductWrapper>
     );
-
 }
-
 
 const ProductWrapper = styled.div`
     .card {

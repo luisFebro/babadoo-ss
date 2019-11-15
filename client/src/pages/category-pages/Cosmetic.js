@@ -8,18 +8,18 @@ import parse from 'html-react-parser';
 
 // Share Button Infos
 const dataCategory = {
-    name: "Cosméticos",
-    urlName: "cosmeticos",
-}
+    name: 'Cosméticos',
+    urlName: 'cosmeticos'
+};
 const pageData = {
     titleShare: parse(`Compartilhe a Categoria<br />${dataCategory.name}`),
     pageURL: `https://babadoo.herokuapp.com/${dataCategory.urlName}`,
-    pageImg: "i.imgur.com/9GjtAiW",
+    pageImg: 'i.imgur.com/9GjtAiW',
     pageTitle: `Babadoo - Categoria ${dataCategory.name}`,
     get pageDescription() {
         return `Conheça nossa linha de ${dataCategory.name} em ${this.pageURL}`;
     }
-}
+};
 // End Share Button Infos
 
 export default function Cosmetic() {

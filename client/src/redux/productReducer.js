@@ -6,7 +6,7 @@ import { reducer } from 'easy-peasy';
 // REDUCERS
 const initialState = {
     allProductsList: []
-}
+};
 
 export const productReducer = {
     cases: reducer((state = initialState, action) => {
@@ -20,7 +20,7 @@ export const productReducer = {
             case 'GET_ALL_PRODUCTS':
                 return {
                     ...state,
-                    allProductsList: action.payload, //n1
+                    allProductsList: action.payload //n1
                 };
             case 'CHANGE_PRODUCT':
                 // Updating Info Isntantly
@@ -29,11 +29,11 @@ export const productReducer = {
                 const targetKey = Object.keys(action.payload)[1];
                 const _id = action.payload._id;
                 const value = action.payload[targetKey];
-                const objIndex = state.allProductsList.findIndex((obj => obj._id == _id));
+                const objIndex = state.allProductsList.findIndex(obj => obj._id == _id);
                 state.allProductsList[objIndex][targetKey] = value;
                 return {
-                    ...state,
-                }
+                    ...state
+                };
             case 'DELETE_PRODUCT':
                 return {
                     ...state,
@@ -42,13 +42,13 @@ export const productReducer = {
             // END CRUD PATTERN
             case 'DETAIL_PRODUCT':
                 return {
-                    ...state,
+                    ...state
                 };
             default:
                 return state;
         }
-    }),
-}
+    })
+};
 
 // n1:
 // data fetched is like this:

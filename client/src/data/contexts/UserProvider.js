@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useState, useEffect } from 'react';
 const context = createContext(null);
 
 const UserProvider = ({ children }) => {
@@ -6,7 +6,7 @@ const UserProvider = ({ children }) => {
     console.log(user);
 
     useEffect(() => {
-        fetch("/user")
+        fetch('/user')
             .then(res => res.json())
             .then(res => setUser(res))
             .catch(err => {
@@ -14,12 +14,8 @@ const UserProvider = ({ children }) => {
             });
     }, []);
 
-    return(
-        <context.Provider value={user}>
-            {children}
-        </context.Provider>
-    );
-}
+    return <context.Provider value={user}>{children}</context.Provider>;
+};
 
 UserProvider.context = context;
 

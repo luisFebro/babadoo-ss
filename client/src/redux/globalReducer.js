@@ -6,42 +6,42 @@ import { reducer } from 'easy-peasy';
 const initialState = {
     isLoading: false,
     errorMsg: null,
-    currentItemFound: null,
-}
+    currentItemFound: null
+};
 
 export const globalReducer = {
     cases: reducer((state = initialState, action) => {
-        switch(action.type) {
+        switch (action.type) {
             // Objs
             case 'CURRENT_ITEM_FOUND':
                 return {
                     ...state,
-                    currentItemFound: action.payload,
+                    currentItemFound: action.payload
                 };
             //Show
             case 'SHOW_LOADING':
                 return {
-                   ...state,
-                   isLoading: true,
+                    ...state,
+                    isLoading: true
                 };
             case 'SHOW_ERROR':
                 return {
                     ...state,
-                    errorMsg: action.payload,
+                    errorMsg: action.payload
                 };
             //Clear
             case 'CLEAR_LOADING':
                 return {
-                   ...state,
-                   isLoading: false,
-                }
+                    ...state,
+                    isLoading: false
+                };
             case 'CLEAR_ERROR':
                 return {
                     ...state,
-                    errorMsg: "",
-                }
+                    errorMsg: ''
+                };
             default:
                 return state;
         }
-    }),
-}
+    })
+};

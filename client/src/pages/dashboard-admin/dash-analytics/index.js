@@ -4,13 +4,12 @@ import ExpansiblePanel from '../../../components/expansion-panels/ExpansiblePane
 import ExpansiblePanelContent from '../ExpansiblePanelContent';
 
 // Expansion Panel Content
-const done = [
-]
+const done = [];
 const inProgress = [
-    { task: "Gráfico Produtos mais Favoritados" },
-    { task: "Gráfico Produtos mais Adicionado Carrinho" },
-    { task: "Gráfico Produtos mais Vendidos" },
-]
+    { task: 'Gráfico Produtos mais Favoritados' },
+    { task: 'Gráfico Produtos mais Adicionado Carrinho' },
+    { task: 'Gráfico Produtos mais Vendidos' }
+];
 
 const expansiblePanelActions = [
     {
@@ -18,8 +17,8 @@ const expansiblePanelActions = [
         mainHeading: 'Funcionalidades desta seção',
         secondaryHeading: 'Veja aqui o que já está funcionando e em Andamento',
         hiddenContent: <ExpansiblePanelContent doneTasks={done} inProgressTasks={inProgress} />
-    },
-]
+    }
+];
 // End Expansion Panel Content
 export default function DashAnalytics() {
     return (

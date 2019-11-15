@@ -14,35 +14,36 @@ import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
 
 const useStyles = makeStyles(theme => ({
-  snackbar: {
-    [theme.breakpoints.down('xs')]: { // n2
-          bottom: 85,
-        },
-  },
-  close: {
-    padding: theme.spacing(0.5),
-  },
-  //icons colors
-  success: {
-      backgroundColor: green[600],
+    snackbar: {
+        [theme.breakpoints.down('xs')]: {
+            // n2
+            bottom: 85
+        }
+    },
+    close: {
+        padding: theme.spacing(0.5)
+    },
+    //icons colors
+    success: {
+        backgroundColor: green[600]
     },
     error: {
-      backgroundColor: theme.palette.error.dark,
+        backgroundColor: theme.palette.error.dark
     },
     info: {
-      backgroundColor: theme.palette.primary.main,
+        backgroundColor: theme.palette.primary.main
     },
     warning: {
-      backgroundColor: amber[700],
+        backgroundColor: amber[700]
     },
     icon: {
-      fontSize: 20,
+        fontSize: 20
     },
     iconVariant: {
-      opacity: 0.9,
-      marginRight: theme.spacing(1),
-    },
-  //
+        opacity: 0.9,
+        marginRight: theme.spacing(1)
+    }
+    //
 }));
 
 // const variantIcon = {
@@ -56,51 +57,49 @@ export default function SnackbarBlack() {
     // Redux
     const { isBlackSnackbarOpen, snackbar } = useStoreState(state => ({
         isBlackSnackbarOpen: state.snackbarReducer.cases.isBlackSnackbarOpen,
-        snackbar: state.snackbarReducer.cases,
-    }))
+        snackbar: state.snackbarReducer.cases
+    }));
     const dispatch = useStoreDispatch();
     const { snackbarMsg, snackbarTiming } = snackbar;
     // End Redux
     const classes = useStyles();
 
-  return (
-       <Snackbar
-         className={clsx(classes.snackbar)}
-         disableWindowBlurListener={true} //n1
-         TransitionComponent={Slide}
-         transitionDuration={{'enter': 300, 'exit': 800}}
-         style={{zIndex: 1501}}
-         open={isBlackSnackbarOpen}
-         autoHideDuration={ snackbarTiming || 3000}
-         resumeHideDuration={4000} // n3
-         onClose={() => closeSnackbarBlack(dispatch)}
-         ContentProps={{
-           'aria-describedby': 'message-id',
-         }}
-         message={<span
-                    id="message-id"
-                    className="text-default"
-                  >
-                  <i
-                    style={{color: 'var(--mainWhite)', fontSize: '1.7rem', paddingRight: '8px'}}
-                    className="far fa-check-circle"
-                  >
-                  </i>
-                  {snackbarMsg}
-                  </span>}
-         action={[
-           <IconButton
-             key="close"
-             aria-label="close"
-             color="inherit"
-             className={classes.close}
-             onClick={() => closeSnackbarBlack(dispatch)}
-           >
-             <CloseIcon />
-           </IconButton>,
-         ]}
-       />
-  );
+    return (
+        <Snackbar
+            className={clsx(classes.snackbar)}
+            disableWindowBlurListener={true} //n1
+            TransitionComponent={Slide}
+            transitionDuration={{ enter: 300, exit: 800 }}
+            style={{ zIndex: 1501 }}
+            open={isBlackSnackbarOpen}
+            autoHideDuration={snackbarTiming || 3000}
+            resumeHideDuration={4000} // n3
+            onClose={() => closeSnackbarBlack(dispatch)}
+            ContentProps={{
+                'aria-describedby': 'message-id'
+            }}
+            message={
+                <span id="message-id" className="text-default">
+                    <i
+                        style={{ color: 'var(--mainWhite)', fontSize: '1.7rem', paddingRight: '8px' }}
+                        className="far fa-check-circle"
+                    ></i>
+                    {snackbarMsg}
+                </span>
+            }
+            action={[
+                <IconButton
+                    key="close"
+                    aria-label="close"
+                    color="inherit"
+                    className={classes.close}
+                    onClick={() => closeSnackbarBlack(dispatch)}
+                >
+                    <CloseIcon />
+                </IconButton>
+            ]}
+        />
+    );
 }
 
 /* COMMENTS

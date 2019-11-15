@@ -14,8 +14,8 @@ import PropTypes from 'prop-types';
 
 Favorites.propTypes = {
     name: PropTypes.string,
-    allFavProductsList: PropTypes.arrayOf(PropTypes.object),
-}
+    allFavProductsList: PropTypes.arrayOf(PropTypes.object)
+};
 
 export default function Favorites() {
     const { name, allFavProductsList, isLoading } = useStoreState(state => ({
@@ -24,45 +24,45 @@ export default function Favorites() {
         isLoading: state.globalReducer.cases.isLoading
     }));
 
-    const favProducts =
-    allFavProductsList.map(product => {
-        return <ProductFavorite key={product._id} product={product} />
-    })
+    const favProducts = allFavProductsList.map(product => {
+        return <ProductFavorite key={product._id} product={product} />;
+    });
 
     return (
         <Fragment>
-            {(name !== null) ?
+            {name !== null ? (
                 <div>
                     <Title title={`Seus Favaritos, ${name}`} /> :
-                    { (allFavProductsList.length !== 0) ?
-                    <div className="py-2">
-                        <div className="container">
-                            <div className="row">
-                                {isLoading ? <LoadingIndicator /> : favProducts}
+                    {allFavProductsList.length !== 0 ? (
+                        <div className="py-2">
+                            <div className="container">
+                                <div className="row">{isLoading ? <LoadingIndicator /> : favProducts}</div>
                             </div>
                         </div>
-                    </div> :
+                    ) : (
                         <div>
-                            <EmptyContent text={"Sua Galeria está vazia..."} img={"img/illustrations/empty-content.png"} />
-                            <div style={{display: 'flex', justifyContent: 'center'}}>
-                                <HashLink smooth to='/#inicio'>
-                                    <Dark className="mt-5">
-                                        Escolher seus favoritos
-                                    </Dark>
+                            <EmptyContent
+                                text={'Sua Galeria está vazia...'}
+                                img={'img/illustrations/empty-content.png'}
+                            />
+                            <div style={{ display: 'flex', justifyContent: 'center' }}>
+                                <HashLink smooth to="/#inicio">
+                                    <Dark className="mt-5">Escolher seus favoritos</Dark>
                                 </HashLink>
                             </div>
                         </div>
-                    }
-                </div> :
+                    )}
+                </div>
+            ) : (
                 <div>
                     <Title title={`Faça seu Acesso`} />
-                    <h4
-                        className="text-sub-title text-center"
-                    >
-                        {parse(`Você precisa de uma conta para acessar seus favoritos. <br/> Click já no ícone de usuário alí em cima`)}
+                    <h4 className="text-sub-title text-center">
+                        {parse(
+                            `Você precisa de uma conta para acessar seus favoritos. <br/> Click já no ícone de usuário alí em cima`
+                        )}
                     </h4>
                 </div>
-            }
+            )}
         </Fragment>
     );
 }

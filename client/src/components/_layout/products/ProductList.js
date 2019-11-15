@@ -9,21 +9,13 @@ import Product from './Product';
 import { ProductConsumer } from '../../../data/contexts/mainContext';
 import PropTypes from 'prop-types';
 
-ProductList.propTypes = {
-    checkForServerError: PropTypes.bool,
-    getAllProducts: PropTypes.func,
-    isLoading: PropTypes.bool,
-    allProductsList: PropTypes.object,
-}
-
 export default function ProductList() {
     const [isError, setIsError] = useState(false);
     // Redux
-    const { isLoading, allProductsList, serverStatus, allFavProductsList } = useStoreState(state => ({
+    const { isLoading, allProductsList, allFavProductsList } = useStoreState(state => ({
         allFavProductsList: state.userReducer.cases.allFavProductsList,
         isLoading: state.globalReducer.cases.isLoading,
         allProductsList: state.productReducer.cases.allProductsList,
-        serverStatus: state.errorReducer.cases.status
     }));
     const dispatch = useStoreDispatch();
     // End Redux
@@ -42,7 +34,17 @@ export default function ProductList() {
             <div className="py-5">
                 <div className="container">
                     <div className="row text-center">
-                        {isError && <div className="text-center text-sub-title">Ocorreu um problema no servidor.<br />Tente recarregar a página novamente<br />ou<br />Verifique sua conexão à internet</div>}
+                        {isError && (
+                            <div className="text-center text-sub-title">
+                                Ocorreu um problema no servidor.
+                                <br />
+                                Tente recarregar a página novamente
+                                <br />
+                                ou
+                                <br />
+                                Verifique sua conexão à internet
+                            </div>
+                        )}
                         {isLoading ? (
                             <LoadingIndicator />
                         ) : (
@@ -50,12 +52,12 @@ export default function ProductList() {
                                 // Check if the product was added as favorite
                                 // Warning: this iterator is being called multiple times
                                 let isAddedFav = false;
-                                if(idsFromFavList) {
-                                    if(idsFromFavList.includes(product._id)) {
+                                if (idsFromFavList) {
+                                    if (idsFromFavList.includes(product._id)) {
                                         isAddedFav = true;
                                     }
                                 }
-                                return <Product key={product._id} product={product} isFav={isAddedFav} />
+                                return <Product key={product._id} product={product} isFav={isAddedFav} />;
                             })
                         )}
                     </div>

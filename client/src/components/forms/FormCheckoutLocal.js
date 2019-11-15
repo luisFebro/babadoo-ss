@@ -13,7 +13,7 @@ export default function FormCheckoutLocal() {
         address: '',
         additional: '',
         itemDescription: '',
-        totalPay: '',
+        totalPay: ''
     });
     const [redirect, setRedirect] = useState(false);
     const { name, phone, address, additional, itemDescription, totalPay } = values;
@@ -21,8 +21,8 @@ export default function FormCheckoutLocal() {
     // REDUX
     const { bizInfo, errorMsg } = useStoreState(state => ({
         bizInfo: state.businessInfoReducer.cases.businessInfo,
-        errorMsg: state.globalReducer.cases.errorMsg,
-    }))
+        errorMsg: state.globalReducer.cases.errorMsg
+    }));
     const dispatch = useStoreDispatch();
     const { bizName, bizWebsite, bizEmail } = bizInfo;
     // END REDUX
@@ -47,13 +47,12 @@ export default function FormCheckoutLocal() {
             totalPay,
             bizName,
             bizWebsite,
-            bizEmail,
-        }
+            bizEmail
+        };
 
-        sendBuyRequestEmail(dispatch, bodyData)
-        .then(res => {
-            if(!res) {
-                if(errorMsg){
+        sendBuyRequestEmail(dispatch, bodyData).then(res => {
+            if (!res) {
+                if (errorMsg) {
                     showSnackbarBlack(dispatch, errorMsg);
                     return;
                 }
@@ -63,44 +62,42 @@ export default function FormCheckoutLocal() {
                 setErrorOff(dispatch);
                 setTimeout(() => setRedirect(true), 5000);
             }
-        })
-    }
+        });
+    };
 
     const setInfoProducts = () => {
         const items = document.getElementById('items').innerHTML;
         const totalPay = document.getElementById('total').innerHTML;
         setValues({ itemDescription: items, totalPay: totalPay });
-    }
+    };
 
     const resetForm = () => {
         const tempValues = values;
-        for(let key in tempValues) {
+        for (let key in tempValues) {
             tempValues[key] = '';
         }
         setValues(tempValues);
-    }
+    };
 
     const needRedirect = redirect => {
-        if(redirect) {
-            return <Redirect to="/" />
+        if (redirect) {
+            return <Redirect to="/" />;
         }
-    }
+    };
 
     const showForm = () => (
         <section className="wrapper">
             <div className="company-info text-capitalize">
                 <h3>precisamos identificar você para o envio</h3>
             </div>
-            <form
-                id="contactForm"
-            >
+            <form id="contactForm">
                 <p className="full">
                     <label>Seu Nome</label>
-                    <input type="text" name="name" onChange={handleChange} value={name}/> {/*n1*/}
+                    <input type="text" name="name" onChange={handleChange} value={name} /> {/*n1*/}
                 </p>
                 <p className="full">
                     <label>Telefone/Whatsapp</label>
-                    <input type="tel" name="phone" onChange={handleChange} value={phone}/>
+                    <input type="tel" name="phone" onChange={handleChange} value={phone} />
                 </p>
                 <p className="full">
                     <label>

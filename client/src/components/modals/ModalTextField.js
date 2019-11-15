@@ -26,7 +26,7 @@ ModalTextField.propTypes = {
         // mainSubject: PropTypes.string,
         objToSend: PropTypes.object
     })
-}
+};
 // End Material UI
 
 const useStyles = makeStyles(theme => ({
@@ -40,14 +40,14 @@ const useStyles = makeStyles(theme => ({
     },
     textField: {
         marginLeft: theme.spacing(1),
-        marginRight: theme.spacing(1),
-    },
+        marginRight: theme.spacing(1)
+    }
 }));
 
 export default function ModalTextField({ currItemFound }) {
-    const [newMessage, setNewMessage] = useState("");
+    const [newMessage, setNewMessage] = useState('');
     const { isModalTextFieldOpen } = useStoreState(state => ({
-        isModalTextFieldOpen: state.modalReducers.cases.isModalTextFieldOpen,
+        isModalTextFieldOpen: state.modalReducers.cases.isModalTextFieldOpen
     }));
     const dispatch = useStoreDispatch();
     const name = currItemFound ? currItemFound.name : null;
@@ -63,72 +63,63 @@ export default function ModalTextField({ currItemFound }) {
         let data = objToSend;
         objToSend.messageList.message = newMessage.message;
         sendNotification(dispatch, data, _idClient);
-    }
+    };
 
     const onChange = e => {
-      const { name, value } = e.target;
-      setNewMessage({ [name]: value });
+        const { name, value } = e.target;
+        setNewMessage({ [name]: value });
     };
 
     const classes = useStyles();
     return (
         <div>
-          <Dialog
-                style={{zIndex: 1500}}
-                open={isModalTextFieldOpen}
-                aria-labelledby="form-dialog-title"
-            >
-            <CardMedia
-                className={classes.media}
-                image='img/babadoo-logo_no-slogon.png'
-                title='loja babadoo'
-            />
-            <DialogTitle id="form-dialog-title">{propTitle}</DialogTitle>
-            <DialogContent>
-              <DialogContentText>
-                    <span className="">{propSubTitle}</span>
-              </DialogContentText>
-              <form onChange={onChange}>
-                  <TextField
-                      id="outlined-multiline-static"
-                      label={parse(`Mensagem para <br /><strong>${name}</strong>`)}
-                      multiline
-                      fullWidth
-                      name={mainKey}
-                      rows="5"
-                      autoComplete="Mensagem aqui"
-                      className={classes.textField}
-                      margin="normal"
-                      variant="outlined"
-                    />
-              </form>
-              <section>
-                  <div style={{display: 'flex', justifyContent: 'center', marginTop: '28px'}}>
-                      <Button
-                              onClick={() => {
-                                closeModal(dispatch);
-                            }}
-                            color="primary"
-                        >
-                        Sair
-                      </Button>
-                      <Button
-                            onClick={() => {
-                              setObjToSend();
-                              closeModal(dispatch);
-                            }}
-                            variant="contained"
-                            color="primary"
-                            className={classes.button}
-                        >
-                        {propTxtBtn}
-                        <i className="fas fa-paper-plane" style={{marginLeft: '5px'}}></i>
-                      </Button>
-                  </div>
-              </section>
-            </DialogContent>
-          </Dialog>
+            <Dialog style={{ zIndex: 1500 }} open={isModalTextFieldOpen} aria-labelledby="form-dialog-title">
+                <CardMedia className={classes.media} image="img/babadoo-logo_no-slogon.png" title="loja babadoo" />
+                <DialogTitle id="form-dialog-title">{propTitle}</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        <span className="">{propSubTitle}</span>
+                    </DialogContentText>
+                    <form onChange={onChange}>
+                        <TextField
+                            id="outlined-multiline-static"
+                            label={parse(`Mensagem para <br /><strong>${name}</strong>`)}
+                            multiline
+                            fullWidth
+                            name={mainKey}
+                            rows="5"
+                            autoComplete="Mensagem aqui"
+                            className={classes.textField}
+                            margin="normal"
+                            variant="outlined"
+                        />
+                    </form>
+                    <section>
+                        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '28px' }}>
+                            <Button
+                                onClick={() => {
+                                    closeModal(dispatch);
+                                }}
+                                color="primary"
+                            >
+                                Sair
+                            </Button>
+                            <Button
+                                onClick={() => {
+                                    setObjToSend();
+                                    closeModal(dispatch);
+                                }}
+                                variant="contained"
+                                color="primary"
+                                className={classes.button}
+                            >
+                                {propTxtBtn}
+                                <i className="fas fa-paper-plane" style={{ marginLeft: '5px' }}></i>
+                            </Button>
+                        </div>
+                    </section>
+                </DialogContent>
+            </Dialog>
         </div>
     );
-
 }

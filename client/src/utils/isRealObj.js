@@ -2,5 +2,3 @@
 export default function isRealObj(obj) {
     return obj && obj !== 'null' && obj !== 'undefined';
 }
-
-

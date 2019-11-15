@@ -7,19 +7,15 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { underConstruction } from '../../data/dataIllustrations';
 import { ButtonContainerPressedEffectDark as DarkBtn } from '../buttons/Default';
-export default function UnderConstruction()  {
+export default function UnderConstruction() {
     const isModalUnderConstructionOpen = useStoreState(state => state.modalReducers.cases.isModalUnderConstructionOpen);
     const dispatch = useStoreDispatch();
 
-    return (
-        isModalUnderConstructionOpen ?
+    return isModalUnderConstructionOpen ? (
         <ModalContainer>
             <div className="container">
                 <div className="row">
-                    <div
-                        id="modal"
-                        className="col-10 mx-auto col-md-6 col-lg-4 text-center text-capitalize p-1"
-                    >
+                    <div id="modal" className="col-10 mx-auto col-md-6 col-lg-4 text-center text-capitalize p-1">
                         <section>
                             <img
                                 className="img-fluid mx-auto my-2 shadow-elevation"
@@ -30,16 +26,14 @@ export default function UnderConstruction()  {
                             <h2>Logo ficará disponível! :)</h2>
                         </section>
                         <DarkBtn className="my-4" onClick={() => closeModal(dispatch)}>
-                                Entendi.
+                            Entendi.
                         </DarkBtn>
                     </div>
                 </div>
             </div>
-        </ModalContainer> :
-        null
-    );
+        </ModalContainer>
+    ) : null;
 }
-
 
 const ModalContainer = styled.div`
     position: fixed;

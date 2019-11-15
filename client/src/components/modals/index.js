@@ -18,12 +18,15 @@ import ModalConfYesNo from './confirmation/ModalConfYesNo';
 
 export default function AllModals() {
     const { currentItemFound } = useStoreState(state => ({
-        currentItemFound: state.globalReducer.cases.currentItemFound,
+        currentItemFound: state.globalReducer.cases.currentItemFound
     }));
     // Checkingthe right places to send data to confirmation modals
-    let itemsYesNo = null, itemsField = null, textField = null, checkCondition = null;
-    if(currentItemFound) {
-        switch(currentItemFound.mainSubject) {
+    let itemsYesNo = null,
+        itemsField = null,
+        textField = null,
+        checkCondition = null;
+    if (currentItemFound) {
+        switch (currentItemFound.mainSubject) {
             case 'Preço':
             case 'Título':
                 itemsField = currentItemFound;
@@ -36,7 +39,7 @@ export default function AllModals() {
                 textField = currentItemFound;
                 break;
             default:
-                console.log("no item found...")
+                console.log('no item found...');
         }
     }
 

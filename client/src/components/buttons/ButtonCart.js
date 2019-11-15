@@ -20,9 +20,19 @@ export default function ButtonCart() {
                             }}
                         >
                             <span style={{ position: 'relative' }}>
-                                <i className="fas fa-shopping-cart p-2" style={{fontSize: '1.7rem'}}>
-                                    <span className="animated pulse slow" style={{ position: 'absolute', top: '-.5em', left: '1.6em', marginLeft: '.01em', padding: '.9px 3px' }} className="badge badge-danger">
-                                        {!value.cartTotalItems ? null : value.cartTotalItems }
+                                <i className="fas fa-shopping-cart p-2" style={{ fontSize: '1.7rem' }}>
+                                    <span
+                                        className="animated pulse slow"
+                                        style={{
+                                            position: 'absolute',
+                                            top: '-.5em',
+                                            left: '1.6em',
+                                            marginLeft: '.01em',
+                                            padding: '.9px 3px'
+                                        }}
+                                        className="badge badge-danger"
+                                    >
+                                        {!value.cartTotalItems ? null : value.cartTotalItems}
                                     </span>
                                 </i>
                             </span>

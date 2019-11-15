@@ -9,30 +9,35 @@ import parse from 'html-react-parser';
 
 // Share Button Infos
 const dataCategory = {
-    name: "Lingeries",
-    urlName: "lingeries",
-}
+    name: 'Lingeries',
+    urlName: 'lingeries'
+};
 const pageData = {
     titleShare: parse(`Compartilhe a Categoria<br />${dataCategory.name}`),
     pageURL: `https://babadoo.herokuapp.com/${dataCategory.urlName}`,
-    pageImg: "i.imgur.com/9GjtAiW",
+    pageImg: 'i.imgur.com/9GjtAiW',
     pageTitle: `Babadoo - Categoria ${dataCategory.name}`,
     get pageDescription() {
         return `Olha essa coleção de ${dataCategory.name} que encontrei em ${this.pageURL}`;
     }
-}
+};
 // End Share Button Infos
 
 export default function Lingerie() {
     return (
         <React.Fragment>
             <DivWrapper>
-               <div className="category-container">
-                   <img style={{width: "100%", maxHeight: "100%", filter: "brightness(70%)", paddingBottom: "15px"}} src="img/category-pictures/lingerie-features.jpg" alt="destaques de lingeries"/>
-                   <h1 className="category-title text-categories">
-                       Lingeries<br /> Babadoo
-                   </h1>
-               </div>
+                <div className="category-container">
+                    <img
+                        style={{ width: '100%', maxHeight: '100%', filter: 'brightness(70%)', paddingBottom: '15px' }}
+                        src="img/category-pictures/lingerie-features.jpg"
+                        alt="destaques de lingeries"
+                    />
+                    <h1 className="category-title text-categories">
+                        Lingeries
+                        <br /> Babadoo
+                    </h1>
+                </div>
             </DivWrapper>
             <div className="py-2">
                 <div className="container">
@@ -71,9 +76,7 @@ const DivWrapper = styled.div`
         display: flex;
         justify-content: center;
         img {
-            width: 80%
-
+            width: 80%;
         }
     }
-
 `;

@@ -2,7 +2,6 @@
 import { modalReducers } from './modalReducers';
 import { productReducer } from './productReducer';
 import { snackbarReducer } from './snackbarReducer';
-import { errorReducer } from './errorReducer';
 import { authReducer } from './authReducer';
 import { userReducer } from './userReducer';
 import { globalReducer } from './globalReducer';
@@ -16,10 +15,9 @@ export const easyStore = {
     userReducer,
     productReducer,
     modalReducers,
-    errorReducer,
     snackbarReducer,
     globalReducer,
     animationReducer,
     adminReducer,
-    businessInfoReducer,
-}
+    businessInfoReducer
+};

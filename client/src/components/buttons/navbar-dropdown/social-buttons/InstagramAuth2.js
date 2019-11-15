@@ -3,17 +3,17 @@ import InstagramLogin from 'react-instagram-login';
 
 export default function Main() {
     const stateData = useState({
-            isUserLoggedIn: false,
-            userID: "",
-            name: "",
-            email: "",
-            picture: ""
-        });
+        isUserLoggedIn: false,
+        userID: '',
+        name: '',
+        email: '',
+        picture: ''
+    });
     const [data, setData] = stateData;
 
-    const responseInstagram = (response) => {
-      console.log(response);
-    }
+    const responseInstagram = response => {
+        console.log(response);
+    };
 
     return (
         <div>

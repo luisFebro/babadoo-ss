@@ -22,7 +22,7 @@ export default function Navbar() {
         setTimeout(() => {
             setSearchOpen(true);
         }, 1000);
-    }
+    };
 
     const closeBtn = () => {
         const icon = document.getElementById('searchIcon'),
@@ -35,8 +35,7 @@ export default function Navbar() {
         setTimeout(() => {
             setSearchOpen(false);
         }, 1000);
-    }
-
+    };
 
     return (
         <ProductConsumer>
@@ -46,7 +45,7 @@ export default function Navbar() {
                         <NavWrapper className="navbar navbar-expand-sm navbar-dark px-sm-5 text-nav-items">
                             <Link to="/">
                                 <img
-                                    src= "img/babadoo-logo_no-slogon.png"
+                                    src="img/babadoo-logo_no-slogon.png"
                                     alt="Logomarca da loja Babadoo Manaus"
                                     width="90rem"
                                     height="90rem"
@@ -56,26 +55,24 @@ export default function Navbar() {
                             <ul className="navbar-nav align-items-center">
                                 <li className="nav-item">
                                     <Link to="/loja" className="nav-link">
-                                        {isStoreOpen ?
+                                        {isStoreOpen ? (
                                             <div className="store-container">
-                                                 <img
+                                                <img
                                                     width="70rem"
                                                     height="70rem"
                                                     src={storeIcon.imgSrc}
                                                     alt={storeIcon.altTitle}
                                                     title={storeIcon.altTitle}
-                                                 />
+                                                />
                                                 <div className="store-badge badge badge-danger">Aberto</div>
-                                             </div> :
-                                            <span>
-                                                loja
-                                            </span>
-                                        }
+                                            </div>
+                                        ) : (
+                                            <span>loja</span>
+                                        )}
                                     </Link>
                                 </li>
                             </ul>
-                            {isUserAuthenticated ?
-                                null :
+                            {isUserAuthenticated ? null : (
                                 <ul className="animated zoomIn slow navbar-nav ml-3 ml-md-auto">
                                     <li className="nav-item mr-2 pt-2 align-items-center">
                                         <Link to="/favoritos" className="nav-link">
@@ -85,7 +82,7 @@ export default function Navbar() {
                                         </Link>
                                     </li>
                                 </ul>
-                            }
+                            )}
                             <ul className="navbar-nav mr-5 align-items-center">
                                 <li className="nav-item">
                                     <Link to="/" className="nav-link">
@@ -95,7 +92,7 @@ export default function Navbar() {
                                     </Link>
                                 </li>
                             </ul>
-                            <div className="fixed pt-3" style={{zIndex: 1011}}>
+                            <div className="fixed pt-3" style={{ zIndex: 1011 }}>
                                 <span>
                                     <i id="searchIcon" className="fas fa-search" onClick={addZoomout}></i>
                                 </span>
@@ -116,7 +113,7 @@ export default function Navbar() {
                         <DivWrapper>
                             <MenuLogin />
                         </DivWrapper>
-                        <Link to='/painel-controle-admin'>
+                        <Link to="/painel-controle-admin">
                             <KeyAccessDashboard />
                         </Link>
                     </Fragment>
@@ -138,7 +135,7 @@ const NavWrapper = styled.nav`
     }
 
     .store-badge {
-        font-size: .4em;
+        font-size: 0.4em;
         position: absolute;
         top: 60%;
         left: 65%;

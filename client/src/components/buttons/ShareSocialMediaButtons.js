@@ -21,7 +21,7 @@ export default function ShareSocialMediaButtons({ data }) {
                         'facebook',
                         'email',
                         'whatsapp',
-                        'messenger',
+                        'messenger'
                     ],
                     padding: 12, // padding within buttons (INTEGER)
                     radius: 4, // the corner radius on each button (INTEGER)
@@ -34,7 +34,7 @@ export default function ShareSocialMediaButtons({ data }) {
                     title: `${pageTitle}`, // (defaults to og:title or twitter:title)
                     description: `${pageDescription}`, // (defaults to og:description or twitter:description)
                     subject: `${pageTitle}`, // (only for email sharing)
-                    message: `${pageDescription}`, // (only for email sharing)
+                    message: `${pageDescription}` // (only for email sharing)
                     // username: 'custom twitter handle' // (only for twitter sharing)
                 }}
             />
@@ -44,6 +44,5 @@ export default function ShareSocialMediaButtons({ data }) {
 
 //PropTypes
 ShareSocialMediaButtons.propTypes = {
-    data: PropTypes.object.isRequired,
-}
-
+    data: PropTypes.object.isRequired
+};

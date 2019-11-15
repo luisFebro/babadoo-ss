@@ -6,22 +6,21 @@ export default function getDataObjDiffKeys(response, arrayOfSubKeys) {
     let x = 0;
 
     // Creating new keys provided by the array of the second argument
-    for(;x < objLength;x++) {
+    for (; x < objLength; x++) {
         let currKey = arrayOfSubKeys[x];
         data[currKey] = [];
     }
 
     //Populating obj
     // getting keys from array
-    for(let key of arrayOfSubKeys) {
+    for (let key of arrayOfSubKeys) {
         //getting each subkeys from diff objs
-        for(let diffKey in response) {
+        for (let diffKey in response) {
             data[key].push(response[diffKey][key]);
         }
     }
     return data;
 }
-
 
 // let response = {
 //     user1: {email: "hellothere@gmail.com", name: "john"},

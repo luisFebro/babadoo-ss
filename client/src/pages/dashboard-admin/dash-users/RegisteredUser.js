@@ -2,12 +2,12 @@ import React, { useRef } from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
 import 'moment/locale/pt-br';
-import uuidv1 from 'uuid/v1'
+import uuidv1 from 'uuid/v1';
 // Redux
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
-import { findAnItem } from '../../../redux/actions/globalActions'
-import { showModalConfYesNo, showModalTextField } from '../../../redux/actions/modalActions'
-import { animateHinge } from '../../../redux/actions/animationActions'
+import { findAnItem } from '../../../redux/actions/globalActions';
+import { showModalConfYesNo, showModalTextField } from '../../../redux/actions/modalActions';
+import { animateHinge } from '../../../redux/actions/animationActions';
 // End Redux
 import DeleteButton from '../../../components/buttons/DeleteButton';
 import MessageButton from '../../../components/buttons/MessageButton';
@@ -23,28 +23,27 @@ RegisteredUser.propTypes = {
         email: PropTypes.string,
         favoriteList: PropTypes.arrayOf(PropTypes.object),
         inCartList: PropTypes.arrayOf(PropTypes.object),
-        registerDate: PropTypes.string,
+        registerDate: PropTypes.string
     }).isRequired
-}
+};
 
 const useStyles = makeStyles(theme => ({
-  button: {
-    margin: theme.spacing(1),
-    color: 'var(--mainWhite)',
-    fontSize: '1.9rem',
-  },
-  input: {
-    display: 'none',
-  },
+    button: {
+        margin: theme.spacing(1),
+        color: 'var(--mainWhite)',
+        fontSize: '1.9rem'
+    },
+    input: {
+        display: 'none'
+    }
 }));
-
 
 export default function RegisteredUser({ data }) {
     const animateRef = useRef(null);
     let { updatedUsers, setAnimationTimer, userName } = useStoreState(state => ({
         updatedUsers: state.userReducer.cases.updatedUsers,
         setAnimationTimer: state.animationReducer.cases.setAnimationTimer,
-        userName: state.userReducer.cases.currentUpdatedUser.name,
+        userName: state.userReducer.cases.currentUpdatedUser.name
     }));
     const classes = useStyles();
     const dispatch = useStoreDispatch();
@@ -53,7 +52,7 @@ export default function RegisteredUser({ data }) {
     const timeNow = moment(Date.now()).format('Do MMM [às] h:mm, YYYY[.]');
 
     return (
-        <DivWrapper ref={animateRef} className="text-default" style={{position: 'relative'}}>
+        <DivWrapper ref={animateRef} className="text-default" style={{ position: 'relative' }}>
             <div>
                 <p>Name: {name}</p>
             </div>
@@ -65,39 +64,43 @@ export default function RegisteredUser({ data }) {
             </div>
             <section>
                 <h2 className="text-default text-center">Totais de Itens do Usuário:</h2>
-                <div className="container-center" style={{flexDirection: 'row'}}>
-                    <div style={{marginRight: '15px'}}>Totais de Favoritos: <strong>{favoriteList.length}</strong></div>
-                    <div>Totais de Items no Carrinho: <strong>{inCartList.length}</strong></div>
+                <div className="container-center" style={{ flexDirection: 'row' }}>
+                    <div style={{ marginRight: '15px' }}>
+                        Totais de Favoritos: <strong>{favoriteList.length}</strong>
+                    </div>
+                    <div>
+                        Totais de Items no Carrinho: <strong>{inCartList.length}</strong>
+                    </div>
                 </div>
             </section>
             <div>
-                {name !== "admin" ? (
+                {name !== 'admin' ? (
                     <div>
                         <MessageButton
                             top={-20}
                             left={190}
                             onClick={() => {
-                                if(userName === "admin") userName = "Loja Babadoo";
+                                if (userName === 'admin') userName = 'Loja Babadoo';
                                 const attachedObj = {
-                                    propTitle: "Envio de Mensagem Instantânea",
-                                    propSubTitle: "Escreva abaixo sua mensagem para usuário",
-                                    propTxtBtn: "Enviar",
-                                    mainSubject: "Mensagem",
-                                    mainKey: "message",
+                                    propTitle: 'Envio de Mensagem Instantânea',
+                                    propSubTitle: 'Escreva abaixo sua mensagem para usuário',
+                                    propTxtBtn: 'Enviar',
+                                    mainSubject: 'Mensagem',
+                                    mainKey: 'message',
                                     objToSend: {
                                         messageList: {
                                             sender: `${userName}`,
                                             id: uuidv1(),
                                             time: `envio em: ${timeNow}`,
-                                            message: "", //this will be the message catch by modal text field
+                                            message: '', //this will be the message catch by modal text field
                                             isMessageChecked: false,
                                             history: {
                                                 senderMsgs: [],
-                                                recipientMsgs: [],
+                                                recipientMsgs: []
                                             }
                                         }
                                     }
-                                }
+                                };
                                 findAnItem(dispatch, updatedUsers, _id, attachedObj);
                                 showModalTextField(dispatch);
                             }}
@@ -108,11 +111,11 @@ export default function RegisteredUser({ data }) {
                             onClick={() => {
                                 const attachedObj = {
                                     action: {
-                                        noun: "Exclusão",
-                                        verb: "Excluir"
+                                        noun: 'Exclusão',
+                                        verb: 'Excluir'
                                     },
-                                    mainSubject: "Usuário",
-                                }
+                                    mainSubject: 'Usuário'
+                                };
                                 findAnItem(dispatch, updatedUsers, _id, attachedObj);
                                 showModalConfYesNo(dispatch);
                                 setTimeout(() => {
@@ -128,11 +131,8 @@ export default function RegisteredUser({ data }) {
                             }}
                         />
                     </div>
-                    ) : null
-                }
+                ) : null}
             </div>
-
-
         </DivWrapper>
     );
 }

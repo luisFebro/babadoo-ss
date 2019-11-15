@@ -2,14 +2,14 @@ import { greetings } from '../data/dataIllustrations';
 import parse from 'html-react-parser';
 
 export default function getPeriodOfDayWithPic(nameUser) {
-    let name = nameUser || "visitante";
+    let name = nameUser || 'visitante';
     let hourNow = new Date().getHours();
     let res = {
-        greeting: "",
+        greeting: '',
         illustration: {
-            img: "",
-            color: "var(--mainYellow)",
-            alt: "",
+            img: '',
+            color: 'var(--mainYellow)',
+            alt: ''
         }
     };
     if (hourNow >= 0 && hourNow <= 4) {

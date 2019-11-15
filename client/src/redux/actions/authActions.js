@@ -1,8 +1,6 @@
 import axios from 'axios';
-import { returnErrors } from './errorActions';
 import { updateCurrentUser } from './userActions';
 import { setErrorOn, setErrorOff } from './globalActions';
-import { clearErrors } from './errorActions';
 import { showSnackbarBlack } from './snackbarActions';
 import { getBodyRequest } from '../../utils/server/getBodyRequest';
 import { configTypeJson } from '../../utils/server/configTypeJson';
@@ -15,39 +13,42 @@ export const loadUser = () => (dispatch, getState) => {
     dispatch({ type: 'USER_LOADING' });
 
     const getAuthUser = () => {
-      console.log("==USER LOADING==");
-      return axios.get('/api/auth/user', tokenConfig(getState));
-    }
+        console.log('==USER LOADING==');
+        return axios.get('/api/auth/user', tokenConfig(getState));
+    };
 
     const getUpdatedUsers = () => {
-      return axios.get('/api/users/list', configTypeJson);
-    }
+        return axios.get('/api/users/list', configTypeJson);
+    };
 
-    axios.all([getAuthUser(), getUpdatedUsers()])
-      .then(axios.spread((auth, products, users) => {
-        // Both requests are now complete
-        dispatch({
-            type: 'USER_LOADED',
-            payload: auth.data
-        })
-        dispatch({
-            type: 'USER_CURRENT_UPDATED',
-            payload: auth.data
-        })
-        dispatch({
-            type: 'ALL_USERS_UPDATE',
-            payload: users.data
-        })
-      })).catch(err => {
-        if(typeof err.response !== 'undefined') {
-            setErrorOn(dispatch, err.response.data.msg);
-            dispatch(returnErrors(err.response.data, err.response.status));
-        }
+    axios
+        .all([getAuthUser(), getUpdatedUsers()])
+        .then(
+            axios.spread((auth, products, users) => {
+                // Both requests are now complete
+                dispatch({
+                    type: 'USER_LOADED',
+                    payload: auth.data
+                });
+                dispatch({
+                    type: 'USER_CURRENT_UPDATED',
+                    payload: auth.data
+                });
+                dispatch({
+                    type: 'ALL_USERS_UPDATE',
+                    payload: users.data
+                });
+            })
+        )
+        .catch(err => {
+            if (typeof err.response !== 'undefined') {
+                setErrorOn(dispatch, err.response.data.msg);
+            }
             // dispatch({
             //   type: 'AUTH_ERROR'
             // });
         });
-}
+};
 //This structure does not work at all. gives errors
 // export const loadUser = () => (dispatch, getState) => {
 //     try {
@@ -65,13 +66,12 @@ export const loadUser = () => (dispatch, getState) => {
 //         })
 //     } catch(err) {
 //         console.log(err);
-//         dispatch(returnErrors(err.response.data, err.response.status));
 //     }
 // }
 
 // login Email
 // loginEMail with Async/Await
-export const loginEmail = (objToSend) => async (dispatch, isSocialOn = false) => {
+export const loginEmail = objToSend => async (dispatch, isSocialOn = false) => {
     // Request body
     const body = getBodyRequest(objToSend);
 
@@ -86,14 +86,11 @@ export const loginEmail = (objToSend) => async (dispatch, isSocialOn = false) =>
                 type: 'LOGIN_SUCCESS',
                 payload: res.data
             });
-            console.log("==Login: Updating current user==")
+            console.log('==Login: Updating current user==');
             updateCurrentUser(dispatch, res.data.user.id);
         }
-    } catch(err) {
+    } catch (err) {
         setErrorOn(dispatch, err.response.data.msg);
-        dispatch(
-            returnErrors(err.response.data, err.response.status, 'LOGIN_FAIL')
-        );
         dispatch({
             type: 'LOGIN_FAIL'
         });
@@ -103,7 +100,7 @@ export const loginEmail = (objToSend) => async (dispatch, isSocialOn = false) =>
 // Register User
 // Register with Default Promises Handling
 // objToSend: { name, email, password }
-export const registerEmail = (objToSend) => (dispatch, isSocialOn = null) => {
+export const registerEmail = objToSend => (dispatch, isSocialOn = null) => {
     // Request body
     const body = getBodyRequest(objToSend);
 
@@ -117,50 +114,38 @@ export const registerEmail = (objToSend) => (dispatch, isSocialOn = null) => {
             } else {
                 dispatch({
                     type: 'REGISTER_SUCCESS',
-                    payload: res.data
+                    payload: res.data // This will be replaced with userReducer
                 });
-                console.log("==Register: Updating current user==")
+                console.log('==Register: Updating current user==');
                 updateCurrentUser(dispatch, res.data.user.id);
             }
         })
         .catch(err => {
-            console.log("err.response", err.response);
             setErrorOn(dispatch, err.response.data.msg);
-            dispatch(
-                returnErrors(err.response.data, err.response.status, 'REGISTER_FAIL')
-            );
             dispatch({
                 type: 'REGISTER_FAIL'
             });
         });
 };
 
-
-
+// Login/Register Google
+export const authenticateGoogle = dispatch => {};
 
 // Login/Register Google
-export const authenticateGoogle = dispatch => {
-
-}
-
-// Login/Register Google
-export const authenticateFacebook = dispatch => {
-
-}
+export const authenticateFacebook = dispatch => {};
 
 // Logout
 export const logout = dispatch => {
     dispatch({ type: 'LOGOUT_SUCCESS' });
     setErrorOff(dispatch);
-    clearErrors(dispatch);
-    setTimeout(() => showSnackbarBlack(dispatch, "Sua sessão foi finalizada com sucesso.", 3000), 2000);
+    setTimeout(() => showSnackbarBlack(dispatch, 'Sua sessão foi finalizada com sucesso.', 3000), 2000);
 };
 
 // Setup config/headers and token
 export const tokenConfig = getState => {
     //getState method accesses redux store outside of a react component
     const token = getState().authReducer.cases.token;
-    console.log("token from tokenConfig", token);
+    console.log('token from tokenConfig', token);
     // Headers
     const config = {
         headers: {

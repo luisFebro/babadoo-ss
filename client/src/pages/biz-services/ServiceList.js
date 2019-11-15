@@ -7,7 +7,7 @@ export default function ServiceList() {
         <div className="container justify-content-center">
             <div className="row">
                 {services.map(service => {
-                    return <ServiceCard data={service}/>
+                    return <ServiceCard data={service} />;
                 })}
             </div>
         </div>

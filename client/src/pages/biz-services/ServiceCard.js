@@ -5,36 +5,35 @@ import { makeStyles } from '@material-ui/core/styles';
 import styled from 'styled-components';
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1,
-  },
-  paper: {
-    height: 100,
-    width: 140,
-  },
-  text: {
-    textAlign: "center",
-    fontSize: "1.1em",
-    fontWeight: "bold",
-
-  }
+    root: {
+        flexGrow: 1
+    },
+    paper: {
+        height: 100,
+        width: 140
+    },
+    text: {
+        textAlign: 'center',
+        fontSize: '1.1em',
+        fontWeight: 'bold'
+    }
 }));
 
 export default function ServiceCard({ data }) {
     const classes = useStyles();
     return (
-          <DivWrapper class="col-4 col-md-4">
+        <DivWrapper class="col-4 col-md-4">
             <Paper className={classes.paper}>
-              <Typography component="p" className={classes.text}>
-                  {data.title}
-              </Typography>
+                <Typography component="p" className={classes.text}>
+                    {data.title}
+                </Typography>
             </Paper>
             <section className="icon-container">
                 <div>
                     <img src={data.icon}></img>
                 </div>
             </section>
-          </DivWrapper>
+        </DivWrapper>
     );
 }
 

@@ -7,8 +7,8 @@ import AccessTimeIcon from '@material-ui/icons/AccessTime';
 
 ExpansiblePanelContent.propTypes = {
     doneTasks: PropTypes.arrayOf(PropTypes.object).isRequired,
-    inProgressTasks: PropTypes.arrayOf(PropTypes.object).isRequired,
-}
+    inProgressTasks: PropTypes.arrayOf(PropTypes.object).isRequired
+};
 
 export default function ExpansiblePanelContent({ doneTasks, inProgressTasks }) {
     const gotTasksDone = doneTasks.length !== 0 ? true : false;
@@ -25,12 +25,7 @@ export default function ExpansiblePanelContent({ doneTasks, inProgressTasks }) {
                     {gotTasksDone ? (
                         <div>
                             {doneTasks.map(elem => (
-                                <Chip
-                                    key={elem.task}
-                                    icon={<DoneIcon />}
-                                    label={elem.task}
-                                    color="primary"
-                                />
+                                <Chip key={elem.task} icon={<DoneIcon />} label={elem.task} color="primary" />
                             ))}
                         </div>
                     ) : (
@@ -52,11 +47,7 @@ export default function ExpansiblePanelContent({ doneTasks, inProgressTasks }) {
                     {gotTasksInProgress ? (
                         <div>
                             {inProgressTasks.map(elem => (
-                                <Chip
-                                    key={elem.task}
-                                    icon={<AccessTimeIcon />}
-                                    label={elem.task}
-                                />
+                                <Chip key={elem.task} icon={<AccessTimeIcon />} label={elem.task} />
                             ))}
                         </div>
                     ) : (
@@ -67,5 +58,5 @@ export default function ExpansiblePanelContent({ doneTasks, inProgressTasks }) {
                 </div>
             </section>
         </div>
-    )
+    );
 }

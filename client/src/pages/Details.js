@@ -1,25 +1,17 @@
-import React, { Component } from "react";
-import { ProductConsumer } from "../data/contexts/mainContext";
-import { Link } from "react-router-dom";
+import React, { Component } from 'react';
+import { ProductConsumer } from '../data/contexts/mainContext';
+import { Link } from 'react-router-dom';
 import {
     ButtonContainerPressedEffectDark as DarkBtn,
     ButtonContainerPressedEffectYellow as YellowBtn
-} from "../components/buttons/Default";
+} from '../components/buttons/Default';
 
 export default class Details extends Component {
     render() {
         return (
             <ProductConsumer>
                 {value => {
-                    const {
-                        id,
-                        company,
-                        image,
-                        price,
-                        info,
-                        title,
-                        inCart
-                    } = value.detailProduct;
+                    const { id, company, image, price, info, title, inCart } = value.detailProduct;
                     return (
                         <div className="container py-5">
                             {/* title */}
@@ -34,20 +26,13 @@ export default class Details extends Component {
                             {/*product info*/}
                             <div className="row">
                                 <div className="d-flex justify-content-center align-items-center col-12 mx-auto col-md-6 my-3 text-title">
-                                    <img
-                                        src={image}
-                                        className="img-fluid shadow-elevation"
-                                        alt="product"
-                                    />
+                                    <img src={image} className="img-fluid shadow-elevation" alt="product" />
                                 </div>
                                 {/* product text */}
                                 <div className="col-10 mx-auto col-md-6 my-3 text-capitalize">
                                     {/*<h2 className="text-center"> modelo: {title}</h2>*/}
                                     <h4 className="text-uppercase text-muted mt-3 mb-2">
-                                        marca:{" "}
-                                        <span className="text-uppercase">
-                                            {company}
-                                        </span>
+                                        marca: <span className="text-uppercase">{company}</span>
                                     </h4>
                                     <h4 className="text-yellow">
                                         <strong>
@@ -58,9 +43,7 @@ export default class Details extends Component {
                                     <h5 className="text-capitalize font-weight-bold mt-3 mb-0">
                                         Informações do Produto:
                                     </h5>
-                                    <p className="text-muted lead text-justify">
-                                        {info}
-                                    </p>
+                                    <p className="text-muted lead text-justify">{info}</p>
                                     {/* buttons */}
                                     <div className="d-flex flex-row mr-2">
                                         <Link to="finalizar-compra">
@@ -74,9 +57,7 @@ export default class Details extends Component {
                                                     // value.openModal(id);
                                                 }}
                                             >
-                                                {inCart
-                                                    ? "No carrinho adicionado"
-                                                    : "adicionar no carrinho"}
+                                                {inCart ? 'No carrinho adicionado' : 'adicionar no carrinho'}
                                             </YellowBtn>
                                         </Link>
                                     </div>

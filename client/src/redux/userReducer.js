@@ -10,8 +10,8 @@ const initialState = {
     allFavProductsList: [],
     allMessagesList: [],
     allRegisteredUsersList: [],
-    gotCoupons: false,
-}
+    gotCoupons: false
+};
 
 export const userReducer = {
     cases: reducer((state = initialState, action) => {
@@ -25,8 +25,8 @@ export const userReducer = {
             case 'USER_CURRENT_UPDATED':
                 //Check if user have coupons (If so, the maskot with discount will not appear when user log in)
                 let gotAtLeastOneCupon = false;
-                if(typeof action.payload.couponsList !== 'undefined') {
-                    if(action.payload.couponsList.length >= 1) {
+                if (typeof action.payload.couponsList !== 'undefined') {
+                    if (action.payload.couponsList.length >= 1) {
                         gotAtLeastOneCupon = true;
                     }
                 }
@@ -36,16 +36,16 @@ export const userReducer = {
                     allFavProductsList: action.payload.favoriteList,
                     allMessagesList: action.payload.messageList,
                     gotCoupons: gotAtLeastOneCupon
-                }
+                };
             case 'USER_DELETED':
                 return {
                     ...state,
                     updatedUsers: state.updatedUsers.filter(user => user._id !== action.payload)
-                }
+                };
             default:
                 return state;
         }
-    }),
-}
+    })
+};
 
 // n1:

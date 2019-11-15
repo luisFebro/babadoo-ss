@@ -5,8 +5,8 @@ import { reducer } from 'easy-peasy';
 
 // REDUCERS
 const initialState = {
-    businessInfo: {},
-}
+    businessInfo: {}
+};
 
 export const businessInfoReducer = {
     cases: reducer((state = initialState, action) => {
@@ -14,15 +14,13 @@ export const businessInfoReducer = {
             case 'READ_BIZ_INFO':
                 return {
                     businessInfo: action.payload
-                }
+                };
             case 'UPDATE_BIZ_INFO':
                 return {
                     businessInfo: action.payload
-                }
+                };
             default:
                 return state;
         }
-    }),
-}
-
-
+    })
+};

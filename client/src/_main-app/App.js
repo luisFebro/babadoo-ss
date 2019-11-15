@@ -51,7 +51,7 @@ import WhatsappIcon from '../components/buttons/WhatsappIcon';
 // END BUTTONS
 export default function App() {
     const { isUserAuthenticated } = useStoreState(state => ({
-        isUserAuthenticated: state.authReducer.cases.isUserAuthenticated,
+        isUserAuthenticated: state.authReducer.cases.isUserAuthenticated
     }));
 
     const dispatch = useStoreDispatch();
@@ -72,7 +72,8 @@ export default function App() {
                 <CategorySlider />
                 <Switch>
                     {/*Categories Pages*/}
-                    <Route exact path="/" render={(props) => (<Home />)} /> {/*This will be routed first, exact make sure only Home content is displayed render based on https://github.com/luisFebro/react_crash_todo/blob/master/src/App.js*/}
+                    <Route exact path="/" render={props => <Home />} />{' '}
+                    {/*This will be routed first, exact make sure only Home content is displayed render based on https://github.com/luisFebro/react_crash_todo/blob/master/src/App.js*/}
                     <Route path="/lingeries" exact component={Lingerie} />
                     <Route path="/cosmeticos" exact component={Cosmetic} />
                     <Route path="/comestiveis" exact component={Edible} />

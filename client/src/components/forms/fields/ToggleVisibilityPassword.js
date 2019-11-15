@@ -13,10 +13,9 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff';
 ToggleVisibilityPassword.propTypes = {
     onChange: PropTypes.func.isRequired,
     data: PropTypes.object.isRequired,
-    setData: PropTypes.func.isRequired,
+    setData: PropTypes.func.isRequired
     // error: PropTypes.string.isRequired,
-}
-
+};
 
 // this function requires useState in the parent with password, showPassword keys.
 export default function ToggleVisibilityPassword({ onChange, data, setData, error }) {
@@ -34,23 +33,23 @@ export default function ToggleVisibilityPassword({ onChange, data, setData, erro
         <FormControl fullWidth required>
             <InputLabel htmlFor="adornment-password">Senha</InputLabel>
             <Input
-                 id="adornment-password"
-                 label="Senha"
-                 type={data.showPassword ? 'text' : 'password'}
-                 name="password"
-                 error={error ? true : false}
-                 onChange={onChange}
-                 endAdornment={
-                   <InputAdornment position="end">
-                     <IconButton
-                       aria-label="toggle password visibility"
-                       onClick={handleClickShowPassword}
-                       onMouseDown={handleMouseDownPassword}
-                     >
-                       {data.showPassword ? <Visibility /> : <VisibilityOff />}
-                     </IconButton>
-                   </InputAdornment>
-                 }
+                id="adornment-password"
+                label="Senha"
+                type={data.showPassword ? 'text' : 'password'}
+                name="password"
+                error={error ? true : false}
+                onChange={onChange}
+                endAdornment={
+                    <InputAdornment position="end">
+                        <IconButton
+                            aria-label="toggle password visibility"
+                            onClick={handleClickShowPassword}
+                            onMouseDown={handleMouseDownPassword}
+                        >
+                            {data.showPassword ? <Visibility /> : <VisibilityOff />}
+                        </IconButton>
+                    </InputAdornment>
+                }
             />
         </FormControl>
     );

@@ -4,7 +4,7 @@ export default function GradientButton({ app }) {
     const { img, href, alt, colors, txt } = app;
     const style = {
         margin: 5,
-        display: "block",
+        display: 'block',
         background: `radial-gradient(circle farthest-corner at 35% 90%, ${colors.leftBot}, transparent 50%),
             radial-gradient(circle farthest-corner at 0 140%, ${colors.leftBot}, transparent 50%),
             radial-gradient(ellipse farthest-corner at 0 -25%, ${colors.leftTop}, transparent 50%),
@@ -16,14 +16,11 @@ export default function GradientButton({ app }) {
     };
 
     return (
-        <a
-            href={href}
-            className="btn login-btn"
-            style={style}
-            title={txt}
-        >
+        <a href={href} className="btn login-btn" style={style} title={txt}>
             <img src={img} alt={alt} className="btn-icon" />
-            <span className="btn-txt">Entrar com <strong>Instagram</strong></span>
+            <span className="btn-txt">
+                Entrar com <strong>Instagram</strong>
+            </span>
         </a>
     );
 }

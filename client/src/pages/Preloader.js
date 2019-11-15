@@ -23,7 +23,9 @@ export default function Preloader() {
             />
             <section>
                 <h1 className="text-slogon text-center">
-                    <strong><span>L</span>ingeries <br/>e<br/> Acessórios Eróticos</strong>
+                    <strong>
+                        <span>L</span>ingeries <br />e<br /> Acessórios Eróticos
+                    </strong>
                 </h1>
             </section>
             <section className="loading-container">

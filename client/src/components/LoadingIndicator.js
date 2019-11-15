@@ -6,14 +6,14 @@ export default function Preloader() {
     return (
         <div className="col-10 mx-auto">
             <DivWrapper>
-                    <section className="loading-container">
-                        <h2 className="">Carregando</h2>
-                        <div className="spinner">
-                            <div className="bounce1"></div>
-                            <div className="bounce2"></div>
-                            <div className="bounce3"></div>
-                        </div>
-                    </section>
+                <section className="loading-container">
+                    <h2 className="">Carregando</h2>
+                    <div className="spinner">
+                        <div className="bounce1"></div>
+                        <div className="bounce2"></div>
+                        <div className="bounce3"></div>
+                    </div>
+                </section>
             </DivWrapper>
         </div>
     );

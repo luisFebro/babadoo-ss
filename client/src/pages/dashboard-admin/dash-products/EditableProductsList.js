@@ -12,14 +12,14 @@ import PropTypes from 'prop-types';
 ProductList.propTypes = {
     getAllProducts: PropTypes.func,
     isLoading: PropTypes.bool,
-    allProductsList: PropTypes.object,
-}
+    allProductsList: PropTypes.object
+};
 
 export default function ProductList() {
     // Redux
     const { isLoading, allProductsList } = useStoreState(state => ({
         isLoading: state.globalReducer.cases.isLoading,
-        allProductsList: state.productReducer.cases.allProductsList,
+        allProductsList: state.productReducer.cases.allProductsList
     }));
     const dispatch = useStoreDispatch();
     // End Redux
@@ -33,9 +33,7 @@ export default function ProductList() {
             <br />
             <br />
             <br />
-            <h2
-                className="text-sub-title text-left pl-5"
-            >
+            <h2 className="text-sub-title text-left pl-5">
                 Total de Produtos: <strong>{allProductsList.length}</strong>
             </h2>
             <div className="py-5">

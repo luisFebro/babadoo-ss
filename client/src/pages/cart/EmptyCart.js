@@ -12,22 +12,15 @@ export default function EmptyCart() {
 
     return (
         <div className="text-center">
-            <Title title={(name !== null) ? `Nada aqui, ${name}` : `Nada aqui, visitante!`} />
-            <EmptyContent text={"Seu carrinho está vazio..."} img={"img/illustrations/empty-cart.png"} />
-            <h4
-                className="text-sub-title mt-5"
-            >
+            <Title title={name !== null ? `Nada aqui, ${name}` : `Nada aqui, visitante!`} />
+            <EmptyContent text={'Seu carrinho está vazio...'} img={'img/illustrations/empty-cart.png'} />
+            <h4 className="text-sub-title mt-5">
                 {parse(`Assim que tiver pelo menos um item adicionado, pode voltar novamente!<br/>
                         Clique no ícone do carrinho para adicionar um item`)}
             </h4>
             <HashLink smooth to="/#inicio">
-                <Dark className="text-capitalize mt-5">
-                    explorar produtos
-                </Dark>
+                <Dark className="text-capitalize mt-5">explorar produtos</Dark>
             </HashLink>
         </div>
     );
-
 }
-
-

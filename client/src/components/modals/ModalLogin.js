@@ -22,7 +22,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 const useStyles = makeStyles(theme => ({
     button: {
-        margin: theme.spacing(1),
+        margin: theme.spacing(1)
     },
     media: {
         height: 50,
@@ -31,24 +31,22 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-
 export default function ModalLogin() {
     // Redux
     // > set state
     const { isModalLoginOpen, isUserAuthenticated, errorMsg, allRegisteredUsersList } = useStoreState(state => ({
-            isModalLoginOpen: state.modalReducers.cases.isModalLoginOpen,
-            isUserAuthenticated: state.authReducer.cases.isUserAuthenticated,
-            errorMsg: state.globalReducer.cases.errorMsg,
-            allRegisteredUsersList: state.userReducer.cases.allRegisteredUsersList
-        }));
+        isModalLoginOpen: state.modalReducers.cases.isModalLoginOpen,
+        isUserAuthenticated: state.authReducer.cases.isUserAuthenticated,
+        errorMsg: state.globalReducer.cases.errorMsg,
+        allRegisteredUsersList: state.userReducer.cases.allRegisteredUsersList
+    }));
     const dispatch = useStoreDispatch();
     // End Redux
 
-
     const [data, setData] = useState({
-        name: "", //This is not a field in DB. just for checking either name or email
-        email: "",
-        password: "",
+        name: '', //This is not a field in DB. just for checking either name or email
+        email: '',
+        password: '',
         showPassword: false,
         hasErrorMsg: null
     });
@@ -57,122 +55,109 @@ export default function ModalLogin() {
     const classes = useStyles();
 
     // Check and insert "name" key to the request body
-    const compareNameWithSystem = (nameFromEmail) => {
+    const compareNameWithSystem = nameFromEmail => {
         // if the user name is already registered, then set this name
-        if(allRegisteredUsersList.includes(nameFromEmail)) {
-            setData({...data, name: nameFromEmail})
+        if (allRegisteredUsersList.includes(nameFromEmail)) {
+            setData({ ...data, name: nameFromEmail });
         }
-    }
-
-
-
-  // If authenticated, close modal
-  useEffect(() => {
-      if (isModalLoginOpen) {
-          if (isUserAuthenticated) {
-            closeModal(dispatch);
-            setTimeout(() => {
-                showSnackbarBlack(dispatch, `Olá de volta, ${window.Helper.textCapi(name)}!`);
-            }, 3000);
-          }
-      }
-      compareNameWithSystem(email);
-  }, [isModalLoginOpen, isUserAuthenticated, email]);
-
-  // }
-
-  const onChange = e => {
-      const { name, value } = e.target;
-      setData({ ...data, [name]: value });
-  };
-
-  const onSubmit = e => {
-    // e.preventDefault();
-
-    const user = {
-        name,
-        email,
-        password
     };
 
-    // Attempt to login
-    loginEmail(user)(dispatch);
-  };
+    // If authenticated, close modal
+    useEffect(() => {
+        if (isModalLoginOpen) {
+            if (isUserAuthenticated) {
+                closeModal(dispatch);
+                setTimeout(() => {
+                    showSnackbarBlack(dispatch, `Olá de volta, ${window.Helper.textCapi(name)}!`);
+                }, 3000);
+            }
+        }
+        compareNameWithSystem(email);
+    }, [isModalLoginOpen, isUserAuthenticated, email]);
+
+    // }
+
+    const onChange = e => {
+        const { name, value } = e.target;
+        setData({ ...data, [name]: value });
+    };
+
+    const onSubmit = e => {
+        // e.preventDefault();
+
+        const user = {
+            name,
+            email,
+            password
+        };
+
+        // Attempt to login
+        loginEmail(user)(dispatch);
+    };
 
     return (
         <div>
-          <Dialog
-                open={isModalLoginOpen}
-                aria-labelledby="form-dialog-title"
-            >
-            <CardMedia
-                className={classes.media}
-                image='img/babadoo-logo_no-slogon.png'
-                title='loja babadoo'
-            />
-            <DialogTitle id="form-dialog-title">Entrar com Nome ou Email</DialogTitle>
-            <DialogContent>
-              <DialogContentText>
-                  {errorMsg ? (
-                    <span className="text-red text-main-container">{errorMsg}</span>
-                  ) : "Falta pouco para você entrar na sua conta novamente"}
-              </DialogContentText>
-              <form>
-                    <TextField
-                      required
-                      onChange={onChange}
-                      margin="dense"
-                      error={errorMsg ? true : false}
-                      id="email"
-                      name="email"
-                      type="email"
-                      label="Nome ou Email"
-                      autoFocus
-                      autoComplete="email"
-                      fullWidth
-                    />
-                    <ToggleVisibilityPassword
-                        data={data}
-                        onChange={onChange}
-                        setData={setData}
-                        error={errorMsg}
-                    />
-                    <div style={{display: 'flex', justifyContent: 'center', marginTop: '28px'}}>
-                        <Button
+            <Dialog open={isModalLoginOpen} aria-labelledby="form-dialog-title">
+                <CardMedia className={classes.media} image="img/babadoo-logo_no-slogon.png" title="loja babadoo" />
+                <DialogTitle id="form-dialog-title">Entrar com Nome ou Email</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        {errorMsg ? (
+                            <span className="text-red text-main-container">{errorMsg}</span>
+                        ) : (
+                            'Falta pouco para você entrar na sua conta novamente'
+                        )}
+                    </DialogContentText>
+                    <form>
+                        <TextField
+                            required
+                            onChange={onChange}
+                            margin="dense"
+                            error={errorMsg ? true : false}
+                            id="email"
+                            name="email"
+                            type="email"
+                            label="Nome ou Email"
+                            autoFocus
+                            autoComplete="email"
+                            fullWidth
+                        />
+                        <ToggleVisibilityPassword data={data} onChange={onChange} setData={setData} error={errorMsg} />
+                        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '28px' }}>
+                            <Button
                                 onClick={() => {
-                                  closeModal(dispatch);
-                                  setErrorOff(dispatch);
-                              }}
-                              color="primary"
-                          >
-                          Sair
-                        </Button>
-                        <Button
-                              color="primary"
-                              className={classes.link}
-                              style={{fontSize: '.6em'}}
-                              onClick={() => showModalUnderConstruction(dispatch)}
-                          >
-                          Esqueceu sua senha?
-                        </Button>
-                        <Button
-                              onClick={() => {
-                                onSubmit();
-                                setTimeout(() => getUpdatedUsers(dispatch), 3000);
-                                showSnackbarBlack(dispatch, "Carregando...");
-                              }}
-                              variant="contained"
-                              color="primary"
-                              className={classes.button}
-                          >
-                          Entrar
-                          <i className="fas fa-paper-plane" style={{marginLeft: '5px'}}></i>
-                        </Button>
-                    </div>
-              </form>
-            </DialogContent>
-          </Dialog>
+                                    closeModal(dispatch);
+                                    setErrorOff(dispatch);
+                                }}
+                                color="primary"
+                            >
+                                Sair
+                            </Button>
+                            <Button
+                                color="primary"
+                                className={classes.link}
+                                style={{ fontSize: '.6em' }}
+                                onClick={() => showModalUnderConstruction(dispatch)}
+                            >
+                                Esqueceu sua senha?
+                            </Button>
+                            <Button
+                                onClick={() => {
+                                    onSubmit();
+                                    setTimeout(() => getUpdatedUsers(dispatch), 3000);
+                                    showSnackbarBlack(dispatch, 'Carregando...');
+                                }}
+                                variant="contained"
+                                color="primary"
+                                className={classes.button}
+                            >
+                                Entrar
+                                <i className="fas fa-paper-plane" style={{ marginLeft: '5px' }}></i>
+                            </Button>
+                        </div>
+                    </form>
+                </DialogContent>
+            </Dialog>
         </div>
     );
 }
-

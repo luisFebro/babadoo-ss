@@ -20,8 +20,8 @@ import parse from 'html-react-parser';
 import PropTypes from 'prop-types';
 
 ModalChangeTitle.propTypes = {
-    currItemFound: PropTypes.object,
-}
+    currItemFound: PropTypes.object
+};
 
 const useStyles = makeStyles(theme => ({
     button: {
@@ -35,102 +35,98 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function ModalChangeTitle({ currItemFound }) {
-    const [newInfo, setNewInfo] = useState("");
+    const [newInfo, setNewInfo] = useState('');
     const { isModalConfTitleOpen } = useStoreState(state => ({
-        isModalConfTitleOpen: state.modalReducers.cases.isModalConfTitleOpen,
+        isModalConfTitleOpen: state.modalReducers.cases.isModalConfTitleOpen
     }));
 
     let mainItem = currItemFound ? currItemFound.title : null;
-    let mainSubject = currItemFound ? currItemFound.mainSubject: null;
+    let mainSubject = currItemFound ? currItemFound.mainSubject : null;
     let mainField;
 
-    if(currItemFound) {
-        if(currItemFound.nameForm === 'price') {
-            mainField = 'price'
-            mainItem =  parse(`${currItemFound.title}<br />(R$ ${currItemFound.price})`);
+    if (currItemFound) {
+        if (currItemFound.nameForm === 'price') {
+            mainField = 'price';
+            mainItem = parse(`${currItemFound.title}<br />(R$ ${currItemFound.price})`);
         } else {
-            mainField = 'title'
+            mainField = 'title';
         }
     }
 
     const dispatch = useStoreDispatch();
     const setObjectToSend = () => {
         let data = newInfo;
-        console.log("obj", data);
-        const id = currItemFound ? currItemFound._id : null
+        console.log('obj', data);
+        const id = currItemFound ? currItemFound._id : null;
         changeProduct(dispatch, data, id);
-    }
+    };
 
     const onChange = e => {
-      const { name, value } = e.target;
-      // no need to write ...newInfo because we want one single key. Not adda new key
-      setNewInfo({ [name]: value });
+        const { name, value } = e.target;
+        // no need to write ...newInfo because we want one single key. Not adda new key
+        setNewInfo({ [name]: value });
     };
 
     const classes = useStyles();
     return (
         <div>
-          <Dialog
-                style={{zIndex: 1500}}
-                open={isModalConfTitleOpen}
-                aria-labelledby="form-dialog-title"
-            >
-            <CardMedia
-                className={classes.media}
-                image='img/babadoo-logo_no-slogon.png'
-                title='loja babadoo'
-            />
-            <DialogTitle id="form-dialog-title">
-               <span className="text-main-container">{`Alterar ${mainSubject} do Produto`}</span>
-            </DialogTitle>
-            <DialogContent>
-              <DialogContentText>
-                    <span className="text-default">
-                        {`Insira o novo ${mainSubject} do atual:`}<br />
-                        <strong>{mainItem}</strong>. <br /><br />
-                        para...
-                    </span>
-              </DialogContentText>
-            <form onChange={onChange} style={{marginTop: '5px'}}>
-                  <TextField
-                    required
-                    margin="dense"
-                    id="changeInfo"
-                    name={mainField}
-                    type={currItemFound ? currItemFound.typeForm : null}
-                    label={`Novo ${mainSubject} aqui:`}
-                    autoComplete="changeInfo"
-                    fullWidth
-                  />
-              </form>
-              <section>
-                  <div style={{display: 'flex', justifyContent: 'center', marginTop: '28px'}}>
-                      <Button
-                              onClick={() => {
-                                closeModal(dispatch);
-                            }}
-                            color="primary"
-                        >
-                        Sair
-                      </Button>
-                      <Button
-                            onClick={() => {
-                              setObjectToSend();
-                              showSnackbarBlack(dispatch, `${mainSubject} do Item foi Alterado para " ${newInfo[mainField]} "!`);
-                              closeModal(dispatch);
-                            }}
-                            variant="contained"
-                            color="primary"
-                            className={classes.button}
-                        >
-                        mudar
-                        <i className="fas fa-paper-plane" style={{marginLeft: '5px'}}></i>
-                      </Button>
-                  </div>
-              </section>
-            </DialogContent>
-          </Dialog>
+            <Dialog style={{ zIndex: 1500 }} open={isModalConfTitleOpen} aria-labelledby="form-dialog-title">
+                <CardMedia className={classes.media} image="img/babadoo-logo_no-slogon.png" title="loja babadoo" />
+                <DialogTitle id="form-dialog-title">
+                    <span className="text-main-container">{`Alterar ${mainSubject} do Produto`}</span>
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        <span className="text-default">
+                            {`Insira o novo ${mainSubject} do atual:`}
+                            <br />
+                            <strong>{mainItem}</strong>. <br />
+                            <br />
+                            para...
+                        </span>
+                    </DialogContentText>
+                    <form onChange={onChange} style={{ marginTop: '5px' }}>
+                        <TextField
+                            required
+                            margin="dense"
+                            id="changeInfo"
+                            name={mainField}
+                            type={currItemFound ? currItemFound.typeForm : null}
+                            label={`Novo ${mainSubject} aqui:`}
+                            autoComplete="changeInfo"
+                            fullWidth
+                        />
+                    </form>
+                    <section>
+                        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '28px' }}>
+                            <Button
+                                onClick={() => {
+                                    closeModal(dispatch);
+                                }}
+                                color="primary"
+                            >
+                                Sair
+                            </Button>
+                            <Button
+                                onClick={() => {
+                                    setObjectToSend();
+                                    showSnackbarBlack(
+                                        dispatch,
+                                        `${mainSubject} do Item foi Alterado para " ${newInfo[mainField]} "!`
+                                    );
+                                    closeModal(dispatch);
+                                }}
+                                variant="contained"
+                                color="primary"
+                                className={classes.button}
+                            >
+                                mudar
+                                <i className="fas fa-paper-plane" style={{ marginLeft: '5px' }}></i>
+                            </Button>
+                        </div>
+                    </section>
+                </DialogContent>
+            </Dialog>
         </div>
     );
-
 }

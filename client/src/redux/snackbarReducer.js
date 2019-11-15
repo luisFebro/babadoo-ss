@@ -7,31 +7,31 @@ import { reducer } from 'easy-peasy';
 const initialState = {
     isBlackSnackbarOpen: false,
     isSuccessSnackbarOpen: false,
-    snackbarMsg: "",
-    snackbarTiming: 0,
-}
+    snackbarMsg: '',
+    snackbarTiming: 0
+};
 
 export const snackbarReducer = {
     cases: reducer((state = initialState, action) => {
-        switch(action.type) {
+        switch (action.type) {
             //Show
             case 'SHOW_SNACKBAR_BLACK':
                 return {
                     ...state,
-                   isBlackSnackbarOpen: true,
-                   snackbarMsg: action.payload.msg,
-                   snackbarTiming: action.payload.timeRunning
+                    isBlackSnackbarOpen: true,
+                    snackbarMsg: action.payload.msg,
+                    snackbarTiming: action.payload.timeRunning
                 };
             //Close
             case 'CLOSE_SNACKBAR_BLACK':
                 return {
                     ...state,
-                   isBlackSnackbarOpen: false,
-                   snackbarMsg: ""
-                }
+                    isBlackSnackbarOpen: false,
+                    snackbarMsg: ''
+                };
 
             default:
                 return state;
         }
-    }),
-}
+    })
+};

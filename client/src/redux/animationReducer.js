@@ -4,20 +4,20 @@ import { reducer } from 'easy-peasy';
 
 // REDUCERS
 const initialState = {
-    setAnimationTimer: 720000000, //// 2 hours of delay, numbers with Infinity and Number.MAX_VALUE do not work.
-}
+    setAnimationTimer: 720000000 //// 2 hours of delay, numbers with Infinity and Number.MAX_VALUE do not work.
+};
 
 export const animationReducer = {
     cases: reducer((state = initialState, action) => {
-        switch(action.type) {
+        switch (action.type) {
             // Objs
             case 'ANIMATION_RUN_TIMER':
                 return {
                     ...state,
-                    setAnimationTimer: action.payload,
+                    setAnimationTimer: action.payload
                 };
             default:
                 return state;
         }
     })
-}
+};

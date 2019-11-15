@@ -11,9 +11,12 @@ const Footer = () => {
             <div className="row">
                 <div className="col-10 mx-auto text-center p-1 pt-3">
                     <strong>
-                        Babadoo<br />
-                        Lingerie e produtos eróticos<br />
-                        {new Date().getFullYear()}<br />
+                        Babadoo
+                        <br />
+                        Lingerie e produtos eróticos
+                        <br />
+                        {new Date().getFullYear()}
+                        <br />
                     </strong>
                     Manaus - Amazonas
                 </div>

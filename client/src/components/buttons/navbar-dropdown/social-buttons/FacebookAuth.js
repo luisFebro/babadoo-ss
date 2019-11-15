@@ -11,17 +11,19 @@ export default function FacebookAuth() {
     // Getting an Obj with an Array with all emails
     const [data, setData] = useState({});
     const dispatch = useStoreDispatch();
-    const emailAllRegisteredUsers = getDataObjDiffKeys(data, ["email"]).email;
+    const emailAllRegisteredUsers = getDataObjDiffKeys(data, ['email']).email;
     // End
     // Getting data from database afte mounting
-    useEffect(() => { fetchDataAsyncWithHooks('api/users/list', setData) }, []);
+    useEffect(() => {
+        fetchDataAsyncWithHooks('api/users/list', setData);
+    }, []);
 
     const responseFacebook = response => {
         const isSocialOn = 'facebook';
         const userEmail = response.email;
         const isEmailAlreadyRegistered = emailAllRegisteredUsers.includes(userEmail);
         // Check if the user is already registed to either log in or Register
-        if(isEmailAlreadyRegistered) {
+        if (isEmailAlreadyRegistered) {
             // Login
             const newUser = {
                 email: userEmail,
@@ -45,13 +47,12 @@ export default function FacebookAuth() {
         //Authenticate User
         showSnackbarBlack(dispatch, 'carregando...');
         // showSnackbarBlack(dispatch, 'Seja Bem-vindo(a)');
-        dispatch({"type": 'LOGIN_FACEBOOK', "payload": response });
+        dispatch({ type: 'LOGIN_FACEBOOK', payload: response });
+    };
 
-    }
+    const componentClicked = () => {};
 
-    const componentClicked = () => {}
-
-    return(
+    return (
         <FacebookLogin
             appId={process.env.REACT_APP_SOCIAL_FACEBOOK}
             autoLoad={false}
@@ -59,18 +60,20 @@ export default function FacebookAuth() {
             onClick={componentClicked}
             callback={responseFacebook}
             render={renderProps => (
-            <button
-                className="btn login-btn"
-                style={{backgroundColor: "#3B5899", margin: 5, display: "block" }}
-                onClick={renderProps.onClick}
-            >
-                <img
-                    src="img/icons/buttonslogin/facebook.png"
-                    alt="ícone de login do google"
-                    className="btn-icon"
-                />
-                <span className="btn-txt">Entrar com <strong>Facebook</strong></span>
-            </button>
+                <button
+                    className="btn login-btn"
+                    style={{ backgroundColor: '#3B5899', margin: 5, display: 'block' }}
+                    onClick={renderProps.onClick}
+                >
+                    <img
+                        src="img/icons/buttonslogin/facebook.png"
+                        alt="ícone de login do google"
+                        className="btn-icon"
+                    />
+                    <span className="btn-txt">
+                        Entrar com <strong>Facebook</strong>
+                    </span>
+                </button>
             )}
         />
     );
