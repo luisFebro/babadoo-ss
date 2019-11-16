@@ -1,14 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const { mwAuth } = require('../controllers/auth');
-
-// Mongoose Schema/Model
 const Product = require('../models/Product');
+const { mwAuth } = require('../controllers/auth');
+const { create } = require('../controllers/product');
+
 // CRUD PATTERN
 
-// @route   POST api/products
-// @desc    Create a Product
-// @access  Private
+// @route  api/product...
 router.post('/', (req, res) => { //needs to put mwAuth as middleware
     const title = req.body.title;
     Product.findOne({ title })

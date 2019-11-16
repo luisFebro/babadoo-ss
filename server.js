@@ -3,8 +3,7 @@ const path = require('path');
 // const changeStreamUser = require('./models/change-streams/changeStreamUser');
 const cors = require('cors');
 const mongoose = require('mongoose');
-const { mongoKey } = require('./config/keys.js');
-require('dotenv').config();
+require('dotenv').config(); // n4
 
 //Init Express
 const app = express();
@@ -31,7 +30,7 @@ app.use(cors()); //n2
 // routes
 app.use('/api/email', require('./routes/email'));
 app.use('/api/users', require('./routes/users'));
-app.use('/api/products', require('./routes/products'));
+app.use('/api/product', require('./routes/product'));
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/admin', require('./routes/admin'));
 app.use('/api/business-info', require('./routes/businessInfo'));
@@ -71,4 +70,5 @@ app.listen(PORT, () => {
 // app.get('*', (req, res) => {
 //     res.sendFile(path.join(__dirname + 'client/build/index.html')) // the "not found" issue may be occured becase of this path. client requires a slash before.
 // })
+n4: environment varibles works everywhere with dotenv, including controllers
 */

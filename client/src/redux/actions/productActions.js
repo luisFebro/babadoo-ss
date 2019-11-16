@@ -16,7 +16,7 @@ export const getItem = (allProductsList, _id) => {
 //CRUD PATTERN
 // create product
 export const addProduct = product => async (dispatch, getState) => {
-    const res = await axios.post('/api/products', product, tokenConfig(getState));
+    const res = await axios.post('/api/product', product, tokenConfig(getState));
     try {
         dispatch({ type: 'ADD_PRODUCT', payload: res.data });
     } catch (err) {
@@ -29,7 +29,7 @@ export const getAllProducts = async dispatch => {
     // let didCancel = false; //n1
     try {
         setLoadingOn(dispatch);
-        const res = await axios.get('/api/products');
+        const res = await axios.get('/api/product');
         console.log('==GOT ALL PRODUCTS==');
         const randomOrder = getRandomArray(res.data);
         dispatch({ type: 'GET_ALL_PRODUCTS', payload: randomOrder });
@@ -54,7 +54,7 @@ export const changeProduct = async (dispatch, bodyToSend, _idProduct) => {
         [`${targetKey}`]: bodyToSend[targetKey]
     };
     try {
-        const res = axios.put(`/api/products/${_idProduct}`, body, configTypeJson);
+        const res = axios.put(`/api/product/${_idProduct}`, body, configTypeJson);
         console.log('==CHANGING PRODUCT==');
         dispatch({ type: 'CHANGE_PRODUCT', payload: dataToUpdate });
     } catch (e) {
@@ -66,7 +66,7 @@ export const changeProduct = async (dispatch, bodyToSend, _idProduct) => {
 // delete product
 export const deleteProduct = async (dispatch, _idProduct) => {
     try {
-        const res = await axios.delete(`/api/products/${_idProduct}`, configTypeJson);
+        const res = await axios.delete(`/api/product/${_idProduct}`, configTypeJson);
         console.log('==PRODUCT DELETED==');
         dispatch({ type: 'DELETE_PRODUCT', payload: _idProduct });
         // update
