@@ -10,10 +10,13 @@ export default (
         <Route path="/comestiveis" />
         {/*End Categories Pages*/}
         <Route path="/loja" />
-        <Route path="/detalhes-do-produto" />
         <Route path="/seu-carrinho" />
         <Route path="/finalizar-compra" />
         <Route path="/favoritos" />
         <Route />
     </Switch>
 );
+
+/* COMMENTS
+n1: <Route path="/produto/:dashed-name" /> I need to map through to display all individual product pages
+*/

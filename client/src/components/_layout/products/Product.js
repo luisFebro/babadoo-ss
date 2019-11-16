@@ -55,7 +55,7 @@ export default function Product({ product, isFav }) {
                                 console.log('value.handleDetail(_id)');
                             }}
                         >
-                            <Link to="/detalhes-do-produto">
+                            <Link to="/produto/:dashed-name">
                                 <img className="card-img-top" src={image} alt="product" />
                             </Link>
                             <button className="cart-fav" onClick={() => toggleFav()}>

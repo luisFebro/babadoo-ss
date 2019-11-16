@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const { jwtSecret } = require('../config/keys');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const validateEmail = require('../utils/validation/validateEmail');
@@ -64,7 +63,7 @@ router.post('/', async (req, res) => {
                 newUser.save()
                     .then(user => {
                         jwt.sign({ id: user._id },
-                            jwtSecret, { expiresIn: '7d' }, //7 days - "expiresIn" should be a number of seconds or string that repesents a timespan eg: "1d", "20h",
+                            process.env.JWT_SECRET, { expiresIn: '7d' }, //7 days - "expiresIn" should be a number of seconds or string that repesents a timespan eg: "1d", "20h",
                             (err, token) => {
                                 if (err) throw err;
                                 const { _id , name, email } = user

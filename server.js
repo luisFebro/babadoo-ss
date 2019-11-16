@@ -17,7 +17,7 @@ const options = {
     useFindAndModify: false // DeprecationWarning: Mongoose: `findOneAndUpdate()` and `findOneAndDelete()` without the `useFindAndModify` option set to false are deprecated
 }
 mongoose
-    .connect(mongoKey, options)
+    .connect(process.env.MONGO_KEY, options)
     .then(() => console.log(`MongoDB Connected...`))
     .catch(err => console.log(err));
 // collection changeStreams

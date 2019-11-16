@@ -30,7 +30,7 @@ class SearchCompleteWithImg extends Component {
 
     goToDetailsPageDiv(e, result) {
         return (
-            <Link to="/detalhes-do-produto">
+            <Link to="/produto/:dashed-name">
                 <ui>
                     <li>result.title</li>
                     <li>result.description</li>

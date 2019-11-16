@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
-const { jwtSecret } = require('../config/keys');
 const jwt = require('jsonwebtoken');
 const { mwAuth } = require('../controllers/auth');
 const User = require('../models/User');
@@ -30,7 +29,7 @@ router.post('/', (req, res) => {
                     if (!isMatch) return res.status(400).json({ msg: 'Credenciais Inválidas' });
 
                     jwt.sign({ id: user._id },
-                        jwtSecret, { expiresIn: '7d' }, //7 days - "expiresIn" should be a number of seconds or string that repesents a timespan eg: "1d", "20h",
+                        process.env.JWT_SECRET, { expiresIn: '7d' }, //7 days - "expiresIn" should be a number of seconds or string that repesents a timespan eg: "1d", "20h",
                         (err, token) => {
                             if (err) throw err;
                             res.json({
