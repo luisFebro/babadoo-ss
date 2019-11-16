@@ -1,16 +1,14 @@
 const jwt = require('jsonwebtoken');
 
-// MIDDLEWARES
-/*this middleware is created so that
-we can have private routes that are only
-accessed if we send along the token from routes/api/auth*/
+// MESSAGES
+const msgs = {
+    systemError: "Ocorreu o seguinte erro: "
+}
+// END MESSAGES
 
-/*The purpose of this function here is to get
-the token that's sent from either react
-or postman angular whatever front-end
-you're using where it's gonna send along
-a token*/
-exports.mwAuth = (req, res, next) => {
+// MIDDLEWARES
+// NOT SENDING RESPONSE !!!
+exports.mwAuth = (req, res, next) => {  // n1
   const token = req.header('x-auth-token');
 
   // Check for token if it exists
@@ -24,9 +22,21 @@ exports.mwAuth = (req, res, next) => {
     // Add user from payload
     req.user = decoded;
     next();
-  } catch (e) {
-    console.log(e);
-    // res.status(400).json({ msg: 'Ocorreu um pequeno erro. Mas tente fazer seu acesso normalmente...' }); //Token is not valid
+  } catch (err) {
+    res.status(400).json({ msg: `${msgs.systemError}${err}` })
   }
 }
 // END MIDDLEWARES
+
+
+/* COMMENTS
+n1:
+/*this middleware is created so that
+we can have private routes that are only
+accessed if we send along the token from routes/api/auth*/
+
+/*The purpose of this function here is to get
+the token that's sent from either react
+or postman angular whatever front-end
+you're using where it's gonna send along
+a token*/

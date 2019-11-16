@@ -13,7 +13,7 @@ const msgs = {
     couldNotFind: 'Não encontramos você!',
     alreadyConfirmed: 'Your email was already confirmed',
     successBuyRequest: "Pedido registrado e enviado com sucesso! Acompanhe o andamento do seu pedido!",
-    catchAllError: "Ocorreu esse problema técnico <eng>: "
+    systemError: "Ocorreu esse problema técnico <eng>: "
 }
 const valMsgs = {
     anyField: "Preencha todas os campos",
@@ -52,7 +52,7 @@ exports.sendWelcomeConfirmEmail = (req, res) => {
     const mainTitle = `Seja Bem Vindo(a) a ${bizName}`;
     sendEmail(email, mainTitle, getWelcomeAndConfirmTemplate(req.body))
     .then(() => res.json({ msg: msgs.confirm }))
-    .catch(err => res.json({ msg: `${msgs.catchAllError} ${err}` }));
+    .catch(err => res.json({ msg: `${msgs.systemError} ${err}` }));
 }
 
 exports.sendBuyRequestEmail = (req, res) => {
@@ -62,7 +62,7 @@ exports.sendBuyRequestEmail = (req, res) => {
     if(validateBuyRequest(req, res) === 'ok'){
         sendEmail(toEmail, mainTitle, getBuyRequestTemplate(req.body))
         .then(() => res.json({ msg: msgs.successBuyRequest }))
-        .catch(err => res.json({ msg: `${msgs.catchAllError} ${err}` }));
+        .catch(err => res.json({ msg: `${msgs.systemError} ${err}` }));
     }
 }
 
