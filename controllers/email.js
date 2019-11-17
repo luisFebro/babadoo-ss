@@ -6,16 +6,19 @@ const {
 } = require('../templates/email');
 
 // MESSAGES
-const msgs = {
+const ok = {
+    sent: "Mail sent successfully.",
     confirm: 'Um email de confirmação foi enviado para você.',
-    confirmed: 'Your email is confirmed!',
+    confirmed: 'Seu Email foi confimado com sucesso!',
     resend: 'Email de Confirmação Reenviado, verifique também sua caixa de spam',
+    successBuyRequest: "Pedido registrado e enviado com sucesso! Acompanhe o andamento pela sua conta de acesso!",
+}
+const error = {
     couldNotFind: 'Não encontramos você!',
     alreadyConfirmed: 'Your email was already confirmed',
-    successBuyRequest: "Pedido registrado e enviado com sucesso! Acompanhe o andamento do seu pedido!",
-    systemError: "Ocorreu esse problema técnico <eng>: "
+    systemError: "Ocorreu esse problema técnico: ",
 }
-const valMsgs = {
+const valid = {
     anyField: "Preencha todas os campos",
     noName: "Por favor, insira seu nome",
     noContact: "Por favor, insira seu whatsapp",
@@ -24,6 +27,7 @@ const valMsgs = {
         number: "Você digitou um formato de número errado",
     }
 }
+const msg = (text, systemError = "") => ({ msg: text + systemError});
 // END MESSAGES
 
 // SEND EMAIL
@@ -40,9 +44,9 @@ const sendEmail = async (toEmail, mainTitle, content) => {
 
     try {
         await sgMail.send(emailContent);
-        console.log(`Mail sent successfully.`);
+        console.log(ok.sent);
     } catch(error) {
-        console.error(error.toString());
+        console.error("problema: " + error.toString());
     }
 }
 // END SEND EMAIL
@@ -51,8 +55,8 @@ exports.sendWelcomeConfirmEmail = (req, res) => {
     const { email, bizName } = req.body;
     const mainTitle = `Seja Bem Vindo(a) a ${bizName}`;
     sendEmail(email, mainTitle, getWelcomeAndConfirmTemplate(req.body))
-    .then(() => res.json({ msg: msgs.confirm }))
-    .catch(err => res.json({ msg: `${msgs.systemError} ${err}` }));
+    .then(() => res.json(msg(ok.confirm)))
+    .catch(err => res.json(msg(error.systemError, err)))
 }
 
 exports.sendBuyRequestEmail = (req, res) => {
@@ -61,8 +65,8 @@ exports.sendBuyRequestEmail = (req, res) => {
     const mainTitle = `${bizName} - Pedidos de Compra`;
     if(validateBuyRequest(req, res) === 'ok'){
         sendEmail(toEmail, mainTitle, getBuyRequestTemplate(req.body))
-        .then(() => res.json({ msg: msgs.successBuyRequest }))
-        .catch(err => res.json({ msg: `${msgs.systemError} ${err}` }));
+        .then(() => res.json(msg(ok.successBuyRequest)))
+        .catch(err => res.json(msg(error.systemError, err)));
     }
 }
 
@@ -72,28 +76,28 @@ const validateBuyRequest = (req, res) => {
     const { name, phone, address } = req.body;
 
     if(!name && !phone && !address ) {
-        return res.status(400).json({ msg: valMsgs.anyField });
+        return res.status(400).json(msg(valid.anyField));
     }
 
     if(!name || !phone || !address ) {
         if(!name){
-            return res.status(400).json({ msg: valMsgs.noName });
+            return res.status(400).json(msg(valid.noName));
         }
         if(!phone){
-            return res.status(400).json({ msg: valMsgs.noContact });
+            return res.status(400).json(msg(valid.noContact));
         }
         if(!address){
-            return res.status(400).json({ msg: valMsgs.noAddress });
+            return res.status(400).json(msg(valid.noAddress));
         }
     }
     if(!validateContact(phone)) {
-        return res.status(400).json({ msg: valMsgs.wrongFormat.number })
+        return res.status(400).json(msg(valid.wrongFormat.number))
     }
-
 
     return "ok"; //n1
 }
 // END VALIDATION
+
 
 /* COMMENTS
 n1: // if any blocking condition is true, then "ok" will be the word to allow sending the email

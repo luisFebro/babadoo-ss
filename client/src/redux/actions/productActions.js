@@ -24,12 +24,12 @@ export const addProduct = product => async (dispatch, getState) => {
     }
 };
 
-// read / update product
+// LISTS
 export const getAllProducts = async dispatch => {
     // let didCancel = false; //n1
     try {
         setLoadingOn(dispatch);
-        const res = await axios.get('/api/product');
+        const res = await axios.get('/api/product/list/all');
         console.log('==GOT ALL PRODUCTS==');
         const randomOrder = getRandomArray(res.data);
         dispatch({ type: 'GET_ALL_PRODUCTS', payload: randomOrder });
@@ -43,6 +43,8 @@ export const getAllProducts = async dispatch => {
         // }
     }
 };
+
+// END LISTS
 
 // update product
 export const changeProduct = async (dispatch, bodyToSend, _idProduct) => {

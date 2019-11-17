@@ -8,48 +8,53 @@ require('moment/locale/pt-br');
 //e.g Outubro 10º 2019, 8:53:49 pm
 moment.locale('pt-br');
 const brTime = moment(Date.now()).format('Do MMM [às] h:mm, YYYY[.]');
+
 const data = {
-  name: {
-    type: String,
-    trim: true,
-    maxlength: 40,
-    required: true,
-    lowercase: false,
-    unique: true
-  },
-  email: {
-    type: String,
-    required: true,
-    unique: true
-  },
-  password: {
-    type: String,
-    required: true
-  },
-  picture: {
-    type: String,
-    default: ""
-  },
-  favoriteList: {
-    type: Array,
-    default: []
-  },
-  inCartList: {
-    type: Array,
-    default: []
-  },
-  messageList: {
-    type: Array,
-    default: []
-  },
-  couponsList: {
-    type: Array,
-    default: []
-  },
-  registerDate: {
-    type: String,
-    default: brTime
-  },
+    isAdmin: {
+        type: Boolean,
+        default: false
+    },
+    name: {
+        type: String,
+        trim: true,
+        maxlength: 40,
+        required: true,
+        lowercase: false,
+        unique: true
+    },
+    email: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    password: {
+        type: String,
+        required: true
+    },
+    picture: {
+        type: String,
+        default: ""
+    },
+    favoriteList: {
+        type: Array,
+        default: []
+    },
+    inCartList: {
+        type: Array,
+        default: []
+    },
+    messageList: {
+        type: Array,
+        default: []
+    },
+    couponsList: {
+        type: Array,
+        default: []
+    },
+    registerDate: {
+        type: String,
+        default: brTime
+    },
 }
 
 const userSchema = new Schema(data); //n1

@@ -8,52 +8,74 @@ const moment = require('moment');
 moment.updateLocale('pt-BR');
 let brTime = moment(Date.now()).format('MMMM Do YYYY, h:mm:ss a');
 
+// PRODUCT INFO
+// This need to be separated or exported
+const dataProductInfo = {
+    mainDescription: String,
+    colors: {
+        mainColor: String,
+        options: Array,
+    },
+    refCode: String,
+    howToUse: String,
+    weight: Number,
+    sizeOrDimmension: Number,
+    unitsPerPackage: Number,
+}
+const ProductInfoSchema = new Schema(dataProductInfo, { _id: false, timestamps: true });
+// END PRODUCT INFO
+
 const data = {
+    category: {
+        type: Schema.ObjectId,
+        ref: "Category",
+        required: true
+    },
     title: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        trim: true,
     },
-    description: { //category
-        type: String,
-        required: true,
-    },
-    image: {
-        type: String,
-        default: "img/products/product-avatar.png"
+    photo: {
+        data: Buffer,
+        contentType: String
     },
     price: {
         type: Number,
         default: 40,
         required: true
     },
+    quantity: {
+        type: Number
+    },
+    sold: {
+        type: Number,
+        default: 0
+    },
     company: {
         type: String,
         default: ""
     },
-    info: {
+    info: { // change this to ProductInfoSchema
         type: String,
         default: ""
     },
-    count: {
-        type: Number,
-        default: 0
+    // This will be deleted after refactoring
+    image: {
+        type: String,
     },
-    total: {
+    count: {
         type: Number,
         default: 0
     },
     registerDate: {
         type: String,
         default: brTime
-    },
-    systemDate: {
-        type: Date,
-        default: Date.now
     }
 }
 
-const productSchema = new Schema(data);
+const productSchema = new Schema(data, { timestamps: true });
 module.exports = mongoose.model('Product', productSchema, collectionName);
 
 
