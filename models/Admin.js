@@ -3,16 +3,17 @@ const Schema = mongoose.Schema;
 const collectionName = "admin";
 
 const data = {
+    businessInfo: {
+        type: Schema.ObjectId,
+        ref: 'BusinessInfo',
+        required: true
+    },
     promotions: {
         type: Object,
     },
-    systemDate: { // not posted
-        type: Date,
-        default: Date.now
-    }
 }
 
-const productSchema = new Schema(data);
+const productSchema = new Schema(data, { timestamps: true });
 module.exports = mongoose.model('Admin', productSchema, collectionName);
 
 

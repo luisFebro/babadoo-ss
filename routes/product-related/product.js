@@ -11,10 +11,10 @@ const {
     mwProductId,
 } = require('../../controllers/product');
 
-// @route  api/product...
+// @routes  api/product...
 
 // CRUD
-router.post('/', create);
+router.post("/", create); // /:userId mwRequireSignin, mwIsAdmin, mwIsAdmin
 router.get("/:productId", read);
 router.delete('/:id', remove);
 // END CRUD

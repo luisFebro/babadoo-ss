@@ -8,23 +8,6 @@ const moment = require('moment');
 moment.updateLocale('pt-BR');
 let brTime = moment(Date.now()).format('MMMM Do YYYY, h:mm:ss a');
 
-// PRODUCT INFO
-// This need to be separated or exported
-const dataProductInfo = {
-    mainDescription: String,
-    colors: {
-        mainColor: String,
-        options: Array,
-    },
-    refCode: String,
-    howToUse: String,
-    weight: Number,
-    sizeOrDimmension: Number,
-    unitsPerPackage: Number,
-}
-const ProductInfoSchema = new Schema(dataProductInfo, { _id: false, timestamps: true });
-// END PRODUCT INFO
-
 const data = {
     category: {
         type: Schema.ObjectId,
@@ -46,26 +29,16 @@ const data = {
         default: 40,
         required: true
     },
-    quantity: {
-        type: Number
+    info: {
+        type: Schema.ObjectId,
+        ref: 'ProductInfo',
+        required: true
     },
-    sold: {
+    quantity: {
         type: Number,
         default: 0
     },
-    company: {
-        type: String,
-        default: ""
-    },
-    info: { // change this to ProductInfoSchema
-        type: String,
-        default: ""
-    },
-    // This will be deleted after refactoring
-    image: {
-        type: String,
-    },
-    count: {
+    sold: {
         type: Number,
         default: 0
     },

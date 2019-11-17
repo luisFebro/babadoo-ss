@@ -44,9 +44,11 @@ const BizShippingRatesSchema = new Schema(dataShipping, { _id: false, timestamps
 const data = {
     bizOwner: String,
     bizName: String,
+    bizAddress: String,
+    bizCnpj: Number,
     bizSlogon: String,
     bizEmail: String,
-    bizWhatsapp: String,
+    bizWhatsapp: Number,
     bizWebsite: String,
     bizFacebook: String,
     bizInstagram: String,
