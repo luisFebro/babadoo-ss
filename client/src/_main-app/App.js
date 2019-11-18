@@ -2,10 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import ScrollToTop from 'react-router-scroll-top';
 // Redux
+import { readAdmin } from '../redux/actions/adminActions';
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { getUpdatedUsers, updateCurrentUser } from '../redux/actions/userActions';
-import { readBizInfo } from '../redux/actions/businessInfoActions';
-import { getUpdatedAdmin } from '../redux/actions/adminActions';
 // End Redux
 import { loadUser, tokenConfig } from '../redux/actions/authActions';
 import './App.css';
@@ -57,9 +56,8 @@ export default function App() {
     const dispatch = useStoreDispatch();
 
     useEffect(() => {
-        readBizInfo(dispatch);
+        readAdmin(dispatch);
         getUpdatedUsers(dispatch);
-        getUpdatedAdmin(dispatch);
         // CODE NOT WORKING n1
         dispatch(loadUser());
     }, []);

@@ -34,23 +34,32 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function ModalRegister() {
-    // Redux
-    const { bizInfo, isModalRegisterOpen, isUserAuthenticated, errorMsg, successMsg } = useStoreState(state => ({
-        isModalRegisterOpen: state.modalReducers.cases.isModalRegisterOpen,
-        isUserAuthenticated: state.authReducer.cases.isUserAuthenticated,
-        bizInfo: state.businessInfoReducer.cases.businessInfo,
-        errorMsg: state.globalReducer.cases.errorMsg,
-        successMsg: state.globalReducer.cases.successMsg
-    }));
-    const dispatch = useStoreDispatch();
-    // End Redux
     const [data, setData] = useState({
         name: '',
         email: '',
         password: ''
     });
-    const { bizName, bizWebsite, bizWhatsapp } = bizInfo;
     const { name, email, password } = data;
+
+    // Redux
+    const { bizInfo, isModalRegisterOpen, isUserAuthenticated, errorMsg, successMsg } = useStoreState(state => ({
+        isModalRegisterOpen: state.modalReducers.cases.isModalRegisterOpen,
+        isUserAuthenticated: state.authReducer.cases.isUserAuthenticated,
+        bizInfo: state.adminReducer.cases.allData.businessInfo,
+        errorMsg: state.globalReducer.cases.errorMsg,
+        successMsg: state.globalReducer.cases.successMsg
+    }));
+
+    // This component is running before fetching bizInfo, that's why this condition until further info
+    let bizName = "", bizWebsite = "", bizWhatsapp = "";
+    if(bizInfo) {
+        bizName = bizInfo.bizName;
+        bizWebsite = bizInfo.bizWebsite;
+        bizWhatsapp = bizInfo.bizWhatsapp;
+    }
+
+    const dispatch = useStoreDispatch();
+    // End Redux
 
     const classes = useStyles();
 
@@ -59,7 +68,7 @@ export default function ModalRegister() {
             if (isUserAuthenticated) {
                 closeModal(dispatch, isModalRegisterOpen);
                 sendEmail();
-                showSnackbarBlack(dispatch, "Cadastro Realizado com Sucesso via Email!", 3000);
+                showSnackbarBlack(dispatch, 'Cadastro Realizado com Sucesso via Email!', 3000);
             }
         }
     }, [isUserAuthenticated, isModalRegisterOpen]);
@@ -77,14 +86,13 @@ export default function ModalRegister() {
             bizWebsite,
             bizWhatsapp
         };
-        sendWelcomeEmail(dispatch, dataEmail)
-        .then(res => {
-            if(!res) {
+        sendWelcomeEmail(dispatch, dataEmail).then(res => {
+            if (!res) {
                 // the error is displayed in the modal itself so far
             } else {
                 showSnackbarBlack(dispatch, res.data.msg, 4000);
             }
-        })
+        });
     };
 
     const registerThisUser = e => {
@@ -166,7 +174,7 @@ export default function ModalRegister() {
                                 onClick={() => {
                                     registerThisUser();
                                     setTimeout(() => getUpdatedUsers(dispatch), 3000);
-                                    showSnackbarBlack(dispatch, "Carregando...");
+                                    showSnackbarBlack(dispatch, 'Carregando...');
                                 }}
                                 variant="contained"
                                 color="primary"

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 // Redux
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
-import { changeFieldAdmin } from '../../../redux/actions/adminActions';
+import { updateBusinessInfo } from '../../../redux/actions/adminActions';
 import { showSnackbarBlack } from '../../../redux/actions/snackbarActions';
 // End Redux
 import FormGroup from '@material-ui/core/FormGroup';
@@ -21,22 +21,29 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function FirstBuyDiscount() {
-    let { isFirstBuyCouponOn } = useStoreState(state => ({
-        isFirstBuyCouponOn: state.adminReducer.cases.isFirstBuyCouponOn
+    // Redux
+    let { bizInfo } = useStoreState(state => ({
+        bizInfo: state.adminReducer.cases.allData.businessInfo
     }));
+
+    let isActivated = "";
+    if(bizInfo) {
+        isActivated = bizInfo.bizPromotions.coupons.firstOrder.isActivated
+    }
+
     const dispatch = useStoreDispatch();
+    // End Redux
 
     const classes = useStyles();
 
     const handleChange = name => e => {
         const { checked } = e.target;
+        const key = `${name}.coupons.firstOrder.isActivated`
         const objToSend = {
-            promotions: {
-                [name]: checked
-            }
+            [key]: checked
         };
-        // isFirstBuyCouponOn = !isFirstBuyCouponOn;
-        changeFieldAdmin(dispatch, objToSend);
+
+        updateBusinessInfo(dispatch, objToSend);
         const status = checked ? 'ativado' : 'desativado';
         showSnackbarBlack(dispatch, `Fazendo Alterações...`);
         // showSnackbarBlack(dispatch, `Desconto ${status}`);
@@ -55,7 +62,7 @@ export default function FirstBuyDiscount() {
                 }}
             >
                 <div>
-                    {isFirstBuyCouponOn ? (
+                    {isActivated ? (
                         <div className="animated zoomIn slow">
                             <img src="gif/girl-turning.gif" alt="girl dancing" />
                             <h4 className="text-center animated zoomIn slow text-default mt-2">
@@ -91,7 +98,7 @@ export default function FirstBuyDiscount() {
                         <FormGroup column>
                             <FormControlLabel
                                 label={
-                                    isFirstBuyCouponOn ? (
+                                    isActivated ? (
                                         <span className="animated zoomIn slow">Ativada</span>
                                     ) : (
                                         <span className="animated zoomIn slow">Desativada</span>
@@ -99,8 +106,8 @@ export default function FirstBuyDiscount() {
                                 }
                                 control={
                                     <Switch
-                                        checked={isFirstBuyCouponOn}
-                                        onChange={handleChange('isFirstBuyCouponOn')}
+                                        checked={isActivated}
+                                        onChange={handleChange('bizPromotions')}
                                         value="checkedA"
                                         color="primary"
                                         inputProps={{ 'aria-label': 'primary checkbox' }}

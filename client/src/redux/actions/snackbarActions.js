@@ -1,7 +1,7 @@
 // naming structure:
 // action > type > specification e.g showMenuDark / SHOW_MENU_DARK
 //BLACK for transition notifications
-export const showSnackbarBlack = (dispatch, msg, timeRunning = 4000) => {
+export const showSnackbarBlack = (dispatch, msg, timeRunning = 2000) => {
     const data = {
         msg,
         timeRunning

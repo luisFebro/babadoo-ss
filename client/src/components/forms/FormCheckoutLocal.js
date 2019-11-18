@@ -20,11 +20,18 @@ export default function FormCheckoutLocal() {
 
     // REDUX
     const { bizInfo, errorMsg } = useStoreState(state => ({
-        bizInfo: state.businessInfoReducer.cases.businessInfo,
+        bizInfo: state.adminReducer.cases.allData.businessInfo,
         errorMsg: state.globalReducer.cases.errorMsg
     }));
     const dispatch = useStoreDispatch();
-    const { bizName, bizWebsite, bizEmail } = bizInfo;
+
+    // This component is running before fetching bizInfo, that's why this condition until further info
+    let bizName = "", bizWebsite = "", bizEmail = "";
+    if (bizInfo) {
+        bizName = bizInfo.bizName;
+        bizWebsite = bizInfo.bizName;
+        bizEmail = bizInfo.bizEmail;
+    }
     // END REDUX
 
     useEffect(() => {

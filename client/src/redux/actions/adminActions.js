@@ -6,32 +6,29 @@ import { getBodyRequest } from '../../utils/server/getBodyRequest';
 // naming structure: action > type > speficification e.g action: GET_MODAL_BLUE / func: getModalBlue
 
 // UPDATED DATA
-export const getUpdatedAdmin = async dispatch => {
+export const readAdmin = async dispatch => {
     try {
         // setLoadingOn(dispatch);
-        const res = await axios.get('/api/admin/coupons', configTypeJson);
+        const res = await axios.get('/api/admin', configTypeJson);
         console.log('==ADMIN DATA UPDATED==');
         dispatch({
-            type: 'PROMOTION_UPDATED',
+            type: 'READ_ADMIN',
             payload: res.data
         });
         // setLoadingOff(dispatch);
-    } catch (e) {
-        setErrorOn(dispatch, 'Algo deu errado ao carregar a página. Detalhes:' + e);
+    } catch (err) {
+        setErrorOn(dispatch, err.response.data.msg);
     }
-};
+}
 
-// Add/Change a admin's field  in the database
-export const changeFieldAdmin = async (dispatch, objToSend, _idUser) => {
-    _idUser = '5db4301ed39a4e12546277a8';
+export const updateBusinessInfo = async (dispatch, objToSend, _idUser) => {
+    console.log("objToSend admin", objToSend)
     const body = getBodyRequest(objToSend);
     try {
-        const res = await axios.put(`/api/admin/coupons/${_idUser}`, body, configTypeJson);
-        dispatch({ type: 'PROMOTION_STATUS', payload: res.data });
-        getUpdatedAdmin(dispatch, _idUser);
+        const res = await axios.put(`/api/admin/business-info/update`, body, configTypeJson);
+        dispatch({ type: 'UPDATE_BIZ_INFO', payload: res.data });
         showSnackbarBlack(dispatch, 'Alterado com sucesso!');
-    } catch (e) {
-        showSnackbarBlack(dispatch, 'Um Erro aconteceu. Tente novamente.');
-        console.log('changeFieldAdminERROR: ' + e);
+    } catch (err) {
+        setErrorOn(dispatch, err.response.data.msg);
     }
 };

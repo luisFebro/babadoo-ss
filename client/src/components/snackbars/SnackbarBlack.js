@@ -15,6 +15,10 @@ import Slide from '@material-ui/core/Slide';
 
 const useStyles = makeStyles(theme => ({
     snackbar: {
+        [theme.breakpoints.down('md')]: {
+            // n2
+            left: 190
+        },
         [theme.breakpoints.down('xs')]: {
             // n2
             bottom: 85
@@ -69,11 +73,11 @@ export default function SnackbarBlack() {
             className={clsx(classes.snackbar)}
             disableWindowBlurListener={true} //n1
             TransitionComponent={Slide}
-            transitionDuration={{ enter: 300, exit: 800 }}
+            transitionDuration={{ enter: 300, exit: 300 }}
             style={{ zIndex: 1501 }}
             open={isBlackSnackbarOpen}
-            autoHideDuration={snackbarTiming || 3000}
-            resumeHideDuration={4000} // n3
+            autoHideDuration={snackbarTiming}
+            resumeHideDuration={500} // n3
             onClose={() => closeSnackbarBlack(dispatch)}
             ContentProps={{
                 'aria-describedby': 'message-id'

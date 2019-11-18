@@ -5,23 +5,26 @@ import { reducer } from 'easy-peasy';
 
 // REDUCERS
 const initialState = {
-    isFirstBuyCouponOn: false
+    allData: {
+        businessInfo: null,
+    }
 };
 
 export const adminReducer = {
     cases: reducer((state = initialState, action) => {
         switch (action.type) {
-            case 'PROMOTION_UPDATED':
-                //The payload returns an array because in the server sidethe method returns one array with all docs.NEeed a better approach to get an object.
+            case 'READ_ADMIN':
                 return {
-                    isFirstBuyCouponOn: action.payload.map(promotion => promotion.promotions.isFirstBuyCouponOn)[0]
-                };
-            case 'PROMOTION_STATUS':
-                // Here the payload returns an object normally. In the DB, by default,  the type is object.
-                console.log('promotions reducer', action.payload.promotions);
+                    ...state,
+                    allData: action.payload
+                }
+            case 'UPDATE_BIZ_INFO':
                 return {
-                    isFirstBuyCouponOn: action.payload.promotions.isFirstBuyCouponOn
-                };
+                    ...state,
+                    allData: {
+                        businessInfo: action.payload
+                    }
+                }
             default:
                 return state;
         }
