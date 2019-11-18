@@ -1,5 +1,6 @@
 const validateContact = require('../utils/validation/validateContact');
 const sgMail = require('@sendgrid/mail');
+
 const {
     getWelcomeAndConfirmTemplate,
     getBuyRequestTemplate,
@@ -14,6 +15,7 @@ const ok = {
     successBuyRequest: "Pedido registrado e enviado com sucesso! Acompanhe o andamento pela sua conta de acesso!",
 }
 const error = {
+    notSent: "Email não foi enviado!",
     couldNotFind: 'Não encontramos você!',
     alreadyConfirmed: 'Your email was already confirmed',
     systemError: "Ocorreu esse problema técnico: ",
@@ -32,6 +34,7 @@ const msg = (text, systemError = "") => ({ msg: text + systemError});
 
 // SEND EMAIL
 sgMail.setApiKey(process.env.SEND_GRID_KEY);
+
 const sendEmail = async (toEmail, mainTitle, content) => {
     const contacts = {
         isMultiple: true, // the recipients can't see the other ones when this is on
@@ -45,8 +48,11 @@ const sendEmail = async (toEmail, mainTitle, content) => {
     try {
         await sgMail.send(emailContent);
         console.log(ok.sent);
-    } catch(error) {
-        console.error("problema: " + error.toString());
+    } catch(err) {
+        console.error(msg(error.notSent, err.toString()));
+        if(err.toString().includes("Maximum credits exceeded")) {
+            console.log("Change to nodemailer")
+        }
     }
 }
 // END SEND EMAIL
@@ -66,13 +72,12 @@ exports.sendBuyRequestEmail = (req, res) => {
     if(validateBuyRequest(req, res) === 'ok'){
         sendEmail(toEmail, mainTitle, getBuyRequestTemplate(req.body))
         .then(() => res.json(msg(ok.successBuyRequest)))
-        .catch(err => res.json(msg(error.systemError, err)));
+        .catch(err => res.json(msg(error.systemError, err)))
     }
 }
 
 // VALIDATION
 const validateBuyRequest = (req, res) => {
-    console.log(req.body)
     const { name, phone, address } = req.body;
 
     if(!name && !phone && !address ) {

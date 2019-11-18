@@ -5,11 +5,13 @@ const router = express.Router();
 const { mwCategoryId, create, read, update, remove, getList } = require("../../controllers/category");
 const { mwIsAdmin } = require("../../controllers/auth");
 
-// @route  CRUD api/category...
+// @route  api/category...
+// CRUD
 router.post("/", create); ///:userId mwRequireSignin, mwIsAuth, mwIsAdmin
 router.get("/:categoryId", read)
-router.delete("/:categoryId", remove); // /:userId mwRequireSignin, mwIsAuth, mwIsAdmin,
 router.put("/:categoryId", update); // :userId mwRequireSignin, mwIsAuth, mwIsAdmin,
+router.delete("/:categoryId", remove); // /:userId mwRequireSignin, mwIsAuth, mwIsAdmin,
+// END CRUD
 
 router.get("/list/all", getList); // we can not use /categories directly since /:categoryId will be executed. We need one more level
 

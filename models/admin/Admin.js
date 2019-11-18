@@ -7,10 +7,7 @@ const data = {
         type: Schema.ObjectId,
         ref: 'BusinessInfo',
         required: true
-    },
-    promotions: {
-        type: Object,
-    },
+    }
 }
 
 const productSchema = new Schema(data, { timestamps: true });

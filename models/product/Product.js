@@ -32,7 +32,6 @@ const data = {
     info: {
         type: Schema.ObjectId,
         ref: 'ProductInfo',
-        required: true
     },
     quantity: {
         type: Number,
@@ -45,6 +44,10 @@ const data = {
     registerDate: {
         type: String,
         default: brTime
+    },
+    isReadyToPopulate: {
+        type: Boolean,
+        default: false
     }
 }
 

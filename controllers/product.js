@@ -1,13 +1,16 @@
-const Product = require('../models/Product');
-const ProductInfo = require('../models/ProductInfo');
+const Product = require('../models/product');
+const ProductInfo = require('../models/product/ProductInfo');
 const { mwAuth } = require('../controllers/auth');
 const formidable = require('formidable');
+const fs = require('fs');
 
 // MESSAGES
 const ok = {
     deleted: "O produto foi deletado com sucesso!",
 }
 const error = {
+    allFieldsRequired: "Preencha todos os campos",
+    photoRequired: "Você precisa de, pelo menos, uma foto do produto",
     largeImg: "A imagem deve ser menos de 1mb de tamanho",
     alreadyPosted: "O produto já foi postado.",
     notStored: "A imagem não pôde ser armazenada. Tente novamente!",
@@ -20,7 +23,8 @@ const msg = (text, systemError = "") => ({ msg: text + systemError});
 
 // MIDDLEWARES
 exports.mwProductId = (req, res, next, id) => {
-    Product.findById(id) // .populate("category")
+    Product.findById(id)
+    .populate("category info")
     .exec((err, product) => {
         if (err || !product) return res.status(400).json(msg(error.notFound));
 
@@ -33,15 +37,21 @@ exports.mwProductId = (req, res, next, id) => {
 // CRUD
 exports.create = (req, res) => { // n3 - needs mwAuth
     let form = new formidable.IncomingForm();
+
     form.keepExtensions = true;
-    form.parse(req, (err, fields, files) => {
+    form.parse(req, (err, fields, files) => { // fields from doc
         if (err) return res.status(400).json(msg(error.notStored));
-        // Check for all fields
-        const { category, title, price, info, quantity } = fields
-        if (!category || !title || !info || !price || !quantity) {
-            return res.status(400).json({
-                error: "Todos os campos devem ser preenchidos"
-            })
+
+        const { category, title, price, quantity } = fields
+
+        Product.findOne({ title })
+        .exec((err, user) => {
+            if(err) return res.status(400).json(msg(error.systemError, err))
+            if(user) return res.status(400).json(msg(error.alreadyPosted))
+        })
+
+        if (!category || !title || !price || !quantity) {
+            return res.status(400).json(msg(error.allFieldsRequired))
         }
 
         let product = new Product(fields);
@@ -51,22 +61,17 @@ exports.create = (req, res) => { // n3 - needs mwAuth
         // 1mb = 1.000.000
 
         if (files.photo) {
-            // console.log("FILES FOTOS", files.photo);
             if (files.photo > 1000000) {
-                return res.status(400).json({
-                    error: "O tamanho da imagem deve ser menos de 1mb"
-                })
+                return res.status(400).json(msg(error.largeImg))
             }
-            product.photo.data = fs.readFileSync(files.photo.path);
+            product.photo.data = fs.readFileSync(files.photo.path); // provide media info
             product.photo.contentType = files.photo.type;
+        } else {
+            return res.status(400).json(msg(error.photoRequired))
         }
 
         product.save((err, result) => {
-            if (err) {
-                return res.staus(400).json({
-                    error: dbErrorHandler(err)
-                });
-            }
+            if (err) return res.status(400).json(msg(error.systemError, err));
             res.json(result);
         });
     });
@@ -74,7 +79,8 @@ exports.create = (req, res) => { // n3 - needs mwAuth
 
 
 exports.read = (req, res) => {
-    // n1 req.product.photo = undefined;
+    req.product.photo = undefined;
+    req.product.isReadyToPopulate = undefined;
     return res.json(req.product);
 }
 
@@ -109,15 +115,50 @@ exports.update = (req, res) => {
 };
 
 exports.remove = (req, res) => { // needs mwAuth
-    Product.findById(req.params.id)
+    Product.findById(req.product._id)
     .then(product => {
         if(!product) return res.status(404).json(msg(error.notFound));
-
-        product.remove().then(() => res.json(msg(ok.deleted)))
+        product.remove((err, deleted) => {
+            if(err) return res.status(404).json(msg(error.systemError, err));
+            res.json(msg(ok.deleted));
+        })
     })
     .catch(err => res.status(404).json(msg(error.systemError, err)));
 }
 // END CRUD
+
+// ADDITIONAL CRUD
+// productInfo and product will have the same ID
+exports.updateProductInfo = (req, res) => {
+    const productObj = req.product;
+    const productId = productObj._id;
+    const infoKey = { info: productId, isReadyToPopulate: true };
+    // update info with obj so that we can populate with productInfoSchema.
+    // After that, create or update the productInfo
+
+    // add new id to product only if not ready to populate yet
+    if(!productObj.isReadyToPopulate) {
+        Product.findOneAndUpdate(
+            { _id: productId },
+            { $set: infoKey },
+            { new: true }, // n4
+            (err, product) => {
+                if (err) return res.status(400).json(msg(error.systemError, err));
+            }
+        )
+    }
+
+    ProductInfo.findOneAndUpdate(
+        { _id: productId },
+        { $set: req.body },
+        { strict: false, new: true, upsert: true }, // n4
+        (err, productInfo) => {
+            if (err) return res.status(400).json(msg(error.systemError, err));
+            res.json(productInfo);
+        }
+    );
+};
+// END ADDITIONAL CRUD
 
 // LISTS
 exports.getList = (req, res) => { // n2
@@ -135,44 +176,8 @@ exports.getList = (req, res) => { // n2
             res.json(products);
         });
 };
-// need to be changed
-// exports.read = (req, res) => {
-//     Product.find({})
-//         .sort({ systemDate: -1 }) // ordered descending - most recently
-//         .then(products => res.json(products))
-// }
 // END LISTS
 
-// FIELD UPDATE HANDLING
-// Change/Add a primaryfield, e.g req.body = { "title": "new product"}
-exports.updatePrimaryField = (req, res) => {
-    Product.findByIdAndUpdate(req.params.id, req.body, { new: true }, (err, data) => {
-        if (err) {
-            return res
-                .status(500)
-                .json(msg(error.notUpdated))
-        }
-        // data.save();
-        res.json(data);
-    });
-}
-// END FIELD UPDATE HANDLING
-
-// OTHER SCHEMAS
-exports.postProductInfo = (req, res) => {
-    const productId = req.product._id;
-    ProductInfo.findOneAndUpdate(
-        { _id: productId },
-        { $set: req.body },
-        { new: true, upsert: true },
-        (err, productInfo) => {
-            if (err) return res.status(400).json(msg(error.systemError, err));
-            res.json(productInfo);
-        }
-    ).populate("product", "name");
-};
-
-// END OTHER SCHEMAS
 
 /* COMMENTS
 n1: // we do not fetch images due to their big size, there is another way in the front end to fetch them.
@@ -207,4 +212,5 @@ exports.create = (req, res) => { //needs to put mwAuth as middleware
     .catch(err => res.status(404).json(msg(error.systemError, err)));
 }
 
+n4: strict=false is necessary to avoid mongoDB error because the id does not exist in this Collection.
 */

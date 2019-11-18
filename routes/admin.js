@@ -6,9 +6,8 @@ const { createOrUpdate, updateBusinessInfo, read, getCoupon, updateCoupon } = re
 
 router.get("/", read);
 router.put("/", createOrUpdate);
+
 router.put("/business-info/update", updateBusinessInfo);
 
-router.get("/coupons", getCoupon);
-router.put('/coupons/:id', updateCoupon);
 
 module.exports = router;

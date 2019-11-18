@@ -15,10 +15,6 @@ import Slide from '@material-ui/core/Slide';
 
 const useStyles = makeStyles(theme => ({
     snackbar: {
-        [theme.breakpoints.down('md')]: {
-            // n2
-            left: 190
-        },
         [theme.breakpoints.down('xs')]: {
             // n2
             bottom: 85
@@ -27,15 +23,12 @@ const useStyles = makeStyles(theme => ({
     close: {
         padding: theme.spacing(0.5)
     },
-    //icons colors
+    //colors
     success: {
         backgroundColor: green[600]
     },
     error: {
         backgroundColor: theme.palette.error.dark
-    },
-    info: {
-        backgroundColor: theme.palette.primary.main
     },
     warning: {
         backgroundColor: amber[700]
@@ -80,7 +73,10 @@ export default function SnackbarBlack() {
             resumeHideDuration={500} // n3
             onClose={() => closeSnackbarBlack(dispatch)}
             ContentProps={{
-                'aria-describedby': 'message-id'
+                'aria-describedby': 'message-id',
+                classes: {
+                    root: classes.error
+                }
             }}
             message={
                 <span id="message-id" className="text-default">

@@ -1,5 +1,5 @@
-const Admin = require('../models/Admin');
-const BusinessInfo = require("../models/BusinessInfo");
+const Admin = require('../models/admin');
+const BusinessInfo = require("../models/admin/BusinessInfo");
 const adminId = '5db4301ed39a4e12546277a8';
 const businessInfoId = "5dcc77a0db168f112884b27f"; //n1a
 
@@ -7,7 +7,6 @@ const businessInfoId = "5dcc77a0db168f112884b27f"; //n1a
 const ok = {
 }
 const error = {
-    notFound: "O produto não foi encontrado ou já foi deletado",
     systemError: "Ocorreu o seguinte erro: "
 }
 const msg = (text, systemError = "") => ({ msg: text + systemError});
@@ -46,28 +45,6 @@ exports.updateBusinessInfo = (req, res) => {
         }
     );
 };
-
-// OTHERS
-
-// END OTHERS
-exports.getCoupon = (req, res) => {
-    Admin.find({})
-        .sort({ systemDate: -1 }) // ordered descending - most recently
-        .then(doc => res.json(doc))
-}
-
-// @desc    toggle Coupons req.body = { "messageList": [{sender: 'LuisCliente', id: '123hgfssax4556', time: '12:30', message: "Hi there, Iam a new client!"}]}
-exports.updateCoupon = (req, res) => {
-    Admin.findByIdAndUpdate(req.params.id, req.body, { strict: false, upsert:true  }, (err, data) => {
-        if (err) {
-            return res
-                .status(500)
-                .json({error: "unsuccessful. message no sent"})
-        }
-        // data.save();
-        res.json( data );
-    });
-}
 
 /* COMMENTS
 n1: You can add or remove any field from businessInfo according to the client needs.
