@@ -3,7 +3,7 @@ import React, { Component, useState } from 'react';
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { closeModal } from '../../../redux/actions/modalActions';
 import { showSnackbar } from '../../../redux/actions/snackbarActions';
-import { changeProduct } from '../../../redux/actions/productActions';
+import { updateProduct } from '../../../redux/actions/productActions';
 // End Redux
 import { Link } from 'react-router-dom';
 // Material UI
@@ -58,7 +58,7 @@ export default function ModalChangeTitle({ currItemFound }) {
         let data = newInfo;
         console.log('obj', data);
         const id = currItemFound ? currItemFound._id : null;
-        changeProduct(dispatch, data, id);
+        updateProduct(dispatch, data, id);
     };
 
     const onChange = e => {

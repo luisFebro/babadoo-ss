@@ -21,13 +21,11 @@ export const readAdmin = async dispatch => {
     }
 }
 
-export const updateBusinessInfo = async (dispatch, objToSend, _idUser) => {
-    console.log("objToSend admin", objToSend)
-    const body = getBodyRequest(objToSend);
+export const updateBusinessInfo = async (dispatch, objToUpdate) => {
     try {
+        const body = getBodyRequest(objToUpdate);
         const res = await axios.put(`/api/admin/business-info/update`, body, configTypeJson);
-        dispatch({ type: 'UPDATE_BIZ_INFO', payload: res.data });
-        showSnackbar(dispatch, 'Alterado com sucesso!');
+        dispatch({ type: 'UPDATE_BIZ_INFO', payload: objToUpdate });
     } catch (err) {
         setErrorOn(dispatch, err.response.data.msg);
     }

@@ -21,32 +21,30 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function FirstBuyDiscount() {
+
     // Redux
     let { bizInfo } = useStoreState(state => ({
         bizInfo: state.adminReducer.cases.allData.businessInfo
     }));
 
-    let isActivated = "";
-    if(bizInfo) {
-        isActivated = bizInfo.bizPromotions.coupons.firstOrder.isActivated
-    }
+    const { isActivated } = bizInfo.bizPromotions.coupons.firstOrder;
 
     const dispatch = useStoreDispatch();
     // End Redux
 
     const classes = useStyles();
 
-    const handleChange = name => e => {
+    const handleChange = e => {
         const { checked } = e.target;
-        const key = `${name}.coupons.firstOrder.isActivated`
-        const objToSend = {
+
+        const status = checked ? 'ativado' : 'desativado';
+        showSnackbar(dispatch, `Desconto ${status}`, (status === 'ativado' ? 'success' : 'warning'));
+        //update DB
+        const key = `bizPromotions.coupons.firstOrder.isActivated`;
+        const objToUpdate = {
             [key]: checked
         };
-
-        updateBusinessInfo(dispatch, objToSend);
-        const status = checked ? 'ativado' : 'desativado';
-        showSnackbar(dispatch, `Fazendo Alterações...`);
-        // showSnackbar(dispatch, `Desconto ${status}`);
+        updateBusinessInfo(dispatch, objToUpdate);
     };
 
     return (
@@ -107,8 +105,7 @@ export default function FirstBuyDiscount() {
                                 control={
                                     <Switch
                                         checked={isActivated}
-                                        onChange={handleChange('bizPromotions')}
-                                        value="checkedA"
+                                        onChange={handleChange}
                                         color="primary"
                                         inputProps={{ 'aria-label': 'primary checkbox' }}
                                     />

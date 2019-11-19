@@ -1,7 +1,5 @@
 import { reducer } from 'easy-peasy';
-// You can use only one isntance of object like 'cases' for each object.
-// Check for mispellings in case of one action not being dispatched properly.
-// Reducer Naming Structure: (optional verb 'is') + main + state/desc
+import updateKey from './helpers/updateKey';
 
 // REDUCERS
 const initialState = {
@@ -19,11 +17,9 @@ export const adminReducer = {
                     allData: action.payload
                 }
             case 'UPDATE_BIZ_INFO':
+                updateKey(state.allData.businessInfo, action.payload);
                 return {
                     ...state,
-                    allData: {
-                        businessInfo: action.payload
-                    }
                 }
             default:
                 return state;

@@ -24,6 +24,39 @@ export const addProduct = product => async (dispatch, getState) => {
     }
 };
 
+// keyToUpdate = { key: value }
+export const updateProduct = async (dispatch, keyToUpdate, _idProduct) => {
+    // Switching obj keys dynamically to update in Reducer
+    const targetKey = Object.keys(keyToUpdate)[0];
+    const dataToUpdate = {
+        _id: _idProduct,
+        [`${targetKey}`]: keyToUpdate[targetKey]
+    };
+    try {
+        const body = getBodyRequest(keyToUpdate);
+        const res = axios.put(`/api/product/${_idProduct}`, body, configTypeJson);
+        console.log('==CHANGING PRODUCT==');
+        dispatch({ type: 'CHANGE_PRODUCT', payload: dataToUpdate }); // dataToUpdate
+    } catch (e) {
+        // statements
+        console.log(e);
+    }
+};
+
+export const deleteProduct = async (dispatch, _idProduct) => {
+    try {
+        const res = await axios.delete(`/api/product/${_idProduct}`, configTypeJson);
+        console.log('==PRODUCT DELETED==');
+        dispatch({ type: 'DELETE_PRODUCT', payload: _idProduct });
+        // update
+        getAllProducts(dispatch);
+    } catch (err) {
+        setErrorOn(dispatch, err.response.data.msg);
+    }
+};
+//END CRUD PATTERN
+
+
 // LISTS
 export const getAllProducts = async dispatch => {
     // let didCancel = false; //n1
@@ -43,41 +76,7 @@ export const getAllProducts = async dispatch => {
         // }
     }
 };
-
 // END LISTS
-
-// update product
-export const changeProduct = async (dispatch, bodyToSend, _idProduct) => {
-    const body = getBodyRequest(bodyToSend);
-    // Switching obj keys dynamically to update in Reducer
-    const targetKey = Object.keys(bodyToSend)[0];
-    const dataToUpdate = {
-        _id: _idProduct,
-        [`${targetKey}`]: bodyToSend[targetKey]
-    };
-    try {
-        const res = axios.put(`/api/product/${_idProduct}`, body, configTypeJson);
-        console.log('==CHANGING PRODUCT==');
-        dispatch({ type: 'CHANGE_PRODUCT', payload: dataToUpdate });
-    } catch (e) {
-        // statements
-        console.log(e);
-    }
-};
-
-// delete product
-export const deleteProduct = async (dispatch, _idProduct) => {
-    try {
-        const res = await axios.delete(`/api/product/${_idProduct}`, configTypeJson);
-        console.log('==PRODUCT DELETED==');
-        dispatch({ type: 'DELETE_PRODUCT', payload: _idProduct });
-        // update
-        getAllProducts(dispatch);
-    } catch (err) {
-        setErrorOn(dispatch, err.response.data.msg);
-    }
-};
-//END CRUD PATTERN
 
 export const handleDetail = id => {
     // const product = this.getItem(id);

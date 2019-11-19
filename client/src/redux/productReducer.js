@@ -1,7 +1,9 @@
 import { reducer } from 'easy-peasy';
+import updateKeyWithId from './helpers/updateKeyWithId'
 // You can use only one isntance of object like 'cases' for each object.
 // Check for mispellings in case of one action not being dispatched properly.
 // Reducer Naming Structure: (optional verb 'is') + main + state/desc
+
 
 // REDUCERS
 const initialState = {
@@ -23,14 +25,8 @@ export const productReducer = {
                     allProductsList: action.payload //n1
                 };
             case 'CHANGE_PRODUCT':
-                // Updating Info Isntantly
-                //The obj needs to have this format: {id: "123", targetKey: "targetKey"}
-                //targetKey will get whatever key in the second position to update.
-                const targetKey = Object.keys(action.payload)[1];
-                const _id = action.payload._id;
-                const value = action.payload[targetKey];
-                const objIndex = state.allProductsList.findIndex(obj => obj._id == _id);
-                state.allProductsList[objIndex][targetKey] = value;
+                updateKeyWithId(state.allProductsList, action.payload);
+                // after updating, return the whole state.
                 return {
                     ...state
                 };

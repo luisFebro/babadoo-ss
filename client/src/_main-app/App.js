@@ -3,7 +3,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import ScrollToTop from 'react-router-scroll-top';
 // Redux
 import { readAdmin } from '../redux/actions/adminActions';
-import { useStoreState, useStoreDispatch } from 'easy-peasy';
+import { useStoreDispatch } from 'easy-peasy'; // useStoreState
 import { getUpdatedUsers, updateCurrentUser } from '../redux/actions/userActions';
 // End Redux
 import { loadUser, tokenConfig } from '../redux/actions/authActions';
@@ -42,16 +42,16 @@ import Footer from '../components/_layout/footer/Footer';
 // END LAYOUT
 // MODALS ANS TOASTS
 import AllModals from '../components/modals';
-import AllSnackbars from '../components/snackbars';
+import SnackbarMulti from '../components/Snackbar';
 // END MODALS ANS TOASTS
 
 // BUTTONS
 import WhatsappIcon from '../components/buttons/WhatsappIcon';
 // END BUTTONS
 export default function App() {
-    const { isUserAuthenticated } = useStoreState(state => ({
-        isUserAuthenticated: state.authReducer.cases.isUserAuthenticated
-    }));
+    // const { isUserAuthenticated } = useStoreState(state => ({
+    //     isUserAuthenticated: state.authReducer.cases.isUserAuthenticated
+    // }));
 
     const dispatch = useStoreDispatch();
 
@@ -85,7 +85,7 @@ export default function App() {
                 </Switch>
                 {/*Modals and Snackbars*/}
                 <AllModals />
-                <AllSnackbars />
+                <SnackbarMulti />
                 {/*End Modals and Snackbars*/}
                 <Footer />
                 <WhatsappIcon />

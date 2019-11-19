@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, Fragment } from 'react';
 // Redux
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 // import { addFieldUser, deleteFieldUser } from '../../../redux/actions/userActions';
@@ -119,9 +119,24 @@ export default function EditableProduct({ product, isFav }) {
         ]
     };
 
-    const toggleFav = () => {
-        setIsFavChanged(!isFavChanged);
-    };
+    // const toggleFav = () => {
+    //     setIsFavChanged(!isFavChanged);
+    // };
+
+    const editButtons = () => (
+        <Fragment>
+            <MultiIconButton
+                backColor="var(--mainYellow)"
+                buttonIcon={<AddAPhotoIcon />}
+                top={110}
+                left={-10}
+                onClick={() => {
+                    showModalUnderConstruction(dispatch);
+                }}
+            />
+            <SpeedDialButton actions={speedDial.actions} className="no-outline" />
+        </Fragment>
+    );
 
     return (
         <ProductWrapper ref={animateRef} className="col-6 col-md-4 col-lg-3 mx-auto my-2">
@@ -200,17 +215,7 @@ export default function EditableProduct({ product, isFav }) {
                         {price}
                     </h5>
                 </div>
-                {/*managing buttons*/}
-                <MultiIconButton
-                    backColor="var(--mainYellow)"
-                    buttonIcon={<AddAPhotoIcon />}
-                    top={110}
-                    left={-10}
-                    onClick={() => {
-                        showModalUnderConstruction(dispatch);
-                    }}
-                />
-                <SpeedDialButton actions={speedDial.actions} className="no-outline" />
+                {editButtons()}
             </div>
         </ProductWrapper>
     );

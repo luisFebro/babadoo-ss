@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import clsx from 'clsx';
 // Redux
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
-import { closeSnackbar } from '../../redux/actions/snackbarActions';
+import { closeSnackbar } from '../redux/actions/snackbarActions';
 // End Redux
 import { amber, green, blueGrey } from '@material-ui/core/colors';
 import { makeStyles } from '@material-ui/core/styles';
@@ -55,7 +55,7 @@ const variantIcon = {
   error: "fas fa-times",
 };
 
-export default function SnackbarBlack() {
+export default function SnackbarMulti() {
     // Redux
     const { isSnackbarOpen, snackbar } = useStoreState(state => ({
         isSnackbarOpen: state.snackbarReducer.cases.isSnackbarOpen,

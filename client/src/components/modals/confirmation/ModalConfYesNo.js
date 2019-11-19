@@ -3,7 +3,7 @@ import React, { Component, useState } from 'react';
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { closeModal } from '../../../redux/actions/modalActions';
 import { showSnackbar } from '../../../redux/actions/snackbarActions';
-import { changeProduct } from '../../../redux/actions/productActions';
+import { updateProduct } from '../../../redux/actions/productActions';
 import { deleteUser, getUpdatedUsers } from '../../../redux/actions/userActions';
 import { deleteProduct, getAllProducts } from '../../../redux/actions/productActions';
 // import { animateAnotherComponent } from '../../../redux/actions/animationActions';
