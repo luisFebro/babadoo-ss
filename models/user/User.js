@@ -36,8 +36,8 @@ const data = {
         default: ""
     },
     favoriteList: {
-        type: Array,
-        default: []
+        type: Schema.ObjectId,
+        ref: 'Favorite'
     },
     inCartList: {
         type: Array,

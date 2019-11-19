@@ -2,11 +2,11 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const validateEmail = require('../utils/validation/validateEmail');
-const User = require('../models/User');
-// TEST ZONE
+const validateEmail = require('../../utils/validation/validateEmail');
+const User = require('../../models/User');
+
 // controllers
-const { read, update, mwUserById } = require("../controllers/user");
+const { read, update, mwUserById } = require("../../controllers/user");
 // end controllers
 // @route  api/users note: both need requireSignin, mwIsAuth
 router.get("/test/:userId", read);

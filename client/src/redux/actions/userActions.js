@@ -12,7 +12,7 @@ import { configTypeJson } from '../../utils/server/configTypeJson';
 export const getUpdatedUsers = async dispatch => {
     try {
         // setLoadingOn(dispatch);
-        const res = await axios.get('/api/users/list', configTypeJson);
+        const res = await axios.get('/api/user/list', configTypeJson);
         console.log('==ALL USERS UPDATED==');
         dispatch({
             type: 'ALL_USERS_UPDATE',
@@ -26,7 +26,7 @@ export const getUpdatedUsers = async dispatch => {
 
 // update user for a real-time database fetching
 export const updateCurrentUser = async (dispatch, _userId) => {
-    const res = await axios.get(`/api/users/${_userId}`, configTypeJson);
+    const res = await axios.get(`/api/user/${_userId}`, configTypeJson);
     console.log('===CURRENT USER UPDATED===');
     dispatch({
         type: 'USER_CURRENT_UPDATED',
@@ -40,7 +40,7 @@ export const deleteUser = async (dispatch, _idUser) => {
     // Warning: Do not delete users directly from database without logout
     // This does not work!!!
     // logout(dispatch);
-    const res = await axios.delete(`/api/users/${_idUser}`, configTypeJson);
+    const res = await axios.delete(`/api/user/${_idUser}`, configTypeJson);
     dispatch({ type: 'USER_DELETED', payload: _idUser });
 };
 

@@ -1,6 +1,6 @@
-const Product = require('../models/product');
-const ProductInfo = require('../models/product/ProductInfo');
-const { mwAuth } = require('../controllers/auth');
+const Product = require('../../models/product');
+const ProductInfo = require('../../models/product/ProductInfo');
+const { mwAuth } = require('../../controllers/auth');
 const formidable = require('formidable');
 const fs = require('fs');
 

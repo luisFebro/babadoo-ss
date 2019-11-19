@@ -2,7 +2,14 @@ const express = require("express");
 const router = express.Router();
 
 // const { mwUserById } = require("../controllers/user");
-const { mwCategoryId, create, read, update, remove, getList } = require("../../controllers/category");
+const {
+    create,
+    read,
+    update,
+    remove,
+    mwCategoryId,
+    getList
+} = require("../../controllers/product/category");
 const { mwIsAdmin } = require("../../controllers/auth");
 
 // @route  api/category...

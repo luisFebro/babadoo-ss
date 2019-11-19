@@ -18,7 +18,7 @@ export const loadUser = () => (dispatch, getState) => {
     };
 
     const getUpdatedUsers = () => {
-        return axios.get('/api/users/list', configTypeJson);
+        return axios.get('/api/user/list', configTypeJson);
     };
 
     axios
@@ -105,7 +105,7 @@ export const registerEmail = objToSend => (dispatch, isSocialOn = null) => {
     const body = getBodyRequest(objToSend);
 
     axios
-        .post('/api/users', body, configTypeJson)
+        .post('/api/user', body, configTypeJson)
         .then(res => {
             if (isSocialOn) {
                 if (isSocialOn === ('google' || 'facebook')) {

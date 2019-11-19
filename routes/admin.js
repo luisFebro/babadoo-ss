@@ -1,6 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const { createOrUpdate, updateBusinessInfo, read, getCoupon, updateCoupon } = require('../controllers/admin');
+const {
+    createOrUpdate,
+    updateBusinessInfo,
+    read,
+    getCoupon,
+    updateCoupon
+} = require('../controllers/admin');
 
 // @ routes api/admin
 

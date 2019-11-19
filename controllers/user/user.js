@@ -1,14 +1,20 @@
-const User = require("../models/User");
+const User = require("../../models/User");
+
+// MESSAGES
+const ok = {
+}
+const error = {
+    notFound: "O usuário não foi encontrado",
+    systemError: "Ocorreu o seguinte erro: "
+}
+const msg = (text, systemError = "") => ({ msg: text + systemError });
+// END MESSAGES
 
 // MIDDLEWARES - mw
 exports.mwUserById = (req, res, next, id) => {
     User.findById(id).exec((err, user) => {
-        if (err || !user) {
-            return res.status(400).json({
-                error: "Usuário não encontrado!"
-            });
-        }
-        // user has brings all properties from User Model
+        if (err || !user) return res.status(400).json(msg(error.notFound));
+        // user brings all properties from User Model
         req.profile = user;
         next();
     });
