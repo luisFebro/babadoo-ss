@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 // Redux
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
-import { showSnackbarBlack } from '../../redux/actions/snackbarActions';
+import { showSnackbar } from '../../redux/actions/snackbarActions';
 import { setErrorOff } from '../../redux/actions/globalActions';
 import { loginEmail } from '../../redux/actions/authActions';
 // Material UI
@@ -48,7 +48,7 @@ export default function ModalCheckAuthEmail() {
             if (isUserAuthenticated) {
                 dispatch({ type: 'TOGGLE_MODAL_LOGIN', payload: isModalLoginOpen });
                 setTimeout(() => {
-                    showSnackbarBlack(dispatch, `Olá de volta!`);
+                    showSnackbar(dispatch, `Olá de volta!`);
                 }, 3000);
             }
         }
@@ -130,7 +130,7 @@ export default function ModalCheckAuthEmail() {
                             <Button
                                 onClick={() => {
                                     onSubmit();
-                                    showSnackbarBlack(dispatch, 'Carregando...');
+                                    showSnackbar(dispatch, 'Carregando...');
                                 }}
                                 variant="contained"
                                 color="primary"

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { setErrorOn } from './globalActions';
-import { showSnackbarBlack } from './snackbarActions';
+import { showSnackbar } from './snackbarActions';
 import { configTypeJson } from '../../utils/server/configTypeJson';
 import { getBodyRequest } from '../../utils/server/getBodyRequest';
 // naming structure: action > type > speficification e.g action: GET_MODAL_BLUE / func: getModalBlue
@@ -27,7 +27,7 @@ export const updateBusinessInfo = async (dispatch, objToSend, _idUser) => {
     try {
         const res = await axios.put(`/api/admin/business-info/update`, body, configTypeJson);
         dispatch({ type: 'UPDATE_BIZ_INFO', payload: res.data });
-        showSnackbarBlack(dispatch, 'Alterado com sucesso!');
+        showSnackbar(dispatch, 'Alterado com sucesso!');
     } catch (err) {
         setErrorOn(dispatch, err.response.data.msg);
     }

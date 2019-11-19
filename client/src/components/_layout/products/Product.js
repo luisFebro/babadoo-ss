@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { addFieldUser, deleteFieldUser } from '../../../redux/actions/userActions';
 import { getItem } from '../../../redux/actions/productActions';
-import { showSnackbarBlack } from '../../../redux/actions/snackbarActions';
+import { showSnackbar } from '../../../redux/actions/snackbarActions';
 import { showModalRegister } from '../../../redux/actions/modalActions';
 // End Redux
 import styled from 'styled-components';
@@ -65,7 +65,7 @@ export default function Product({ product, isFav }) {
                                             className="filledHeart fas fa-heart animated heartBeat fast"
                                             onClick={() => {
                                                 deleteFieldUser(dispatch, bodyFavorite, _idUser);
-                                                showSnackbarBlack(dispatch, 'Removido dos seus favoritos!');
+                                                showSnackbar(dispatch, 'Removido dos seus favoritos!');
                                             }}
                                             style={{
                                                 animationIterationCount: 3
@@ -76,7 +76,7 @@ export default function Product({ product, isFav }) {
                                             className="emptyHeart far fa-heart"
                                             onClick={() => {
                                                 addFieldUser(dispatch, bodyFavorite, _idUser);
-                                                showSnackbarBlack(dispatch, 'Adicionado aos Seus Favoritos');
+                                                showSnackbar(dispatch, 'Adicionado aos Seus Favoritos', 'success');
                                                 // value.openModalFavorite(_id);
                                             }}
                                         ></i>
@@ -86,7 +86,7 @@ export default function Product({ product, isFav }) {
                                         className="emptyHeart far fa-heart"
                                         onClick={() => {
                                             showModalRegister(dispatch);
-                                            showSnackbarBlack(
+                                            showSnackbar(
                                                 dispatch,
                                                 'Faça seu acesso para adicionar aos favoritos!'
                                             );

@@ -4,7 +4,7 @@ import axios from 'axios';
 import ToggleVisibilityPassword from '../forms/fields/ToggleVisibilityPassword';
 // Redux
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
-import { showSnackbarBlack } from '../../redux/actions/snackbarActions';
+import { showSnackbar } from '../../redux/actions/snackbarActions';
 import { showModalLogin, showModalUnderConstruction, closeModal } from '../../redux/actions/modalActions';
 import { setErrorOff } from '../../redux/actions/globalActions';
 import { getUpdatedUsers } from '../../redux/actions/userActions';
@@ -68,7 +68,7 @@ export default function ModalRegister() {
             if (isUserAuthenticated) {
                 closeModal(dispatch, isModalRegisterOpen);
                 sendEmail();
-                showSnackbarBlack(dispatch, 'Cadastro Realizado com Sucesso via Email!', 3000);
+                showSnackbar(dispatch, 'Cadastro Realizado com Sucesso via Email!', 'success', 3000);
             }
         }
     }, [isUserAuthenticated, isModalRegisterOpen]);
@@ -90,7 +90,7 @@ export default function ModalRegister() {
             if (!res) {
                 // the error is displayed in the modal itself so far
             } else {
-                showSnackbarBlack(dispatch, res.data.msg, 4000);
+                showSnackbar(dispatch, res.data.msg, 4000);
             }
         });
     };
@@ -174,7 +174,7 @@ export default function ModalRegister() {
                                 onClick={() => {
                                     registerThisUser();
                                     setTimeout(() => getUpdatedUsers(dispatch), 3000);
-                                    showSnackbarBlack(dispatch, 'Carregando...');
+                                    showSnackbar(dispatch, 'Carregando...');
                                 }}
                                 variant="contained"
                                 color="primary"

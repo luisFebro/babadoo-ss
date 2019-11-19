@@ -4,7 +4,7 @@ import ToggleVisibilityPassword from '../forms/fields/ToggleVisibilityPassword';
 import parse from 'html-react-parser';
 // Redux
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
-import { showSnackbarBlack } from '../../redux/actions/snackbarActions';
+import { showSnackbar } from '../../redux/actions/snackbarActions';
 import { showModalUnderConstruction, closeModal } from '../../redux/actions/modalActions';
 import { getUpdatedUsers } from '../../redux/actions/userActions';
 import { setErrorOff } from '../../redux/actions/globalActions';
@@ -68,7 +68,7 @@ export default function ModalLogin() {
             if (isUserAuthenticated) {
                 closeModal(dispatch);
                 setTimeout(() => {
-                    showSnackbarBlack(dispatch, `Olá de volta, ${window.Helper.textCapi(name)}!`);
+                    showSnackbar(dispatch, `Olá de volta, ${window.Helper.textCapi(name)}!`);
                 }, 3000);
             }
         }
@@ -145,7 +145,7 @@ export default function ModalLogin() {
                                 onClick={() => {
                                     onSubmit();
                                     setTimeout(() => getUpdatedUsers(dispatch), 3000);
-                                    showSnackbarBlack(dispatch, 'Carregando...');
+                                    showSnackbar(dispatch, 'Carregando...');
                                 }}
                                 variant="contained"
                                 color="primary"

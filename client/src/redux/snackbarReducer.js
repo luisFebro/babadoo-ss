@@ -5,9 +5,9 @@ import { reducer } from 'easy-peasy';
 
 // REDUCERS
 const initialState = {
-    isBlackSnackbarOpen: false,
-    isSuccessSnackbarOpen: false,
+    isSnackbarOpen: false,
     snackbarMsg: '',
+    snackbarStatusColor: '',
     snackbarTiming: 0
 };
 
@@ -15,21 +15,21 @@ export const snackbarReducer = {
     cases: reducer((state = initialState, action) => {
         switch (action.type) {
             //Show
-            case 'SHOW_SNACKBAR_BLACK':
+            case 'SHOW_SNACKBAR':
                 return {
                     ...state,
-                    isBlackSnackbarOpen: true,
+                    isSnackbarOpen: true,
                     snackbarMsg: action.payload.msg,
-                    snackbarTiming: action.payload.timeRunning
+                    snackbarTiming: action.payload.timeRunning,
+                    snackbarStatusColor: action.payload.statusColor
                 };
             //Close
-            case 'CLOSE_SNACKBAR_BLACK':
+            case 'CLOSE_SNACKBAR':
                 return {
                     ...state,
-                    isBlackSnackbarOpen: false,
+                    isSnackbarOpen: false,
                     snackbarMsg: ''
                 };
-
             default:
                 return state;
         }

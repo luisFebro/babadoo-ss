@@ -2,7 +2,7 @@ import React, { Component, useState } from 'react';
 // Redux
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { closeModal } from '../../../redux/actions/modalActions';
-import { showSnackbarBlack } from '../../../redux/actions/snackbarActions';
+import { showSnackbar } from '../../../redux/actions/snackbarActions';
 import { changeProduct } from '../../../redux/actions/productActions';
 import { deleteUser, getUpdatedUsers } from '../../../redux/actions/userActions';
 import { deleteProduct, getAllProducts } from '../../../redux/actions/productActions';
@@ -102,7 +102,7 @@ export default function ModalConfYesNo({ currItemFound }) {
                             </Button>
                             <Button
                                 onClick={() => {
-                                    showSnackbarBlack(dispatch, `O ${mainSubject} ${name} foi excluído com sucesso!`);
+                                    showSnackbar(dispatch, `O ${mainSubject} ${name} foi excluído com sucesso!`, 'success');
                                     closeModal(dispatch);
                                     // animateAnotherComponent(dispatch);
                                     if (currItemFound) {

@@ -3,10 +3,9 @@ import PropTypes from 'prop-types';
 import clsx from 'clsx';
 // Redux
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
-import { closeSnackbarBlack } from '../../redux/actions/snackbarActions';
-import { setSuccessOff } from '../../redux/actions/globalActions';
+import { closeSnackbar } from '../../redux/actions/snackbarActions';
 // End Redux
-import { amber, green } from '@material-ui/core/colors';
+import { amber, green, blueGrey } from '@material-ui/core/colors';
 import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import Snackbar from '@material-ui/core/Snackbar';
@@ -16,8 +15,11 @@ import Slide from '@material-ui/core/Slide';
 const useStyles = makeStyles(theme => ({
     snackbar: {
         [theme.breakpoints.down('xs')]: {
-            // n2
-            bottom: 85
+            right: 30,
+            top: 85 // n2
+        },
+        [theme.breakpoints.up('md')]: {
+            top: 70
         }
     },
     close: {
@@ -31,7 +33,7 @@ const useStyles = makeStyles(theme => ({
         backgroundColor: theme.palette.error.dark
     },
     warning: {
-        backgroundColor: amber[700]
+        backgroundColor: blueGrey[800]
     },
     icon: {
         fontSize: 20
@@ -39,50 +41,54 @@ const useStyles = makeStyles(theme => ({
     iconVariant: {
         opacity: 0.9,
         marginRight: theme.spacing(1)
-    }
+    },
+    message: {
+        display: 'flex',
+        alignItems: 'center',
+    },
     //
 }));
 
-// const variantIcon = {
-//   success: CheckCircleIcon,
-//   warning: WarningIcon,
-//   error: ErrorIcon,
-//   info: InfoIcon,
-// };
+const variantIcon = {
+  success: "far fa-check-circle",
+  warning: "fas fa-info",
+  error: "fas fa-times",
+};
 
 export default function SnackbarBlack() {
     // Redux
-    const { isBlackSnackbarOpen, snackbar } = useStoreState(state => ({
-        isBlackSnackbarOpen: state.snackbarReducer.cases.isBlackSnackbarOpen,
+    const { isSnackbarOpen, snackbar } = useStoreState(state => ({
+        isSnackbarOpen: state.snackbarReducer.cases.isSnackbarOpen,
         snackbar: state.snackbarReducer.cases
     }));
     const dispatch = useStoreDispatch();
-    const { snackbarMsg, snackbarTiming } = snackbar;
+    const { snackbarMsg, snackbarStatusColor, snackbarTiming } = snackbar;
     // End Redux
     const classes = useStyles();
 
     return (
         <Snackbar
-            className={clsx(classes.snackbar)}
+            className={classes.snackbar}
+            anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
             disableWindowBlurListener={true} //n1
             TransitionComponent={Slide}
             transitionDuration={{ enter: 300, exit: 300 }}
             style={{ zIndex: 1501 }}
-            open={isBlackSnackbarOpen}
+            open={isSnackbarOpen}
             autoHideDuration={snackbarTiming}
             resumeHideDuration={500} // n3
-            onClose={() => closeSnackbarBlack(dispatch)}
+            onClose={() => closeSnackbar(dispatch)}
             ContentProps={{
                 'aria-describedby': 'message-id',
                 classes: {
-                    root: classes.error
+                    root: classes[snackbarStatusColor]
                 }
             }}
             message={
-                <span id="message-id" className="text-default">
+                <span id="message-id" className={clsx("text-default text-center", classes.message)}>
                     <i
                         style={{ color: 'var(--mainWhite)', fontSize: '1.7rem', paddingRight: '8px' }}
-                        className="far fa-check-circle"
+                        className={variantIcon[snackbarStatusColor]}
                     ></i>
                     {snackbarMsg}
                 </span>
@@ -93,7 +99,7 @@ export default function SnackbarBlack() {
                     aria-label="close"
                     color="inherit"
                     className={classes.close}
-                    onClick={() => closeSnackbarBlack(dispatch)}
+                    onClick={() => closeSnackbar(dispatch)}
                 >
                     <CloseIcon />
                 </IconButton>

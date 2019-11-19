@@ -3,7 +3,7 @@ import React, { useState, useRef } from 'react';
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { addFieldUser, deleteFieldUser } from '../../redux/actions/userActions';
 import { getItem } from '../../redux/actions/productActions';
-import { showSnackbarBlack } from '../../redux/actions/snackbarActions';
+import { showSnackbar } from '../../redux/actions/snackbarActions';
 import { animateHinge } from '../../redux/actions/animationActions';
 import { closeModal } from '../../redux/actions/modalActions';
 // End Redux
@@ -74,7 +74,7 @@ export default function ProductFavorite({ product }) {
                                                     () => deleteFieldUser(dispatch, bodyFavorite, _idUser),
                                                     3000
                                                 );
-                                                showSnackbarBlack(dispatch, 'Removido dos seus favoritos!');
+                                                showSnackbar(dispatch, 'Removido dos seus favoritos!');
                                             }}
                                             style={{
                                                 animationIterationCount: 3
@@ -85,7 +85,7 @@ export default function ProductFavorite({ product }) {
                                             className="emptyHeart far fa-heart"
                                             onClick={() => {
                                                 addFieldUser(dispatch, bodyFavorite, _idUser);
-                                                showSnackbarBlack(dispatch, 'Adicionado aos seus favoritos!');
+                                                showSnackbar(dispatch, 'Adicionado aos seus favoritos!', 'success');
                                                 // value.openModalFavorite(_id);
                                             }}
                                         ></i>
@@ -95,7 +95,7 @@ export default function ProductFavorite({ product }) {
                                         className="emptyHeart far fa-heart"
                                         onClick={() => {
                                             closeModal(dispatch);
-                                            showSnackbarBlack(
+                                            showSnackbar(
                                                 dispatch,
                                                 'Faça seu acesso para adicionar aos favoritos!'
                                             );

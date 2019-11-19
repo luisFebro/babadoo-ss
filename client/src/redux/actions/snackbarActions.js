@@ -1,24 +1,15 @@
 // naming structure:
 // action > type > specification e.g showMenuDark / SHOW_MENU_DARK
-//BLACK for transition notifications
-export const showSnackbarBlack = (dispatch, msg, timeRunning = 2000) => {
+// statusColor can be warning, success, error
+export const showSnackbar = (dispatch, msg, statusColor = 'warning', timeRunning = 2000) => {
     const data = {
         msg,
+        statusColor,
         timeRunning
     };
-    dispatch({ type: 'SHOW_SNACKBAR_BLACK', payload: data });
-    // setSuccessOff is add to snackbarBlack component
+    dispatch({ type: 'SHOW_SNACKBAR', payload: data });
 };
 
-export const closeSnackbarBlack = dispatch => {
-    dispatch({ type: 'CLOSE_SNACKBAR_BLACK' });
-};
-
-//SUCCESS GREEN for approved actions
-export const showSnackbarSuccess = (dispatch, msg) => {
-    dispatch({ type: 'SHOW_SNACKBAR_SUCCESS', payload: msg });
-};
-
-export const closeSnackbarSuccess = dispatch => {
-    dispatch({ type: 'CLOSE_SNACKBAR_SUCCESS' });
+export const closeSnackbar = dispatch => {
+    dispatch({ type: 'CLOSE_SNACKBAR' });
 };

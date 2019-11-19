@@ -1,7 +1,7 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import styled from 'styled-components';
 import { Redirect } from 'react-router-dom';
-import { showSnackbarBlack } from '../../redux/actions/snackbarActions';
+import { showSnackbar } from '../../redux/actions/snackbarActions';
 import { sendBuyRequestEmail } from '../../redux/actions/emailActions';
 import { setErrorOff } from '../../redux/actions/globalActions';
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
@@ -60,12 +60,12 @@ export default function FormCheckoutLocal() {
         sendBuyRequestEmail(dispatch, bodyData).then(res => {
             if (!res) {
                 if (errorMsg) {
-                    showSnackbarBlack(dispatch, errorMsg);
+                    showSnackbar(dispatch, errorMsg, 'error');
                     return;
                 }
             } else {
                 resetForm();
-                showSnackbarBlack(dispatch, res.data.msg, 4000);
+                showSnackbar(dispatch, res.data.msg, 'success', 4000);
                 setErrorOff(dispatch);
                 setTimeout(() => setRedirect(true), 5000);
             }

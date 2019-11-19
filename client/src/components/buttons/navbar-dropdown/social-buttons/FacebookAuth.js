@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 // Redux
 import { useStoreDispatch } from 'easy-peasy';
-import { showSnackbarBlack } from '../../../../redux/actions/snackbarActions';
+import { showSnackbar } from '../../../../redux/actions/snackbarActions';
 import { loginEmail, registerEmail } from '../../../../redux/actions/authActions';
 import getDataObjDiffKeys from '../../../../utils/promises/getDataObjDiffKeys';
 import { fetchDataAsyncWithHooks } from '../../../../utils/promises/fetchDataAsyncWithHooks';
@@ -31,7 +31,7 @@ export default function FacebookAuth() {
             };
 
             loginEmail(newUser)(dispatch, isSocialOn);
-            showSnackbarBlack(dispatch, `Olá de Volta! (:`);
+            showSnackbar(dispatch, `Olá de Volta! (:`);
         } else {
             // Register
             const newUser = {
@@ -41,12 +41,12 @@ export default function FacebookAuth() {
             };
 
             registerEmail(newUser)(dispatch, isSocialOn);
-            showSnackbarBlack(dispatch, 'Conta Babadoo criada via Facebook!');
+            showSnackbar(dispatch, 'Conta Babadoo criada via Facebook!');
         }
 
         //Authenticate User
-        showSnackbarBlack(dispatch, 'carregando...');
-        // showSnackbarBlack(dispatch, 'Seja Bem-vindo(a)');
+        showSnackbar(dispatch, 'carregando...');
+        // showSnackbar(dispatch, 'Seja Bem-vindo(a)');
         dispatch({ type: 'LOGIN_FACEBOOK', payload: response });
     };
 

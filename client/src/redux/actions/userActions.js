@@ -3,7 +3,7 @@ import axios from 'axios';
 import { tokenConfig } from './authActions';
 import { getAllProducts } from './productActions';
 import { setLoadingOn, setLoadingOff, setErrorOn } from './globalActions';
-import { showSnackbarBlack } from './snackbarActions';
+import { showSnackbar } from './snackbarActions';
 import { logout } from './authActions';
 import { getBodyRequest } from '../../utils/server/getBodyRequest';
 import { configTypeJson } from '../../utils/server/configTypeJson';
@@ -60,9 +60,9 @@ export const sendNotification = async (dispatch, objToSend, _idClient) => {
         getUpdatedUsers(dispatch);
         // change name form 'admin'to Loja Babadoo (this is how gonna be displayed to the user)
         if (res.data.name === 'admin') res.data.name = 'Loja Babadoo';
-        showSnackbarBlack(dispatch, `Mensagem enviada com sucesso para ${res.data.name}!`);
+        showSnackbar(dispatch, `Mensagem enviada com sucesso para ${res.data.name}!`, 'success');
     } catch (e) {
-        showSnackbarBlack(dispatch, 'Ocorreu um erro ao enviar sua notificação. Tente mais tarde!');
+        showSnackbar(dispatch, 'Ocorreu um erro ao enviar sua notificação. Tente mais tarde!', 'error');
         console.log('changeFieldUserERROR: ' + e);
     }
 };

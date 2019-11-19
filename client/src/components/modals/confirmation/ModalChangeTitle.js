@@ -2,7 +2,7 @@ import React, { Component, useState } from 'react';
 // Redux
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { closeModal } from '../../../redux/actions/modalActions';
-import { showSnackbarBlack } from '../../../redux/actions/snackbarActions';
+import { showSnackbar } from '../../../redux/actions/snackbarActions';
 import { changeProduct } from '../../../redux/actions/productActions';
 // End Redux
 import { Link } from 'react-router-dom';
@@ -110,7 +110,7 @@ export default function ModalChangeTitle({ currItemFound }) {
                             <Button
                                 onClick={() => {
                                     setObjectToSend();
-                                    showSnackbarBlack(
+                                    showSnackbar(
                                         dispatch,
                                         `${mainSubject} do Item foi Alterado para " ${newInfo[mainField]} "!`
                                     );

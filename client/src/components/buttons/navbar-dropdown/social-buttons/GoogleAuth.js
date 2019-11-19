@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 // Redux
 import { useStoreDispatch } from 'easy-peasy';
-import { showSnackbarBlack } from '../../../../redux/actions/snackbarActions';
+import { showSnackbar } from '../../../../redux/actions/snackbarActions';
 import { loginEmail, registerEmail } from '../../../../redux/actions/authActions';
 // End Redux
 import GoogleLogin from 'react-google-login';
@@ -35,7 +35,7 @@ export default function GoogleAuth() {
             };
 
             loginEmail(newUser)(dispatch, isSocialOn);
-            showSnackbarBlack(dispatch, `Olá de Volta!`);
+            showSnackbar(dispatch, `Olá de Volta!`);
         } else {
             // Register
             const newUser = {
@@ -44,7 +44,7 @@ export default function GoogleAuth() {
                 password: process.env.REACT_APP_PASSWORD_AUTH_GOOGLE
             };
             registerEmail(newUser)(dispatch, isSocialOn);
-            showSnackbarBlack(dispatch, 'Conta Babadoo criada via Google!');
+            showSnackbar(dispatch, 'Conta Babadoo criada via Google!');
         }
 
         //Authenticate User

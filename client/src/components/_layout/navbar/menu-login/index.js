@@ -6,7 +6,7 @@ import { withStyles } from '@material-ui/core/styles';
 // Redux
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { logout } from '../../../../redux/actions/authActions';
-import { showSnackbarBlack } from '../../../../redux/actions/snackbarActions';
+import { showSnackbar } from '../../../../redux/actions/snackbarActions';
 import { showModalUnderConstruction } from '../../../../redux/actions/modalActions';
 // End Redux
 // Utils

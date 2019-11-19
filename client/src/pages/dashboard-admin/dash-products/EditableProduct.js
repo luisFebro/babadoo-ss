@@ -8,7 +8,7 @@ import {
     showModalConfYesNo,
     showModalUnderConstruction
 } from '../../../redux/actions/modalActions';
-// import { showSnackbarBlack } from '../../../redux/actions/snackbarActions';
+// import { showSnackbar } from '../../../redux/actions/snackbarActions';
 import { animateHinge } from '../../../redux/actions/animationActions';
 // End Redux
 import styled from 'styled-components';
@@ -145,7 +145,7 @@ export default function EditableProduct({ product, isFav }) {
                                     className="filledHeart fas fa-heart animated heartBeat fast"
                                     onClick={() => {
                                         /*deleteFieldUser(dispatch, bodyFavorite, _idUser);
-                                        showSnackbarBlack(dispatch, "Removido dos seus favoritos!");*/
+                                        showSnackbar(dispatch, "Removido dos seus favoritos!");*/
                                     }}
                                     style={{
                                         animationIterationCount: 3
@@ -156,7 +156,7 @@ export default function EditableProduct({ product, isFav }) {
                                     className="emptyHeart far fa-heart"
                                     onClick={() => {
                                         /*addFieldUser(dispatch, bodyFavorite, _idUser);
-                                            showSnackbarBlack(dispatch, "Adicionado aos seus favoritos!")*/
+                                            showSnackbar(dispatch, "Adicionado aos seus favoritos!")*/
                                         // value.openModalFavorite(_id);
                                     }}
                                 ></i>
@@ -166,7 +166,7 @@ export default function EditableProduct({ product, isFav }) {
                                 className="emptyHeart far fa-heart"
                                 onClick={() => {
                                     /*showModalRegister(dispatch);
-                                        showSnackbarBlack(dispatch, "Faça seu acesso para adicionar aos favoritos!")*/
+                                        showSnackbar(dispatch, "Faça seu acesso para adicionar aos favoritos!")*/
                                 }}
                             ></i>
                         )}

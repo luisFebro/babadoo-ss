@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 // Redux
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { updateBusinessInfo } from '../../../redux/actions/adminActions';
-import { showSnackbarBlack } from '../../../redux/actions/snackbarActions';
+import { showSnackbar } from '../../../redux/actions/snackbarActions';
 // End Redux
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -45,8 +45,8 @@ export default function FirstBuyDiscount() {
 
         updateBusinessInfo(dispatch, objToSend);
         const status = checked ? 'ativado' : 'desativado';
-        showSnackbarBlack(dispatch, `Fazendo Alterações...`);
-        // showSnackbarBlack(dispatch, `Desconto ${status}`);
+        showSnackbar(dispatch, `Fazendo Alterações...`);
+        // showSnackbar(dispatch, `Desconto ${status}`);
     };
 
     return (

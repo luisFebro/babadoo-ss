@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { updateCurrentUser } from './userActions';
 import { setErrorOn, setErrorOff } from './globalActions';
-import { showSnackbarBlack } from './snackbarActions';
+import { showSnackbar } from './snackbarActions';
 import { getBodyRequest } from '../../utils/server/getBodyRequest';
 import { configTypeJson } from '../../utils/server/configTypeJson';
 // naming structure: action > type > speficification e.g action: GET_MODAL_BLUE / func: getModalBlue
@@ -138,7 +138,7 @@ export const authenticateFacebook = dispatch => {};
 export const logout = dispatch => {
     dispatch({ type: 'LOGOUT_SUCCESS' });
     setErrorOff(dispatch);
-    setTimeout(() => showSnackbarBlack(dispatch, 'Sua sessão foi finalizada com sucesso.', 3000), 2000);
+    setTimeout(() => showSnackbar(dispatch, 'Sua sessão foi finalizada com sucesso.', 3000), 2000);
 };
 
 // Setup config/headers and token
