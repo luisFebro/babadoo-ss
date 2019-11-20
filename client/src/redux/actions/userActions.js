@@ -12,7 +12,7 @@ import { configTypeJson } from '../../utils/server/configTypeJson';
 export const getUpdatedUsers = async dispatch => {
     try {
         // setLoadingOn(dispatch);
-        const res = await axios.get('/api/user/list', configTypeJson);
+        const res = await axios.get('/api/user/list/all', configTypeJson);
         console.log('==ALL USERS UPDATED==');
         dispatch({
             type: 'ALL_USERS_UPDATE',

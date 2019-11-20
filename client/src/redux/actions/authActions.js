@@ -76,7 +76,7 @@ export const loginEmail = objToSend => async (dispatch, isSocialOn = false) => {
     const body = getBodyRequest(objToSend);
 
     try {
-        const res = await axios.post('/api/auth', body, configTypeJson);
+        const res = await axios.post('/api/auth/login', body, configTypeJson);
         if (isSocialOn) {
             if (isSocialOn === ('google' || 'facebook')) {
                 return;
@@ -105,7 +105,7 @@ export const registerEmail = objToSend => (dispatch, isSocialOn = null) => {
     const body = getBodyRequest(objToSend);
 
     axios
-        .post('/api/user', body, configTypeJson)
+        .post('/api/auth/register', body, configTypeJson)
         .then(res => {
             if (isSocialOn) {
                 if (isSocialOn === ('google' || 'facebook')) {

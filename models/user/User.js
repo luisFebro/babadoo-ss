@@ -35,7 +35,12 @@ const data = {
         type: String,
         default: ""
     },
+    // this will be replaced
     favoriteList: {
+        type: Array,
+        default: []
+    },
+    favoriteL: {
         type: Schema.ObjectId,
         ref: 'Favorite'
     },

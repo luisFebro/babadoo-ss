@@ -1,4 +1,7 @@
 const User = require("../../models/User");
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const validateEmail = require('../../utils/validation/validateEmail');
 
 // MESSAGES
 const ok = {
@@ -21,6 +24,7 @@ exports.mwUserById = (req, res, next, id) => {
 };
 // END MIDDLEWARE
 
+
 exports.read = (req, res) => {
     req.profile.hashed_password = undefined;
     req.profile.salt = undefined;
@@ -35,14 +39,29 @@ exports.update = (req, res) => {
         { $set: req.body },
         { new: true }, // real time updated! this send the most recently updated response/doc from database to app
         (err, user) => {
-            if (err) {
-                return res.status(400).json({
-                    error: "Você não está autorizado para executar esta ação"
-                });
-            }
+            if (err) return res.status(400).json(msg(msg.notAuthorized));
             user.hashed_password = undefined;
             user.salt = undefined;
             res.json(user);
         }
     );
 };
+
+exports.remove = (req, res) => { //needs to put auth as middleware
+    const user = req.profile;
+    user.remove((err, data) => {
+        console.log(data);
+        if (err) return res.status(400).json(msg(error.systemError, err));
+        res.json(msg(`O usuário ${data.name.toUpperCase()} foi excluído com sucesso`));
+    });
+
+}
+
+exports.getList = (req, res) => {
+    //.sort({ createAt: -1 }) // ordered descending - most recently
+    User.find().exec((err, data) => {
+        if (err) return res.status(400).json(msg(error.systemError, err));
+        res.json(data);
+    });
+}
+
