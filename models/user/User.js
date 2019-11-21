@@ -68,7 +68,8 @@ const data = {
 
 const userSchema = new Schema(data); //n1
 //n1
-module.exports = mongoose.models.User || mongoose.model('User', userSchema, collectionName);
+mongoose.models = {}
+module.exports =  mongoose.model('User', userSchema, collectionName);
 
 
 /* COMMENTS
