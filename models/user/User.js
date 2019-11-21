@@ -67,8 +67,15 @@ const data = {
 }
 
 const userSchema = new Schema(data); //n1
-module.exports = mongoose.model('User', userSchema, collectionName);
+//n1
+module.exports = mongoose.models.User || mongoose.model('User', userSchema, collectionName);
 
+
+/* COMMENTS
+n1: checking if the model exists then use it, else create it.
+For this issue: OverwriteModelError: Cannot overwrite `User` model once compiled.
+itis used becauseI have models/user both for auth and user.
+*/
 
 
 // n1 : { strict: false }The strict option, (enabled by default), ensures that values passed to our model constructor that were not specified in our schema do not get saved to the db.
