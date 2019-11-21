@@ -8,9 +8,8 @@ import { loginEmail } from '../../../../redux/actions/authActions';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 export default function FacebookAuth() {
     //REDUX
-    const { userList, userName } = useStoreState(state => ({
+    const { userList } = useStoreState(state => ({
         userList: state.userReducer.cases.allUsers,
-        userName: state.userReducer.cases.currentUser.name,
     }))
     const dispatch = useStoreDispatch();
     //END REDUX

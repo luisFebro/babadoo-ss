@@ -12,9 +12,8 @@ import PropTypes from 'prop-types';
 export default function GoogleAuth() {
     // REDUX
     const dispatch = useStoreDispatch();
-    const { isUserAuthenticated, userList, userName } = useStoreState(state => ({
+    const { userList } = useStoreState(state => ({
         userList: state.userReducer.cases.allUsers,
-        userName: state.userReducer.cases.currentUser.name,
     }))
     // END REDUX
 
