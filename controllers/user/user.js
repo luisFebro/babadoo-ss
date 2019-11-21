@@ -3,6 +3,9 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const validateEmail = require('../../utils/validation/validateEmail');
 
+// verifying User
+console.log("User model", User);
+
 // MESSAGES
 const ok = {
 }
