@@ -1,16 +1,17 @@
 const express = require('express');
 const router = express.Router();
 const {
-    login,
+    loadAuthUser,
     register,
-    mwAuth,
-    checkUserAuth } = require('../controllers/auth');
+    login,
+    mwAuth
+} = require('../controllers/auth');
 
 // const { mwValidateUserRegister } = require('../utils/validation/mwValidateUserRegister');
 
 // @route   api/auth
+router.get('/user', mwAuth, loadAuthUser);
 router.post('/register', register);
 router.post('/login', login);
-router.get('/user', mwAuth, checkUserAuth);
 
 module.exports = router;

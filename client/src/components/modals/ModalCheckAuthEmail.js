@@ -70,7 +70,7 @@ export default function ModalCheckAuthEmail() {
         };
 
         // Attempt to login
-        loginEmail(user)(dispatch);
+        loginEmail(dispatch, user);
     };
 
     return (

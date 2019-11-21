@@ -92,7 +92,7 @@ export default function ModalLogin() {
         };
 
         // Attempt to login
-        loginEmail(user)(dispatch);
+        loginEmail(dispatch, user);
     };
 
     return (

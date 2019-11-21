@@ -3,10 +3,21 @@ import { reducer } from 'easy-peasy';
 // Check for mispellings in case of one action not being dispatched properly.
 // Reducer Naming Structure: (optional verb 'is') + main + state/desc
 
+// HELPERS
+function checkCoupons(payload) {
+    let gotAtLeastOneCupon = false;
+    if (typeof payload !== 'undefined') {
+        if (payload.length >= 1) {
+            gotAtLeastOneCupon = true;
+        }
+    }
+    return gotAtLeastOneCupon;
+}
+
 // REDUCERS
 const initialState = {
+    currentUser: {},
     updatedUsers: [],
-    currentUpdatedUser: [],
     allFavProductsList: [],
     allMessagesList: [],
     allRegisteredUsersList: [],
@@ -22,42 +33,26 @@ export const userReducer = {
                     updatedUsers: action.payload,
                     allRegisteredUsersList: action.payload.map(data => data.name)
                 };
-            case 'USER_CURRENT_UPDATED':
+            case 'CURRENT_USER':
                 //Check if user have coupons (If so, the maskot with discount will not appear when user log in)
-                let gotAtLeastOneCupon = false;
-                if (typeof action.payload.couponsList !== 'undefined') {
-                    if (action.payload.couponsList.length >= 1) {
-                        gotAtLeastOneCupon = true;
-                    }
-                }
-                console.log("UPDATED USER REDUCER", action.payload);
+
                 return {
                     ...state,
-                    currentUpdatedUser: action.payload,
+                    currentUser: action.payload,
                     allFavProductsList: action.payload.favoriteList,
                     allMessagesList: action.payload.messageList,
-                    gotCoupons: gotAtLeastOneCupon
+                    gotCoupons: checkCoupons(action.payload.couponsList)
                 };
             case 'USER_DELETED':
                 return {
                     ...state,
                     updatedUsers: state.updatedUsers.filter(user => user._id !== action.payload)
                 };
-            // DATA from register/login
-            case 'USER_LOADED_DATA':
-                return {
-                    ...state,
-                    // somehting
-                };
-            case 'USER_EMAIL_DATA':
-                return {
-                    ...state,
-                    currentUpdatedUser: action.payload
-                }
+            // CUSTOMIZED DATA HANDLING from social network
             case 'USER_GOOGLE_DATA':
                 return {
                     ...state,
-                    currentUpdatedUser: {
+                    currentUser: {
                         _id: action.payload.tokenId,
                         name: action.payload.profileObj.familyName,
                         email: action.payload.profileObj.email,
@@ -67,12 +62,17 @@ export const userReducer = {
             case 'USER_FACEBOOK_DATA':
                 return {
                     ...state,
-                    currentUpdatedUser: {
+                    currentUser: {
                         _id: action.payload.accessToken,
                         name: action.payload.givenName,
                         email: action.payload.email,
                         picture: action.payload.picture.data.url
                     }
+                }
+            case 'CLEAR_CURRENT_USER':
+                return {
+                    ...state,
+                    currentUser: {}
                 }
             default:
                 return state;

@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 // Redux
-import { useStoreDispatch } from 'easy-peasy';
+import { useStoreDispatch, useStoreState } from 'easy-peasy';
 import { showSnackbar } from '../../../../redux/actions/snackbarActions';
 import { registerGoogle, loginEmail, registerEmail } from '../../../../redux/actions/authActions';
 // End Redux
@@ -12,29 +12,29 @@ import { fetchDataAsyncWithHooks } from '../../../../utils/promises/fetchDataAsy
 // import parse from 'html-react-parser';
 
 export default function GoogleAuth() {
-    //Getting an Obj with an Array with all emails
     const [data, setData] = useState({});
+    // REDUX
     const dispatch = useStoreDispatch();
+    const { productList } = useStore(state => ({
+        productList: state.productReducer.cases.allProductsList,
+    }))
+    // END REDUX
+    //Getting an Obj with an Array with all emails
     const emailAllRegisteredUsers = getDataObjDiffKeys(data, ['email']).email;
     // End
-    // Getting data from database after rendering
-    useEffect(() => {
-        fetchDataAsyncWithHooks('/api/user/list/all', setData);
-    }, []);
 
     const responseGoogle = response => {
-        const isSocialOn = 'google';
         const userEmail = response.profileObj.email;
         const isEmailAlreadyRegistered = emailAllRegisteredUsers.includes(userEmail);
         // Check if the user is already registed to either log in or Register
         if (isEmailAlreadyRegistered) {
             // Login
-            const newUser = {
+            const dataUser = {
                 email: userEmail,
                 password: process.env.REACT_APP_PASSWORD_AUTH_GOOGLE
             };
 
-            loginEmail(newUser)(dispatch, isSocialOn);
+            loginEmail(dispatch, dataUser);
             showSnackbar(dispatch, `Olá de Volta!`);
         } else {
             // Register

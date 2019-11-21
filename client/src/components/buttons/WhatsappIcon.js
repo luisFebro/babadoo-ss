@@ -4,7 +4,7 @@ import { useStoreState } from 'easy-peasy';
 
 export default function WhatsappIcon() {
     let { userName } = useStoreState(state => ({
-        userName: state.userReducer.cases.currentUpdatedUser.name
+        userName: state.userReducer.cases.currentUser.name
     }));
     return (
         <DivWrapper>

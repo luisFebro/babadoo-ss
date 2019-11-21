@@ -29,7 +29,7 @@ export default function Product({ product, isFav }) {
     const { allProductsList, isUserAuthenticated, _idUser } = useStoreState(state => ({
         allProductsList: state.productReducer.cases.allProductsList,
         isUserAuthenticated: state.authReducer.cases.isUserAuthenticated,
-        _idUser: state.userReducer.cases.currentUpdatedUser['_id']
+        _idUser: state.userReducer.cases.currentUser['_id']
     }));
     const dispatch = useStoreDispatch();
     // console.log("isAuth", isUserAuthenticated); //Check this behavior: auth is running multiple 11 times

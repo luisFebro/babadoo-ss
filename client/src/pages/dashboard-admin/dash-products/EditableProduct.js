@@ -81,7 +81,7 @@ export default function EditableProduct({ product, isFav }) {
     const { allProductsList, isUserAuthenticated, _idUser, modalConfProps } = useStoreState(state => ({
         allProductsList: state.productReducer.cases.allProductsList,
         isUserAuthenticated: state.authReducer.cases.isUserAuthenticated,
-        _idUser: state.userReducer.cases.currentUpdatedUser['_id'],
+        _idUser: state.userReducer.cases.currentUser['_id'],
         modalConfProps: state.modalReducers.cases.modalConfProps
     }));
     const dispatch = useStoreDispatch();

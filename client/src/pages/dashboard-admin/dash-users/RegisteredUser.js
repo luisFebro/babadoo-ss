@@ -43,7 +43,7 @@ export default function RegisteredUser({ data }) {
     let { updatedUsers, setAnimationTimer, userName } = useStoreState(state => ({
         updatedUsers: state.userReducer.cases.updatedUsers,
         setAnimationTimer: state.animationReducer.cases.setAnimationTimer,
-        userName: state.userReducer.cases.currentUpdatedUser.name
+        userName: state.userReducer.cases.currentUser.name
     }));
     const classes = useStyles();
     const dispatch = useStoreDispatch();

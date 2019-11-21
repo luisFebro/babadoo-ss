@@ -118,8 +118,8 @@ export default function NotifDropDown() {
     let {allMessagesList, updatedUsers, _idUser, userName} = useStoreState(state => ({
         updatedUsers: state.userReducer.cases.updatedUsers,
         allMessagesList: state.userReducer.cases.allMessagesList,
-        _idUser: state.userReducer.cases.currentUpdatedUser._id,
-        userName: state.userReducer.cases.currentUpdatedUser.name
+        _idUser: state.userReducer.cases.currentUser._id,
+        userName: state.userReducer.cases.currentUser.name
     }));
     //> Dispatch Actions to Reducer
     const dispatch = useStoreDispatch();

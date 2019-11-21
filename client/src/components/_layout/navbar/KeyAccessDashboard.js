@@ -4,7 +4,7 @@ import { useStoreState } from 'easy-peasy';
 export default function KeyAccessDashboard() {
     const { isUserAuthenticated, name } = useStoreState(state => ({
         isUserAuthenticated: state.authReducer.cases.isUserAuthenticated,
-        name: state.userReducer.cases.currentUpdatedUser.name
+        name: state.userReducer.cases.currentUser.name
     }));
     return (
         <div>

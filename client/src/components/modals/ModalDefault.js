@@ -40,7 +40,7 @@ const useStyles = makeStyles(theme => ({
 export default function ModalDefault({ propTitle, propMsg, propTxtBtn, objToSend, closeAnimation }) {
     const { isModalDefaultOpen, _idUser } = useStoreState(state => ({
         isModalDefaultOpen: state.modalReducers.cases.isModalDefaultOpen,
-        _idUser: state.userReducer.cases.currentUpdatedUser['_id']
+        _idUser: state.userReducer.cases.currentUser['_id']
     }));
     const dispatch = useStoreDispatch();
 

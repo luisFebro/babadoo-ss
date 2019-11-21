@@ -11,54 +11,37 @@ import { configTypeJson } from '../../utils/server/configTypeJson';
 export const loadUser = () => (dispatch, getState) => {
     // dispatch({ type: 'USER_LOADING' });
     console.log('==USER LOADING==');
-    const tokenConf = tokenConfig(getState);
-    console.log("tokenConf", tokenConf);
-    axios.get('/api/auth/user', tokenConf)
+    axios.get('/api/auth/user', tokenConfig(getState))
     .then(res => {
-        console.log('RESPONSE LAODER USER', res.data);
        // from user reducer
-        dispatch({ type: 'AUTHENTICATE_USER' });
-        dispatch({ type: 'USER_CURRENT_UPDATED', payload: res.data.profile });
+        dispatch({ type: 'AUTHENTICATE_USER_ONLY' });
+        dispatch({ type: 'CURRENT_USER', payload: res.data.profile });
         // getAuthUser(dispatch, res.data.profile);
     })
     .catch(err => {
         err.response && setErrorOn(dispatch, err.response.data.msg);
-        // dispatch({
-        //   type: 'AUTH_ERROR'
-        // });
     });
 };
 
 // login Email
 // loginEMail with Async/Await
-export const loginEmail = objToSend => async (dispatch, isSocialOn = false) => {
+export const loginEmail = async (dispatch, objToSend) => {
     // Request body
     const body = getBodyRequest(objToSend);
 
     try {
         const res = await axios.post('/api/auth/login', body, configTypeJson);
-        if (isSocialOn) {
-            if (isSocialOn === ('google' || 'facebook')) {
-                return;
-            }
-        } else {
-            dispatch({
-                type: 'LOGIN_SUCCESS',
-                payload: res.data
-            });
-            console.log('==Login: Updating current user==');
-            getAuthUser(dispatch, res.data.authUserId);
-        }
+        dispatch({ type: 'LOGIN_EMAIL', payload: res.data.token });
+        getAuthUser(dispatch, res.data.authUserId);
     } catch (err) {
         setErrorOn(dispatch, err.response.data.msg);
         dispatch({
-            type: 'LOGIN_FAIL'
+            type: 'LOGIN_ERROR'
         });
     }
 };
 
 // Register User
-// Register with Default Promises Handling
 // objToSend: { name, email, password }
 export const registerEmail = objToSend => (dispatch, isSocialOn = null) => {
     // Request body
@@ -73,17 +56,16 @@ export const registerEmail = objToSend => (dispatch, isSocialOn = null) => {
                 }
             } else {
                 dispatch({
-                    type: 'REGISTER_SUCCESS',
-                    payload: res.data
+                    type: 'REGISTER_EMAIL',
+                    payload: res.data.token
                 });
-                console.log('==Register: Updating current user==');
                 getAuthUser(dispatch, res.data.authUserId);
             }
         })
         .catch(err => {
             setErrorOn(dispatch, err.response.data.msg);
             dispatch({
-                type: 'REGISTER_FAIL'
+                type: 'REGISTER_ERROR'
             });
         });
 };
@@ -94,7 +76,7 @@ export const registerGoogle = (dispatch, body, resGoogle) => {
     .then(res => {
         dispatch({ type: 'LOGIN_GOOGLE', payload: res.data.token })
         dispatch({ type: 'USER_GOOGLE_DATA', payload: resGoogle })
-        getAuthUser(dispatch, res.data.authUserId);
+        getAuthUser(dispatch, res.data.authUserId); // This will get the complementary data from user registered by social network
     })
     .catch(err => {
         err.response && setErrorOn(dispatch, err.response.data.msg);
@@ -107,6 +89,7 @@ export const registerGoogle = (dispatch, body, resGoogle) => {
 // Logout
 export const logout = dispatch => {
     dispatch({ type: 'LOGOUT_SUCCESS' });
+    dispatch({ type: 'CLEAR_CURRENT_USER' });
     setErrorOff(dispatch);
     setTimeout(() => showSnackbar(dispatch, 'Sua sessão foi finalizada com sucesso.', 3000), 2000);
 };
@@ -123,10 +106,21 @@ export const tokenConfig = getState => {
         }
     };
 
-    // If token, add to headers
+    // N1 If token, add to headers
     if (token) {
         config.headers['x-auth-token'] = token;
     }
 
     return config;
 };
+
+
+/* COMMENTS
+n1: eg when user authenticated
+{
+    headers: {
+        Content-type: "application/json"
+        x-auth-token: "eyJhbGciOiJIUzI1NiIsInR5..."
+    }
+}
+*/

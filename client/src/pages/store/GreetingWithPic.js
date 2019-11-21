@@ -4,7 +4,7 @@ import getPeriodOfDayWithPic from '../../utils/getPeriodOfDayWithPic';
 import { useStoreState } from 'easy-peasy';
 
 export default function GetPeriodOfDay() {
-    const userLoggedIn = useStoreState(state => state.userReducer.cases.currentUpdatedUser.name);
+    const userLoggedIn = useStoreState(state => state.userReducer.cases.currentUser.name);
 
     const getData = getPeriodOfDayWithPic(userLoggedIn);
     const { img, alt, color } = getData.illustration;

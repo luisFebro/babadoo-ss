@@ -6,48 +6,36 @@ import { reducer } from 'easy-peasy';
 
 // REDUCERS
 const initialState = {
-    token: localStorage.getItem('token'),
+    token: localStorage.getItem('token'), // n1
     isUserAuthenticated: false,
 };
 
 export const authReducer = {
     cases: reducer((state = initialState, action) => {
         switch (action.type) {
-            case 'AUTHENTICATE_USER':
+            case 'AUTHENTICATE_USER_ONLY':
                 return {
                     ...state,
                     isUserAuthenticated: true,
                 };
-            // social network login
+            case 'LOGIN_EMAIL':
+            case 'REGISTER_EMAIL':
+                console.log("token reducer", action.payload)
+                localStorage.setItem('token', action.payload);
+                return {
+                    ...state,
+                    isUserAuthenticated: true,
+                };
             case 'LOGIN_GOOGLE':
-                localStorage.setItem('token', action.payload.token);
-                return {
-                    ...state,
-                    isUserAuthenticated: true,
-                };
             case 'LOGIN_FACEBOOK':
-                localStorage.setItem('token', action.payload.token);
+                localStorage.setItem('token', action.payload);
                 return {
                     ...state,
                     isUserAuthenticated: true,
                 };
-            // end social network login
-            case 'LOGIN_SUCCESS':
-            case 'REGISTER_SUCCESS':
-                localStorage.setItem('token', action.payload.token);
-                return {
-                    ...state,
-                    isUserAuthenticated: true,
-                };
-            case 'USER_LOADED':
-                return {
-                    ...state,
-                    isUserAuthenticated: true,
-                };
-            case 'AUTH_ERROR':
-            case 'LOGIN_FAIL':
+            case 'LOGIN_ERROR':
+            case 'REGISTER_ERROR':
             case 'LOGOUT_SUCCESS':
-            case 'REGISTER_FAIL':
                 localStorage.removeItem('token');
                 return {
                     ...state,
@@ -60,11 +48,6 @@ export const authReducer = {
     })
 };
 
-// closeMenuLogin: action((state, payload) => {
-//     // let nav = document.querySelector('#mainNav');
-//     // nav.className="animated zoomOut slower sticky"
-//     state.isUserLoggedIn = false;
-//     setTimeout(() => {
-//         // nav.style.display = 'none';
-//     }, 1500)
-// })
+/* COMMENTS
+n1: localStorage.getItem('token') is null when user authenticates, and only when the user reloads it gets the token stored by setItem.
+*/

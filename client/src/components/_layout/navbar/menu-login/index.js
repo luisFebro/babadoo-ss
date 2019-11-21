@@ -37,8 +37,8 @@ export default function MenuLogin() {
     // Redux
     const { isUserAuthenticated, name, picture, allFavProductsList } = useStoreState(state => ({
         isUserAuthenticated: state.authReducer.cases.isUserAuthenticated,
-        name: state.userReducer.cases.currentUpdatedUser.name,
-        picture: state.userReducer.cases.currentUpdatedUser.picture,
+        name: state.userReducer.cases.currentUser.name,
+        picture: state.userReducer.cases.currentUser.picture,
         allFavProductsList: state.userReducer.cases.allFavProductsList
     }));
     const dispatch = useStoreDispatch();
@@ -110,7 +110,7 @@ export default function MenuLogin() {
                                 <p className="user-name-greeting badge badge-warning">
                                     {name
                                         ? `Olá, ${truncateWords(window.Helper.textCapi(name), 12)}`
-                                        : 'Olá, Visitante!'}
+                                        : 'Olá, ...'}
                                 </p>
                             </li>
                         </ul>
