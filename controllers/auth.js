@@ -60,7 +60,7 @@ exports.loadAuthUser = (req, res) => {
 }
 
 exports.register = async (req, res) => {
-    const { name, email, password } = req.body;
+    const { name, email, password, registeredBy } = req.body;
 
     // VALIDATION
     // Check if fields are filled
@@ -85,7 +85,8 @@ exports.register = async (req, res) => {
         const newUser = new User({
             name,
             email,
-            password
+            password,
+            registeredBy
         });
 
         // Create salt & hash

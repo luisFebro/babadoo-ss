@@ -104,7 +104,7 @@ export default function ModalRegister() {
             password
         };
         // Attempt to register NEED TO BE REFACTORED
-        registerEmail(newUser)(dispatch);
+        registerEmail(dispatch, newUser);
     };
 
     return (

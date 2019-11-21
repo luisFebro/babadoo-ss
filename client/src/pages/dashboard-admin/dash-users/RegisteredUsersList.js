@@ -12,17 +12,17 @@ export default function RegisteredUsersList() {
         allItemsInCart: 0
     });
 
-    const { updatedUsers, isLoading, gotError, errorMsg } = useStoreState(state => ({
-        updatedUsers: state.userReducer.cases.updatedUsers,
+    const { allUsers, isLoading, gotError, errorMsg } = useStoreState(state => ({
+        allUsers: state.userReducer.cases.allUsers,
         isLoading: state.globalReducer.cases.isLoading,
         gotError: state.globalReducer.cases.gotError,
         errorMsg: state.globalReducer.cases.errorMsg
     }));
 
-    const getTotals = updatedUsers => {
+    const getTotals = allUsers => {
         const fav = [0],
             cart = [0];
-        updatedUsers.forEach(user => {
+        allUsers.forEach(user => {
             fav.push(user.favoriteList.length);
             cart.push(user.inCartList.length);
         });
@@ -35,10 +35,10 @@ export default function RegisteredUsersList() {
     };
 
     useEffect(() => {
-        let tot = getTotals(updatedUsers);
-    }, [updatedUsers]);
+        let tot = getTotals(allUsers);
+    }, [allUsers]);
 
-    const registeredUserList = updatedUsers.map(user => <RegisteredUser key={user._id} data={user} />);
+    const registeredUserList = allUsers.map(user => <RegisteredUser key={user._id} data={user} />);
 
     return (
         <Fragment>
@@ -69,7 +69,7 @@ export default function RegisteredUsersList() {
                 </div>
                 <br />
                 <h2 className="text-sub-title text-left pl-5">
-                    Total de Usuários: <strong>{updatedUsers.length}</strong>
+                    Total de Usuários: <strong>{allUsers.length}</strong>
                 </h2>
             </div>
             {isLoading ? (

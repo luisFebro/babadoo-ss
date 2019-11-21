@@ -1,46 +1,46 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 // Redux
-import { useStoreDispatch } from 'easy-peasy';
+import { useStoreDispatch, useStoreState } from 'easy-peasy';
 import { showSnackbar } from '../../../../redux/actions/snackbarActions';
-import { loginEmail, registerEmail } from '../../../../redux/actions/authActions';
-import getDataObjDiffKeys from '../../../../utils/promises/getDataObjDiffKeys';
-import { fetchDataAsyncWithHooks } from '../../../../utils/promises/fetchDataAsyncWithHooks';
+import { loginEmail } from '../../../../redux/actions/authActions';
 // End Redux
+
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 export default function FacebookAuth() {
-    // Getting an Obj with an Array with all emails
-    const [data, setData] = useState({});
+    //REDUX
+    const { userList, userName } = useStoreState(state => ({
+        userList: state.userReducer.cases.allUsers,
+        userName: state.userReducer.cases.currentUser.name,
+    }))
     const dispatch = useStoreDispatch();
-    const emailAllRegisteredUsers = getDataObjDiffKeys(data, ['email']).email;
-    // End
-    // Getting data from database afte mounting
-    useEffect(() => {
-        fetchDataAsyncWithHooks('/api/user/list/all', setData);
-    }, []);
+    //END REDUX
+
+    const emailAllRegisteredUsers = userList.map(user => user.email);
 
     const responseFacebook = response => {
-        const isSocialOn = 'facebook';
         const userEmail = response.email;
         const isEmailAlreadyRegistered = emailAllRegisteredUsers.includes(userEmail);
         // Check if the user is already registed to either log in or Register
         if (isEmailAlreadyRegistered) {
             // Login
-            const newUser = {
+            const dataUser = {
                 email: userEmail,
                 password: process.env.REACT_APP_PASSWORD_AUTH_FACEBOOK
             };
 
-            loginEmail(newUser)(dispatch, isSocialOn);
-            showSnackbar(dispatch, `Olá de Volta! (:`);
+            loginEmail(dispatch, dataUser);
+            showSnackbar(dispatch, `Quase pronto...`);
+            setTimeout(() => showSnackbar(dispatch, `Conectado com sua conta Facebook`, 'success'), 3000);
         } else {
             // Register
             const newUser = {
                 name: response.givenName,
                 email: userEmail,
-                password: process.env.REACT_APP_PASSWORD_AUTH_FACEBOOK
+                password: process.env.REACT_APP_PASSWORD_AUTH_FACEBOOK,
+                registeredBy: 'facebook'
             };
 
-            registerEmail(newUser)(dispatch, isSocialOn);
+            // registerFacebook(dispatch, newUser);
             showSnackbar(dispatch, 'Conta Babadoo criada via Facebook!');
         }
 

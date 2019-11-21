@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import axios from 'axios';
 // Redux
 import { useStoreDispatch, useStoreState } from 'easy-peasy';
@@ -7,21 +7,18 @@ import { registerGoogle, loginEmail, registerEmail } from '../../../../redux/act
 // End Redux
 import GoogleLogin from 'react-google-login';
 import PropTypes from 'prop-types';
-import getDataObjDiffKeys from '../../../../utils/promises/getDataObjDiffKeys';
-import { fetchDataAsyncWithHooks } from '../../../../utils/promises/fetchDataAsyncWithHooks';
 // import parse from 'html-react-parser';
 
 export default function GoogleAuth() {
-    const [data, setData] = useState({});
     // REDUX
     const dispatch = useStoreDispatch();
-    const { productList } = useStore(state => ({
-        productList: state.productReducer.cases.allProductsList,
+    const { isUserAuthenticated, userList, userName } = useStoreState(state => ({
+        userList: state.userReducer.cases.allUsers,
+        userName: state.userReducer.cases.currentUser.name,
     }))
     // END REDUX
-    //Getting an Obj with an Array with all emails
-    const emailAllRegisteredUsers = getDataObjDiffKeys(data, ['email']).email;
-    // End
+
+    const emailAllRegisteredUsers = userList.map(user => user.email);
 
     const responseGoogle = response => {
         const userEmail = response.profileObj.email;
@@ -34,14 +31,16 @@ export default function GoogleAuth() {
                 password: process.env.REACT_APP_PASSWORD_AUTH_GOOGLE
             };
 
-            loginEmail(dispatch, dataUser);
-            showSnackbar(dispatch, `Olá de Volta!`);
+            loginEmail(dispatch, dataUser)
+            showSnackbar(dispatch, `Quase pronto...`);
+            setTimeout(() => showSnackbar(dispatch, `Conectado com sua conta Google`, 'success'), 3000);
         } else {
             // Register
             const newUser = {
                 name: response.profileObj.givenName,
                 email: userEmail,
-                password: process.env.REACT_APP_PASSWORD_AUTH_GOOGLE
+                password: process.env.REACT_APP_PASSWORD_AUTH_GOOGLE,
+                registeredBy: 'google'
             };
             registerGoogle(dispatch, newUser, response);
             showSnackbar(dispatch, 'Conta Babadoo criada via Google!');

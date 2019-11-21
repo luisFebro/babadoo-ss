@@ -40,8 +40,8 @@ const useStyles = makeStyles(theme => ({
 
 export default function RegisteredUser({ data }) {
     const animateRef = useRef(null);
-    let { updatedUsers, setAnimationTimer, userName } = useStoreState(state => ({
-        updatedUsers: state.userReducer.cases.updatedUsers,
+    let { allUsers, setAnimationTimer, userName } = useStoreState(state => ({
+        allUsers: state.userReducer.cases.allUsers,
         setAnimationTimer: state.animationReducer.cases.setAnimationTimer,
         userName: state.userReducer.cases.currentUser.name
     }));
@@ -101,7 +101,7 @@ export default function RegisteredUser({ data }) {
                                         }
                                     }
                                 };
-                                findAnItem(dispatch, updatedUsers, _id, attachedObj);
+                                findAnItem(dispatch, allUsers, _id, attachedObj);
                                 showModalTextField(dispatch);
                             }}
                         />
@@ -116,7 +116,7 @@ export default function RegisteredUser({ data }) {
                                     },
                                     mainSubject: 'Usuário'
                                 };
-                                findAnItem(dispatch, updatedUsers, _id, attachedObj);
+                                findAnItem(dispatch, allUsers, _id, attachedObj);
                                 showModalConfYesNo(dispatch);
                                 setTimeout(() => {
                                     const cssText = `

@@ -62,13 +62,13 @@ export default function ModalLogin() {
         }
     };
 
-    // If authenticated, close modal
+    // If authenticated, close modal and salute user
     useEffect(() => {
         if (isModalLoginOpen) {
             if (isUserAuthenticated) {
                 closeModal(dispatch);
                 setTimeout(() => {
-                    showSnackbar(dispatch, `Olá de volta, ${window.Helper.textCapi(name)}!`);
+                    showSnackbar(dispatch, `Olá de volta, ${window.Helper.textCapi(name)}!`, 'success');
                 }, 3000);
             }
         }

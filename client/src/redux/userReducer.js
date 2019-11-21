@@ -17,7 +17,7 @@ function checkCoupons(payload) {
 // REDUCERS
 const initialState = {
     currentUser: {},
-    updatedUsers: [],
+    allUsers: [],
     allFavProductsList: [],
     allMessagesList: [],
     allRegisteredUsersList: [],
@@ -30,7 +30,7 @@ export const userReducer = {
             case 'ALL_USERS_UPDATE':
                 return {
                     ...state,
-                    updatedUsers: action.payload,
+                    allUsers: action.payload,
                     allRegisteredUsersList: action.payload.map(data => data.name)
                 };
             case 'CURRENT_USER':
@@ -46,7 +46,7 @@ export const userReducer = {
             case 'USER_DELETED':
                 return {
                     ...state,
-                    updatedUsers: state.updatedUsers.filter(user => user._id !== action.payload)
+                    allUsers: state.allUsers.filter(user => user._id !== action.payload)
                 };
             // CUSTOMIZED DATA HANDLING from social network
             case 'USER_GOOGLE_DATA':

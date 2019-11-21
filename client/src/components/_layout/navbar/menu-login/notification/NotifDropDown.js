@@ -68,7 +68,7 @@ const BorderedBadge = withStyles(theme => ({
     }
 }))(Badge);
 
-const SendMsgToStoreBtn = (dispatch, updatedUsers, _idUser, userName) => {
+const SendMsgToStoreBtn = (dispatch, allUsers, _idUser, userName) => {
     // Lesson: Never declare hooks here because hooks are meant to be at the top of every function.
     // Instead, pass all required props from the parent component which onws the hooks already.
     // https://reactjs.org/docs/error-decoder.html/?invariant=300
@@ -101,7 +101,7 @@ const SendMsgToStoreBtn = (dispatch, updatedUsers, _idUser, userName) => {
                         }
                     }
                 };
-                findAnItem(dispatch, updatedUsers, _idUser, objToSend);
+                findAnItem(dispatch, allUsers, _idUser, objToSend);
                 showModalTextField(dispatch);
             }}
         ></ButtonYellow>
@@ -115,8 +115,8 @@ export default function NotifDropDown() {
 
     // Redux
     //> Set State
-    let {allMessagesList, updatedUsers, _idUser, userName} = useStoreState(state => ({
-        updatedUsers: state.userReducer.cases.updatedUsers,
+    let {allMessagesList, allUsers, _idUser, userName} = useStoreState(state => ({
+        allUsers: state.userReducer.cases.allUsers,
         allMessagesList: state.userReducer.cases.allMessagesList,
         _idUser: state.userReducer.cases.currentUser._id,
         userName: state.userReducer.cases.currentUser.name
@@ -138,7 +138,7 @@ export default function NotifDropDown() {
                     <section>
                         <div className="pb-3 text-center text-sub-container">Sem notificações</div>
                         <div>
-                            {userName !== 'admin' ? SendMsgToStoreBtn(dispatch, updatedUsers, _idUser, userName) : null}
+                            {userName !== 'admin' ? SendMsgToStoreBtn(dispatch, allUsers, _idUser, userName) : null}
                         </div>
                     </section>
                 ) : (
@@ -149,7 +149,7 @@ export default function NotifDropDown() {
                             <MessagesList data={allMessagesList} />
                         </div>
                         <div>
-                            {userName !== 'admin' ? SendMsgToStoreBtn(dispatch, updatedUsers, _idUser, userName) : null}
+                            {userName !== 'admin' ? SendMsgToStoreBtn(dispatch, allUsers, _idUser, userName) : null}
                         </div>
                     </section>
                 )}

@@ -43,24 +43,18 @@ export const loginEmail = async (dispatch, objToSend) => {
 
 // Register User
 // objToSend: { name, email, password }
-export const registerEmail = objToSend => (dispatch, isSocialOn = null) => {
+export const registerEmail = (dispatch, objToSend) => {
     // Request body
     const body = getBodyRequest(objToSend);
 
     axios
         .post('/api/auth/register', body, configTypeJson)
         .then(res => {
-            if (isSocialOn) {
-                if (isSocialOn === ('google' || 'facebook')) {
-                    return;
-                }
-            } else {
-                dispatch({
-                    type: 'REGISTER_EMAIL',
-                    payload: res.data.token
-                });
-                getAuthUser(dispatch, res.data.authUserId);
-            }
+            dispatch({
+                type: 'REGISTER_EMAIL',
+                payload: res.data.token
+            });
+            getAuthUser(dispatch, res.data.authUserId);
         })
         .catch(err => {
             setErrorOn(dispatch, err.response.data.msg);
@@ -70,7 +64,7 @@ export const registerEmail = objToSend => (dispatch, isSocialOn = null) => {
         });
 };
 
-// Register Google
+// Register Social Networks - note: login is done conditionally in the their auth component
 export const registerGoogle = (dispatch, body, resGoogle) => {
     axios.post('/api/auth/register', body, configTypeJson)
     .then(res => {
@@ -83,15 +77,25 @@ export const registerGoogle = (dispatch, body, resGoogle) => {
     })
 };
 
-// // Login/Register Google
-// export const authenticateFacebook = dispatch => {};
+export const registerFacebook = (dispatch, body, resFacebook) => {
+    axios.post('/api/auth/register', body, configTypeJson)
+    .then(res => {
+        dispatch({ type: 'LOGIN_FACEBOOK', payload: res.data.token })
+        dispatch({ type: 'USER_FACEBOOK_DATA', payload: resFacebook })
+        getAuthUser(dispatch, res.data.authUserId); // This will get the complementary data from user registered by social network
+    })
+    .catch(err => {
+        err.response && setErrorOn(dispatch, err.response.data.msg);
+    })
+};
+// Register Social Networks
 
 // Logout
 export const logout = dispatch => {
     dispatch({ type: 'LOGOUT_SUCCESS' });
     dispatch({ type: 'CLEAR_CURRENT_USER' });
     setErrorOff(dispatch);
-    setTimeout(() => showSnackbar(dispatch, 'Sua sessão foi finalizada com sucesso.', 3000), 2000);
+    setTimeout(() => showSnackbar(dispatch, 'Sua sessão foi finalizada. Até mais!', 3000), 2000);
 };
 
 // Setup config/headers and token

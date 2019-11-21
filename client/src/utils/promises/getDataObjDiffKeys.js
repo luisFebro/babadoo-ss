@@ -1,4 +1,4 @@
-// return an obj for objects with different keys especially API like mongoDB.
+// depracated - NOT USED replaced by userList.map(user => user.email);// return an obj for objects with different keys especially API like mongoDB.
 // Pass all subkeys inside an array for the second argument.
 export default function getDataObjDiffKeys(response, arrayOfSubKeys) {
     const objLength = Object.keys(response).length;

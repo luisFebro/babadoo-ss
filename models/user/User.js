@@ -56,6 +56,10 @@ const data = {
         type: Array,
         default: []
     },
+    registeredBy: {
+        type: String,
+        default: 'email',
+    },
     registerDate: {
         type: String,
         default: brTime

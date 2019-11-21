@@ -20,7 +20,6 @@ export const authReducer = {
                 };
             case 'LOGIN_EMAIL':
             case 'REGISTER_EMAIL':
-                console.log("token reducer", action.payload)
                 localStorage.setItem('token', action.payload);
                 return {
                     ...state,
