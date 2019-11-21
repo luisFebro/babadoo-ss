@@ -3,7 +3,7 @@ import axios from 'axios';
 // Redux
 import { useStoreDispatch } from 'easy-peasy';
 import { showSnackbar } from '../../../../redux/actions/snackbarActions';
-import { loginEmail, registerEmail } from '../../../../redux/actions/authActions';
+import { registerGoogle, loginEmail, registerEmail } from '../../../../redux/actions/authActions';
 // End Redux
 import GoogleLogin from 'react-google-login';
 import PropTypes from 'prop-types';
@@ -19,7 +19,7 @@ export default function GoogleAuth() {
     // End
     // Getting data from database after rendering
     useEffect(() => {
-        fetchDataAsyncWithHooks('api/users/list', setData);
+        fetchDataAsyncWithHooks('/api/user/list/all', setData);
     }, []);
 
     const responseGoogle = response => {
@@ -43,12 +43,9 @@ export default function GoogleAuth() {
                 email: userEmail,
                 password: process.env.REACT_APP_PASSWORD_AUTH_GOOGLE
             };
-            registerEmail(newUser)(dispatch, isSocialOn);
+            registerGoogle(dispatch, newUser, response);
             showSnackbar(dispatch, 'Conta Babadoo criada via Google!');
         }
-
-        //Authenticate User
-        dispatch({ type: 'LOGIN_GOOGLE', payload: response });
     };
 
     return (

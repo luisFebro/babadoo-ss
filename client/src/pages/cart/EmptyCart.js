@@ -8,7 +8,7 @@ import EmptyContent from '../../components/EmptyContent';
 import { HashLink } from 'react-router-hash-link';
 
 export default function EmptyCart() {
-    const name = useStoreState(state => state.authReducer.cases.user.name);
+    const name = useStoreState(state => state.userReducer.cases.currentUpdatedUser.name);
 
     return (
         <div className="text-center">

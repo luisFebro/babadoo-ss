@@ -15,7 +15,7 @@ export default function FacebookAuth() {
     // End
     // Getting data from database afte mounting
     useEffect(() => {
-        fetchDataAsyncWithHooks('api/users/list', setData);
+        fetchDataAsyncWithHooks('/api/user/list/all', setData);
     }, []);
 
     const responseFacebook = response => {

@@ -58,8 +58,8 @@ export default function App() {
     useEffect(() => {
         readAdmin(dispatch);
         getUpdatedUsers(dispatch);
+        dispatch(loadUser(dispatch));
         // CODE NOT WORKING n1
-        dispatch(loadUser());
     }, []);
     // This is running before rendering because if not, some variable will return undeflined and crash app
     // dispatch(loadUser());

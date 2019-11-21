@@ -1,23 +1,24 @@
-// NOT USED
+/////////////////////////////////////////////////////////////////////////////
+// NOTE: THIS MIDDLE DOES NOT WORK this validator requires app.use(expressValidator()) in the server //
+// const { check, validationResults } = require('express-validator');      //
+/////////////////////////////////////////////////////////////////////////////
 exports.mwValidateUserRegister = (req, res, next) => {
-    req.check("name", "É preciso um nome").notEmpty();
-    req.check("email", "Email deve ter de 4 a 32 characteres")
-        .matches(/.+\@.+\..+/)
-        .withMessage("Email deve conter @")
+    check("name", "É preciso um nome")
+    check("email", "Email deve ter de 4 a 32 characteres")
+
         .isLength({
             min: 4,
             max: 32
         });
-    req.check("password", "A senha é obrigatória").notEmpty();
-    req.check("password")
+    check("password", "A senha é obrigatória")
+    check("password")
         .isLength({ min: 6 })
         .withMessage("A senha dever conter pelo menos 6 characteres")
         .matches(/\d/)
         .withMessage("A senha deve conter, pelo menos, um número.");
-    const errors = req.validationErrors();
-    if (errors) {
-        const firstError = errors.map(error => error.msg)[0];
-        return res.status(400).json({ msg: firstError });
+    const errors = req.validationResults();
+    if (!errors.isEmpty()) {
+        return res.status(422).json({ msg: errors.array() });
     }
     next();
 };

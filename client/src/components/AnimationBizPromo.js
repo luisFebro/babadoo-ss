@@ -13,7 +13,7 @@ export default function AnimationBizPromo() {
 
     const {isAuthenticated, name, gotCoupons, isFirstBuyCouponOn} = useStoreState(state => ({
         isAuthenticated: state.authReducer.cases.isUserAuthenticated,
-        name: state.authReducer.cases.user.name,
+        name: state.userReducer.cases.currentUpdatedUser.name,
         gotCoupons: state.userReducer.cases.gotCoupons,
         isFirstBuyCouponOn: state.adminReducer.cases.isFirstBuyCouponOn
     }));

@@ -13,10 +13,10 @@ export const fetchDataAsyncWithHooks = async (urlOrRoute, setData) => {
 };
 
 // Prior code used in Google Auth.
-// fetchDataAsyncWithHooks('api/users/list', setData);
+// fetchDataAsyncWithHooks('api/user/list', setData);
 // const fetchData = async () => {
 //     try {
-//         const response = await axios.get('api/users/list');
+//         const response = await axios.get('api/user/list/all');
 //         setData(response.data);
 //         // statements
 //     } catch(e) {

@@ -14,6 +14,6 @@ export default function getItem(urlOrRoute) {
 // Alternative
 //fetchUsers(data)
 // const fetchUsers = async () => {
-//     const response = await axios.get('api/users/list');
+//     const response = await axios.get('api/user/list/all');
 //     setData(response.data);
 // };

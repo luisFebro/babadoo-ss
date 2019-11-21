@@ -19,7 +19,7 @@ Favorites.propTypes = {
 
 export default function Favorites() {
     const { name, allFavProductsList, isLoading } = useStoreState(state => ({
-        name: state.authReducer.cases.user.name,
+        name: state.userReducer.cases.currentUpdatedUser.name,
         allFavProductsList: state.userReducer.cases.allFavProductsList,
         isLoading: state.globalReducer.cases.isLoading
     }));

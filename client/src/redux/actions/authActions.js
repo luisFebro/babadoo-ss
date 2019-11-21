@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { updateCurrentUser } from './userActions';
+import { getAuthUser } from './userActions';
 import { setErrorOn, setErrorOff } from './globalActions';
 import { showSnackbar } from './snackbarActions';
 import { getBodyRequest } from '../../utils/server/getBodyRequest';
@@ -9,65 +9,25 @@ import { configTypeJson } from '../../utils/server/configTypeJson';
 
 // Check token & load user
 export const loadUser = () => (dispatch, getState) => {
-    // User loading
-    dispatch({ type: 'USER_LOADING' });
-
-    const getAuthUser = () => {
-        console.log('==USER LOADING==');
-        return axios.get('/api/auth/user', tokenConfig(getState));
-    };
-
-    const getUpdatedUsers = () => {
-        return axios.get('/api/user/list', configTypeJson);
-    };
-
-    axios
-        .all([getAuthUser(), getUpdatedUsers()])
-        .then(
-            axios.spread((auth, products, users) => {
-                // Both requests are now complete
-                dispatch({
-                    type: 'USER_LOADED',
-                    payload: auth.data
-                });
-                dispatch({
-                    type: 'USER_CURRENT_UPDATED',
-                    payload: auth.data
-                });
-                dispatch({
-                    type: 'ALL_USERS_UPDATE',
-                    payload: users.data
-                });
-            })
-        )
-        .catch(err => {
-            if (typeof err.response !== 'undefined') {
-                setErrorOn(dispatch, err.response.data.msg);
-            }
-            // dispatch({
-            //   type: 'AUTH_ERROR'
-            // });
-        });
+    // dispatch({ type: 'USER_LOADING' });
+    console.log('==USER LOADING==');
+    const tokenConf = tokenConfig(getState);
+    console.log("tokenConf", tokenConf);
+    axios.get('/api/auth/user', tokenConf)
+    .then(res => {
+        console.log('RESPONSE LAODER USER', res.data);
+       // from user reducer
+        dispatch({ type: 'AUTHENTICATE_USER' });
+        dispatch({ type: 'USER_CURRENT_UPDATED', payload: res.data.profile });
+        // getAuthUser(dispatch, res.data.profile);
+    })
+    .catch(err => {
+        err.response && setErrorOn(dispatch, err.response.data.msg);
+        // dispatch({
+        //   type: 'AUTH_ERROR'
+        // });
+    });
 };
-//This structure does not work at all. gives errors
-// export const loadUser = () => (dispatch, getState) => {
-//     try {
-//         // User loading
-//         dispatch({ type: 'USER_LOADING' });
-//         console.log("==USER LOADING==");
-//         const res = axios.get('/api/auth/user', tokenConfig(getState));
-//         dispatch({
-//             type: 'USER_LOADED',
-//             payload: res.data
-//         })
-//         dispatch({
-//             type: 'USER_CURRENT_UPDATED',
-//             payload: res.data
-//         })
-//     } catch(err) {
-//         console.log(err);
-//     }
-// }
 
 // login Email
 // loginEMail with Async/Await
@@ -87,7 +47,7 @@ export const loginEmail = objToSend => async (dispatch, isSocialOn = false) => {
                 payload: res.data
             });
             console.log('==Login: Updating current user==');
-            updateCurrentUser(dispatch, res.data.user.id);
+            getAuthUser(dispatch, res.data.authUserId);
         }
     } catch (err) {
         setErrorOn(dispatch, err.response.data.msg);
@@ -114,10 +74,10 @@ export const registerEmail = objToSend => (dispatch, isSocialOn = null) => {
             } else {
                 dispatch({
                     type: 'REGISTER_SUCCESS',
-                    payload: res.data // This will be replaced with userReducer
+                    payload: res.data
                 });
                 console.log('==Register: Updating current user==');
-                updateCurrentUser(dispatch, res.data.user.id);
+                getAuthUser(dispatch, res.data.authUserId);
             }
         })
         .catch(err => {
@@ -128,11 +88,21 @@ export const registerEmail = objToSend => (dispatch, isSocialOn = null) => {
         });
 };
 
-// Login/Register Google
-export const authenticateGoogle = dispatch => {};
+// Register Google
+export const registerGoogle = (dispatch, body, resGoogle) => {
+    axios.post('/api/auth/register', body, configTypeJson)
+    .then(res => {
+        dispatch({ type: 'LOGIN_GOOGLE', payload: res.data.token })
+        dispatch({ type: 'USER_GOOGLE_DATA', payload: resGoogle })
+        getAuthUser(dispatch, res.data.authUserId);
+    })
+    .catch(err => {
+        err.response && setErrorOn(dispatch, err.response.data.msg);
+    })
+};
 
-// Login/Register Google
-export const authenticateFacebook = dispatch => {};
+// // Login/Register Google
+// export const authenticateFacebook = dispatch => {};
 
 // Logout
 export const logout = dispatch => {

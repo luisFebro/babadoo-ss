@@ -25,9 +25,20 @@ export const getUpdatedUsers = async dispatch => {
 };
 
 // update user for a real-time database fetching
+// This will be replaced by getAuthUser since we use "new: true" to get a real-time response from DB
 export const updateCurrentUser = async (dispatch, _userId) => {
     const res = await axios.get(`/api/user/${_userId}`, configTypeJson);
     console.log('===CURRENT USER UPDATED===');
+    dispatch({
+        type: 'USER_CURRENT_UPDATED',
+        payload: res.data
+    });
+};
+
+// the same as updateCurrentUser which will be replaced
+export const getAuthUser = async (dispatch, _userId) => {
+    const res = await axios.get(`/api/user/${_userId}`, configTypeJson);
+    console.log('===AUTH USER LOADED===');
     dispatch({
         type: 'USER_CURRENT_UPDATED',
         payload: res.data
@@ -55,7 +66,7 @@ export const sendNotification = async (dispatch, objToSend, _idClient) => {
 
     const body = getBodyRequest(objToSend);
     try {
-        const res = await axios.put(`api/users/lists/change-field/notifications/${_idClient}`, body, configTypeJson);
+        const res = await axios.put(`/api/user/lists/change-field/notifications/${_idClient}`, body, configTypeJson);
         console.log('res from user Action', res);
         getUpdatedUsers(dispatch);
         // change name form 'admin'to Loja Babadoo (this is how gonna be displayed to the user)
@@ -71,7 +82,7 @@ export const sendNotification = async (dispatch, objToSend, _idClient) => {
 export const changeFieldUser = async (dispatch, objToSend, _idUser) => {
     const body = getBodyRequest(objToSend);
     try {
-        const res = await axios.put(`api/users/lists/change-field/${_idUser}`, body, configTypeJson);
+        const res = await axios.put(`/api/user/lists/change-field/${_idUser}`, body, configTypeJson);
         dispatch({ type: 'USER_CURRENT_UPDATED', payload: res.data });
         updateCurrentUser(dispatch, _idUser);
     } catch (e) {
@@ -83,7 +94,7 @@ export const changeFieldUser = async (dispatch, objToSend, _idUser) => {
 export const addFieldUser = async (dispatch, objToSend, _idUser) => {
     const body = getBodyRequest(objToSend);
     try {
-        const res = await axios.post(`api/users/lists/add-field-array/${_idUser}`, body, configTypeJson);
+        const res = await axios.post(`/api/user/lists/add-field-array/${_idUser}`, body, configTypeJson);
         console.log('USER_CURRENT_UPDATED from addFieldUser', res.data);
         dispatch({ type: 'USER_CURRENT_UPDATED', payload: res.data });
         updateCurrentUser(dispatch, _idUser);
@@ -96,7 +107,7 @@ export const addFieldUser = async (dispatch, objToSend, _idUser) => {
 export const deleteFieldUser = async (dispatch, objToSend, _idUser) => {
     const body = getBodyRequest(objToSend);
     try {
-        const res = await axios.put(`api/users/lists/delete-field-array/${_idUser}`, body, configTypeJson);
+        const res = await axios.put(`/api/user/lists/delete-field-array/${_idUser}`, body, configTypeJson);
         dispatch({ type: 'USER_CURRENT_UPDATED', payload: res.data });
         console.log('===FIELD DELETED===');
         updateCurrentUser(dispatch, _idUser);

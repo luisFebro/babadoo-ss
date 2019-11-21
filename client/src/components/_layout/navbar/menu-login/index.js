@@ -37,8 +37,8 @@ export default function MenuLogin() {
     // Redux
     const { isUserAuthenticated, name, picture, allFavProductsList } = useStoreState(state => ({
         isUserAuthenticated: state.authReducer.cases.isUserAuthenticated,
-        name: state.authReducer.cases.user.name,
-        picture: state.authReducer.cases.user.picture,
+        name: state.userReducer.cases.currentUpdatedUser.name,
+        picture: state.userReducer.cases.currentUpdatedUser.picture,
         allFavProductsList: state.userReducer.cases.allFavProductsList
     }));
     const dispatch = useStoreDispatch();
