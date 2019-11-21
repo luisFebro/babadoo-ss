@@ -10,9 +10,9 @@ export const readAdmin = async dispatch => {
     try {
         // setLoadingOn(dispatch);
         const res = await axios.get('/api/admin', configTypeJson);
-        console.log('==ADMIN DATA UPDATED==');
+        console.log('==ADMIN DATA LOADED==');
         dispatch({
-            type: 'READ_ADMIN',
+            type: 'LOAD_ADMIN',
             payload: res.data
         });
         // setLoadingOff(dispatch);

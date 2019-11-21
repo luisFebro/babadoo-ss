@@ -11,7 +11,7 @@ const initialState = {
 export const adminReducer = {
     cases: reducer((state = initialState, action) => {
         switch (action.type) {
-            case 'READ_ADMIN':
+            case 'LOAD_ADMIN':
                 return {
                     ...state,
                     allData: action.payload
