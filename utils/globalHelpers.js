@@ -1,9 +1,6 @@
-import React from 'react';
-import isRealObj from './isRealObj';
-
-// GLOBAL PROTOTYPE METHODS n1
-// Typography
+// This is global and this method can be used everywhere without import it
 // Need to be function syntax, otherwise this will return undefined.
+// capitalize words in a string, accepts spaces, ref: https://stackoverflow.com/questions/2332811/capitalize-words-in-string
 let brPreps = ["pela", "via", "por", "com", "no", "na", "da", "do", "das", "dos", "a", "e", "de", "de"];
 String.prototype.cap = function() {
     let capitalized = this.replace(/(?:^|\s)\S/g, a => a.toUpperCase());
@@ -16,16 +13,17 @@ String.prototype.cap = function() {
     }).join(' ');
 
     return readyString;
-};
-// END GLOBAL PROTOTYPE METHODS
+}; //n1
 
 
-// These functions will be available in any part of the app because they can be useful for any component
-window.Helper = {};
-window.Helper.isRealObj = isRealObj;
 
 
 /* COMMENTS
-n1: These methods are global and they can be used everywhere without import it
-prior: window.Helper.textCapi = textCapi;
+n1: prior version
+function textCapi(text) {
+    if(text) {
+        text = text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+    }
+    return text;
+}
 */

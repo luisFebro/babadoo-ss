@@ -24,7 +24,7 @@ export default function FirstBuyDiscount() {
 
     // Redux
     let { bizInfo } = useStoreState(state => ({
-        bizInfo: state.adminReducer.cases.allData.businessInfo
+        bizInfo: state.adminReducer.cases.businessInfo
     }));
 
     const { isActivated } = bizInfo.bizPromotions.coupons.firstOrder;

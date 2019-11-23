@@ -1,6 +1,7 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import styled from 'styled-components';
 import { Redirect } from 'react-router-dom';
+import clearForm from '../../utils/form/clearForm';
 import { showSnackbar } from '../../redux/actions/snackbarActions';
 import { sendBuyRequestEmail } from '../../redux/actions/emailActions';
 import { setErrorOff } from '../../redux/actions/globalActions';
@@ -19,19 +20,12 @@ export default function FormCheckoutLocal() {
     const { name, phone, address, additional, itemDescription, totalPay } = values;
 
     // REDUX
-    const { bizInfo, errorMsg } = useStoreState(state => ({
-        bizInfo: state.adminReducer.cases.allData.businessInfo,
-        errorMsg: state.globalReducer.cases.errorMsg
+    const { bizInfo } = useStoreState(state => ({
+        bizInfo: state.adminReducer.cases.businessInfo,
     }));
     const dispatch = useStoreDispatch();
 
-    // This component is running before fetching bizInfo, that's why this condition until further info
-    let bizName = "", bizWebsite = "", bizEmail = "";
-    if (bizInfo) {
-        bizName = bizInfo.bizName;
-        bizWebsite = bizInfo.bizName;
-        bizEmail = bizInfo.bizEmail;
-    }
+    const { bizWebsite, bizName, bizEmail } = bizInfo;
     // END REDUX
 
     useEffect(() => {
@@ -57,33 +51,20 @@ export default function FormCheckoutLocal() {
             bizEmail
         };
 
-        sendBuyRequestEmail(dispatch, bodyData).then(res => {
-            if (!res) {
-                if (errorMsg) {
-                    showSnackbar(dispatch, errorMsg, 'error');
-                    return;
-                }
-            } else {
-                resetForm();
-                showSnackbar(dispatch, res.data.msg, 'success', 4000);
-                setErrorOff(dispatch);
-                setTimeout(() => setRedirect(true), 5000);
-            }
-        });
+        sendBuyRequestEmail(dispatch, bodyData)
+        .then(res => {
+            if(res.status !== 200) return showSnackbar(dispatch, res.data.msg, 'error');
+            clearForm(values, setValues);
+            showSnackbar(dispatch, res.data.msg, 'success', 4000);
+            setErrorOff(dispatch);
+            setTimeout(() => setRedirect(true), 5000);
+        })
     };
 
     const setInfoProducts = () => {
         const items = document.getElementById('items').innerHTML;
         const totalPay = document.getElementById('total').innerHTML;
         setValues({ itemDescription: items, totalPay: totalPay });
-    };
-
-    const resetForm = () => {
-        const tempValues = values;
-        for (let key in tempValues) {
-            tempValues[key] = '';
-        }
-        setValues(tempValues);
     };
 
     const needRedirect = redirect => {

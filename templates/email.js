@@ -1,9 +1,6 @@
-const textCapi = require('../utils/textCapi');
-
-
 exports.getWelcomeAndConfirmTemplate = reqBody => {
     const { name, bizName, bizWebsite, bizWhatsapp } = reqBody;
-    const client = textCapi(name);
+    const client = name.cap();
     return({
         subject: `${client}, confirme a sua conta da ${bizName}`,
         html: `
@@ -31,7 +28,7 @@ exports.getWelcomeAndConfirmTemplate = reqBody => {
 
 exports.getBuyRequestTemplate = reqBody => {
     const {bizName, bizWebsite, name, phone, address, additional, itemDescription, totalPay } = reqBody;
-    const client = textCapi(name);
+    const client = name.cap();
     return ({
         subject: `Opa! Novo Pedido de ${client}`,
         html: `

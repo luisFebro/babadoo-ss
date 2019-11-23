@@ -54,15 +54,14 @@ export default function App() {
     // }));
 
     const dispatch = useStoreDispatch();
+    readAdmin(dispatch);
 
     useEffect(() => {
-        readAdmin(dispatch);
         getUpdatedUsers(dispatch);
         dispatch(loadUser(dispatch));
         // CODE NOT WORKING n1
     }, []);
-    // This is running before rendering because if not, some variable will return undeflined and crash app
-    // dispatch(loadUser());
+
     return (
         <BrowserRouter>
             <ScrollToTop>

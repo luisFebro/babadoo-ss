@@ -19,25 +19,29 @@ export default function GoogleAuth() {
 
     const emailAllRegisteredUsers = userList.map(user => user.email);
 
-    const responseGoogle = response => {
-        const userEmail = response.profileObj.email;
-        const isEmailAlreadyRegistered = emailAllRegisteredUsers.includes(userEmail);
+    const handleSuccessGoogle = response => {
+        const { email, givenName, familyName } = response.profileObj;
+        const isEmailAlreadyRegistered = emailAllRegisteredUsers.includes(email);
         // Check if the user is already registed to either log in or Register
         if (isEmailAlreadyRegistered) {
             // Login
             const dataUser = {
-                email: userEmail,
+                email,
                 password: process.env.REACT_APP_PASSWORD_AUTH_GOOGLE
             };
 
+            showSnackbar(dispatch, `Quase Pronto...`, 'success');
             loginEmail(dispatch, dataUser)
-            showSnackbar(dispatch, `Quase pronto...`);
-            setTimeout(() => showSnackbar(dispatch, `Conectado com sua conta Google`, 'success'), 3000);
+            .then(res => {
+                if(res.status !== 200) return showSnackbar(dispatch, res.data.msg, 'error');
+                showSnackbar(dispatch, `Conectado com sua conta Google`, 'success');
+                setTimeout(() => showSnackbar(dispatch, res.data.msg, 'success', 4000), 3000);
+            })
         } else {
             // Register
             const newUser = {
-                name: response.profileObj.givenName,
-                email: userEmail,
+                name: `${givenName} ${familyName}`,
+                email,
                 password: process.env.REACT_APP_PASSWORD_AUTH_GOOGLE,
                 registeredBy: 'google'
             };
@@ -45,6 +49,10 @@ export default function GoogleAuth() {
             showSnackbar(dispatch, 'Conta Babadoo criada via Google!');
         }
     };
+
+    const handleErrorGoogle = () => {
+        showSnackbar(dispatch, 'Não foi possível conectar com o Google. Tente novamente.', 'error', 5000);
+    }
 
     return (
         <GoogleLogin
@@ -62,8 +70,8 @@ export default function GoogleAuth() {
                     </span>
                 </button>
             )}
-            onSuccess={responseGoogle}
-            onFailure={responseGoogle}
+            onSuccess={handleSuccessGoogle}
+            onFailure={handleErrorGoogle}
             cookiePolicy={'single_host_origin'}
         />
     );

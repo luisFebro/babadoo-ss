@@ -26,42 +26,33 @@ export const loadUser = () => (dispatch, getState) => {
 // login Email
 // loginEMail with Async/Await
 export const loginEmail = async (dispatch, objToSend) => {
-    // Request body
-    const body = getBodyRequest(objToSend);
-
     try {
-        const res = await axios.post('/api/auth/login', body, configTypeJson);
+        const res = await axios.post('/api/auth/login', objToSend, configTypeJson);
         dispatch({ type: 'LOGIN_EMAIL', payload: res.data.token });
         getAuthUser(dispatch, res.data.authUserId);
+        return res;
     } catch (err) {
-        setErrorOn(dispatch, err.response.data.msg);
         dispatch({
             type: 'LOGIN_ERROR'
         });
+        return err.response;
     }
 };
 
 // Register User
-// objToSend: { name, email, password }
-export const registerEmail = (dispatch, objToSend) => {
-    // Request body
-    const body = getBodyRequest(objToSend);
-
-    axios
-        .post('/api/auth/register', body, configTypeJson)
-        .then(res => {
-            dispatch({
-                type: 'REGISTER_EMAIL',
-                payload: res.data.token
-            });
-            getAuthUser(dispatch, res.data.authUserId);
-        })
-        .catch(err => {
-            setErrorOn(dispatch, err.response.data.msg);
-            dispatch({
-                type: 'REGISTER_ERROR'
-            });
+// objToSend: { name, email, password, registeredBy = email }
+export const registerEmail = async (dispatch, objToSend) => {
+    try {
+        const res = await axios.post('/api/auth/register', objToSend, configTypeJson);
+        dispatch({ type: 'REGISTER_EMAIL', payload: res.data.token });
+        getAuthUser(dispatch, res.data.authUserId);
+        return res;
+    } catch(err) {
+        dispatch({
+            type: 'REGISTER_ERROR'
         });
+        return err.response;
+    }
 };
 
 // Register Social Networks - note: login is done conditionally in the their auth component
@@ -95,7 +86,7 @@ export const logout = dispatch => {
     dispatch({ type: 'LOGOUT_SUCCESS' });
     dispatch({ type: 'CLEAR_CURRENT_USER' });
     setErrorOff(dispatch);
-    setTimeout(() => showSnackbar(dispatch, 'Sua sessão foi finalizada. Até mais!', 3000), 2000);
+    setTimeout(() => showSnackbar(dispatch, 'Sua sessão foi finalizada. Volte Sempre!', 3000), 2000);
 };
 
 // Setup config/headers and token

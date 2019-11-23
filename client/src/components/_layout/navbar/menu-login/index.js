@@ -109,7 +109,7 @@ export default function MenuLogin() {
                                 </Link>
                                 <p className="user-name-greeting badge badge-warning">
                                     {name
-                                        ? `Olá, ${truncateWords(window.Helper.textCapi(name), 12)}`
+                                        ? `Olá, ${truncateWords(name.cap(), 12)}`
                                         : 'Olá, ...'}
                                 </p>
                             </li>

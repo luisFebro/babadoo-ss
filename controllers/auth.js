@@ -2,20 +2,24 @@ const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const validateEmail = require('../utils/validation/validateEmail');
-
+const validatePassword = require('../utils/validation/validatePassword');
 // MESSAGES
-// MESSAGES
-const ok = {}
+const ok = {
+    successRegister: "Cadastro Realizado com Sucesso via Email!",
+}
 const error = {
     jwtNotFound: "JWT token não foi encontrado",
     notAuthorized: "Você não está autorizado para executar esta ação",
     notFound: "Sem registro. O usuário não foi encontrado",
-    allFieldsRequired: 'Por favor, insira todos os campos',
+    nameFieldRequired: 'Por favor, insira o seu nome',
+    emailFieldRequired: 'Por favor, insira o seu email',
+    passwordFieldRequired: 'Por favor, insira uma senha',
     invalidEmail: "Email Inválido. Tente outro.",
     invalidCredentials: "Credenciais Inválidas",
     userAlreadyRegistered: 'Esse Nome de usuário já foi registrado. Tente um outro.',
     emailAlreadyRegistered: 'Esse Email já foi registrado. Tente um outro.',
     notEnoughCharacters: 'Sua senha deve conter pelo menos 6 dígitos',
+    noDigitFound: 'Sua senha deve conter pelo menos um dígito',
     systemError: "Ocorreu o seguinte erro: "
 }
 const msg = (text, systemError = "") => ({ msg: text + systemError });
@@ -61,26 +65,22 @@ exports.loadAuthUser = (req, res) => {
 
 exports.register = async (req, res) => {
     const { name, email, password, registeredBy } = req.body;
-
-    // VALIDATION
-    // Check if fields are filled
-    if(!name || !email || !password) return res.status(400).json(msg(error.allFieldsRequired));
-    // Check if the email is valid
-    if(!validateEmail(email)) return res.status(400).json(msg(error.invalidEmail)) // Check the length of password
-    if(password.length < 6) {
-        return res.status(400).json(msg(error.notEnoughCharacters))
-    }
-    // END VALIDATION
-
     try {
         // Check Register for existing user for either already registered email or name.
         const user = await User.findOne({ $or: [{ email }, { name }] })
+        // VALIDATION
         // Check if these email/name were already registered, if so indicate which case already was registered.
-        if(user) {
-            if(user.name === name) return res.status(400).json(msg(error.userAlreadyRegistered));
-            if(user.email === email) return res.status(400).json(msg(error.emailAlreadyRegistered));
-            return res.status(400).json(msg(error.allFieldsRequired));
-        }
+        if(user && user.name === name) return res.status(400).json(msg(error.userAlreadyRegistered));
+        if(user && user.email === email) return res.status(400).json(msg(error.emailAlreadyRegistered));
+        // Check if fields are filled
+        if(!name) return res.status(400).json(msg(error.nameFieldRequired));
+        if(!email) return res.status(400).json(msg(error.emailFieldRequired));
+        if(!password) return res.status(400).json(msg(error.passwordFieldRequired));
+        // Checking email
+        if(!validateEmail(email)) return res.status(400).json(msg(error.invalidEmail)) // Check the length of password
+        if(password.length < 6) return res.status(400).json(msg(error.notEnoughCharacters))
+        if(!validatePassword(password)) return res.status(400).json(msg(error.noDigitFound))
+        // END VALIDATION
 
         const newUser = new User({
             name,
@@ -95,16 +95,19 @@ exports.register = async (req, res) => {
                 if(err) throw err;
                 newUser.password = hash;
                 newUser.save()
-                    .then(user => {
-                        jwt.sign({ id: user._id },
-                            process.env.JWT_SECRET, { expiresIn: '7d' }, //7 days - "expiresIn" should be a number of seconds or string that repesents a timespan eg: "1d", "20h",
-                            (err, token) => {
-                                if(err) throw err;
-                                const { _id } = user
-                                res.json({ token, authUserId: _id });
-                            }
-                        )
-                    });
+                .then(user => {
+                    jwt.sign({ id: user._id },
+                        process.env.JWT_SECRET, { expiresIn: '7d' }, //7 days - "expiresIn" should be a number of seconds or string that repesents a timespan eg: "1d", "20h",
+                        (err, token) => {
+                            if(err) throw err;
+                            const { _id } = user
+                            res.json({
+                                token,
+                                authUserId: _id,
+                                msg: ok.successRegister });
+                        }
+                    )
+                });
             })
         })
     } catch (err) {
@@ -114,31 +117,35 @@ exports.register = async (req, res) => {
 
 exports.login = (req, res) => {
     const { email, name, password } = req.body;
-    // Simple validation
-    if(!email || !password) {
-        return res.status(400).json(msg(error.allFieldsRequired));
-    }
 
     // Check Login for existing user by Name or Email
     User.findOne({ $or: [{ name }, { email }] })
         .then(user => {
             const { _id } = user;
+            // VALIDATION
             //user returns the whole obj of the user, otherwise "null"
             if(!user) return res.status(400).json(msg(error.notFound));
+            if(!email) return res.status(400).json(msg(error.emailFieldRequired));
+            if(!password) return res.status(400).json(msg(error.passwordFieldRequired));
 
             // Validate password
             bcrypt.compare(password, user.password)
-                .then(isMatch => {
-                    if(!isMatch) return res.status(400).json(msg(error.invalidCredentials));
+            .then(isMatch => {
+                if(!isMatch) return res.status(400).json(msg(error.invalidCredentials));
+                //END VALIDATION
 
-                    jwt.sign({ id: _id },
-                        process.env.JWT_SECRET, { expiresIn: '7d' }, //7 days - "expiresIn" should be a number of seconds or string that repesents a timespan eg: "1d", "20h",
-                        (err, token) => {
-                            if(err) throw err;
-                            res.json({ token, authUserId: _id });
-                        }
-                    )
-                })
+                jwt.sign({ id: _id },
+                    process.env.JWT_SECRET, { expiresIn: '7d' }, //7 days - "expiresIn" should be a number of seconds or string that repesents a timespan eg: "1d", "20h",
+                    (err, token) => {
+                        if(err) throw err;
+                        res.json({
+                            token,
+                            authUserId: _id,
+                            msg: `Olá de volta ${user.name.cap()}`
+                        });
+                    }
+                )
+            })
         })
 }
 

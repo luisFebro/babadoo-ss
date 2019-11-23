@@ -3,7 +3,7 @@ import updateKey from './helpers/updateKey';
 
 // REDUCERS
 const initialState = {
-    refBusinessInfo: {},
+    businessInfo: {},
 };
 
 export const adminReducer = {
@@ -12,10 +12,12 @@ export const adminReducer = {
             case 'LOAD_ADMIN':
                 return {
                     ...state,
-                    refBusinessInfo: action.payload.businessInfo
+                    businessInfo: action.payload.businessInfo
                 }
             case 'UPDATE_BIZ_INFO':
-                updateKey(state.allData.businessInfo, action.payload);
+                const obj = state.businessInfo;
+                const objWithValueToUpdate = action.payload;
+                updateKey(obj, objWithValueToUpdate);
                 return {
                     ...state,
                 }

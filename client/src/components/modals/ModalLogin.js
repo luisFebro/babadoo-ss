@@ -67,9 +67,6 @@ export default function ModalLogin() {
         if (isModalLoginOpen) {
             if (isUserAuthenticated) {
                 closeModal(dispatch);
-                setTimeout(() => {
-                    showSnackbar(dispatch, `Olá de volta, ${window.Helper.textCapi(name)}!`, 'success');
-                }, 3000);
             }
         }
         compareNameWithSystem(email);

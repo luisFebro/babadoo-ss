@@ -22,6 +22,7 @@
 - [How client side routers work (Not Found URL nightmare) - Tyler McGinnis](https://tylermcginnis.com/react-router-cannot-get-url-refresh/)
 - [Improving loading time with cron-job to prevent Heroku App to idle - Mahdhi Rezvi](https://medium.com/@mahdhirezvi/keeping-my-heroku-app-alive-b19f3a8c3a82)
 - [Simple explanation for middleware - Jamis Charles](https://medium.com/@jamischarles/what-is-middleware-a-simple-explanation-bb22d6b41d01)
+- [Making request like a pro with axios - Faraz Kelhini](https://blog.logrocket.com/how-to-make-http-requests-like-a-pro-with-axios/)
 
 
 
