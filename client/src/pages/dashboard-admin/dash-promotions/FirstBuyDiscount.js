@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 // Redux
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { updateBusinessInfo } from '../../../redux/actions/adminActions';
@@ -34,7 +34,7 @@ export default function FirstBuyDiscount() {
 
     const classes = useStyles();
 
-    const handleChange = e => {
+    const handleChecked = e => {
         const { checked } = e.target;
 
         const status = checked ? 'ativado' : 'desativado';
@@ -105,7 +105,7 @@ export default function FirstBuyDiscount() {
                                 control={
                                     <Switch
                                         checked={isActivated}
-                                        onChange={handleChange}
+                                        onChange={handleChecked}
                                         color="primary"
                                         inputProps={{ 'aria-label': 'primary checkbox' }}
                                     />

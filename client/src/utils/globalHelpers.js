@@ -26,6 +26,6 @@ window.Helper.isRealObj = isRealObj;
 
 
 /* COMMENTS
-n1: These methods are global and they can be used everywhere without import it
+n1: These methods are global and they can be used everywhere and import globally
 prior: window.Helper.textCapi = textCapi;
 */

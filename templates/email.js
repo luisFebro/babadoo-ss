@@ -1,6 +1,7 @@
 exports.getWelcomeAndConfirmTemplate = reqBody => {
     const { name, bizName, bizWebsite, bizWhatsapp } = reqBody;
     const client = name.cap();
+    bizName.cap();
     return({
         subject: `${client}, confirme a sua conta da ${bizName}`,
         html: `
@@ -42,7 +43,7 @@ exports.getBuyRequestTemplate = reqBody => {
             <ul>
               <li>Nome: ${client}</li>
               <li>Contato/Whatsapp: ${phone}</li>
-              <li>Endereço para Entrega: ${address}</li>
+              <li>Endereço para Entrega: ${address.cap()}</li>
               <li>Informações Adicionais: ${additional}</li>
             </ul>
             <h3>Informações do Pedido:</h3>

@@ -67,7 +67,7 @@ exports.sendWelcomeConfirmEmail = (req, res) => {
 
 exports.sendBuyRequestEmail = (req, res) => {
     const toEmail = req.body.bizEmail;
-    const bizName = req.body.bizName;
+    const bizName = req.body.bizName.cap();
     const mainTitle = `${bizName} - Pedidos de Compra`;
     if(validateBuyRequest(req, res) === 'ok'){
         sendEmail(toEmail, mainTitle, getBuyRequestTemplate(req.body))

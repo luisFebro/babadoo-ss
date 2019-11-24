@@ -1,57 +1,62 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import ToggleVisibilityPassword from '../forms/fields/ToggleVisibilityPassword';
 import parse from 'html-react-parser';
+import ToggleVisibilityPassword from '../forms/fields/ToggleVisibilityPassword';
+// Helpers
+import handleChange from '../../utils/form/use-state/handleChange';
+import handleChecked from '../../utils/form/use-state/handleChecked';
+import clearForm from '../../utils/form/use-state/clearForm';
+import detectErrorField from '../../utils/validation/detectErrorField';
 // Redux
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { showSnackbar } from '../../redux/actions/snackbarActions';
-import { showModalUnderConstruction, closeModal } from '../../redux/actions/modalActions';
+import { closeModal } from '../../redux/actions/modalActions';
 import { getUpdatedUsers } from '../../redux/actions/userActions';
 import { setErrorOff } from '../../redux/actions/globalActions';
 import { loginEmail } from '../../redux/actions/authActions';
 // Material UI
 import { makeStyles } from '@material-ui/core/styles';
-import { CardMedia } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
-import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 // End Material UI
 
 const useStyles = makeStyles(theme => ({
     button: {
         margin: theme.spacing(1)
-    },
-    media: {
-        height: 50,
-        width: '50%',
-        margin: 'auto'
     }
 }));
 
 export default function ModalLogin() {
+    const [data, setData] = useState({
+        name: '', //This is not a field in DB. just for checking either name or email
+        email: '',
+        password: '',
+        needKeepLoggedIn: true
+    });
+    // detecting field errors
+    const [fieldError, setFieldError] = useState(null);
+    const errorName = fieldError && fieldError.name;
+    const errorEmail = fieldError && fieldError.email;
+    const errorPass = fieldError && fieldError.password;
+    // end detecting field errors
     // Redux
     // > set state
-    const { isModalLoginOpen, isUserAuthenticated, errorMsg, allRegisteredUsersList } = useStoreState(state => ({
+    const { isModalLoginOpen, isUserAuthenticated, allRegisteredUsersList } = useStoreState(state => ({
         isModalLoginOpen: state.modalReducers.cases.isModalLoginOpen,
         isUserAuthenticated: state.authReducer.cases.isUserAuthenticated,
-        errorMsg: state.globalReducer.cases.errorMsg,
         allRegisteredUsersList: state.userReducer.cases.allRegisteredUsersList
     }));
     const dispatch = useStoreDispatch();
     // End Redux
 
-    const [data, setData] = useState({
-        name: '', //This is not a field in DB. just for checking either name or email
-        email: '',
-        password: '',
-        showPassword: false,
-        hasErrorMsg: null
-    });
-
-    let { name, email, password } = data;
+    let { name, email, password, needKeepLoggedIn } = data;
     const classes = useStyles();
 
     // Check and insert "name" key to the request body
@@ -69,92 +74,121 @@ export default function ModalLogin() {
                 closeModal(dispatch);
             }
         }
+        // allow user to logIn with his/her name
         compareNameWithSystem(email);
     }, [isModalLoginOpen, isUserAuthenticated, email]);
 
-    // }
+    const clearData = () => {
+        clearForm(setData, data);
+        setFieldError(null);
+    }
 
-    const onChange = e => {
-        const { name, value } = e.target;
-        setData({ ...data, [name]: value });
-    };
-
-    const onSubmit = e => {
+    const signInThisUser = e => {
         // e.preventDefault();
 
-        const user = {
+        const userData = {
             name,
             email,
-            password
+            password,
+            needKeepLoggedIn
         };
 
         // Attempt to login
-        loginEmail(dispatch, user);
+        loginEmail(dispatch, userData)
+        .then(res => {
+            if(res.status !== 200) {
+                showSnackbar(dispatch, res.data.msg, 'error');
+                // detect field errors
+                const thisModalFields = Object.keys(data);
+                const foundObjError = detectErrorField(res.data.msg, thisModalFields);
+                setFieldError(foundObjError);
+                return;
+            }
+            showSnackbar(dispatch, res.data.msg, 'success');
+            clearData();
+        })
     };
 
+    // Render
+    const showHeader = () => (
+        <Fragment>
+            <div style={{'display': 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                <img width="90" height="90" src="img/babadoo-logo_no-slogon.png" alt="loja babadoo"/>
+            </div>
+            <DialogTitle id="form-dialog-title">Entrar com Nome ou Email</DialogTitle>
+        </Fragment>
+    );
+
+    const showForm = () => (
+        <form style={{ margin: 'auto', width: '80%' }}>
+            <TextField
+                required
+                onChange={handleChange(setData, data)}
+                margin="dense"
+                error={errorEmail || errorName ? true : false}
+                name="email"
+                type="email"
+                label="Nome ou Email"
+                autoFocus
+                autoComplete="email"
+                fullWidth
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <AccountCircle />
+                    </InputAdornment>
+                  ),
+                }}
+            />
+            <ToggleVisibilityPassword
+                data={data}
+                onChange={handleChange(setData, data)}
+                setData={setData}
+                error={errorPass}
+            />
+            <FormControlLabel
+                control={
+                  <Checkbox
+                    onChange={handleChecked(setData, data)}
+                    name="needKeepLoggedIn"
+                    checked={needKeepLoggedIn}
+                    color="primary"
+                    size="medium"
+                  />
+                }
+                label="Manter-se conectado."
+            />
+            <div style={{ display: 'flex', justifyContent: 'center', margin: '5px 5px 15px' }}>
+                <Button
+                    onClick={() => {
+                        closeModal(dispatch);
+                        setErrorOff(dispatch);
+                    }}
+                    color="primary"
+                >
+                    Voltar
+                </Button>
+                <Button
+                    onClick={() => {
+                        signInThisUser();
+                        setTimeout(() => getUpdatedUsers(dispatch), 3000);
+                        showSnackbar(dispatch, "Acessando sua conta...");
+                    }}
+                    variant="contained"
+                    color="primary"
+                    className={classes.button}
+                >
+                    Entrar
+                    <i className="fas fa-paper-plane" style={{ marginLeft: '5px' }}></i>
+                </Button>
+            </div>
+        </form>
+    );
+
     return (
-        <div>
-            <Dialog open={isModalLoginOpen} aria-labelledby="form-dialog-title">
-                <CardMedia className={classes.media} image="img/babadoo-logo_no-slogon.png" title="loja babadoo" />
-                <DialogTitle id="form-dialog-title">Entrar com Nome ou Email</DialogTitle>
-                <DialogContent>
-                    <DialogContentText>
-                        {errorMsg ? (
-                            <span className="text-red text-main-container">{errorMsg}</span>
-                        ) : (
-                            'Falta pouco para você entrar na sua conta novamente'
-                        )}
-                    </DialogContentText>
-                    <form>
-                        <TextField
-                            required
-                            onChange={onChange}
-                            margin="dense"
-                            error={errorMsg ? true : false}
-                            id="email"
-                            name="email"
-                            type="email"
-                            label="Nome ou Email"
-                            autoFocus
-                            autoComplete="email"
-                            fullWidth
-                        />
-                        <ToggleVisibilityPassword data={data} onChange={onChange} setData={setData} error={errorMsg} />
-                        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '28px' }}>
-                            <Button
-                                onClick={() => {
-                                    closeModal(dispatch);
-                                    setErrorOff(dispatch);
-                                }}
-                                color="primary"
-                            >
-                                Sair
-                            </Button>
-                            <Button
-                                color="primary"
-                                className={classes.link}
-                                style={{ fontSize: '.6em' }}
-                                onClick={() => showModalUnderConstruction(dispatch)}
-                            >
-                                Esqueceu sua senha?
-                            </Button>
-                            <Button
-                                onClick={() => {
-                                    onSubmit();
-                                    setTimeout(() => getUpdatedUsers(dispatch), 3000);
-                                    showSnackbar(dispatch, 'Carregando...');
-                                }}
-                                variant="contained"
-                                color="primary"
-                                className={classes.button}
-                            >
-                                Entrar
-                                <i className="fas fa-paper-plane" style={{ marginLeft: '5px' }}></i>
-                            </Button>
-                        </div>
-                    </form>
-                </DialogContent>
-            </Dialog>
-        </div>
+        <Dialog open={isModalLoginOpen} aria-labelledby="form-dialog-title">
+            {showHeader()}
+            {showForm()}
+        </Dialog>
     );
 }

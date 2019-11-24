@@ -67,7 +67,7 @@ export default function ModalDefault({ propTitle, propMsg, propTxtBtn, objToSend
                                 }}
                                 color="primary"
                             >
-                                Sair
+                                Voltar
                             </Button>
                             <Button
                                 onClick={() => {

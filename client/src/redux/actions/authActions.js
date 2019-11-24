@@ -86,7 +86,7 @@ export const logout = dispatch => {
     dispatch({ type: 'LOGOUT_SUCCESS' });
     dispatch({ type: 'CLEAR_CURRENT_USER' });
     setErrorOff(dispatch);
-    setTimeout(() => showSnackbar(dispatch, 'Sua sessão foi finalizada. Volte Sempre!', 3000), 2000);
+    setTimeout(() => showSnackbar(dispatch, 'Sua sessão foi finalizada com sucesso. Volte Sempre!', 4000), 2000);
 };
 
 // Setup config/headers and token

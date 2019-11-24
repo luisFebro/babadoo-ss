@@ -102,7 +102,7 @@ export default function ModalTextField({ currItemFound }) {
                                 }}
                                 color="primary"
                             >
-                                Sair
+                                Voltar
                             </Button>
                             <Button
                                 onClick={() => {

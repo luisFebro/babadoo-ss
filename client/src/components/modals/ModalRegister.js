@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import ToggleVisibilityPassword from '../forms/fields/ToggleVisibilityPassword';
 import detectErrorField from '../../utils/validation/detectErrorField';
-import clearForm from '../../utils/form/clearForm';
+import clearForm from '../../utils/form/use-state/clearForm';
+import handleChange from '../../utils/form/use-state/handleChange';
 // Redux
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { showSnackbar } from '../../redux/actions/snackbarActions';
@@ -14,12 +15,14 @@ import { sendWelcomeEmail } from '../../redux/actions/emailActions';
 import { registerEmail } from '../../redux/actions/authActions';
 // Material UI
 import { makeStyles } from '@material-ui/core/styles';
-import { CardMedia } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import EmailIcon from '@material-ui/icons/Email';
 // End Material UI
 
 const useStyles = makeStyles(theme => ({
@@ -38,7 +41,7 @@ export default function ModalRegister() {
     const [data, setData] = useState({
         name: '',
         email: '',
-        password: ''
+        password: '',
     });
     const { name, email, password } = data;
 
@@ -70,15 +73,9 @@ export default function ModalRegister() {
         if (isModalRegisterOpen) {
             if (isUserAuthenticated) {
                 closeModal(dispatch, isModalRegisterOpen);
-                sendEmail();
             }
         }
     }, [isUserAuthenticated, isModalRegisterOpen]);
-
-    const onChange = e => {
-        const { name, value } = e.target;
-        setData({ ...data, [name]: value });
-    };
 
     const sendEmail = () => {
         const dataEmail = {
@@ -91,12 +88,12 @@ export default function ModalRegister() {
         sendWelcomeEmail(dispatch, dataEmail)
         .then(res => {
             if (res.status !== 200) return showSnackbar(dispatch, res.data.msg, 'error');
-            setTimeout(() => showSnackbar(dispatch, res.data.msg, 3000), 4000);
+            setTimeout(() => showSnackbar(dispatch, res.data.msg, 'warning', 3000), 4000);
         });
     };
 
     const clearData = () => {
-        clearForm(data, setData);
+        clearForm(setData, data);
         setFieldError(null);
     }
 
@@ -120,33 +117,41 @@ export default function ModalRegister() {
                 return;
             }
             showSnackbar(dispatch, res.data.msg, 'success', 4000);
+            sendEmail();
             clearData();
         })
 
     };
 
     // render
-    const showTitle = () => (
-        <DialogTitle id="form-dialog-title">
-            Registre sua Conta
-            <br />
-            <span className="text-default">
-                ou faça{' '}
-                <button
-                    style={{ padding: '2px 5px', borderRadius: '20px', backgroundColor: 'var(--mainYellow)' }}
-                    onClick={() => showModalLogin(dispatch)}
-                >
-                    Seu Login
-                </button>
-            </span>
-        </DialogTitle>
+    const showHeader = () => (
+        <Fragment>
+            <div style={{'display': 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                <img width="90" height="90" src="img/babadoo-logo_no-slogon.png" alt="loja babadoo"/>
+            </div>
+            <DialogTitle id="form-dialog-title">
+                Registre sua Conta
+                <br />
+                <span className="text-default">
+                    ou faça{' '}
+                    <button
+                        style={{ padding: '2px 5px', borderRadius: '20px', backgroundColor: 'var(--mainYellow)' }}
+                        onClick={() => showModalLogin(dispatch)}
+                    >
+                        Seu Login
+                    </button>
+                </span>
+            </DialogTitle>
+        </Fragment>
     );
 
     const showForm = () => (
-        <form onChange={onChange} style={{margin: 'auto', width: '80%'}}>
+        // n1
+        <form style={{ margin: 'auto', width: '80%' }}>
             <TextField
                 autoFocus
                 required
+                onChange={handleChange(setData, data)}
                 error={errorName ? true : false}
                 margin="dense"
                 id="name"
@@ -154,20 +159,39 @@ export default function ModalRegister() {
                 type="name"
                 label="Nome"
                 fullWidth
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <AccountCircle />
+                    </InputAdornment>
+                  ),
+                }}
             />
             <TextField
                 required
                 margin="dense"
+                onChange={handleChange(setData, data)}
                 error={errorEmail ? true : false}
-                id="email"
                 name="email"
                 type="email"
                 label="Email"
                 autoComplete="email"
                 fullWidth
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <EmailIcon />
+                    </InputAdornment>
+                  ),
+                }}
             />
-            <ToggleVisibilityPassword data={data} onChange={onChange} setData={setData} error={errorPass} />
-            <div style={{ display: 'flex', justifyContent: 'center', marginTop: '28px', marginBotton: '40px' }}>
+            <ToggleVisibilityPassword
+                data={data}
+                onChange={handleChange(setData, data)}
+                setData={setData}
+                error={errorPass}
+            />
+            <div style={{ display: 'flex', justifyContent: 'center', margin: '5px 5px 15px' }}>
                 <Button
                     onClick={() => {
                         closeModal(dispatch);
@@ -175,15 +199,7 @@ export default function ModalRegister() {
                     }}
                     color="primary"
                 >
-                    Sair
-                </Button>
-                <Button
-                    type="submit"
-                    color="primary"
-                    className={classes.link}
-                    onClick={() => showModalUnderConstruction(dispatch)}
-                >
-                    Esqueceu sua senha?
+                    Voltar
                 </Button>
                 <Button
                     onClick={() => {
@@ -195,7 +211,7 @@ export default function ModalRegister() {
                     color="primary"
                     className={classes.button}
                 >
-                    Criar
+                    Criar Conta
                     <i className="fas fa-paper-plane" style={{ marginLeft: '5px' }}></i>
                 </Button>
             </div>
@@ -204,9 +220,13 @@ export default function ModalRegister() {
 
     return (
         <Dialog open={isModalRegisterOpen} aria-labelledby="form-dialog-title">
-            <CardMedia className={classes.media} image="img/babadoo-logo_no-slogon.png" title="loja babadoo" />
-            {showTitle()}
+            {showHeader()}
             {showForm()}
         </Dialog>
     );
 }
+
+
+/* COMMENTS
+n1: LESSON: never put onChange as a standlone prop to check each field. If you are using CheckBox, can conflict and leads to unexpected results.
+*/

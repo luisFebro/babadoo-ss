@@ -15,8 +15,13 @@ const findAndConvertFieldNameToPtBr = key => {
     return dbCommonFieldsTrans[key];
 }
 
-// this function is invoked only when there is certainly an error and always return one error message.
-export default function detectErrorField(msg, fields) {
+/**
+ * this function is invoked only when there is certainly an error and always return one error message.
+ * @param  {String} msg
+ * @param  {Array} fields array with all obj keys
+ * @return {Object}
+ */
+export default function detectErrorField(msg = "", fields) {
     msg = msg.toLowerCase();
 
     let errorFoundIn = {};

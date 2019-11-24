@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useStoreDispatch } from 'easy-peasy';
 // material ui
 import Input from '@material-ui/core/Input';
 import IconButton from '@material-ui/core/IconButton';
@@ -8,6 +9,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import FormControl from '@material-ui/core/FormControl';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import Button from '@material-ui/core/Button';
 // end material ui
 
 ToggleVisibilityPassword.propTypes = {
@@ -19,6 +21,7 @@ ToggleVisibilityPassword.propTypes = {
 
 // this function requires useState in the parent with password, showPassword keys.
 export default function ToggleVisibilityPassword({ onChange, data, setData, error }) {
+    const dispatch = useStoreDispatch();
     // Toggle Password Visibility Handlers
     const handleClickShowPassword = () => {
         setData({ ...data, showPassword: !data.showPassword });
@@ -31,7 +34,7 @@ export default function ToggleVisibilityPassword({ onChange, data, setData, erro
 
     return (
         <FormControl fullWidth required>
-            <InputLabel htmlFor="adornment-password" className={{color: error ? 'red' : 'black'}}>Senha</InputLabel>
+            <InputLabel htmlFor="adornment-password" style={{color: error ? 'red' : 'black'}}>Senha</InputLabel>
             <Input
                 id="adornment-password"
                 label="Senha"
@@ -51,6 +54,15 @@ export default function ToggleVisibilityPassword({ onChange, data, setData, erro
                     </InputAdornment>
                 }
             />
+            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                <Button
+                    className="my-2"
+                    onClick={null}
+                    size='small'
+                >
+                    Esqueceu sua senha?
+                </Button>
+            </div>
         </FormControl>
     );
 }

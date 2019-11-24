@@ -4,6 +4,7 @@ const path = require('path');
 const cors = require('cors');
 const mongoose = require('mongoose');
 require('dotenv').config(); // n4
+require('./utils/globalHelpers');
 
 //Init Express
 const app = express();

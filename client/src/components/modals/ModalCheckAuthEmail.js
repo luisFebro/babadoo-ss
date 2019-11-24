@@ -125,7 +125,7 @@ export default function ModalCheckAuthEmail() {
                                 }}
                                 color="primary"
                             >
-                                Sair
+                                Voltar
                             </Button>
                             <Button
                                 onClick={() => {

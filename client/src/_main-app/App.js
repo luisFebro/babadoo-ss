@@ -88,9 +88,6 @@ export default function App() {
                 {/*End Modals and Snackbars*/}
                 <Footer />
                 <WhatsappIcon />
-                <CustomPreloader>
-                    <Preloader />
-                </CustomPreloader>
                 <AnimationBizPromo />
             </ScrollToTop>
         </BrowserRouter>
@@ -104,3 +101,9 @@ export default function App() {
 //         updateCurrentUser(dispatch)
 //     });
 // }
+
+/*
+<CustomPreloader>
+    <Preloader />
+</CustomPreloader>
+ */

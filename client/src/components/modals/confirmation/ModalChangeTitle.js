@@ -105,7 +105,7 @@ export default function ModalChangeTitle({ currItemFound }) {
                                 }}
                                 color="primary"
                             >
-                                Sair
+                                Voltar
                             </Button>
                             <Button
                                 onClick={() => {

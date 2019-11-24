@@ -10,12 +10,13 @@ const ok = {
 const error = {
     jwtNotFound: "JWT token não foi encontrado",
     notAuthorized: "Você não está autorizado para executar esta ação",
-    notFound: "Sem registro. O usuário não foi encontrado",
+    notFound: "Sem registro. O usuário ou email não foi encontrado",
     nameFieldRequired: 'Por favor, insira o seu nome',
     emailFieldRequired: 'Por favor, insira o seu email',
+    emailOrNameFieldRequired: 'Por favor, insira o seu email ou nome',
     passwordFieldRequired: 'Por favor, insira uma senha',
     invalidEmail: "Email Inválido. Tente outro.",
-    invalidCredentials: "Credenciais Inválidas",
+    invalidCredentials: "Credenciais Inválidas. Tente colocar em minúsculas",
     userAlreadyRegistered: 'Esse Nome de usuário já foi registrado. Tente um outro.',
     emailAlreadyRegistered: 'Esse Email já foi registrado. Tente um outro.',
     notEnoughCharacters: 'Sua senha deve conter pelo menos 6 dígitos',
@@ -97,7 +98,7 @@ exports.register = async (req, res) => {
                 newUser.save()
                 .then(user => {
                     jwt.sign({ id: user._id },
-                        process.env.JWT_SECRET, { expiresIn: '7d' }, //7 days - "expiresIn" should be a number of seconds or string that repesents a timespan eg: "1d", "20h",
+                        process.env.JWT_SECRET, { expiresIn: '30d' }, //30 days - "expiresIn" should be a number of seconds or string that repesents a timespan eg: "1d", "20h",
                         (err, token) => {
                             if(err) throw err;
                             const { _id } = user
@@ -116,17 +117,17 @@ exports.register = async (req, res) => {
 }
 
 exports.login = (req, res) => {
-    const { email, name, password } = req.body;
-
+    const { email, name, password, needKeepLoggedIn } = req.body;
+    const expireAuthDays = needKeepLoggedIn ? '30d' : '7d';
     // Check Login for existing user by Name or Email
     User.findOne({ $or: [{ name }, { email }] })
         .then(user => {
-            const { _id } = user;
+            console.log(user)
             // VALIDATION
             //user returns the whole obj of the user, otherwise "null"
-            if(!user) return res.status(400).json(msg(error.notFound));
-            if(!email) return res.status(400).json(msg(error.emailFieldRequired));
+            if(!email) return res.status(400).json(msg(error.emailOrNameFieldRequired));
             if(!password) return res.status(400).json(msg(error.passwordFieldRequired));
+            if(!user) return res.status(400).json(msg(error.notFound)); // n2
 
             // Validate password
             bcrypt.compare(password, user.password)
@@ -134,13 +135,13 @@ exports.login = (req, res) => {
                 if(!isMatch) return res.status(400).json(msg(error.invalidCredentials));
                 //END VALIDATION
 
-                jwt.sign({ id: _id },
-                    process.env.JWT_SECRET, { expiresIn: '7d' }, //7 days - "expiresIn" should be a number of seconds or string that repesents a timespan eg: "1d", "20h",
+                jwt.sign({ id: user._id },
+                    process.env.JWT_SECRET, { expiresIn: expireAuthDays }, //7 days - "expiresIn" should be a number of seconds or string that repesents a timespan eg: "1d", "20h",
                     (err, token) => {
                         if(err) throw err;
                         res.json({
                             token,
-                            authUserId: _id,
+                            authUserId: user._id,
                             msg: `Olá de volta ${user.name.cap()}`
                         });
                     }
@@ -160,4 +161,8 @@ accessed if we send along the token from routes/api/auth*/
 the token that's sent from either react
 or postman angular whatever front-end
 you're using where it's gonna send along
-a token*/
+a token
+
+n2: if(!user) is important to avoid the code to break because all further relatedproperties fromuser will crash.
+*/
+

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import styled from 'styled-components';
 import { Redirect } from 'react-router-dom';
-import clearForm from '../../utils/form/clearForm';
+import clearForm from '../../utils/form/use-state/clearForm';
 import { showSnackbar } from '../../redux/actions/snackbarActions';
 import { sendBuyRequestEmail } from '../../redux/actions/emailActions';
 import { setErrorOff } from '../../redux/actions/globalActions';
@@ -54,7 +54,7 @@ export default function FormCheckoutLocal() {
         sendBuyRequestEmail(dispatch, bodyData)
         .then(res => {
             if(res.status !== 200) return showSnackbar(dispatch, res.data.msg, 'error');
-            clearForm(values, setValues);
+            clearForm(setValues, values);
             showSnackbar(dispatch, res.data.msg, 'success', 4000);
             setErrorOff(dispatch);
             setTimeout(() => setRedirect(true), 5000);

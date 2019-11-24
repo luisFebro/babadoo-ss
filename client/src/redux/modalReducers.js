@@ -8,7 +8,7 @@ const initialState = {
     isModalDefaultOpen: false,
     isModalUnderConstructionOpen: false,
     // Authentification
-    isModalLoginOpen: false,
+    isModalLoginOpen: true,
     isModalRegisterOpen: false,
     // End Authentification
     // Confirmation Modals
