@@ -5,11 +5,12 @@ import PropTypes from 'prop-types';
 Message.propTypes = {
     data: PropTypes.shape({
         sender: PropTypes.string.isRequired,
-        message: PropTypes.string.isRequired,
-        time: PropTypes.string.isRequired
+        time: PropTypes.string.isRequired,
+        message: PropTypes.string,
     })
 };
 export default function Message({ data }) {
+    // TODO: message needs to write a condition to not allow users to send empty messges
     const { sender, message, time } = data;
     return (
         <DivWrapper>

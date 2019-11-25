@@ -17,23 +17,27 @@ import AnimationBizPromo from '../components/AnimationBizPromo';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'animate.css/animate.min.css';
 //END GENERAL COMPONENTS
-//GENERAL PAGES
+
+// PAGES
 import Preloader from '../pages/Preloader';
 import Store from '../pages/store';
 import Cart from '../pages/cart/Cart';
-// import Client from '../pages/Client';
+// customer
+import ChangePassword from '../pages/customer/ChangePassword';
+// end customer
 import CheckoutLocal from '../pages/checkout/CheckoutLocal';
 import Details from '../pages/Details';
 import Default from '../pages/Default';
 import Favorites from '../pages/favorites';
 import Dashboard from '../pages/dashboard-admin';
-//>>>Category pages
+// Categories
 import Home from '../pages/Home';
 import Lingerie from '../pages/category-pages/Lingerie';
 import Cosmetic from '../pages/category-pages/Cosmetic';
 import Edible from '../pages/category-pages/Edible';
-//>>>End category pages
-//END GENERAL PAGES
+// End categories
+//END PAGES
+
 //LAYOUT
 // import MenuTopLogin from '../components/_layout/navbar/MenuTopLogin';
 import Navbar from '../components/_layout/navbar/Navbar';
@@ -73,7 +77,9 @@ export default function App() {
                     <Route path="/lingeries" exact component={Lingerie} />
                     <Route path="/cosmeticos" exact component={Cosmetic} />
                     <Route path="/comestiveis" exact component={Edible} />
-                    {/*End Categories Pages*/}
+                    {/*Customer*/}
+                    <Route path="/cliente/trocar-senha" exact component={ChangePassword} />
+                    {/*End Customer*/}
                     <Route path="/loja" exact component={Store} />
                     <Route path="/produto/:dashed-name" exact component={Details} />
                     <Route path="/seu-carrinho" exact component={Cart} />

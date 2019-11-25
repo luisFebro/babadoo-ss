@@ -25,7 +25,7 @@ const pageData = {
 export default function Cosmetic() {
     return (
         <React.Fragment>
-            <Title title="Cosméticos" />
+            <Title title="Cosméticos" subTitle="" />
             <div className="py-2">
                 <div className="container">
                     <div className="row">

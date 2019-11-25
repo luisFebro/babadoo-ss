@@ -30,7 +30,7 @@ export default function Favorites() {
 
     return (
         <Fragment>
-            {name !== null ? (
+            {name ? (
                 <div>
                     <Title title={`Seus Favaritos, ${name}`} /> :
                     {allFavProductsList.length !== 0 ? (

@@ -2,6 +2,7 @@ import React, { useState, useEffect, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import parse from 'html-react-parser';
 import ToggleVisibilityPassword from '../forms/fields/ToggleVisibilityPassword';
+import ButtonMulti from '../buttons/material-ui/ButtonMulti'
 // Helpers
 import handleChange from '../../utils/form/use-state/handleChange';
 import handleChecked from '../../utils/form/use-state/handleChecked';
@@ -10,7 +11,7 @@ import detectErrorField from '../../utils/validation/detectErrorField';
 // Redux
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { showSnackbar } from '../../redux/actions/snackbarActions';
-import { closeModal } from '../../redux/actions/modalActions';
+import { closeModal, showModalRegister } from '../../redux/actions/modalActions';
 import { getUpdatedUsers } from '../../redux/actions/userActions';
 import { setErrorOff } from '../../redux/actions/globalActions';
 import { loginEmail } from '../../redux/actions/authActions';
@@ -29,7 +30,8 @@ import Checkbox from '@material-ui/core/Checkbox';
 
 const useStyles = makeStyles(theme => ({
     button: {
-        margin: theme.spacing(1)
+        margin: theme.spacing(2),
+        padding: theme.spacing(1)
     }
 }));
 
@@ -115,7 +117,25 @@ export default function ModalLogin() {
             <div style={{'display': 'flex', justifyContent: 'center', alignItems: 'center'}}>
                 <img width="90" height="90" src="img/babadoo-logo_no-slogon.png" alt="loja babadoo"/>
             </div>
-            <DialogTitle id="form-dialog-title">Entrar com Nome ou Email</DialogTitle>
+            <DialogTitle
+                id="form-dialog-title"
+                className="text-center"
+            >
+            ACESSO LOGIN
+            <br />
+            Entrar com Nome ou Email Cadastrado
+            <br/>
+            <span className="text-default">
+                Seu Primeiro acesso ?{' '}
+                <button
+                    style={{ padding: '2px 5px', borderRadius: '20px', backgroundColor: 'var(--mainYellow)' }}
+                    onClick={() => showModalRegister(dispatch)}
+                >
+                    Faça seu Cadastro
+                </button>
+            </span>
+            </DialogTitle>
+
         </Fragment>
     );
 

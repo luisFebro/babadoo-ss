@@ -5,6 +5,7 @@ import ToggleVisibilityPassword from '../forms/fields/ToggleVisibilityPassword';
 import detectErrorField from '../../utils/validation/detectErrorField';
 import clearForm from '../../utils/form/use-state/clearForm';
 import handleChange from '../../utils/form/use-state/handleChange';
+import ButtonMulti from '../buttons/material-ui/ButtonMulti';
 // Redux
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { showSnackbar } from '../../redux/actions/snackbarActions';
@@ -14,8 +15,6 @@ import { getUpdatedUsers } from '../../redux/actions/userActions';
 import { sendWelcomeEmail } from '../../redux/actions/emailActions';
 import { registerEmail } from '../../redux/actions/authActions';
 // Material UI
-import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContentText from '@material-ui/core/DialogContentText';
@@ -24,18 +23,6 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import EmailIcon from '@material-ui/icons/Email';
 // End Material UI
-
-const useStyles = makeStyles(theme => ({
-    button: {
-        margin: theme.spacing(1),
-        padding: theme.spacing(1)
-    },
-    media: {
-        height: 50,
-        width: '50%',
-        margin: 'auto'
-    }
-}));
 
 export default function ModalRegister() {
     const [data, setData] = useState({
@@ -66,8 +53,6 @@ export default function ModalRegister() {
 
     const dispatch = useStoreDispatch();
     // End Redux
-
-    const classes = useStyles();
 
     useEffect(() => {
         if (isModalRegisterOpen) {
@@ -129,7 +114,12 @@ export default function ModalRegister() {
             <div style={{'display': 'flex', justifyContent: 'center', alignItems: 'center'}}>
                 <img width="90" height="90" src="img/babadoo-logo_no-slogon.png" alt="loja babadoo"/>
             </div>
-            <DialogTitle id="form-dialog-title">
+            <DialogTitle
+                id="form-dialog-title"
+                className="text-center"
+            >
+                CADASTRO
+                <br />
                 Registre sua Conta
                 <br />
                 <span className="text-default">
@@ -145,12 +135,35 @@ export default function ModalRegister() {
         </Fragment>
     );
 
+    const showActionButtons = () => (
+        <div style={{ display: 'flex', justifyContent: 'center', margin: '5px 5px 15px' }}>
+            <ButtonMulti
+                onClick={() => {
+                    closeModal(dispatch);
+                    setErrorOff(dispatch);
+                }}
+                variant="link"
+            >
+                Voltar
+            </ButtonMulti>
+            <ButtonMulti
+                onClick={() => {
+                    registerThisUser();
+                    setTimeout(() => getUpdatedUsers(dispatch), 3000);
+                    showSnackbar(dispatch, 'Registrando...');
+                }}
+                iconFontAwesome='fas fa-paper-plane'
+            >
+                Criar Conta
+            </ButtonMulti>
+        </div>
+    );
+
     const showForm = () => (
         // n1
         <form style={{ margin: 'auto', width: '80%' }}>
             <TextField
                 autoFocus
-                required
                 onChange={handleChange(setData, data)}
                 error={errorName ? true : false}
                 margin="dense"
@@ -168,7 +181,6 @@ export default function ModalRegister() {
                 }}
             />
             <TextField
-                required
                 margin="dense"
                 onChange={handleChange(setData, data)}
                 error={errorEmail ? true : false}
@@ -190,31 +202,9 @@ export default function ModalRegister() {
                 onChange={handleChange(setData, data)}
                 setData={setData}
                 error={errorPass}
+                showForgotPass={false}
             />
-            <div style={{ display: 'flex', justifyContent: 'center', margin: '5px 5px 15px' }}>
-                <Button
-                    onClick={() => {
-                        closeModal(dispatch);
-                        setErrorOff(dispatch);
-                    }}
-                    color="primary"
-                >
-                    Voltar
-                </Button>
-                <Button
-                    onClick={() => {
-                        registerThisUser();
-                        setTimeout(() => getUpdatedUsers(dispatch), 3000);
-                        showSnackbar(dispatch, 'Registrando...');
-                    }}
-                    variant="contained"
-                    color="primary"
-                    className={classes.button}
-                >
-                    Criar Conta
-                    <i className="fas fa-paper-plane" style={{ marginLeft: '5px' }}></i>
-                </Button>
-            </div>
+            {showActionButtons()}
         </form>
     );
 
@@ -228,5 +218,5 @@ export default function ModalRegister() {
 
 
 /* COMMENTS
-n1: LESSON: never put onChange as a standlone prop to check each field. If you are using CheckBox, can conflict and leads to unexpected results.
+n1: LESSON: never put onChange as a standlone prop to check each field in a form. If you are using CheckBox, can conflict and leads to unexpected results.
 */

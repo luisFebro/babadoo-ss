@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useStoreDispatch } from 'easy-peasy';
+import { Link } from 'react-router-dom';
+import { closeModal } from '../../../redux/actions/modalActions';
 // material ui
 import Input from '@material-ui/core/Input';
 import IconButton from '@material-ui/core/IconButton';
@@ -15,12 +17,13 @@ import Button from '@material-ui/core/Button';
 ToggleVisibilityPassword.propTypes = {
     onChange: PropTypes.func.isRequired,
     data: PropTypes.object.isRequired,
-    setData: PropTypes.func.isRequired
-    // error: PropTypes.string.isRequired,
+    setData: PropTypes.func.isRequired,
+    showForgotPass: PropTypes.bool,
+    error: PropTypes.bool
 };
 
 // this function requires useState in the parent with password, showPassword keys.
-export default function ToggleVisibilityPassword({ onChange, data, setData, error }) {
+export default function ToggleVisibilityPassword({ onChange, data, setData, error, showForgotPass = true }) {
     const dispatch = useStoreDispatch();
     // Toggle Password Visibility Handlers
     const handleClickShowPassword = () => {
@@ -30,7 +33,23 @@ export default function ToggleVisibilityPassword({ onChange, data, setData, erro
     const handleMouseDownPassword = event => {
         event.preventDefault();
     };
-    // Toggle Password Visibility Handlers
+
+    // Render
+
+    const showForgotPassLink = needDisplay => (
+        needDisplay &&
+        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+            <Link to="/cliente/trocar-senha">
+                <Button
+                    className="my-2"
+                    onClick={() => closeModal(dispatch)}
+                    size='small'
+                >
+                    Esqueceu sua senha?
+                </Button>
+            </Link>
+        </div>
+    );
 
     return (
         <FormControl fullWidth required>
@@ -54,15 +73,7 @@ export default function ToggleVisibilityPassword({ onChange, data, setData, erro
                     </InputAdornment>
                 }
             />
-            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                <Button
-                    className="my-2"
-                    onClick={null}
-                    size='small'
-                >
-                    Esqueceu sua senha?
-                </Button>
-            </div>
+            {showForgotPassLink(showForgotPass)}
         </FormControl>
     );
 }

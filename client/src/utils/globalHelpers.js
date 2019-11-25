@@ -4,7 +4,7 @@ import isRealObj from './isRealObj';
 // GLOBAL PROTOTYPE METHODS n1
 // Typography
 // Need to be function syntax, otherwise this will return undefined.
-let brPreps = ["pela", "via", "por", "com", "no", "na", "da", "do", "das", "dos", "a", "e", "de", "de"];
+let brPreps = ["seu", "sua", "pela", "via", "por", "com", "no", "na", "da", "do", "das", "dos", "a", "e", "de", "de"];
 String.prototype.cap = function() {
     let capitalized = this.replace(/(?:^|\s)\S/g, a => a.toUpperCase());
     let splittedWords = capitalized.split(' ');

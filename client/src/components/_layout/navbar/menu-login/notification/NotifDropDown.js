@@ -4,7 +4,7 @@ import moment from 'moment';
 import 'moment/locale/pt-br';
 // End Moment
 import uuidv1 from 'uuid/v1';
-import ButtonYellow from '../../../../buttons/material-ui/ButtonYellow';
+import ButtonMulti from '../../../../buttons/material-ui/ButtonMulti';
 // Redux
 import {useStoreState, useStoreDispatch} from 'easy-peasy';
 import {Link} from 'react-router-dom';
@@ -68,43 +68,47 @@ const BorderedBadge = withStyles(theme => ({
     }
 }))(Badge);
 
-const SendMsgToStoreBtn = (dispatch, allUsers, _idUser, userName) => {
-    // Lesson: Never declare hooks here because hooks are meant to be at the top of every function.
-    // Instead, pass all required props from the parent component which onws the hooks already.
-    // https://reactjs.org/docs/error-decoder.html/?invariant=300
-    return (
-        <ButtonYellow
-            text="Enviar Mensagem para Loja"
-            className="mt-3 shadow-elevation badge badge-warning"
-            onClick={() => {
-                // change name form 'admin'to Loja Babadoo (this is how gonna be displayed to the user)
-                if (userName === 'admin') userName = 'Loja Babadoo';
-                const objToSend = {
-                    name: 'Loja Babadoo', //this will replace the curr user name
-                    propTitle: 'Envio de Mensagem Instantânea',
-                    propTxtBtn: 'Enviar',
-                    propSubTitle: 'Escreva abaixo sua mensagem para loja',
-                    mainSubject: 'Mensagem',
-                    mainKey: 'message',
-                    objToSend: {
-                        messageList: {
-                            sender: `${userName}`,
-                            id: uuidv1(),
-                            time: moment(Date.now()).fromNow(), // n1 - change Date.now with createdAt from DB
-                            message: '', // this will be the message catch by modal text field
-                            isMessageChecked: false,
-                            systemDate: Date.now,
-                            history: {
-                                senderMsgs: [],
-                                recipientMsgs: []
-                            }
-                        }
+const SendMsgToStoreBtn = (dispatch, allUsers, _idUser, userName) => { // n2
+    const handleDataInModal = () => {
+        // change name form 'admin'to Loja Babadoo (this is how gonna be displayed to the user)
+        if (userName === 'admin') userName = 'Loja Babadoo';
+        const objToSend = {
+            name: 'Loja Babadoo', //this will replace the curr user name
+            propTitle: 'Envio de Mensagem Instantânea',
+            propTxtBtn: 'Enviar',
+            propSubTitle: 'Escreva abaixo sua mensagem para loja',
+            mainSubject: 'Mensagem',
+            mainKey: 'message',
+            objToSend: {
+                messageList: {
+                    sender: `${userName}`,
+                    id: uuidv1(),
+                    time: moment(Date.now()).fromNow(), // n1 - change Date.now with createdAt from DB
+                    message: '', // this will be the message catch by modal text field
+                    isMessageChecked: false,
+                    systemDate: Date.now,
+                    history: {
+                        senderMsgs: [],
+                        recipientMsgs: []
                     }
-                };
-                findAnItem(dispatch, allUsers, _idUser, objToSend);
-                showModalTextField(dispatch);
-            }}
-        ></ButtonYellow>
+                }
+            }
+        };
+        findAnItem(dispatch, allUsers, _idUser, objToSend);
+        showModalTextField(dispatch);
+    }
+
+    return (
+        <ButtonMulti
+            onClick={handleDataInModal}
+            color="var(--mainWhite)"
+            backgroundColor="var(--mainYellow)"
+            backColorOnHover="var(--mainYellow)"
+            iconFontAwesome="fas fa-paper-plane"
+            textTransform='capitalize'
+        >
+            Enviar Mensagem para Loja
+        </ButtonMulti>
     );
 };
 
@@ -160,4 +164,7 @@ export default function NotifDropDown() {
 
 /* COMMENTS
 n1: completed prior version of pt date: moment(Date.now()).format('Do MMM [às] h:mm a, YYYY[.]');
+n2: LESSON: Never declare hooks here because hooks are meant to be at the top of every function.
+    Instead, pass all required props from the parent component which onws the hooks already.
+    https://reactjs.org/docs/error-decoder.html/?invariant=300
 */
