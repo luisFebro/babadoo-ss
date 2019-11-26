@@ -60,6 +60,11 @@ const data = {
         type: String,
         default: 'email',
     },
+    isUserConfirmed: {
+        type: Boolean,
+        default: false
+    },
+    tempAuthUserId: String,
     registerDate: {
         type: String,
         default: brTime

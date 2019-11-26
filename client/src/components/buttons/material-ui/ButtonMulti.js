@@ -17,7 +17,7 @@ ButtonMulti.propTypes = {
     }),
 };
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({ // n1
     sText: {
         textShadow: '1px 1px 3px black',
         fontWeight: 'bold',
@@ -28,13 +28,16 @@ const useStyles = makeStyles({
         fontSize: '1.9em'
     },
     sBtnColors: {
-        color: props => props.color,
+        color: props => props.color || 'var(--mainWhite)',
         backgroundColor: props => props.backgroundColor,
         '&:hover': {
             backgroundColor: props => props.backColorOnHover
         }
+    },
+    sBtnDefaultColors: {
+        color: props => props.color || theme.palette.primary.main
     }
-});
+}));
 
 const CustomizedButton = withStyles(theme => ({
     root: {
@@ -46,7 +49,7 @@ const CustomizedButton = withStyles(theme => ({
 }))(Button);
 
 export default function ButtonMulti({ children, onClick, iconFontAwesome, variant="contained", ...props }) {
-    const { sText, sBtnColors, sIcon } = useStyles(props);
+    const { sText, sBtnColors, sBtnDefaultColors, sIcon } = useStyles(props);
 
     const showIcon = iconFontAwesome => (
         iconFontAwesome &&
@@ -55,13 +58,18 @@ export default function ButtonMulti({ children, onClick, iconFontAwesome, varian
 
     return (
         <CustomizedButton
-            className={sBtnColors}
+            className={(variant !== 'contained') ? sBtnDefaultColors : sBtnColors }
             onClick={onClick}
             variant={(variant === 'link') ? null : variant}
             color="primary"
         >
-            <span className={(variant !== ('outlined' || 'link')) ? sText : null}>{children}</span>
+            <span className={(variant !== 'contained') ? null : sText}>{children}</span>
             {showIcon(iconFontAwesome)}
         </CustomizedButton>
     );
 }
+
+
+/* COMMENTS
+n1: can also returns a single object like makeStyles({ someStyle: 'smt'})
+*/

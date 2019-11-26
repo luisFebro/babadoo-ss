@@ -40,8 +40,7 @@ import Edible from '../pages/category-pages/Edible';
 
 //LAYOUT
 // import MenuTopLogin from '../components/_layout/navbar/MenuTopLogin';
-import Navbar from '../components/_layout/navbar/Navbar';
-import CategorySlider from '../components/_layout/CategorySlider';
+import Navbar from '../components/_layout/navbar';
 import Footer from '../components/_layout/footer/Footer';
 // END LAYOUT
 // MODALS ANS TOASTS
@@ -70,7 +69,6 @@ export default function App() {
         <BrowserRouter>
             <ScrollToTop>
                 <Navbar />
-                <CategorySlider />
                 <Switch>
                     {/*Categories Pages*/}
                     <Route exact path="/" render={props => <Home />} />{' '}
