@@ -53,12 +53,12 @@ export default function ToggleVisibilityPassword({ onChange, data, setData, erro
 
     return (
         <FormControl fullWidth required>
-            <InputLabel htmlFor="adornment-password" style={{color: error ? 'red' : 'black'}}>Senha</InputLabel>
+            <InputLabel htmlFor="adornment-password" style={{color: error ? 'red' : 'black'}}>Insira senha aqui</InputLabel>
             <Input
                 id="adornment-password"
-                label="Senha"
                 type={data.showPassword ? 'text' : 'password'}
                 name="password"
+                margin='normal'
                 error={error ? true : false}
                 onChange={onChange}
                 endAdornment={

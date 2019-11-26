@@ -132,6 +132,13 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-flow: row wrap;
+}
+.container-center-col {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column wrap;
 }
 /*END CONTAINERS*/
 

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import Slider from 'react-slick';
 import { HashLink } from 'react-router-hash-link';
-import '../carousels/_slick.css';
-import '../carousels/_slickTheme.css';
-import { productCategories } from '../../data/dataIcons';
-import { floatIt } from '../../keyframes/floatIt';
+import '../../carousels/_slick.css';
+import '../../carousels/_slickTheme.css';
+import { productCategories } from '../../../data/dataIcons';
+import { floatIt } from '../../../keyframes/floatIt';
 import styled from 'styled-components';
 
 export default class CategorySlider extends Component {

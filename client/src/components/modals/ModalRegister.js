@@ -2,26 +2,27 @@ import React, { useState, useEffect, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import ToggleVisibilityPassword from '../forms/fields/ToggleVisibilityPassword';
+// Helpers
 import detectErrorField from '../../utils/validation/detectErrorField';
 import clearForm from '../../utils/form/use-state/clearForm';
 import handleChange from '../../utils/form/use-state/handleChange';
+// End Helpers
 import ButtonMulti from '../buttons/material-ui/ButtonMulti';
 // Redux
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { showSnackbar } from '../../redux/actions/snackbarActions';
 import { showModalLogin, showModalUnderConstruction, closeModal } from '../../redux/actions/modalActions';
-import { setErrorOff } from '../../redux/actions/globalActions';
 import { getUpdatedUsers } from '../../redux/actions/userActions';
 import { sendWelcomeEmail } from '../../redux/actions/emailActions';
 import { registerEmail } from '../../redux/actions/authActions';
 // Material UI
 import TextField from '@material-ui/core/TextField';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import EmailIcon from '@material-ui/icons/Email';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import InputAdornment from '@material-ui/core/InputAdornment';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import EmailIcon from '@material-ui/icons/Email';
 // End Material UI
 
 export default function ModalRegister() {
@@ -135,13 +136,11 @@ export default function ModalRegister() {
         </Fragment>
     );
 
+    // Form
     const showActionButtons = () => (
         <div style={{ display: 'flex', justifyContent: 'center', margin: '5px 5px 15px' }}>
             <ButtonMulti
-                onClick={() => {
-                    closeModal(dispatch);
-                    setErrorOff(dispatch);
-                }}
+                onClick={() => closeModal(dispatch)}
                 variant="link"
             >
                 Voltar

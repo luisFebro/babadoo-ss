@@ -13,11 +13,8 @@ import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { showSnackbar } from '../../redux/actions/snackbarActions';
 import { closeModal, showModalRegister } from '../../redux/actions/modalActions';
 import { getUpdatedUsers } from '../../redux/actions/userActions';
-import { setErrorOff } from '../../redux/actions/globalActions';
 import { loginEmail } from '../../redux/actions/authActions';
 // Material UI
-import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContentText from '@material-ui/core/DialogContentText';
@@ -27,13 +24,6 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 // End Material UI
-
-const useStyles = makeStyles(theme => ({
-    button: {
-        margin: theme.spacing(2),
-        padding: theme.spacing(1)
-    }
-}));
 
 export default function ModalLogin() {
     const [data, setData] = useState({
@@ -59,7 +49,6 @@ export default function ModalLogin() {
     // End Redux
 
     let { name, email, password, needKeepLoggedIn } = data;
-    const classes = useStyles();
 
     // Check and insert "name" key to the request body
     const compareNameWithSystem = nameFromEmail => {
@@ -139,6 +128,28 @@ export default function ModalLogin() {
         </Fragment>
     );
 
+    // Form
+    const showActionButtons = () => (
+        <div style={{ display: 'flex', justifyContent: 'center', margin: '5px 5px 15px' }}>
+            <ButtonMulti
+                onClick={() => closeModal(dispatch)}
+                variant='link'
+            >
+                Voltar
+            </ButtonMulti>
+            <ButtonMulti
+                onClick={() => {
+                    signInThisUser();
+                    setTimeout(() => getUpdatedUsers(dispatch), 3000);
+                    showSnackbar(dispatch, "Acessando sua conta...");
+                }}
+                iconFontAwesome="fas fa-paper-plane"
+            >
+                Entrar
+            </ButtonMulti>
+        </div>
+    );
+
     const showForm = () => (
         <form style={{ margin: 'auto', width: '80%' }}>
             <TextField
@@ -149,6 +160,7 @@ export default function ModalLogin() {
                 name="email"
                 type="email"
                 label="Nome ou Email"
+                placeholder="Insira nome ou email cadastrado"
                 autoFocus
                 autoComplete="email"
                 fullWidth
@@ -178,30 +190,7 @@ export default function ModalLogin() {
                 }
                 label="Manter-se conectado."
             />
-            <div style={{ display: 'flex', justifyContent: 'center', margin: '5px 5px 15px' }}>
-                <Button
-                    onClick={() => {
-                        closeModal(dispatch);
-                        setErrorOff(dispatch);
-                    }}
-                    color="primary"
-                >
-                    Voltar
-                </Button>
-                <Button
-                    onClick={() => {
-                        signInThisUser();
-                        setTimeout(() => getUpdatedUsers(dispatch), 3000);
-                        showSnackbar(dispatch, "Acessando sua conta...");
-                    }}
-                    variant="contained"
-                    color="primary"
-                    className={classes.button}
-                >
-                    Entrar
-                    <i className="fas fa-paper-plane" style={{ marginLeft: '5px' }}></i>
-                </Button>
-            </div>
+            {showActionButtons()}
         </form>
     );
 
