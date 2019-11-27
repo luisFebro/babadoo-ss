@@ -15,7 +15,7 @@ export const loadUser = () => (dispatch, getState) => {
     .then(res => {
        // from user reducer
         dispatch({ type: 'AUTHENTICATE_USER_ONLY' });
-        dispatch({ type: 'CURRENT_USER', payload: res.data.profile });
+        dispatch({ type: 'UPDATE_CURRENT_USER', payload: res.data.profile });
         // getAuthUser(dispatch, res.data.profile);
     })
     .catch(err => {
@@ -81,13 +81,21 @@ export const registerFacebook = (dispatch, body, resFacebook) => {
 };
 // Register Social Networks
 
-// Logout
 export const logout = dispatch => {
     dispatch({ type: 'LOGOUT_SUCCESS' });
-    dispatch({ type: 'CLEAR_CURRENT_USER' });
+    dispatch({ type: 'CLEAR_UPDATE_CURRENT_USER' });
     setErrorOff(dispatch);
     setTimeout(() => showSnackbar(dispatch, 'Sua sessão foi finalizada com sucesso. Volte Sempre!', 4000), 2000);
 };
+
+export const changePassword = async (bodyPass, userId) => {
+    try {
+        return await axios.post(`/api/auth/change-password?id=${userId}`, bodyPass, configTypeJson);
+    } catch(err) {
+        return err.response;
+    }
+}
+
 
 // Setup config/headers and token
 export const tokenConfig = getState => {

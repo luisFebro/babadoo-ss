@@ -183,7 +183,7 @@ export default function ModalLogin() {
                   <Checkbox
                     onChange={handleChecked(setData, data)}
                     name="needKeepLoggedIn"
-                    checked={needKeepLoggedIn}
+                    checked={Boolean(needKeepLoggedIn)}
                     color="primary"
                     size="medium"
                   />

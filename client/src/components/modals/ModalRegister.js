@@ -71,7 +71,7 @@ export default function ModalRegister() {
             bizWebsite,
             bizWhatsapp
         };
-        sendWelcomeEmail(dispatch, dataEmail)
+        sendWelcomeEmail(dataEmail)
         .then(res => {
             if (res.status !== 200) return showSnackbar(dispatch, res.data.msg, 'error');
             setTimeout(() => showSnackbar(dispatch, res.data.msg, 'warning', 3000), 4000);

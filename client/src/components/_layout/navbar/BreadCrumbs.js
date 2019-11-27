@@ -13,19 +13,18 @@ BreadCrumbs.propTypes = {
 
 export default function BreadCrumbs({ history }) {
     const currPath = history.location.pathname;
-
     const showBreadCrumbs = currentPath => {
         const isHome = currentPath === '/';
         const data = getBreadCrumbData(currentPath);
         const showData = data.map(obj => {
             let link = obj.link;
-            let paramName, key;
-            paramName = key = truncateWords(obj.param, 30); // n2
-            if(link === '') return <Typography key={key} color="textPrimary">{paramName}</Typography>; //n1
+            let subdirName, key;
+            subdirName = key = truncateWords(obj.subdir, 30); // n2
+            if(link === '') return <Typography key={key} color="textPrimary">{subdirName}</Typography>; //n1
 
             return (
                 <Link key={key} color="inherit" to={link}>
-                    {paramName}
+                    {subdirName}
                 </Link>
             );
         })

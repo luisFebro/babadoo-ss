@@ -51,7 +51,7 @@ export default function FormCheckoutLocal() {
             bizEmail
         };
 
-        sendBuyRequestEmail(dispatch, bodyData)
+        sendBuyRequestEmail(bodyData)
         .then(res => {
             if(res.status !== 200) return showSnackbar(dispatch, res.data.msg, 'error');
             clearForm(setValues, values);

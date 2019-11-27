@@ -3,6 +3,10 @@ import { Link } from 'react-router-dom';
 import { useStyles, makeStyles } from '@material-ui/core/styles'
 import Title from '../../components/Title';
 import parse from 'html-react-parser';
+// Redux
+import { useStoreDispatch, useStoreState } from 'easy-peasy';
+import { showSnackbar } from '../../redux/actions/snackbarActions'
+import { sendNewPasswordLink } from '../../redux/actions/emailActions';
 // helpers
 import handleChange from '../../utils/form/use-state/handleChange';
 
@@ -18,6 +22,10 @@ export default function ChangePassword() {
         needMsgAfterSent: false,
     })
     const { email, needMsgAfterSent } = data;
+
+    // Redux
+    const dispatch = useStoreDispatch();
+    // End Redux
 
     const showMsgAfterSent = needMsgAfterSent => (
         needMsgAfterSent &&
@@ -37,6 +45,12 @@ export default function ChangePassword() {
 
     // Email
     const sendEmail = () => {
+        sendNewPasswordLink(dispatch, email)
+        .then(res => {
+            if(res.status !== 200) return showSnackbar(dispatch, res.data.msg, 'error')
+            showSnackbar(dispatch, res.data.msg, 'success');
+        })
+
         setData({needMsgAfterSent: true})
         showMsgAfterSent();
     };
@@ -78,7 +92,7 @@ export default function ChangePassword() {
     );
     return (
         <div>
-            <Title title="Trocar sua senha" subTitle="Um link de troca de senha será enviado para o seu email cadastrado"/>
+            <Title title="Solicitar nova senha" subTitle="Um link de troca de senha será enviado para o seu email cadastrado"/>
             <div>
                 <img src="img/illustrations/empty-cart.png" width='100' height='100' alt="change-password"/>
             </div>

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import ScrollToTop from 'react-router-scroll-top';
+// Auth Components
+import PrivateRouteAdm from '../components/auth/PrivateRouteAdm';
 // Redux
 import { readAdmin } from '../redux/actions/adminActions';
 import { useStoreDispatch } from 'easy-peasy'; // useStoreState
@@ -24,6 +26,7 @@ import Store from '../pages/store';
 import Cart from '../pages/cart/Cart';
 // customer
 import ChangePassword from '../pages/customer/ChangePassword';
+import InsertNewPassword from '../pages/customer/InsertNewPassword';
 // end customer
 import CheckoutLocal from '../pages/checkout/CheckoutLocal';
 import Details from '../pages/Details';
@@ -71,19 +74,20 @@ export default function App() {
                 <Navbar />
                 <Switch>
                     {/*Categories Pages*/}
-                    <Route exact path="/" render={props => <Home />} />{' '}
+                    <Route path="/" exact component={Home} />
                     <Route path="/lingeries" exact component={Lingerie} />
                     <Route path="/cosmeticos" exact component={Cosmetic} />
                     <Route path="/comestiveis" exact component={Edible} />
                     {/*Customer*/}
                     <Route path="/cliente/trocar-senha" exact component={ChangePassword} />
+                    <Route path="/cliente/trocar-senha/:token" exact component={InsertNewPassword} />
                     {/*End Customer*/}
                     <Route path="/loja" exact component={Store} />
                     <Route path="/produto/:dashed-name" exact component={Details} />
                     <Route path="/seu-carrinho" exact component={Cart} />
                     <Route path="/finalizar-compra" exact component={CheckoutLocal} />
                     <Route path="/favoritos" exact component={Favorites} />
-                    <Route path="/painel-controle-admin" exact component={Dashboard} />
+                    <PrivateRouteAdm path="/painel-controle-admin" exact component={Dashboard} />
                     <Route component={Default} />
                 </Switch>
                 {/*Modals and Snackbars*/}

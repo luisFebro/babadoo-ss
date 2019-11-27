@@ -19,11 +19,12 @@ ToggleVisibilityPassword.propTypes = {
     data: PropTypes.object.isRequired,
     setData: PropTypes.func.isRequired,
     showForgotPass: PropTypes.bool,
+    label: PropTypes.string,
     error: PropTypes.bool
 };
 
 // this function requires useState in the parent with password, showPassword keys.
-export default function ToggleVisibilityPassword({ onChange, data, setData, error, showForgotPass = true }) {
+export default function ToggleVisibilityPassword({ label, onChange, data, setData, error, showForgotPass = true }) {
     const dispatch = useStoreDispatch();
     // Toggle Password Visibility Handlers
     const handleClickShowPassword = () => {
@@ -53,12 +54,17 @@ export default function ToggleVisibilityPassword({ onChange, data, setData, erro
 
     return (
         <FormControl fullWidth required>
-            <InputLabel htmlFor="adornment-password" style={{color: error ? 'red' : 'black'}}>Insira senha aqui</InputLabel>
+            <InputLabel
+                htmlFor="adornment-password"
+                style={{color: error ? 'red' : 'black'}}
+            >
+                { label || "Inserir senha senha" }
+            </InputLabel>
             <Input
                 id="adornment-password"
                 type={data.showPassword ? 'text' : 'password'}
                 name="password"
-                margin='normal'
+                margin='dense'
                 error={error ? true : false}
                 onChange={onChange}
                 endAdornment={

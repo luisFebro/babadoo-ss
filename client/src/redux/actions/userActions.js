@@ -15,7 +15,7 @@ export const getUpdatedUsers = async dispatch => {
         const res = await axios.get('/api/user/list/all', configTypeJson);
         console.log('==ALL USERS UPDATED==');
         dispatch({
-            type: 'ALL_USERS_UPDATE',
+            type: 'UPDATE_ALL_USERS',
             payload: res.data
         });
         // setLoadingOff(dispatch);
@@ -30,7 +30,7 @@ export const updateCurrentUser = async (dispatch, _userId) => {
     const res = await axios.get(`/api/user/${_userId}`, configTypeJson);
     console.log('===CURRENT USER UPDATED===');
     dispatch({
-        type: 'CURRENT_USER',
+        type: 'UPDATE_CURRENT_USER',
         payload: res.data
     });
 };
@@ -40,7 +40,7 @@ export const getAuthUser = async (dispatch, _userId) => {
     const res = await axios.get(`/api/user/${_userId}`, configTypeJson);
     console.log('===AUTH USER LOADED===');
     dispatch({
-        type: 'CURRENT_USER',
+        type: 'UPDATE_CURRENT_USER',
         payload: res.data
     });
 };
@@ -83,7 +83,7 @@ export const changeFieldUser = async (dispatch, objToSend, _idUser) => {
     const body = getBodyRequest(objToSend);
     try {
         const res = await axios.put(`/api/user/lists/change-field/${_idUser}`, body, configTypeJson);
-        dispatch({ type: 'CURRENT_USER', payload: res.data });
+        dispatch({ type: 'UPDATE_CURRENT_USER', payload: res.data });
         updateCurrentUser(dispatch, _idUser);
     } catch (e) {
         console.log('changeFieldUserERROR: ' + e);
@@ -95,8 +95,8 @@ export const addFieldUser = async (dispatch, objToSend, _idUser) => {
     const body = getBodyRequest(objToSend);
     try {
         const res = await axios.post(`/api/user/lists/add-field-array/${_idUser}`, body, configTypeJson);
-        console.log('CURRENT_USER from addFieldUser', res.data);
-        dispatch({ type: 'CURRENT_USER', payload: res.data });
+        console.log('UPDATE_CURRENT_USER from addFieldUser', res.data);
+        dispatch({ type: 'UPDATE_CURRENT_USER', payload: res.data });
         updateCurrentUser(dispatch, _idUser);
     } catch (e) {
         console.log('addFieldUserERROR: ' + e);
@@ -108,7 +108,7 @@ export const deleteFieldUser = async (dispatch, objToSend, _idUser) => {
     const body = getBodyRequest(objToSend);
     try {
         const res = await axios.put(`/api/user/lists/delete-field-array/${_idUser}`, body, configTypeJson);
-        dispatch({ type: 'CURRENT_USER', payload: res.data });
+        dispatch({ type: 'UPDATE_CURRENT_USER', payload: res.data });
         console.log('===FIELD DELETED===');
         updateCurrentUser(dispatch, _idUser);
         // This updates the products to display the favorites and card infos properly

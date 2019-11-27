@@ -1,40 +1,40 @@
 import removeDashes from './urls/removeDashes';
 
 /**
- * get an obj with param's name and link to navigate
- * @param  {String} currentPath
- * @return {Object}
+ * get an obj with subdir's names and links to navigate
+ * @param  {string} currentPath
+ * @return {object}
  */
 export default function getBreadCrumbData(currentPath) {
     if(currentPath === '/') return [];
-    const arrayParams = currentPath.split('/'); // [ '', 'cliente', 'trocar-senha', 'sucesso' ]
+    const arraySubdirects = currentPath.split('/');
 
-    const homePage = "http://localhost:3000";
-    const currPageName = arrayParams[arrayParams.length - 1]; // the the last item in the array.
+    // const rootDomain = "http://youvippshop.com"; // this is not necessary.explanation: www = subdomain / youvippshop = domain name /.com = Top-Level Domain
+    const mainFileName = arraySubdirects[arraySubdirects.length - 1];
 
-    // get all urls between home and currPage for links
     let accumulatedUrls = "";
-    const arrayUrls = arrayParams.map((param, ind) => {
-        // not includes the last param
-        if(currPageName === param) return ""; // the last link does not need link
-        ind === 1 ? // the second loop will duplicate slashes '//' because the first one will be empty.
-        (accumulatedUrls += `${param}`) :
-        (accumulatedUrls += `/${param}`)
-        // renaming first param to home's name
-        if(param === arrayParams[0]) {
-            arrayParams[0] = 'vitrine';
+    const arrayUrls = arraySubdirects.map((subdir, ind) => {
+        if(mainFileName === subdir) return "";
+        ind === 1 ? // n1
+        (accumulatedUrls += `${subdir}`) :
+        (accumulatedUrls += `/${subdir}`)
+
+        if(subdir === arraySubdirects[0]) {
+            arraySubdirects[0] = 'vitrine';
         }
         return accumulatedUrls;
     })
 
-    // wrap the result
     const result = [];
-    arrayParams.forEach((each, ind) => {
+    arraySubdirects.forEach((each, ind) => {
         let obj = {
-            param: '',
+            subdir: '',
             link: ''
         }
-        obj.param = removeDashes(each);
+
+        if(each.slice(-2) === 'np') each = "Nova Senha"; // n2
+
+        obj.subdir = removeDashes(each);
         obj.link = arrayUrls[ind];
         result.push(obj);
     })
@@ -42,13 +42,17 @@ export default function getBreadCrumbData(currentPath) {
     return result;
 }
 
+/* COMMENTS
+n1: the second loop will duplicate slashes '//' because the first one will be empty.
+n2: do not show token like 40d6a570-106d-11ea-8090-41adbef3ce57np.
+*/
 
 // e.g
 /*
 const currentPath = '/cliente-de-manaus/luis/dados';
 console.log(getBreadCrumbData(currentPath))
-[ { param: 'vitrine', link: '/' },
-  { param: 'cliente', link: '/cliente' },
-  { param: 'luis', link: '/cliente/luis' },
-  { param: 'dados', link: '' } ]
+[ { subdir: 'vitrine', link: '/' },
+  { subdir: 'cliente', link: '/cliente' },
+  { subdir: 'luis', link: '/cliente/luis' },
+  { subdir: 'dados', link: '' } ]
  */

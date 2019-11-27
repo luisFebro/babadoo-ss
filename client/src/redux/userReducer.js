@@ -27,15 +27,14 @@ const initialState = {
 export const userReducer = {
     cases: reducer((state = initialState, action) => {
         switch (action.type) {
-            case 'ALL_USERS_UPDATE':
+            case 'UPDATE_ALL_USERS':
                 return {
                     ...state,
                     allUsers: action.payload,
                     allRegisteredUsersList: action.payload.map(data => data.name)
                 };
-            case 'CURRENT_USER':
+            case 'UPDATE_CURRENT_USER':
                 //Check if user have coupons (If so, the maskot with discount will not appear when user log in)
-
                 return {
                     ...state,
                     currentUser: action.payload,
@@ -69,7 +68,7 @@ export const userReducer = {
                         picture: action.payload.picture.data.url
                     }
                 }
-            case 'CLEAR_CURRENT_USER':
+            case 'CLEAR_UPDATE_CURRENT_USER':
                 return {
                     ...state,
                     currentUser: {}
