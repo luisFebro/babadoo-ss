@@ -92,7 +92,7 @@ export default function ChangePassword() {
     );
     return (
         <div>
-            <Title title="Solicitar nova senha" subTitle="Um link de troca de senha será enviado para o seu email cadastrado"/>
+            <Title title="Solicitar nova senha" subTitle={parse("Um link de troca de senha será enviado para o seu email cadastrado.<br />O link de recuperação estará disponível por 1 hora antes de expirar.")}/>
             <div>
                 <img src="img/illustrations/empty-cart.png" width='100' height='100' alt="change-password"/>
             </div>

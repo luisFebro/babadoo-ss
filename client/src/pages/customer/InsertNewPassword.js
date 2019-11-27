@@ -17,7 +17,7 @@ import ToggleVisibilityPassword from '../../components/forms/fields/ToggleVisibi
 import ButtonMulti from '../../components/buttons/material-ui/ButtonMulti';
 import TextField from '@material-ui/core/TextField';
 
-export default function ChangePassword({ location, match }) {
+export default function InsertNewPassword({ location, match }) {
     const [data, setData] = useState({
         password: '',
         needRedirectToLogin: false,
@@ -30,9 +30,10 @@ export default function ChangePassword({ location, match }) {
     const dispatch = useStoreDispatch();
     // End Redux
 
-    // const redirectToLogin = needRedirectToLogin => (
-    //     //<Redirect to="/" />
-    // );
+    const redirectToLogin = needRedirectToLogin => (
+        needRedirectToLogin &&
+        <Redirect to="/" />
+    );
 
     // password
     const handlePassword = () => {
@@ -44,10 +45,9 @@ export default function ChangePassword({ location, match }) {
         .then(res => {
             if(res.status !== 200) return showSnackbar(dispatch, res.data.msg, 'error');
             showSnackbar(dispatch, res.data.msg, 'success');
-            setTimeout(() => showModalLogin(dispatch), 5000);
-            setTimeout(() => showSnackbar(dispatch, "Faça o seu login com sua nova senha"), 8000);
             setData({needRedirectToLogin: true})
-            // redirectToLogin();
+            setTimeout(() => showModalLogin(dispatch), 2000);
+            setTimeout(() => showSnackbar(dispatch, "Faça o seu login com sua nova senha", 7000), 5000);
         })
     };
 
@@ -71,7 +71,7 @@ export default function ChangePassword({ location, match }) {
                 setData={setData}
                 onChange={handleChange(setData, data)}
                 error={null}
-                label="Nova Senha aqui. Pelo menos 6 characteres."
+                label="Nova Senha aqui."
                 showForgotPass={false}
             />
             {showButtonActions()}
@@ -81,7 +81,7 @@ export default function ChangePassword({ location, match }) {
         <div>
             <Title title="Insira sua nova senha"/>
             {showForm(needRedirectToLogin)}
-            {/*redirectToLogin(needRedirectToLogin)*/}
+            {redirectToLogin(needRedirectToLogin)}
         </div>
     );
 }
