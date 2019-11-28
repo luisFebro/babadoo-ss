@@ -16,7 +16,7 @@ function checkCoupons(payload) {
 
 // REDUCERS
 const initialState = {
-    currentUser: {},
+   currentUser: {},
     allUsers: [],
     allFavProductsList: [],
     allMessagesList: [],

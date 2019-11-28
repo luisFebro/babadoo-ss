@@ -90,8 +90,8 @@ export default function ModalLogin() {
             if(res.status !== 200) {
                 showSnackbar(dispatch, res.data.msg, 'error');
                 // detect field errors
-                const thisModalFields = Object.keys(data);
-                const foundObjError = detectErrorField(res.data.msg, thisModalFields);
+                const objFields = Object.keys(data);
+                const foundObjError = detectErrorField(res.data.msg, objFields);
                 setFieldError(foundObjError);
                 return;
             }

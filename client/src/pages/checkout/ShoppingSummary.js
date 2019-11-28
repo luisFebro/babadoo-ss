@@ -3,7 +3,7 @@ import { ProductConsumer } from '../../data/contexts/mainContext';
 export default function ShoppingSummary() {
     return (
         <div>
-            <h2 style={{ margin: '4rem 0' }} className="brand bt-5">
+            <h2 style={{ margin: '4rem 0' }} className="brand bt-5 text-center">
                 <strong>Quase lá!</strong>
             </h2>
             <ProductConsumer>

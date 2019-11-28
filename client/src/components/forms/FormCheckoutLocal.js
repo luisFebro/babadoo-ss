@@ -1,11 +1,13 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import styled from 'styled-components';
 import { Redirect } from 'react-router-dom';
-import clearForm from '../../utils/form/use-state/clearForm';
 import { showSnackbar } from '../../redux/actions/snackbarActions';
 import { sendBuyRequestEmail } from '../../redux/actions/emailActions';
 import { setErrorOff } from '../../redux/actions/globalActions';
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
+// helpers
+import clearForm from '../../utils/form/use-state/clearForm';
+import detectErrorField from '../../utils/validation/detectErrorField';
 
 export default function FormCheckoutLocal() {
     const [values, setValues] = useState({
@@ -18,6 +20,12 @@ export default function FormCheckoutLocal() {
     });
     const [redirect, setRedirect] = useState(false);
     const { name, phone, address, additional, itemDescription, totalPay } = values;
+     // detecting field errors
+    const [fieldError, setFieldError] = useState(null);
+    const errorName = fieldError && fieldError.name;
+    const errorPhone = fieldError && fieldError.phone;
+    const errorAddress = fieldError && fieldError.address;
+    // end detecting field errors
 
     // REDUX
     const { bizInfo } = useStoreState(state => ({
@@ -37,6 +45,11 @@ export default function FormCheckoutLocal() {
         setValues({ ...values, [name]: value });
     };
 
+    const clearData = () => {
+        clearForm(setValues, values);
+        setFieldError(null);
+    }
+
     const handleSubmit = e => {
         e.preventDefault();
         const bodyData = {
@@ -53,10 +66,16 @@ export default function FormCheckoutLocal() {
 
         sendBuyRequestEmail(bodyData)
         .then(res => {
-            if(res.status !== 200) return showSnackbar(dispatch, res.data.msg, 'error');
-            clearForm(setValues, values);
+            if(res.status !== 200) {
+                showSnackbar(dispatch, res.data.msg, 'error');
+                // detect field errors
+                const objFields = ['name', 'phone', 'address', 'additional'];
+                const foundObjError = detectErrorField(res.data.msg, objFields);
+                setFieldError(foundObjError);
+                return;
+            }
+            clearData();
             showSnackbar(dispatch, res.data.msg, 'success', 4000);
-            setErrorOff(dispatch);
             setTimeout(() => setRedirect(true), 5000);
         })
     };
@@ -80,19 +99,36 @@ export default function FormCheckoutLocal() {
             </div>
             <form id="contactForm">
                 <p className="full">
-                    <label>Seu Nome</label>
-                    <input type="text" name="name" onChange={handleChange} value={name} /> {/*n1*/}
+                    <label
+                        style={{'color': errorName ? 'red' : 'black'}}
+                    >
+                    Seu Nome
+                    </label>
+                    <input
+                        style={{'border': `1px solid ${errorName ? 'red' : '#c9e6ff'}`}}
+                        type="text"
+                        name="name"
+                        onChange={handleChange}
+                        value={name} /> {/*n1*/}
                 </p>
                 <p className="full">
-                    <label>Telefone/Whatsapp</label>
-                    <input type="tel" name="phone" onChange={handleChange} value={phone} />
+                    <label style={{'color': errorPhone ? 'red' : 'black'}}>Telefone/Whatsapp</label>
+                    <input style={{'border': `1px solid ${errorPhone ? 'red' : '#c9e6ff'}`}} type="tel" name="phone" onChange={handleChange} value={phone} />
                 </p>
                 <p className="full">
-                    <label>
+                    <label
+                        style={{'color': errorAddress ? 'red' : 'black'}}
+                    >
                         Endereço para Entrega
                         <br /> (Rua/Avenida, Número, Bairro, Referência){' '}
                     </label>
-                    <textarea name="address" rows="8" onChange={handleChange} value={address}></textarea>
+                    <textarea
+                        style={{'border': `1px solid ${errorAddress ? 'red' : '#c9e6ff'}`}}
+                        name="address"
+                        rows="8"
+                        onChange={handleChange}
+                        value={address}
+                    ></textarea>
                 </p>
                 <p className="full">
                     <label>Alguma Informação Adicional? (Opcional)</label>
