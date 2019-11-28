@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const {
+    mwGetLinkChangePass,
     sendBuyRequestEmail,
     sendWelcomeConfirmEmail,
     sendNewPasswordEmail
@@ -12,7 +13,7 @@ const { mwValidateBuyRequest } = require('../controllers/_mw-validation/email');
 // @ routes api/email/...
 router.post('/admin/order-request', mwValidateBuyRequest, sendBuyRequestEmail);
 router.post('/client/welcome-and-confirm', sendWelcomeConfirmEmail);
-router.post('/client/new-password', sendNewPasswordEmail);
+router.post('/client/new-password', mwGetLinkChangePass, sendNewPasswordEmail);
 module.exports = router;
 
 

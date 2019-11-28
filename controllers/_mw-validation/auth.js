@@ -37,3 +37,11 @@ exports.mwValidateLogin = (req, res, next) => {
     })
     .catch(err => msgG('error.systemError', err.toString()));
 }
+
+exports.mwValidatePassword = (req, res, next) => {
+    const { password } = req.body;
+    if(!password) return res.status(400).json(msg('error.noPassword'));
+    if(password.length < 6) return res.status(400).json(msg('error.notEnoughCharacters'))
+    if(!validatePassword(password)) return res.status(400).json(msg('error.noDigitFound'))
+    next();
+}

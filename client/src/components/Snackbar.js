@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import clsx from 'clsx';
 // Redux
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { closeSnackbar } from '../redux/actions/snackbarActions';
@@ -85,7 +84,7 @@ export default function SnackbarMulti() {
                 }
             }}
             message={
-                <span id="message-id" className={clsx("text-default text-center", classes.message)}>
+                <span id="message-id" className={`text-default ${classes.message}`}>
                     <i
                         style={{ color: 'var(--mainWhite)', fontSize: '1.7rem', paddingRight: '8px' }}
                         className={variantIcon[snackbarStatusColor]}

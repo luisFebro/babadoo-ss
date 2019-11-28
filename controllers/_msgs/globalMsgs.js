@@ -3,7 +3,7 @@ const globalMsgs = { ok: {}, error: {} };
 const { ok, error } = globalMsgs;
 
 const msgG = (typeAndMsgName, customized = 'NeedCustomWord', options) => {
-    const isOnlyMsg = (customized || options) === 'onlyMsg';
+    const isOnlyMsg = `${customized}${options}`.includes("onlyMsg");
     customized = customized.cap();
 
     const [type, msgName] = typeAndMsgName.split(".");

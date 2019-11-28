@@ -7,6 +7,29 @@ const {
     getWelcomeAndConfirmTemplate,
     getBuyRequestTemplate,
 } = require('../templates/email');
+const { CLIENT_URL } = require('../config');
+
+// MIDDLEWARES
+exports.mwGetLinkChangePass = (req, res, next) => {
+    const { email } = req.body;
+    User.findOneAndUpdate(
+    { email },
+    { $set: {"tempAuthUserToken.this": `${uuidv1()}np`}},// np = new password
+    { new: true },
+    (err, user) => {
+        if(err) res.status(400).json(msg('error.systemError', err))
+        if(!user) return res.status(400).json(msg('error.notRegistered'))
+        user.password = undefined;
+        const clientOrigin = CLIENT_URL;
+        const authToken = user.tempAuthUserToken.this;
+        const userId = user._id;
+        const authLink = `${CLIENT_URL}/cliente/trocar-senha/${authToken}?id=${userId}`
+        req.email = { authLink }
+        next();
+    })
+}
+// END MIDDLEWARES
+
 
 // SEND EMAIL
 sgMail.setApiKey(process.env.SEND_GRID_KEY);
@@ -33,20 +56,6 @@ const sendEmail = async (toEmail, mainTitle, content) => {
 }
 // END SEND EMAIL
 
-exports.sendNewPasswordEmail = (req, res) => {
-    const { email } = req.body;
-    User.findOneAndUpdate(
-    { email },
-    { $set: {"tempAuthUserToken.this": `${uuidv1()}np`}},// np = new password
-    { new: true },
-    (err, user) => {
-        if(err) res.status(400).json(msg('error.systemError', err))
-        if(!user) return res.status(400).json(msg('error.notRegistered'))
-        user.password = undefined;
-        res.json(user);
-    })
-}
-
 exports.sendWelcomeConfirmEmail = (req, res) => {
     const { email, bizName } = req.body;
     const mainTitle = `Seja Bem Vindo(a) a ${bizName}`;
@@ -62,6 +71,12 @@ exports.sendBuyRequestEmail = (req, res) => {
     sendEmail(toEmail, mainTitle, getBuyRequestTemplate(req.body))
     .then(() => res.json(msg('ok.successBuyRequest')))
     .catch(err => res.json(msgG('error.systemError', err)))
+}
+
+exports.sendNewPasswordEmail = (req, res) => {
+    const { authLink } = req.email;
+    console.log("authLink", authLink);
+
 }
 
 
