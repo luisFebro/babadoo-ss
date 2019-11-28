@@ -3,8 +3,6 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const validateEmail = require('../../utils/validation/validateEmail');
 
-// verifying User
-console.log("User model", User);
 
 // MESSAGES
 const ok = {
@@ -17,7 +15,7 @@ const msg = (text, systemError = "") => ({ msg: text + systemError });
 // END MESSAGES
 
 // MIDDLEWARES - mw
-exports.mwUserById = (req, res, next, id) => {
+exports.mwUserId = (req, res, next, id) => {
     User.findById(id).exec((err, user) => {
         if (err || !user) return res.status(400).json(msg(error.notFound));
         // user brings all properties from User Model
@@ -29,8 +27,7 @@ exports.mwUserById = (req, res, next, id) => {
 
 
 exports.read = (req, res) => {
-    req.profile.hashed_password = undefined;
-    req.profile.salt = undefined;
+    req.profile.password = undefined;
     return res.json(req.profile);
 };
 

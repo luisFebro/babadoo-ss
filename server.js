@@ -9,6 +9,10 @@ require('./utils/globalHelpers');
 //Init Express
 const app = express();
 
+const ENVIRONMENT = process.env.NODE_ENV || 'development';
+const isProduction = ENVIRONMENT === 'production';
+console.log("env", ENVIRONMENT);
+
 // DATABASE
 const options = {
     useNewUrlParser: true,
@@ -36,11 +40,12 @@ app.use('/api/product', require('./routes/product'));
 app.use('/api/category', require('./routes/product/category'));
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/admin', require('./routes/admin'));
-// Serve static files such as images, CSS files, and JavaScript files for the React frontend app
-app.use(express.static(path.join(__dirname, 'client/build')))
+// Serve static files such as images, CSS files, and JavaScript files for the React frontend <app></app>
+isProduction && app.use(express.static(path.join(__dirname, 'client/build')))
 // END MIDDLEWARES
 
 // This solves the "Not found" issue when loading an URL other than index.html.
+isProduction &&
 app.get('/*', (req, res) => { //n3
   res.sendFile(path.join(__dirname + '/client/build/index.html'), err => {
     if (err) { res.status(500).send(err) }

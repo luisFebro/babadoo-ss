@@ -1,12 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const collectionName = "products";
-const moment = require('moment');
-
-//Set local time:
-//e.g Outubro 10º 2019, 8:53:49 pm
-moment.updateLocale('pt-BR');
-let brTime = moment(Date.now()).format('MMMM Do YYYY, h:mm:ss a');
 
 const data = {
     category: {
@@ -40,10 +34,6 @@ const data = {
     sold: {
         type: Number,
         default: 0
-    },
-    registerDate: {
-        type: String,
-        default: brTime
     },
     isReadyToPopulate: {
         type: Boolean,

@@ -1,13 +1,19 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const collectionName = "all-users";
-const moment = require('moment');
-require('moment/locale/pt-br');
 
-//Set local time:
-//e.g Outubro 10º 2019, 8:53:49 pm
-moment.locale('pt-br');
-const brTime = moment(Date.now()).format('Do MMM [às] h:mm, YYYY[.]');
+// TEMP AUTH USER ID
+const dataTempAuthUserToken = {
+    this: {
+        type: String,
+        default: '',
+    },
+    createdAt: { type: Date, default: Date.now, expires: '1m' }
+}
+
+const UserTokenSchema = new Schema(dataTempAuthUserToken);
+// END TEMP AUTH USER ID
+
 
 const data = {
     isAdmin: {
@@ -64,14 +70,10 @@ const data = {
         type: Boolean,
         default: false
     },
-    tempAuthUserId: String,
-    registerDate: {
-        type: String,
-        default: brTime
-    },
+    tempAuthUserToken: UserTokenSchema
 }
 
-const userSchema = new Schema(data); //n1
+const userSchema = new Schema(data, { timestamps: true }); //n1
 //n1
 module.exports = mongoose.models.User || mongoose.model('User', userSchema, collectionName);
 

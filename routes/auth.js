@@ -4,14 +4,19 @@ const {
     loadAuthUser,
     register,
     login,
-    mwAuth
+    mwAuth,
+    changePassword
 } = require('../controllers/auth');
 
-// const { mwValidateUserRegister } = require('../utils/validation/mwValidateUserRegister');
+const {
+    mwValidateRegister,
+    mwValidateLogin,
+} = require('../controllers/_mw-validation/auth');
 
 // @route   api/auth
 router.get('/user', mwAuth, loadAuthUser);
-router.post('/register', register);
-router.post('/login', login);
+router.post('/register', mwValidateRegister, register);
+router.post('/login', mwValidateLogin, login);
+router.post('/change-password', changePassword);
 
 module.exports = router;

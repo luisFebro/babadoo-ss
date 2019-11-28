@@ -5,7 +5,7 @@ const {
     read,
     update,
     remove,
-    mwUserById,
+    mwUserId,
     getList,
 } = require("../../controllers/user");
 
@@ -17,7 +17,7 @@ router.delete('/:userId', remove);
 // END RUD
 
 // Everytime there is a userId, this router will run and make this user info available in the request object
-router.param("userId", mwUserById);
+router.param("userId", mwUserId);
 
 
 // LISTS

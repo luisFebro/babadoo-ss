@@ -2,15 +2,7 @@ const Admin = require('../models/admin');
 const BusinessInfo = require("../models/admin/BusinessInfo");
 const adminId = '5db4301ed39a4e12546277a8';
 const businessInfoId = "5dcc77a0db168f112884b27f"; //n1a
-
-// MESSAGES
-const ok = {
-}
-const error = {
-    systemError: "Ocorreu o seguinte erro: "
-}
-const msg = (text, systemError = "") => ({ msg: text + systemError});
-// END MESSAGES
+const { msgG } = require('./_msgs/globalMsgs');
 
 exports.createOrUpdate = (req, res) => {
     Admin.findOneAndUpdate(
@@ -18,7 +10,7 @@ exports.createOrUpdate = (req, res) => {
         { $set: req.body }, // n3
         { new: true, upsert: true }, // n2
         (err, bizInfo) => {
-            if (err) return res.status(400).json(msg(error.systemError, err));
+            if (err) return res.status(400).json(msgG("error.systemError", err));
             res.json(bizInfo);
         }
     ).populate;
@@ -28,7 +20,7 @@ exports.read = (req, res) => {
     Admin.findById(adminId)
     .populate('businessInfo', '-bizWorkingHours')
     .then(bizInfo => res.json(bizInfo))
-    .catch(err => res.json(msg(error.systemError, err)))
+    .catch(err => res.json(msgG("error.systemError", err)))
 }
 
 
@@ -40,7 +32,7 @@ exports.updateBusinessInfo = (req, res) => {
         { $set: req.body }, // n3
         { new: true, upsert: true }, // n2
         (err, bizInfo) => {
-            if (err) return res.status(400).json(msg(error.systemError, err));
+            if (err) return res.status(400).json(msgG("error.systemError", err));
             res.json(bizInfo);
         }
     );

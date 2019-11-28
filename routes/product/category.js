@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-// const { mwUserById } = require("../controllers/user");
+// const { mwUserId } = require("../controllers/user");
 const {
     create,
     read,
@@ -23,6 +23,6 @@ router.delete("/:categoryId", remove); // /:userId mwRequireSignin, mwIsAuth, mw
 router.get("/list/all", getList); // we can not use /categories directly since /:categoryId will be executed. We need one more level
 
 router.param("categoryId", mwCategoryId)
-// router.param("userId", mwUserById)
+// router.param("userId", mwUserId)
 
 module.exports = router;
