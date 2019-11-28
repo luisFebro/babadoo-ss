@@ -1,11 +1,13 @@
 const User = require('../models/user');
 const sgMail = require('@sendgrid/mail');
+const mailerSender = require('./mailerSender');
 const uuidv1 = require('uuid/v1');
 const { msgG } = require('./_msgs/globalMsgs');
 const { msg } = require('./_msgs/email');
 const {
-    getWelcomeAndConfirmTemplate,
-    getBuyRequestTemplate,
+    showConfirmTemplate,
+    showBuyRequestTemplate,
+    showNewPassLinkTemplate,
 } = require('../templates/email');
 const { CLIENT_URL } = require('../config');
 
@@ -24,7 +26,10 @@ exports.mwGetLinkChangePass = (req, res, next) => {
         const authToken = user.tempAuthUserToken.this;
         const userId = user._id;
         const authLink = `${CLIENT_URL}/cliente/trocar-senha/${authToken}?id=${userId}`
-        req.email = { authLink }
+        req.email = {
+            authLink,
+            userName: user.name
+        }
         next();
     })
 }
@@ -45,12 +50,15 @@ const sendEmail = async (toEmail, mainTitle, content) => {
     const emailContent = Object.assign({}, content, contacts)
 
     try {
-        await sgMail.send(emailContent);
-        console.log(msg('ok.sent'));
+        const res = await sgMail.send(emailContent);
+        console.log(msg('ok.sent', 'onlyMsg'));
+        return res;
     } catch(err) {
-        console.error(msg('error.notSent', err.toString()));
+        console.error(msg('error.notSent', err.toString(), 'onlyMsg'));
         if(err.toString().includes("Maximum credits exceeded")) {
-            console.log("Change to nodemailer")
+            mailerSender(toEmail, mainTitle, content)
+            .then(res => console.log("nodemailerSucc", res))
+            .catch(err => console.log("nodemailerErr", err))
         }
     }
 }
@@ -59,7 +67,7 @@ const sendEmail = async (toEmail, mainTitle, content) => {
 exports.sendWelcomeConfirmEmail = (req, res) => {
     const { email, bizName } = req.body;
     const mainTitle = `Seja Bem Vindo(a) a ${bizName}`;
-    sendEmail(email, mainTitle, getWelcomeAndConfirmTemplate(req.body))
+    sendEmail(email, mainTitle, showConfirmTemplate(req.body))
     .then(() => res.json(msg('ok.confirm')))
     .catch(err => res.json(msgG('error.systemError', err)))
 }
@@ -68,15 +76,18 @@ exports.sendBuyRequestEmail = (req, res) => {
     const toEmail = req.body.bizEmail;
     const bizName = req.body.bizName;
     const mainTitle = `${bizName} - Pedidos de Compra`;
-    sendEmail(toEmail, mainTitle, getBuyRequestTemplate(req.body))
+    sendEmail(toEmail, mainTitle, showBuyRequestTemplate(req.body))
     .then(() => res.json(msg('ok.successBuyRequest')))
     .catch(err => res.json(msgG('error.systemError', err)))
 }
 
 exports.sendNewPasswordEmail = (req, res) => {
-    const { authLink } = req.email;
-    console.log("authLink", authLink);
+    const { email, bizName } = req.body;
+    const mainTitle = `${bizName} - Recuperação de acesso`;
 
+    sendEmail(email, mainTitle, showNewPassLinkTemplate(req.email, req.body))
+    .then(() => res.json(msg('ok.sentNewPassLinkEmail')))
+    .catch(err => res.json(msgG('error.systemError', err)))
 }
 
 

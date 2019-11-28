@@ -22,9 +22,7 @@ export const sendBuyRequestEmail = async (bodyEmail) => {
 
 export const sendNewPasswordLink = async (dispatch, bodyEmail) => {
     try {
-        const res = await axios.post('/api/email/client/new-password', bodyEmail, configTypeJson)
-        // dispatch({ type: 'UPDATE_CURRENT_USER', payload: res.data })
-        return res;
+        return await axios.post('/api/email/client/new-password', bodyEmail, configTypeJson)
     } catch(err) {
         return err.response;
     }

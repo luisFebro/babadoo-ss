@@ -45,3 +45,10 @@ exports.mwValidatePassword = (req, res, next) => {
     if(!validatePassword(password)) return res.status(400).json(msg('error.noDigitFound'))
     next();
 }
+
+exports.mwValidateEmail = (req, res, next) => {
+    const { email } = req.body;
+    if(!email) return res.status(400).json(msg('error.noEmail'));
+    if(!validateEmail(email)) return res.status(400).json(msg('error.invalidEmail'));
+    next();
+}

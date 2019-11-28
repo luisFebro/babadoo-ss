@@ -9,11 +9,12 @@ const msg = (typeAndMsgName, customized = 'NeedCustomWord', options) => {
     let foundMsg;
 
     // MESSAGES
+    ok.sentNewPassLinkEmail = "Um email foi enviado com instruções pra recuperar seu acesso",
+    ok.successBuyRequest = "Pedido registrado e enviado com sucesso! Acompanhe o andamento pela sua conta de acesso!";
     ok.sent = "Mail sent successfully.";
     ok.confirm = 'Um email de confirmação foi enviado para você.';
     ok.confirmed = 'Seu Email foi confimado com sucesso!';
     ok.resend = 'Email de Confirmação Reenviado, verifique também sua caixa de spam';
-    ok.successBuyRequest = "Pedido registrado e enviado com sucesso! Acompanhe o andamento pela sua conta de acesso!";
     error.notSent = "Email não foi enviado!";
     error.notRegistered = "Esse email não foi registrado. Verique se digitou corretamente.";
     error.couldNotFind = 'Não encontramos você!';

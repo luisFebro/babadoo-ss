@@ -17,7 +17,7 @@ export const readAdmin = async dispatch => {
         });
         // setLoadingOff(dispatch);
     } catch (err) {
-        setErrorOn(dispatch, err.response.data.msg);
+        return err.response;
     }
 }
 
@@ -26,7 +26,8 @@ export const updateBusinessInfo = async (dispatch, objToUpdate) => {
         const body = getBodyRequest(objToUpdate);
         const res = await axios.put(`/api/admin/business-info/update`, body, configTypeJson);
         dispatch({ type: 'UPDATE_BIZ_INFO', payload: objToUpdate });
+        return res;
     } catch (err) {
-        setErrorOn(dispatch, err.response.data.msg);
+        return err.response;
     }
 };

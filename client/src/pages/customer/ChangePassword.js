@@ -1,5 +1,5 @@
 import React, { useState, Fragment } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { useStyles, makeStyles } from '@material-ui/core/styles'
 import Title from '../../components/Title';
 import parse from 'html-react-parser';
@@ -24,6 +24,10 @@ export default function ChangePassword() {
     const { email, needMsgAfterSent } = data;
 
     // Redux
+    const { bizInfo } = useStoreState(state => ({
+        bizInfo: state.adminReducer.cases.businessInfo
+    }))
+    const { bizName, bizSlogon } = bizInfo;
     const dispatch = useStoreDispatch();
     // End Redux
 
@@ -35,7 +39,10 @@ export default function ChangePassword() {
                 Se ainda não achar, clique em reenviar email abaixo:
             </p><br />
             <ButtonMulti
-                onClick={sendEmail}
+                onClick={() => {
+                    sendEmail();
+
+                },
                 variant='link'
             >
                 Reenviar Email
@@ -45,14 +52,19 @@ export default function ChangePassword() {
 
     // Email
     const sendEmail = () => {
-        sendNewPasswordLink(dispatch, email)
+        const bodyEmail = {
+            email,
+            bizName,
+            bizSlogon
+        }
+        sendNewPasswordLink(dispatch, bodyEmail)
         .then(res => {
             if(res.status !== 200) return showSnackbar(dispatch, res.data.msg, 'error')
             showSnackbar(dispatch, res.data.msg, 'success');
+            setData({needMsgAfterSent: true})
+            showMsgAfterSent();
         })
 
-        setData({needMsgAfterSent: true})
-        showMsgAfterSent();
     };
 
     // Form

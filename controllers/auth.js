@@ -15,7 +15,7 @@ exports.mwIsAdmin = (req, res, next) => {
 exports.mwAuth = (req, res, next) => { // n1
     const token = req.header('x-auth-token'); // "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkYjQzMDFlZDM5YTRlMTI1NDYyNzdhOCIsImlhdCI6MTU3NDIxMDUwNCwiZXhwIjoxNTc0ODE1MzA0fQ.HAUlZ6lCHxRuieN5nizug_ZMTEuAmJ2Ck22uCcBkmeY"
 
-    if(!token) return console.log(msg('error.jwtNotFound'));
+    if(!token) return console.log(msg('error.jwtNotFound', 'onlyMsg'));
 
     try {
         // Verify token

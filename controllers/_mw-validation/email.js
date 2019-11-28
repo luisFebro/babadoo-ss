@@ -2,7 +2,6 @@ const validateContact = require('../../utils/validation/validateContact');
 const { msg } = require('../_msgs/email');
 
 exports.mwValidateBuyRequest = (req, res, next) => {
-    console.log(req.body);
     const { name, phone, address } = req.body;
 
     if(!name && !phone && !address ) return res.status(400).json(msg('error.anyFieldFilled'));
