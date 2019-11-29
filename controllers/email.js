@@ -19,7 +19,7 @@ exports.mwGetLinkChangePass = (req, res, next) => {
     { $set: {"tempAuthUserToken.this": `${uuidv1()}np`}},// np = new password
     { new: true },
     (err, user) => {
-        if(err) res.status(400).json(msg('error.systemError', err))
+        if(err) res.status(400).json(msg('error.systemError', err.toString()))
         if(!user) return res.status(400).json(msg('error.notRegistered'))
         user.password = undefined;
         const clientOrigin = CLIENT_URL;
@@ -69,7 +69,7 @@ exports.sendWelcomeConfirmEmail = (req, res) => {
     const mainTitle = `Seja Bem Vindo(a) a ${bizName}`;
     sendEmail(email, mainTitle, showConfirmTemplate(req.body))
     .then(() => res.json(msg('ok.confirm')))
-    .catch(err => res.json(msgG('error.systemError', err)))
+    .catch(err => res.json(msgG('error.systemError', err.toString())))
 }
 
 exports.sendBuyRequestEmail = (req, res) => {
@@ -78,7 +78,7 @@ exports.sendBuyRequestEmail = (req, res) => {
     const mainTitle = `${bizName} - Pedidos de Compra`;
     sendEmail(toEmail, mainTitle, showBuyRequestTemplate(req.body))
     .then(() => res.json(msg('ok.successBuyRequest')))
-    .catch(err => res.json(msgG('error.systemError', err)))
+    .catch(err => res.json(msgG('error.systemError', err.toString())))
 }
 
 exports.sendNewPasswordEmail = (req, res) => {
@@ -87,7 +87,7 @@ exports.sendNewPasswordEmail = (req, res) => {
 
     sendEmail(email, mainTitle, showNewPassLinkTemplate(req.email, req.body))
     .then(() => res.json(msg('ok.sentNewPassLinkEmail')))
-    .catch(err => res.json(msgG('error.systemError', err)))
+    .catch(err => res.json(msgG('error.systemError', err.toString())))
 }
 
 

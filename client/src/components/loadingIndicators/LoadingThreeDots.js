@@ -1,5 +1,4 @@
 import React from 'react';
-import { pulse } from '../keyframes/pulse';
 import styled, { keyframes } from 'styled-components';
 
 export default function Preloader() {

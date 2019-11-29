@@ -65,7 +65,6 @@ exports.showNewPassLinkTemplate = (reqEmail, reqBody) => {
     const { email, bizName, bizSlogon } = reqBody;
     const { authLink, userName } = reqEmail;
     const client = userName.cap();
-    console.log(bizSlogon)
     return({
         subject: `${client}, aqui estão instruções para ter seu novo acesso a sua conta da ${bizName}`,
         html: `

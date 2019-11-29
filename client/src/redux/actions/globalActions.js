@@ -21,6 +21,10 @@ export const setLoadingOff = dispatch => {
 };
 // END SET LOADING
 
+export const setLoadingProgress = (dispatch, status) => {
+    return dispatch({ type: 'TOGGLE_LOADING_PROGRESS', payload: status });
+};
+
 // Important: do not forget to clear error methods off
 // ERROR
 export const setErrorOn = (dispatch, errorMsg) => {

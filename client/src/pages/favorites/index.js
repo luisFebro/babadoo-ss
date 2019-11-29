@@ -9,7 +9,7 @@ import EmptyContent from '../../components/EmptyContent';
 import { ButtonContainerPressedEffectDark as Dark } from '../../components/buttons/Default';
 import ShareSocialMediaButtons from '../../components/buttons/ShareSocialMediaButtons';
 import { HashLink } from 'react-router-hash-link';
-import LoadingIndicator from '../../components/LoadingIndicator';
+import LoadingThreeDots from '../../components/loadingIndicators/LoadingThreeDots';
 import PropTypes from 'prop-types';
 
 Favorites.propTypes = {
@@ -36,7 +36,7 @@ export default function Favorites() {
                     {allFavProductsList.length !== 0 ? (
                         <div className="py-2">
                             <div className="container">
-                                <div className="row">{isLoading ? <LoadingIndicator /> : favProducts}</div>
+                                <div className="row">{isLoading ? <LoadingThreeDots /> : favProducts}</div>
                             </div>
                         </div>
                     ) : (

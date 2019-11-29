@@ -2,7 +2,7 @@
 import axios from 'axios';
 import { tokenConfig } from './authActions';
 import { getAllProducts } from './productActions';
-import { setLoadingOn, setLoadingOff, setErrorOn } from './globalActions';
+import { setErrorOn } from './globalActions';
 import { showSnackbar } from './snackbarActions';
 import { logout } from './authActions';
 import { getBodyRequest } from '../../utils/server/getBodyRequest';
@@ -11,14 +11,12 @@ import { configTypeJson } from '../../utils/server/configTypeJson';
 // UPDATED DATA
 export const getUpdatedUsers = async dispatch => {
     try {
-        // setLoadingOn(dispatch);
         const res = await axios.get('/api/user/list/all', configTypeJson);
         console.log('==ALL USERS UPDATED==');
         dispatch({
             type: 'UPDATE_ALL_USERS',
             payload: res.data
         });
-        // setLoadingOff(dispatch);
     } catch (e) {
         setErrorOn(dispatch, 'Algo deu errado ao carregar a página. Detalhes:' + e);
     }

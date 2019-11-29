@@ -64,7 +64,7 @@ export default function FormCheckoutLocal() {
             bizEmail
         };
 
-        sendBuyRequestEmail(bodyData)
+        sendBuyRequestEmail(dispatch, bodyData)
         .then(res => {
             if(res.status !== 200) {
                 showSnackbar(dispatch, res.data.msg, 'error');

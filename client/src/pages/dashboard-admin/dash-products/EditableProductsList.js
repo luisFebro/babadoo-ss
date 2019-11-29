@@ -5,7 +5,7 @@ import EditableProduct from './EditableProduct';
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { getAllProducts } from '../../../redux/actions/productActions';
 // End Redux
-import LoadingIndicator from '../../../components/LoadingIndicator';
+import LoadingThreeDots from '../../../components/loadingIndicators/LoadingThreeDots.js';
 import DashSectionTitle from '../DashSectionTitle';
 import PropTypes from 'prop-types';
 
@@ -40,7 +40,7 @@ export default function ProductList() {
                 <div className="container">
                     <div className="row text-center">
                         {isLoading ? (
-                            <LoadingIndicator />
+                            <LoadingThreeDots />
                         ) : (
                             allProductsList.map(product => <EditableProduct key={product._id} product={product} />)
                         )}

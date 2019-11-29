@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { getAuthUser } from './userActions';
-import { setErrorOn, setErrorOff } from './globalActions';
+import { setLoadingProgress } from './globalActions';
 import { showSnackbar } from './snackbarActions';
 import { getBodyRequest } from '../../utils/server/getBodyRequest';
 import { configTypeJson } from '../../utils/server/configTypeJson';
@@ -19,22 +19,25 @@ export const loadUser = () => (dispatch, getState) => {
         // getAuthUser(dispatch, res.data.profile);
     })
     .catch(err => {
-        err.response && setErrorOn(dispatch, err.response.data.msg);
+        return err.response;
     });
 };
 
 // login Email
 // loginEMail with Async/Await
 export const loginEmail = async (dispatch, objToSend) => {
+    setLoadingProgress(dispatch, true);
     try {
         const res = await axios.post('/api/auth/login', objToSend, configTypeJson);
         dispatch({ type: 'LOGIN_EMAIL', payload: res.data.token });
         getAuthUser(dispatch, res.data.authUserId);
+        setLoadingProgress(dispatch, false);
         return res;
     } catch (err) {
         dispatch({
             type: 'LOGIN_ERROR'
         });
+        setLoadingProgress(dispatch, false);
         return err.response;
     }
 };
@@ -42,15 +45,18 @@ export const loginEmail = async (dispatch, objToSend) => {
 // Register User
 // objToSend: { name, email, password, registeredBy = email }
 export const registerEmail = async (dispatch, objToSend) => {
+    setLoadingProgress(dispatch, true);
     try {
         const res = await axios.post('/api/auth/register', objToSend, configTypeJson);
         dispatch({ type: 'REGISTER_EMAIL', payload: res.data.token });
         getAuthUser(dispatch, res.data.authUserId);
+        setLoadingProgress(dispatch, false);
         return res;
     } catch(err) {
         dispatch({
             type: 'REGISTER_ERROR'
         });
+        setLoadingProgress(dispatch, false);
         return err.response;
     }
 };
@@ -64,7 +70,7 @@ export const registerGoogle = (dispatch, body, resGoogle) => {
         getAuthUser(dispatch, res.data.authUserId); // This will get the complementary data from user registered by social network
     })
     .catch(err => {
-        err.response && setErrorOn(dispatch, err.response.data.msg);
+        return err.response;
     })
 };
 
@@ -76,7 +82,7 @@ export const registerFacebook = (dispatch, body, resFacebook) => {
         getAuthUser(dispatch, res.data.authUserId); // This will get the complementary data from user registered by social network
     })
     .catch(err => {
-        err.response && setErrorOn(dispatch, err.response.data.msg);
+        return err.response;
     })
 };
 // Register Social Networks
@@ -84,14 +90,17 @@ export const registerFacebook = (dispatch, body, resFacebook) => {
 export const logout = dispatch => {
     dispatch({ type: 'LOGOUT_SUCCESS' });
     dispatch({ type: 'CLEAR_UPDATE_CURRENT_USER' });
-    setErrorOff(dispatch);
     setTimeout(() => showSnackbar(dispatch, 'Sua sessão foi finalizada com sucesso. Volte Sempre!', 4000), 2000);
 };
 
-export const changePassword = async (bodyPass, userId) => {
+export const changePassword = async (dispatch, bodyPass, userId) => {
+    setLoadingProgress(dispatch, true);
     try {
-        return await axios.post(`/api/auth/change-password?id=${userId}`, bodyPass, configTypeJson);
+        const res = await axios.post(`/api/auth/change-password?id=${userId}`, bodyPass, configTypeJson);
+        setLoadingProgress(dispatch, false);
+        return res;
     } catch(err) {
+        setLoadingProgress(dispatch, false);
         return err.response;
     }
 }

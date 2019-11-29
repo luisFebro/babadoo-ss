@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import ScrollToTop from 'react-router-scroll-top';
+import LinearProgress from '../components/loadingIndicators/LinearProgress';
 // Auth Components
 import PrivateRouteAdm from '../components/auth/PrivateRouteAdm';
 // Redux
@@ -71,6 +72,7 @@ export default function App() {
     return (
         <BrowserRouter>
             <ScrollToTop>
+                <LinearProgress />
                 <Navbar />
                 <Switch>
                     {/*Categories Pages*/}

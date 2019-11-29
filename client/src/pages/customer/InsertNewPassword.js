@@ -41,7 +41,7 @@ export default function InsertNewPassword({ location, match }) {
             password,
             authToken
         }
-        changePassword(bodyPass, userId)
+        changePassword(dispatch, bodyPass, userId)
         .then(res => {
             if(res.status !== 200) return showSnackbar(dispatch, res.data.msg, 'error');
             showSnackbar(dispatch, res.data.msg, 'success');

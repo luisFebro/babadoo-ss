@@ -2,7 +2,7 @@
 import axios from 'axios';
 import { configTypeJson } from '../../utils/server/configTypeJson';
 import { getBodyRequest } from '../../utils/server/getBodyRequest';
-import { setErrorOn } from './globalActions';
+import { setLoadingProgress } from './globalActions';
 
 export const sendWelcomeEmail = async (bodyEmail) => {
     try {
@@ -12,18 +12,26 @@ export const sendWelcomeEmail = async (bodyEmail) => {
     }
 };
 
-export const sendBuyRequestEmail = async (bodyEmail) => {
+export const sendBuyRequestEmail = async (dispatch, bodyEmail) => {
+    setLoadingProgress(dispatch, true);
     try {
-        return await axios.post('/api/email/admin/order-request', bodyEmail, configTypeJson);
+        const res = await axios.post('/api/email/admin/order-request', bodyEmail, configTypeJson);
+        setLoadingProgress(dispatch, false);
+        return res;
     } catch (err) {
+        setLoadingProgress(dispatch, false);
         return err.response;
     }
 };
 
 export const sendNewPasswordLink = async (dispatch, bodyEmail) => {
+    setLoadingProgress(dispatch, true);
     try {
-        return await axios.post('/api/email/client/new-password', bodyEmail, configTypeJson)
+        const res = await axios.post('/api/email/client/new-password', bodyEmail, configTypeJson)
+        setLoadingProgress(dispatch, false);
+        return res;
     } catch(err) {
+        setLoadingProgress(dispatch, false);
         return err.response;
     }
 }

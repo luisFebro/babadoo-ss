@@ -4,7 +4,7 @@ import { useStoreState } from 'easy-peasy';
 // End Redux
 import axios from 'axios';
 import RegisteredUser from './RegisteredUser';
-import LoadingIndicator from '../../../components/LoadingIndicator';
+import LoadingThreeDots from '../../../components/loadingIndicators/LoadingThreeDots';
 
 export default function RegisteredUsersList() {
     const [total, setTotal] = useState({
@@ -73,7 +73,7 @@ export default function RegisteredUsersList() {
                 </h2>
             </div>
             {isLoading ? (
-                <LoadingIndicator />
+                <LoadingThreeDots />
             ) : (
                 <div>
                     {gotError ? (

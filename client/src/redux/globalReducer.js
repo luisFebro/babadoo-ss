@@ -5,6 +5,7 @@ import { reducer } from 'easy-peasy';
 // REDUCERS
 const initialState = {
     isLoading: false,
+    isLoadingLinearProgress: false,
     errorMsg: null,
     currentItemFound: null
 };
@@ -29,6 +30,11 @@ export const globalReducer = {
                     ...state,
                     errorMsg: action.payload
                 };
+            case 'TOGGLE_LOADING_PROGRESS':
+                return {
+                    ...state,
+                    isLoadingLinearProgress: action.payload
+                }
             //Clear
             case 'CLEAR_LOADING':
                 return {

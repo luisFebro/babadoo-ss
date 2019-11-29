@@ -23,7 +23,7 @@ exports.mwAuth = (req, res, next) => { // n1
         // Add user from payload
         req.authObj = decoded; // eg { id: '5db4301ed39a4e12546277a8', iat: 1574210504, exp: 1574815304 } // iat refers to JWT_SECRET. This data is generated from jwt.sign
     } catch (err) {
-        res.status(400).json(msgG('error.systemError', err))
+        res.status(400).json(msgG('error.systemError', err.toString()))
     }
     next();
 }
@@ -36,7 +36,7 @@ exports.loadAuthUser = (req, res) => {
     User.findById(userId)
         .select('-password')
         .exec((err, profile) => {
-            if(err) return res.status(400).json(msgG('error.systemError', err))
+            if(err) return res.status(400).json(msgG('error.systemError', err.toString()))
             res.json({ profile });
         })
 }
@@ -108,10 +108,10 @@ exports.changePassword = (req, res) => {
         user.tempAuthUserToken.this = undefined;
         bcrypt.genSalt(10, (err, salt) => { // n3
             bcrypt.hash(password, salt, (err, hash) => {
-                if(err) return res.status(400).json(msgG('error.systemError', err));
+                if(err) return res.status(400).json(msgG('error.systemError', err.toString()));
                 user.password = hash;
                 user.save(err => {
-                    if(err) return res.status(400).json(msgG('error.systemError', err));
+                    if(err) return res.status(400).json(msgG('error.systemError', err.toString()));
                     res.json(msg('ok.changedPassword', user.name));
                 })
             })

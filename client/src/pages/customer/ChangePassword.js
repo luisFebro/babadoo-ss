@@ -2,6 +2,7 @@ import React, { useState, Fragment } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { useStyles, makeStyles } from '@material-ui/core/styles'
 import Title from '../../components/Title';
+import RedirectPage from '../../components/RedirectPage';
 import parse from 'html-react-parser';
 // Redux
 import { useStoreDispatch, useStoreState } from 'easy-peasy';
@@ -17,6 +18,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import EmailIcon from '@material-ui/icons/Email';
 
 export default function ChangePassword() {
+    const [redirect, setRedirect] = useState(false);
     const [data, setData] = useState({
         email: '',
         needMsgAfterSent: false,
@@ -31,24 +33,33 @@ export default function ChangePassword() {
     const dispatch = useStoreDispatch();
     // End Redux
 
-    const showMsgAfterSent = needMsgAfterSent => (
-        needMsgAfterSent &&
-        <div className="container-center" style={{'margin': '20px auto', 'width': '80%'}}>
-            <p className="text-center text-default animated zoomIn slow">
-                Enviado! Se não encontrar na sua caixa de entrada, verifique sua caixa de spam.
-                Se ainda não achar, clique em reenviar email abaixo:
-            </p><br />
-            <ButtonMulti
-                onClick={() => {
-                    sendEmail();
-
-                },
-                variant='link'
-            >
-                Reenviar Email
-            </ButtonMulti>
-        </div>
-    );
+    const showMsgAfterSent = needMsgAfterSent => {
+        let redirect;
+        if(needMsgAfterSent) {
+            redirect = setTimeout(() => setRedirect(true), 15000);
+        }
+        return(
+            needMsgAfterSent &&
+            <div className="container-center" style={{'margin': '20px auto', 'width': '80%'}}>
+                <p className="text-center text-default animated zoomIn slow">
+                    Pronto! Se não encontrar na sua caixa de entrada, verifique sua caixa de spam.
+                    Se ainda não achar, clique em reenviar email abaixo:
+                </p><br />
+                <ButtonMulti
+                    onClick={() => {
+                        clearTimeout(redirect);
+                        setData({needMsgAfterSent: false})
+                    }}
+                    variant='link'
+                >
+                    Reenviar Email
+                </ButtonMulti>
+                <div>
+                    <p className="text-default text-center">Você será redirecionado para página inicial em instantes.</p>
+                </div>
+            </div>
+        );
+    }
 
     // Email
     const sendEmail = () => {
@@ -60,9 +71,8 @@ export default function ChangePassword() {
         sendNewPasswordLink(dispatch, bodyEmail)
         .then(res => {
             if(res.status !== 200) return showSnackbar(dispatch, res.data.msg, 'error')
-            showSnackbar(dispatch, res.data.msg, 'success');
-            setData({needMsgAfterSent: true})
-            showMsgAfterSent();
+            showSnackbar(dispatch, res.data.msg, 'success', 5500);
+            setTimeout(() => setData({needMsgAfterSent: true}), 6000);
         })
 
     };
@@ -110,6 +120,7 @@ export default function ChangePassword() {
             </div>
             {showForm(needMsgAfterSent)}
             {showMsgAfterSent(needMsgAfterSent)}
+            <RedirectPage to="/" activated={redirect} />
         </div>
     );
 }

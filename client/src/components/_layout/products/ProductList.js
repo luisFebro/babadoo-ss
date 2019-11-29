@@ -4,7 +4,7 @@ import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { getAllProducts } from '../../../redux/actions/productActions';
 // import { checkForServerError } from '../../redux/actions/errorActions';
 // End Redux
-import LoadingIndicator from '../../LoadingIndicator';
+import LoadingThreeDots from '../../loadingIndicators/LoadingThreeDots';
 import Product from './Product';
 import { ProductConsumer } from '../../../data/contexts/mainContext';
 import PropTypes from 'prop-types';
@@ -46,7 +46,7 @@ export default function ProductList() {
                             </div>
                         )}
                         {isLoading ? (
-                            <LoadingIndicator />
+                            <LoadingThreeDots />
                         ) : (
                             allProductsList.map(product => {
                                 // Check if the product was added as favorite
