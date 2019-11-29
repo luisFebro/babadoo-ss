@@ -1,7 +1,7 @@
 // naming structure: action > type > speficification e.g action: GET_MODAL_BLUE / func: getModalBlue
 import axios from 'axios';
 import { tokenConfig } from './authActions';
-import { setLoadingOn, setLoadingOff, setErrorOn } from './globalActions';
+import { setLoadingProgress, setErrorOn } from './globalActions';
 import { getRandomArray } from '../../utils/getRandomArray';
 import { getBodyRequest } from '../../utils/server/getBodyRequest';
 import { configTypeJson } from '../../utils/server/configTypeJson';
@@ -59,21 +59,16 @@ export const deleteProduct = async (dispatch, _idProduct) => {
 
 // LISTS
 export const getAllProducts = async dispatch => {
+    setLoadingProgress(dispatch, true);
     // let didCancel = false; //n1
     try {
-        setLoadingOn(dispatch);
         const res = await axios.get('/api/product/list/all');
         console.log('==GOT ALL PRODUCTS==');
         const randomOrder = getRandomArray(res.data);
         dispatch({ type: 'GET_ALL_PRODUCTS', payload: randomOrder });
-        setLoadingOff(dispatch);
-        // if(!didCancel) {
-        // }
+        setLoadingProgress(dispatch, false);
     } catch (err) {
         console.log('getAllProductsError', err);
-        setErrorOn(dispatch, err.response.data.msg);
-        // if(!didCancel) {
-        // }
     }
 };
 // END LISTS

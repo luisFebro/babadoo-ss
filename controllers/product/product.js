@@ -190,7 +190,7 @@ exports.getList = (req, res) => { // n2
 exports.getListRelated = (req, res) => {
     console.log("getList Related req product", req.product)
     const selectedProduct = req.product;
-    let limit = req.query.limit ? parseInt(req.query.limit) : 6; // 6 by default
+    let limit = req.query.limit ? parseInt(req.query.limit) : 2; // 6 by default
     // find this current category from the selected product but not include itself
     Product.find({ _id: { $ne: selectedProduct }, category: selectedProduct.category }) //n1
     .limit(limit)

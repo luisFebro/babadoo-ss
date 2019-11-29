@@ -29,40 +29,24 @@ export default function ProductList() {
         getAllProducts(dispatch);
     }, []);
 
+    const mapAllProductsList = allProductsList.map(product => {
+        // Check if the product was added as favorite
+        let isAddedFav = false;
+        if (idsFromFavList) {
+            if (idsFromFavList.includes(product._id)) {
+                isAddedFav = true;
+            }
+        }
+        return <Product key={product._id} product={product} isFav={isAddedFav} />;
+    })
+
     return (
-        <Fragment>
-            <div className="py-5">
-                <div className="container">
-                    <div className="row text-center">
-                        {isError && (
-                            <div className="text-center text-sub-title">
-                                Ocorreu um problema no servidor.
-                                <br />
-                                Tente recarregar a página novamente
-                                <br />
-                                ou
-                                <br />
-                                Verifique sua conexão à internet
-                            </div>
-                        )}
-                        {isLoading ? (
-                            <LoadingThreeDots />
-                        ) : (
-                            allProductsList.map(product => {
-                                // Check if the product was added as favorite
-                                // Warning: this iterator is being called multiple times
-                                let isAddedFav = false;
-                                if (idsFromFavList) {
-                                    if (idsFromFavList.includes(product._id)) {
-                                        isAddedFav = true;
-                                    }
-                                }
-                                return <Product key={product._id} product={product} isFav={isAddedFav} />;
-                            })
-                        )}
-                    </div>
+        <div className="py-5">
+            <div className="container">
+                <div className="row text-center">
+                    {mapAllProductsList}
                 </div>
             </div>
-        </Fragment>
+        </div>
     );
 }

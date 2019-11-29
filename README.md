@@ -23,7 +23,8 @@
 - [Improving loading time with cron-job to prevent Heroku App to idle - Mahdhi Rezvi](https://medium.com/@mahdhirezvi/keeping-my-heroku-app-alive-b19f3a8c3a82)
 - [Simple explanation for middleware - Jamis Charles](https://medium.com/@jamischarles/what-is-middleware-a-simple-explanation-bb22d6b41d01)
 - [Making request like a pro with axios - Faraz Kelhini](https://blog.logrocket.com/how-to-make-http-requests-like-a-pro-with-axios/)
-
+- [Skeleton Loading Pages with React - Anthony Panagi
+](https://medium.com/octopus-wealth/skeleton-loading-pages-with-react-5a931f12677b)
 
 
 ## Author: Luis Febro.

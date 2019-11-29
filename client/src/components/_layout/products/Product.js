@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
+import Skeleton from '@material-ui/lab/Skeleton';
 // Redux
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { addFieldUser, deleteFieldUser } from '../../../redux/actions/userActions';
@@ -24,6 +25,7 @@ Product.propTypes = {
 
 export default function Product({ product, isFav }) {
     const [isFavChanged, setIsFavChanged] = useState(false);
+    const [showSkeleton, setShowSkeleton] = userState(false);
     // const [isAddedAsFav, setIsAddedAsFav] = useState(isFav);
 
     const { allProductsList, isUserAuthenticated, _idUser } = useStoreState(state => ({
@@ -44,85 +46,116 @@ export default function Product({ product, isFav }) {
     };
     const bodyFavorite = bodyToSendFavorite(allProductsList, _id);
 
+    const showImage = image => (
+        <Link to="/produto/:dashed-name">
+            {image === undefined
+            ? <Skeleton variant="rect" width={190} height={190} />
+            : <img className="card-img-top" src={image} alt="product" />}
+        </Link>
+    );
+
+    const handleFavButton = () => (
+        <button className="cart-fav" onClick={() => toggleFav()}>
+            {isUserAuthenticated ? (
+                isFavChanged || isFav ? (
+                    <i
+                        className="filledHeart fas fa-heart animated heartBeat fast"
+                        onClick={() => {
+                            deleteFieldUser(dispatch, bodyFavorite, _idUser);
+                            showSnackbar(dispatch, 'Removido dos seus favoritos!');
+                        }}
+                        style={{
+                            animationIterationCount: 3
+                        }}
+                    ></i>
+                ) : (
+                    <Fragment>
+                        {image === undefined
+                        ? <Skeleton variant="circle" width={30} height={30} />
+                        : <i
+                            className="emptyHeart far fa-heart"
+                            onClick={() => {
+                                addFieldUser(dispatch, bodyFavorite, _idUser);
+                                showSnackbar(dispatch, 'Adicionado aos Seus Favoritos', 'success');
+                                // value.openModalFavorite(_id);
+                            }}
+                        ></i>}
+                    </Fragment>
+                )
+            ) : (
+                <i
+                    className="emptyHeart far fa-heart"
+                    onClick={() => {
+                        showModalRegister(dispatch);
+                        showSnackbar(
+                            dispatch,
+                            'Faça seu acesso para adicionar aos favoritos!'
+                        );
+                    }}
+                ></i>
+            )}
+        </button>
+    );
+
+    const handleCartButton = () => (
+        <Fragment>
+            {image === undefined
+            ? <Skeleton variant="circle" width={35} height={35} />
+            : (
+                <button
+                    className="cart-btn"
+                    disabled={inCart ? true : false}
+                    onClick={() => {
+                        // value.addToCart(_id);
+                        // value.openModal(_id);
+                    }}
+                >
+                    {inCart ? (
+                        <p className="text-capitalize mb-0" disabled>
+                            {' '}
+                            No carrinho
+                        </p>
+                    ) : (
+                        <i className="fas fa-cart-plus"></i>
+                    )}
+                </button>
+            )}
+        </Fragment>
+    );
+
+    // Footer
+    const showTitle = () => (
+        <p style={{ height: '4em', overflow: 'hidden' }} className="mb-0 text-capitalize">
+            {image === undefined
+            ? <Skeleton />
+            : truncateWords(title, 40)}
+        </p>
+    );
+
+    const showPrice = () => (
+        <h5 className="mt-2 text-right mb-2 mr-2">
+            {image === undefined
+            ? <Skeleton width="30%" style={{right: '10px'}} />
+            : <span>R$ {price}</span>}
+        </h5>
+    );
+
     return (
         <ProductWrapper className="animated jackInTheBox slow col-6 col-md-4 col-lg-3 mx-auto my-2">
             <div className="card">
-                <ProductConsumer>
-                    {value => (
-                        <div
-                            className="img-container p-1 p-sm-3"
-                            onClick={() => {
-                                console.log('value.handleDetail(_id)');
-                            }}
-                        >
-                            <Link to="/produto/:dashed-name">
-                                <img className="card-img-top" src={image} alt="product" />
-                            </Link>
-                            <button className="cart-fav" onClick={() => toggleFav()}>
-                                {isUserAuthenticated ? (
-                                    isFavChanged || isFav ? (
-                                        <i
-                                            className="filledHeart fas fa-heart animated heartBeat fast"
-                                            onClick={() => {
-                                                deleteFieldUser(dispatch, bodyFavorite, _idUser);
-                                                showSnackbar(dispatch, 'Removido dos seus favoritos!');
-                                            }}
-                                            style={{
-                                                animationIterationCount: 3
-                                            }}
-                                        ></i>
-                                    ) : (
-                                        <i
-                                            className="emptyHeart far fa-heart"
-                                            onClick={() => {
-                                                addFieldUser(dispatch, bodyFavorite, _idUser);
-                                                showSnackbar(dispatch, 'Adicionado aos Seus Favoritos', 'success');
-                                                // value.openModalFavorite(_id);
-                                            }}
-                                        ></i>
-                                    )
-                                ) : (
-                                    <i
-                                        className="emptyHeart far fa-heart"
-                                        onClick={() => {
-                                            showModalRegister(dispatch);
-                                            showSnackbar(
-                                                dispatch,
-                                                'Faça seu acesso para adicionar aos favoritos!'
-                                            );
-                                        }}
-                                    ></i>
-                                )}
-                            </button>
-                            <button
-                                className="cart-btn"
-                                disabled={inCart ? true : false}
-                                onClick={() => {
-                                    // value.addToCart(_id);
-                                    // value.openModal(_id);
-                                }}
-                            >
-                                {inCart ? (
-                                    <p className="text-capitalize mb-0" disabled>
-                                        {' '}
-                                        No carrinho
-                                    </p>
-                                ) : (
-                                    <i className="fas fa-cart-plus"></i>
-                                )}
-                            </button>
-                        </div>
-                    )}
-                </ProductConsumer>
-                {/*card footer*/}
+                <div
+                    className="img-container p-1 p-sm-3"
+                    onClick={() => {
+                        console.log('value.handleDetail(_id)');
+                    }}
+                >
+                    {showImage(image)}
+                    {handleFavButton()}
+                    {handleCartButton()}
+                </div>
                 <div className="text-product-title p-1 card-footer d-flex flex-column text-center justify-content-between">
-                    <p style={{ height: '4em', overflow: 'hidden' }} className="mb-0 text-capitalize">
-                        {truncateWords(title, 40)}
-                    </p>
-                    <h5 className="mt-2 text-right mb-2 mr-2">
-                        <span>R$</span>
-                        {price}
-                    </h5>
+                    {showTitle()}
+                    {showPrice()}
                 </div>
             </div>
         </ProductWrapper>
