@@ -13,7 +13,7 @@ import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { showSnackbar } from '../../redux/actions/snackbarActions';
 import { showModalLogin, showModalUnderConstruction, closeModal } from '../../redux/actions/modalActions';
 import { getUpdatedUsers } from '../../redux/actions/userActions';
-import { sendWelcomeEmail } from '../../redux/actions/emailActions';
+import { sendWelcomeConfirmEmail } from '../../redux/actions/emailActions';
 import { registerEmail } from '../../redux/actions/authActions';
 // Material UI
 import TextField from '@material-ui/core/TextField';
@@ -49,6 +49,7 @@ export default function ModalRegister() {
 
     // This component is running before fetching bizInfo, that's why this condition until further info
     const bizName = bizInfo && bizInfo.bizName;
+    const bizSlogon = bizInfo && bizInfo.bizSlogon;
     const bizWebsite = bizInfo && bizInfo.bizWebsite;
     const bizWhatsapp = bizInfo && bizInfo.bizWhatsapp;
 
@@ -63,15 +64,16 @@ export default function ModalRegister() {
         }
     }, [isUserAuthenticated, isModalRegisterOpen]);
 
-    const sendEmail = () => {
+    const sendEmail = userId => {
         const dataEmail = {
             name,
             email,
             bizName,
+            bizSlogon,
             bizWebsite,
             bizWhatsapp
         };
-        sendWelcomeEmail(dataEmail)
+        sendWelcomeConfirmEmail(dataEmail, userId)
         .then(res => {
             if (res.status !== 200) return showSnackbar(dispatch, res.data.msg, 'error');
             setTimeout(() => showSnackbar(dispatch, res.data.msg, 'warning', 3000), 4000);
@@ -103,7 +105,7 @@ export default function ModalRegister() {
                 return;
             }
             showSnackbar(dispatch, res.data.msg, 'success', 4000);
-            sendEmail();
+            sendEmail(res.data.authUserId);
             clearData();
         })
 

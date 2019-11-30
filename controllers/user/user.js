@@ -50,7 +50,6 @@ exports.update = (req, res) => {
 exports.remove = (req, res) => { //needs to put auth as middleware
     const user = req.profile;
     user.remove((err, data) => {
-        console.log(data);
         if (err) return res.status(400).json(msg(error.systemError, err));
         res.json(msg(`O usuário ${data.name.toUpperCase()} foi excluído com sucesso`));
     });
@@ -59,7 +58,9 @@ exports.remove = (req, res) => { //needs to put auth as middleware
 
 exports.getList = (req, res) => {
     //.sort({ createAt: -1 }) // ordered descending - most recently
-    User.find().exec((err, data) => {
+    User.find({})
+    .select("-password")
+    .exec((err, data) => {
         if (err) return res.status(400).json(msg(error.systemError, err));
         res.json(data);
     });
