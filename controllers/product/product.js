@@ -1,4 +1,5 @@
 const Product = require('../../models/product');
+const BackupProduct = require('../../models/backup/BackupProduct');
 const ProductInfo = require('../../models/product/ProductInfo');
 const { mwAuth } = require('../../controllers/auth');
 const formidable = require('formidable');
@@ -40,6 +41,23 @@ exports.mwProductId = (req, res, next, id) => {
         req.product = product;
         next();
     });
+}
+
+exports.mwBackup = (req, res, next) => {
+    const { _id, title } = req.product;
+    const data = {
+        subject: title,
+        backup: req.product
+    }
+
+    let backup = new BackupProduct(data);
+
+    backup.save((err => {
+        if(err) return res.status(400).json(msg(error.systemError, err.toString()));
+        console.log(`Realizado o backup do produto: ${title.toUpperCase()}`)
+    }))
+
+    next();
 }
 // END MIDDLEWARES
 

@@ -12,19 +12,19 @@ const {
     getListCategory,
     mwPhoto,
     mwProductId,
+    mwBackup
 } = require('../../controllers/product');
 
 // @routes  api/product...
 
 // CRUD
-router.post("/", create); // /:userId mwRequireSignin, mwIsAdmin, mwIsAdmin
+router.post("/", create); // /:userId mwRequireSignin, mwIsAdmin
 router.get("/:productId", read);
 router.put("/:productId", update);
-router.delete('/:productId', remove);
+router.delete('/:productId', mwBackup, remove);
 // END CRUD
 
 router.get("/photo/:productId", mwPhoto);
-
 router.put("/:productId/product-info/update", updateProductInfo);
 
 // LISTS
