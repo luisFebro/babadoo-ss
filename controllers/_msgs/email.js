@@ -11,11 +11,12 @@ const msg = (typeAndMsgName, customized = 'NeedCustomWord', options) => {
     // MESSAGES
     ok.sentNewPassLinkEmail = "Um email foi enviado com instruções pra recuperar seu acesso",
     ok.successBuyRequest = "Pedido registrado e enviado com sucesso! Acompanhe o andamento pela sua conta de acesso!";
-    ok.sent = "Mail sent successfully.";
+    ok.sentGrid = "Mail sent successfully via Send Grid";
+    ok.sentMailer = "Mail sent successfully via Node Mailer";
     ok.confirm = 'Um email de confirmação foi enviado para você.';
     ok.confirmed = 'Seu Email foi confimado com sucesso!';
     ok.resend = 'Email de Confirmação Reenviado, verifique também sua caixa de spam';
-    error.notSent = "Email não foi enviado!";
+    error.notSent = `Email not sent! Details: ${customized} End. || Trying with another provider...`;
     error.notRegistered = "Esse email não foi registrado. Verique se digitou corretamente.";
     error.couldNotFind = 'Não encontramos você!';
     error.alreadyConfirmed = '';

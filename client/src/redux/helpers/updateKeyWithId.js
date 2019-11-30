@@ -5,7 +5,7 @@
 export default function updateKeyWithId(obj, objToUpdate, id) {
     const _id = objToUpdate._id;
     const key = Object.keys(objToUpdate)[1], value = objToUpdate[key];
-    const objIndex = obj.findIndex(objEach => objEach._id == _id);
+    const objIndex = obj.findIndex(objEach => objEach._id === _id);
     obj[objIndex][key] = value;
     return obj;
 }

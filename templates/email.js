@@ -32,10 +32,10 @@ exports.showBuyRequestTemplate = reqBody => {
     });
 };
 
-exports.showConfirmTemplate = reqBody => {
-    const { name, bizName, bizWebsite, bizWhatsapp } = reqBody;
+exports.showConfirmTemplate = (reqEmail, reqBody) => {
+    const { authLink } = reqEmail;
+    const { name, bizName, bizWebsite, bizWhatsapp, bizSlogon } = reqBody;
     const client = name.cap();
-    bizName.cap();
     return({
         subject: `${client}, confirme a sua conta da ${bizName}`,
         html: `
@@ -44,10 +44,11 @@ exports.showConfirmTemplate = reqBody => {
                      <img style="box-shadow: 0 19px 38px rgba(0,0,0,0.20), 0 15px 12px rgba(0,0,0,0.12);" src="https://imgur.com/9GjtAiW.png" width="200px" height="200px"/>
                 </header>
             </center>
-            <h1><center>Artigos Eróticos</center></h1>
+            <h1><center>${bizSlogon}</center></h1>
             <h3>Tenha acesso a todos as funcionalidades da ${bizName}</h3>
             <h3>Para ativar sua conta, por favor verifique seu endereço de email:</h3>
-            <h4><a href=${bizWebsite}>CONFIRMAR SEU EMAIL</a></h4>
+            <h4><a href=${authLink}>CONFIRMAR SEU EMAIL</a></h4>
+            <h4>Ou acesse pelo link: <a href=${authLink}>${authLink}</a></h4>
             <ul>
               <li><h4>Embalagens Discretas</h4></li>
               <li><h4>Entregamos por toda a cidade</h4></li>
@@ -76,7 +77,7 @@ exports.showNewPassLinkTemplate = (reqEmail, reqBody) => {
             <h1><center>${bizSlogon}</center></h1>
             <h3>Para trocar sua senha, clique aqui em <a href=${authLink}>TROCAR SENHA</a> ou pelo seguinte link:</h3>
             <br />
-            <h3>${authLink}</h3>
+            <h3><a href=${authLink}>${authLink}</a></h3>
             <br />
             <h4>Este link expira em 1 hora após solicitação.</h4>
             <footer>

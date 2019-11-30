@@ -5,8 +5,8 @@ const credentials = {
     port: 465,
     secure: true,
     auth: {
-        user: process.env.NODEMAILER_EMAIL_SENDER,
-        pass: process.env.NODEMAILER_EMAIL_PASSWORD
+        user: process.env.EMAIL_BIZ,
+        pass: process.env.EMAIL_BIZ_PASSWORD
     },
     tls: {
         rejectUnauthorized: false
@@ -15,10 +15,10 @@ const credentials = {
 
 const transporter = nodemailer.createTransport(credentials)
 
-module.exports = async (to, mainTitle, content) => {
+module.exports = async (toEmail, mainTitle, content) => {
     const contacts = {
-        from: `${mainTitle} <${process.env.NODEMAILER_EMAIL_SENDER}>`,
-        to
+        from: `${mainTitle} <${process.env.EMAIL_BIZ}>`,
+        to: [toEmail] // process.env.EMAIL_DEV
     }
 
     const email = Object.assign({}, content, contacts)

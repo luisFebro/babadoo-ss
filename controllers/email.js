@@ -1,6 +1,6 @@
 const User = require('../models/user');
-const sgMail = require('@sendgrid/mail');
 const mailerSender = require('./mailerSender');
+const gridSender = require('./gridSender');
 const uuidv1 = require('uuid/v1');
 const { msgG } = require('./_msgs/globalMsgs');
 const { msg } = require('./_msgs/email');
@@ -19,10 +19,8 @@ exports.mwGetLinkChangePass = (req, res, next) => {
     { $set: {"tempAuthUserToken.this": `${uuidv1()}np`}},// np = new password
     { new: true },
     (err, user) => {
-        if(err) res.status(400).json(msg('error.systemError', err.toString()))
+        if(err) return res.status(400).json(msg('error.systemError', err.toString()))
         if(!user) return res.status(400).json(msg('error.notRegistered'))
-        user.password = undefined;
-        const clientOrigin = CLIENT_URL;
         const authToken = user.tempAuthUserToken.this;
         const userId = user._id;
         const authLink = `${CLIENT_URL}/cliente/trocar-senha/${authToken}?id=${userId}`
@@ -30,35 +28,40 @@ exports.mwGetLinkChangePass = (req, res, next) => {
             authLink,
             userName: user.name
         }
+
         next();
     })
+}
+
+exports.mwGetLinkConfirm = (req, res, next) => {
+    const { authId } = req.params;
+    User.findOne({ _id: authId })
+    .exec((err, user) => {
+        if(err) return res.status(400).json(msg('error.systemError', err.toString()))
+        const userId = user._id;
+        const authLink = `${CLIENT_URL}/cliente/confirmacao-conta/${userId}`
+        req.email = {
+            authLink,
+        }
+
+        next();
+    })
+
 }
 // END MIDDLEWARES
 
 
 // SEND EMAIL
-sgMail.setApiKey(process.env.SEND_GRID_KEY);
-
 const sendEmail = async (toEmail, mainTitle, content) => {
-    const contacts = {
-        isMultiple: true, // the recipients can't see the other ones when this is on
-        from: `${mainTitle} <${process.env.EMAIL_BIZ}>`,
-        to: [toEmail, process.env.EMAIL_DEV] // take EMAIL_DEV away if there is more than 50 emails a day.
-    }
-
-    // Combining the content and contacts into a single object that can be passed to SendGrid.
-    const emailContent = Object.assign({}, content, contacts)
-
     try {
-        const res = await sgMail.send(emailContent);
-        console.log(msg('ok.sent', 'onlyMsg'));
-        return res;
+        await gridSender(toEmail, mainTitle, content)
+        console.log(msg('ok.sentGrid', 'onlyMsg'));
     } catch(err) {
         console.error(msg('error.notSent', err.toString(), 'onlyMsg'));
         if(err.toString().includes("Maximum credits exceeded")) {
             mailerSender(toEmail, mainTitle, content)
-            .then(res => console.log("nodemailerSucc", res))
-            .catch(err => console.log("nodemailerErr", err))
+            .then(res => console.log(msg('ok.sentMailer', 'onlyMsg')))
+            .catch(err => console.log("error.notSent", err.toString()))
         }
     }
 }
@@ -67,7 +70,7 @@ const sendEmail = async (toEmail, mainTitle, content) => {
 exports.sendWelcomeConfirmEmail = (req, res) => {
     const { email, bizName } = req.body;
     const mainTitle = `Seja Bem Vindo(a) a ${bizName}`;
-    sendEmail(email, mainTitle, showConfirmTemplate(req.body))
+    sendEmail(email, mainTitle, showConfirmTemplate(req.email, req.body))
     .then(() => res.json(msg('ok.confirm')))
     .catch(err => res.json(msgG('error.systemError', err.toString())))
 }

@@ -4,9 +4,9 @@ import { configTypeJson } from '../../utils/server/configTypeJson';
 import { getBodyRequest } from '../../utils/server/getBodyRequest';
 import { setLoadingProgress } from './globalActions';
 
-export const sendWelcomeEmail = async (bodyEmail) => {
+export const sendWelcomeConfirmEmail = async (bodyEmail, userId) => {
     try {
-        return await axios.post('/api/email/client/welcome-and-confirm', bodyEmail, configTypeJson);
+        return await axios.post(`/api/email/client/welcome-and-confirm/${userId}`, bodyEmail, configTypeJson);
     } catch (err) {
         return err.response;
     }
