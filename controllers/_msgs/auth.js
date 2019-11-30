@@ -15,8 +15,9 @@ const msg = (typeAndMsgName, customized = 'NeedCustomWord', options) => {
     error.jwtNotFound = "JWT token não foi encontrado";
     error.notAuthorized = "Você não está autorizado para executar esta ação";
     error.accessDenied = "Acesso Negado. Somente admin";
-    // Form
     error.expiredAuthToken = 'O prazo para trocar a senha expirou.';
+    error.noAuthToken = 'Não foi encontrado nenhuma solicitação de mudança de senha';
+    // Form
     error.anyFieldFilled = "Você precisa preencher todos os campos";
     error.noDigitFound = 'Sua senha deve conter pelo menos um dígito';
     error.noName = 'Por favor, insira o seu nome';

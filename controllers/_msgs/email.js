@@ -14,12 +14,10 @@ const msg = (typeAndMsgName, customized = 'NeedCustomWord', options) => {
     ok.sentGrid = "Mail sent successfully via Send Grid";
     ok.sentMailer = "Mail sent successfully via Node Mailer";
     ok.confirm = 'Um email de confirmação foi enviado para você.';
-    ok.confirmed = 'Seu Email foi confimado com sucesso!';
     ok.resend = 'Email de Confirmação Reenviado, verifique também sua caixa de spam';
     error.notSent = `Email not sent! Details: ${customized} End. || Trying with another provider...`;
     error.notRegistered = "Esse email não foi registrado. Verique se digitou corretamente.";
     error.couldNotFind = 'Não encontramos você!';
-    error.alreadyConfirmed = '';
     // Form
     error.anyFieldFilled = "Preencha todas os campos";
     error.noName = "Por favor, insira seu nome";

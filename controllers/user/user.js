@@ -1,24 +1,14 @@
 const User = require("../../models/user");
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const { msgG } = require('../_msgs/globalMsgs');
+const { msg } = require('../_msgs/user');
 const validateEmail = require('../../utils/validation/validateEmail');
-
-
-// MESSAGES
-const ok = {
-}
-const error = {
-    notFound: "O usuário não foi encontrado",
-    systemError: "Ocorreu o seguinte erro: "
-}
-const msg = (text, systemError = "") => ({ msg: text + systemError });
-// END MESSAGES
 
 // MIDDLEWARES - mw
 exports.mwUserId = (req, res, next, id) => {
     User.findById(id).exec((err, user) => {
-        if (err || !user) return res.status(400).json(msg(error.notFound));
-        // user brings all properties from User Model
+        if(err || !user) return res.status(400).json(msg('error.notFound'));
         req.profile = user;
         next();
     });
@@ -34,35 +24,51 @@ exports.read = (req, res) => {
 
 // OFFICIAL WAY TO UPDATE - this allow to update by field and return the updated response immediately
 exports.update = (req, res) => {
-    User.findOneAndUpdate(
-        { _id: req.profile._id },
-        { $set: req.body },
-        { new: true }, // real time updated! this send the most recently updated response/doc from database to app
-        (err, user) => {
-            if (err) return res.status(400).json(msg(msg.notAuthorized));
-            user.hashed_password = undefined;
-            user.salt = undefined;
-            res.json(user);
-        }
-    );
+    User.findOneAndUpdate({ _id: req.profile._id }, { $set: req.body }, { new: true }) // real time updated! this send the most recently updated response/doc from database to app
+    .exec((err, user) => {
+        if(err) return res.status(400).json(msgG('error.systemError', err.toString()));
+        user.hashed_password = undefined;
+        user.salt = undefined;
+        res.json(user);
+    });
 };
 
 exports.remove = (req, res) => { //needs to put auth as middleware
     const user = req.profile;
     user.remove((err, data) => {
-        if (err) return res.status(400).json(msg(error.systemError, err));
-        res.json(msg(`O usuário ${data.name.toUpperCase()} foi excluído com sucesso`));
+        if(err) return res.status(400).json(msgG('error.systemError', err.toString()));
+        res.json(msg('ok.userDeleted', data.name.toUpperCase()));
     });
 
 }
 
 exports.getList = (req, res) => {
-    //.sort({ createAt: -1 }) // ordered descending - most recently
     User.find({})
-    .select("-password")
-    .exec((err, data) => {
-        if (err) return res.status(400).json(msg(error.systemError, err));
-        res.json(data);
-    });
+        .select("-password")
+        .exec((err, data) => {
+            if(err) return res.status(400).json(msgG('error.systemError', err.toString()));
+            res.json(data);
+        });
 }
 
+exports.confirmUserAccount = (req, res) => {
+    const { authUserId } = req.params
+    User.findById(authUserId)
+    .exec((err, user) => {
+        if(!user) return res.status(404).json(msg('error.notFoundConfirmation'))
+        if(err) return res.status(400).json(msgG('error.systemError', err.toString()));
+
+        const { isUserConfirmed, name } = user;
+
+        if(user && !isUserConfirmed) {
+            User.findByIdAndUpdate(authUserId, { isUserConfirmed: true })
+            .exec(err => {
+                if(err) return res.status(400).json(msgG('error.systemError', err.toString()));
+                res.json(msg('ok.userConfirmed', name));
+            })
+        }
+        else {
+            res.status(400).json(msg('error.userAlreadyConfirmed'))
+        }
+    })
+}

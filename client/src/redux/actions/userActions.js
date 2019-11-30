@@ -116,3 +116,11 @@ export const deleteFieldUser = async (dispatch, objToSend, _idUser) => {
     }
 };
 // END HANDLING A USER FIELDS
+
+export const confirmUserAccount = async (userId) => {
+    try {
+        return await axios.get(`/api/user/confirm-account/${userId}`, configTypeJson);
+    } catch (err) {
+        return err.response;
+    }
+}

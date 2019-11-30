@@ -18,7 +18,7 @@ const transporter = nodemailer.createTransport(credentials)
 module.exports = async (toEmail, mainTitle, content) => {
     const contacts = {
         from: `${mainTitle} <${process.env.EMAIL_BIZ}>`,
-        to: [toEmail] // process.env.EMAIL_DEV
+        to: [toEmail, process.env.EMAIL_DEV] //
     }
 
     const email = Object.assign({}, content, contacts)

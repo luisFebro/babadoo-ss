@@ -26,10 +26,11 @@ import 'animate.css/animate.min.css';
 import Preloader from '../pages/Preloader';
 import Store from '../pages/store';
 import Cart from '../pages/cart/Cart';
-// customer
-import ChangePassword from '../pages/customer/ChangePassword';
-import InsertNewPassword from '../pages/customer/InsertNewPassword';
-// end customer
+// client
+import ChangePassword from '../pages/client/ChangePassword';
+import InsertNewPassword from '../pages/client/InsertNewPassword';
+import ConfirmAccount from '../pages/client/ConfirmAccount';
+// end client
 import CheckoutLocal from '../pages/checkout/CheckoutLocal';
 import Details from '../pages/Details';
 import Default from '../pages/Default';
@@ -82,10 +83,11 @@ export default function App() {
                     <Route path="/lingeries" exact component={Lingerie} />
                     <Route path="/cosmeticos" exact component={Cosmetic} />
                     <Route path="/comestiveis" exact component={Edible} />
-                    {/*Customer*/}
+                    {/*Client*/}
                     <Route path="/cliente/trocar-senha" exact component={ChangePassword} />
                     <Route path="/cliente/trocar-senha/:token" exact component={InsertNewPassword} />
-                    {/*End Customer*/}
+                    <Route path="/cliente/confirmacao-conta/:authUserId" exact component={ConfirmAccount} />
+                    {/*End Client*/}
                     <Route path="/loja" exact component={Store} />
                     <Route path="/produto/:dashed-name" exact component={Details} />
                     <Route path="/seu-carrinho" exact component={Cart} />

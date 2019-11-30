@@ -7,6 +7,7 @@ const {
     remove,
     mwUserId,
     getList,
+    confirmUserAccount,
 } = require("../../controllers/user");
 
 // @route  api/user
@@ -15,6 +16,8 @@ router.get("/:userId", read); // requireSignin, mwIsAuth
 router.put("/test/:userId", update); // requireSignin, mwIsAuth
 router.delete('/:userId', remove);
 // END RUD
+
+router.get("/confirm-account/:authUserId", confirmUserAccount);
 
 // Everytime there is a userId, this router will run and make this user info available in the request object
 router.param("userId", mwUserId);

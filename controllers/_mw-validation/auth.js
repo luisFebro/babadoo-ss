@@ -25,7 +25,8 @@ exports.mwValidateRegister = (req, res, next) => {
 
 exports.mwValidateLogin = (req, res, next) => {
     const { email, name, password } = req.body;
-
+    console.log(name)
+    console.log(email)
     User.findOne({ $or: [{ name }, { email }] })
     .then(user => {
         if(!email && !password) return res.status(400).json(msg('error.anyFieldFilled'));

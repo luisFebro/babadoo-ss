@@ -86,7 +86,7 @@ exports.login = (req, res) => {
         jwt.sign({ id: _id },
             process.env.JWT_SECRET, { expiresIn: expireAuthDays }, //7 days - "expiresIn" should be a number of seconds or string that repesents a timespan eg: "1d", "20h",
             (err, token) => {
-                if(err) throw err;
+                if(err) return res.status(400).json(msgG('error.systemError', err.toString()));
                 res.json({
                     token,
                     authUserId: _id,
@@ -103,7 +103,8 @@ exports.changePassword = (req, res) => {
 
     User.findOne({ _id: id })
     .then(user => {
-        if(user.tempAuthUserToken.this !== authToken) return res.status(400).json(msg(error.expiredAuthToken))
+        if(!user.tempAuthUserToken) return res.status(400).json(msg('error.noAuthToken'))
+        if(user.tempAuthUserToken.this !== authToken) return res.status(400).json(msg('error.expiredAuthToken'))
 
         user.tempAuthUserToken.this = undefined;
         bcrypt.genSalt(10, (err, salt) => { // n3

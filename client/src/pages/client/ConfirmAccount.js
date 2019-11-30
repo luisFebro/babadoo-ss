@@ -1,0 +1,37 @@
+import React, { useState, useEffect } from 'react';
+import { Redirect } from 'react-router-dom';
+import Title from '../../components/Title';
+import RedirectPage from '../../components/RedirectPage';
+// Redux
+import { useStoreDispatch } from 'easy-peasy';
+import { showSnackbar } from '../../redux/actions/snackbarActions'
+import { confirmUserAccount } from '../../redux/actions/userActions'
+
+
+export default function ConfirmAccount({ match }) {
+    const [redirect, setRedirect] = useState(false);
+
+    const dispatch = useStoreDispatch();
+
+    useEffect(() => {
+        const userId = match.params.authUserId;
+        confirmUserAccount(userId)
+        .then(res => {
+            if(res.status !== 200) {
+                setRedirect(true);
+                showSnackbar(dispatch, res.data.msg, 'error');
+                return;
+            }
+            setTimeout(() => setRedirect(true), 3000);
+            showSnackbar(dispatch, res.data.msg, 'success', 7000);
+        })
+
+    }, []);
+
+    return (
+        <div>
+            <Title title="Confirmando sua conta..."/>
+            <RedirectPage to={"/"} activated={redirect} />
+        </div>
+    );
+}
