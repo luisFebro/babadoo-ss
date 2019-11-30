@@ -40,6 +40,7 @@ app.use('/api/product', require('./routes/product'));
 app.use('/api/category', require('./routes/product/category'));
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/admin', require('./routes/admin'));
+app.use('/api/database', require('./routes/database'));
 // Serve static files such as images, CSS files, and JavaScript files for the React frontend <app></app>
 isProduction && app.use(express.static(path.join(__dirname, 'client/build')))
 // END MIDDLEWARES

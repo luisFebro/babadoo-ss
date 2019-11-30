@@ -19,14 +19,14 @@ export default function LinearProgress() {
             setCompleted(oldCompleted => {
                 let diff;
                 if(oldCompleted === 100) {
-                    return 5;
+                    return 15;
                 }
                 if(oldCompleted === 90) {
                     // slower
-                    diff = Math.random() * 5;
+                    diff = Math.random() * 1;
 
                 } else {
-                    diff = Math.random() * 30;
+                    diff = Math.random() * 10;
                 }
                 return Math.min(oldCompleted + diff, 100);
             });

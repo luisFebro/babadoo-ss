@@ -10,6 +10,7 @@ const msgG = (typeAndMsgName, customized = 'NeedCustomWord', options) => {
     let foundMsg;
 
     // MESSAGES
+    ok.success = "Esta operação foi executada com sucesso";
     error.notFound = `${customized} não foi encontrado`;
     error.systemError = `Ocorreu o seguinte erro: ${customized}`;
     // END MESSAGES

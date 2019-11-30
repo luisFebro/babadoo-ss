@@ -1,5 +1,6 @@
 import React, { useState, Fragment } from 'react';
 import Skeleton from '@material-ui/lab/Skeleton';
+import ShowImgOrSkeleton from '../../ShowImgOrSkeleton';
 // Redux
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { addFieldUser, deleteFieldUser } from '../../../redux/actions/userActions';
@@ -25,7 +26,7 @@ Product.propTypes = {
 
 export default function Product({ product, isFav }) {
     const [isFavChanged, setIsFavChanged] = useState(false);
-    const [showSkeleton, setShowSkeleton] = userState(false);
+    const [showSkeleton, setShowSkeleton] = useState(true);
     // const [isAddedAsFav, setIsAddedAsFav] = useState(isFav);
 
     const { allProductsList, isUserAuthenticated, _idUser } = useStoreState(state => ({
@@ -38,7 +39,7 @@ export default function Product({ product, isFav }) {
     const toggleFav = () => {
         setIsFavChanged(!isFavChanged);
     };
-    const { _id, title, image, price, inCart } = product;
+    const { _id, title, price, inCart } = product;
 
     const bodyToSendFavorite = (AllProds, _id) => {
         const obj = getItem(AllProds, _id);
@@ -46,11 +47,19 @@ export default function Product({ product, isFav }) {
     };
     const bodyFavorite = bodyToSendFavorite(allProductsList, _id);
 
-    const showImage = image => (
+    const showImage = () => (
         <Link to="/produto/:dashed-name">
-            {image === undefined
-            ? <Skeleton variant="rect" width={190} height={190} />
-            : <img className="card-img-top" src={image} alt="product" />}
+            <ShowImgOrSkeleton
+                id={_id}
+                url="product"
+                setStatus={setShowSkeleton}
+                status={showSkeleton}
+                skeletonOpt={{
+                    variant: 'rect',
+                    width: 191,
+                    height: 191
+                }}
+            />
         </Link>
     );
 
@@ -70,16 +79,18 @@ export default function Product({ product, isFav }) {
                     ></i>
                 ) : (
                     <Fragment>
-                        {image === undefined
+                        {showSkeleton
                         ? <Skeleton variant="circle" width={30} height={30} />
-                        : <i
+                        : (
+                            <i
                             className="emptyHeart far fa-heart"
                             onClick={() => {
                                 addFieldUser(dispatch, bodyFavorite, _idUser);
                                 showSnackbar(dispatch, 'Adicionado aos Seus Favoritos', 'success');
                                 // value.openModalFavorite(_id);
                             }}
-                        ></i>}
+                            ></i>
+                        )}
                     </Fragment>
                 )
             ) : (
@@ -98,50 +109,53 @@ export default function Product({ product, isFav }) {
     );
 
     const handleCartButton = () => (
-        <Fragment>
-            {image === undefined
-            ? <Skeleton variant="circle" width={35} height={35} />
-            : (
-                <button
-                    className="cart-btn"
-                    disabled={inCart ? true : false}
-                    onClick={() => {
-                        // value.addToCart(_id);
-                        // value.openModal(_id);
-                    }}
-                >
-                    {inCart ? (
-                        <p className="text-capitalize mb-0" disabled>
-                            {' '}
-                            No carrinho
-                        </p>
-                    ) : (
-                        <i className="fas fa-cart-plus"></i>
-                    )}
-                </button>
+        <button
+            style={{ display: showSkeleton ? 'none' : 'block'}}
+            className="cart-btn"
+            disabled={inCart ? true : false}
+            onClick={() => {
+                // value.addToCart(_id);
+                // value.openModal(_id);
+            }}
+        >
+            {inCart ? (
+                <p className="text-capitalize mb-0" disabled>
+                    {' '}
+                    No carrinho
+                </p>
+            ) : (
+                <i className="fas fa-cart-plus"></i>
             )}
-        </Fragment>
+        </button>
+
     );
 
     // Footer
     const showTitle = () => (
         <p style={{ height: '4em', overflow: 'hidden' }} className="mb-0 text-capitalize">
-            {image === undefined
-            ? <Skeleton />
+            {showSkeleton
+            ? (
+                <Fragment>
+                    <Skeleton variant="text" style={{marginTop: '5px'}}/>
+                    <Skeleton variant="text" style={{marginLeft: '130px'}} />
+                </Fragment>
+            )
             : truncateWords(title, 40)}
         </p>
     );
 
     const showPrice = () => (
         <h5 className="mt-2 text-right mb-2 mr-2">
-            {image === undefined
-            ? <Skeleton width="30%" style={{right: '10px'}} />
-            : <span>R$ {price}</span>}
+            <span
+                style={{display: showSkeleton ? 'none' : 'block'}}
+            >
+                R$ {price}
+            </span>
         </h5>
     );
 
     return (
-        <ProductWrapper className="animated jackInTheBox slow col-6 col-md-4 col-lg-3 mx-auto my-2">
+        <ProductWrapper className="col-6 col-md-4 col-lg-3 mx-auto my-2">
             <div className="card">
                 <div
                     className="img-container p-1 p-sm-3"
@@ -149,7 +163,7 @@ export default function Product({ product, isFav }) {
                         console.log('value.handleDetail(_id)');
                     }}
                 >
-                    {showImage(image)}
+                    {showImage()}
                     {handleFavButton()}
                     {handleCartButton()}
                 </div>
