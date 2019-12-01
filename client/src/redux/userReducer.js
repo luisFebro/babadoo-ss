@@ -20,7 +20,6 @@ const initialState = {
     allUsers: [],
     allFavProductsList: [],
     allMessagesList: [],
-    allRegisteredUsersList: [],
     gotCoupons: false
 };
 
@@ -31,7 +30,6 @@ export const userReducer = {
                 return {
                     ...state,
                     allUsers: action.payload,
-                    allRegisteredUsersList: action.payload.map(data => data.name)
                 };
             case 'UPDATE_CURRENT_USER':
                 //Check if user have coupons (If so, the maskot with discount will not appear when user log in)

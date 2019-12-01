@@ -27,8 +27,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 
 export default function ModalLogin() {
     const [data, setData] = useState({
-        name: '', //This is not a field in DB. just for checking either name or email
-        email: '',
+        nameOrEmail: '',
         password: '',
         needKeepLoggedIn: true
     });
@@ -40,23 +39,14 @@ export default function ModalLogin() {
     // end detecting field errors
     // Redux
     // > set state
-    const { isModalLoginOpen, isUserAuthenticated, allRegisteredUsersList } = useStoreState(state => ({
+    const { isModalLoginOpen, isUserAuthenticated } = useStoreState(state => ({
         isModalLoginOpen: state.modalReducers.cases.isModalLoginOpen,
         isUserAuthenticated: state.authReducer.cases.isUserAuthenticated,
-        allRegisteredUsersList: state.userReducer.cases.allRegisteredUsersList
     }));
     const dispatch = useStoreDispatch();
     // End Redux
 
-    let { name, email, password, needKeepLoggedIn } = data;
-
-    // Check and insert "name" key to the request body
-    const compareNameWithSystem = nameFromEmail => {
-        // if the user name is already registered, then set this name
-        if (allRegisteredUsersList.includes(nameFromEmail)) {
-            setData({ ...data, name: nameFromEmail });
-        }
-    };
+    let { nameOrEmail, password, needKeepLoggedIn } = data;
 
     // If authenticated, close modal and salute user
     useEffect(() => {
@@ -65,9 +55,7 @@ export default function ModalLogin() {
                 closeModal(dispatch);
             }
         }
-        // allow user to logIn with his/her name
-        compareNameWithSystem(email);
-    }, [isModalLoginOpen, isUserAuthenticated, email]);
+    }, [isModalLoginOpen, isUserAuthenticated]);
 
     const clearData = () => {
         clearForm(setData, data);
@@ -78,8 +66,7 @@ export default function ModalLogin() {
         // e.preventDefault();
 
         const userData = {
-            name,
-            email,
+            nameOrEmail,
             password,
             needKeepLoggedIn
         };
@@ -157,7 +144,7 @@ export default function ModalLogin() {
                 onChange={handleChange(setData, data)}
                 margin="dense"
                 error={errorEmail || errorName ? true : false}
-                name="email"
+                name="nameOrEmail"
                 type="email"
                 label="Nome ou Email"
                 placeholder="Insira nome ou email cadastrado"

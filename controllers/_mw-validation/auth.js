@@ -11,10 +11,10 @@ exports.mwValidateRegister = (req, res, next) => {
     .then(user => {
         if(user && user.name === name) return res.status(400).json(msg('error.userAlreadyRegistered'));
         if(user && user.email === email) return res.status(400).json(msg('error.emailAlreadyRegistered'));
-        if(!name && !email && !password ) return res.status(400).json(msg('error.anyFieldFilled'));
         if(!name) return res.status(400).json(msg('error.noName'));
         if(!email) return res.status(400).json(msg('error.noEmail'));
         if(!password) return res.status(400).json(msg('error.noPassword'));
+        if(!name && !email && !password ) return res.status(400).json(msg('error.anyFieldFilled'));
         if(!validateEmail(email)) return res.status(400).json(msg('error.invalidEmail'))
         if(password.length < 6) return res.status(400).json(msg('error.notEnoughCharacters'))
         if(!validatePassword(password)) return res.status(400).json(msg('error.noDigitFound'))
@@ -24,9 +24,10 @@ exports.mwValidateRegister = (req, res, next) => {
 }
 
 exports.mwValidateLogin = (req, res, next) => {
-    const { email, name, password } = req.body;
-    console.log(name)
-    console.log(email)
+    const { nameOrEmail, password } = req.body;
+    let name, email;
+    name = email = nameOrEmail;
+
     User.findOne({ $or: [{ name }, { email }] })
     .then(user => {
         if(!email && !password) return res.status(400).json(msg('error.anyFieldFilled'));

@@ -62,9 +62,8 @@ export const sendNotification = async (dispatch, objToSend, _idClient) => {
         _idClient = '5db4301ed39a4e12546277a8';
     }
 
-    const body = getBodyRequest(objToSend);
     try {
-        const res = await axios.put(`/api/user/lists/change-field/notifications/${_idClient}`, body, configTypeJson);
+        const res = await axios.put(`/api/user/lists/change-field/notifications/${_idClient}`, objToSend, body, configTypeJson);
         console.log('res from user Action', res);
         getUpdatedUsers(dispatch);
         // change name form 'admin'to Loja Babadoo (this is how gonna be displayed to the user)
