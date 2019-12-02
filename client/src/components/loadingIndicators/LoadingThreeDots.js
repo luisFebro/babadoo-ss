@@ -31,7 +31,6 @@ const DivWrapper = styled.div`
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    background: var(--mainWhite);
     color: var(--mainDark);
     z-index: 999;
 

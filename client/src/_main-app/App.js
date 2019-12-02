@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import ScrollToTop from 'react-router-scroll-top';
 import LinearProgress from '../components/loadingIndicators/LinearProgress';
+import { loadReCaptcha } from 'react-recaptcha-google';
 // Auth Components
 import PrivateRouteAdm from '../components/auth/PrivateRouteAdm';
 // Redux
@@ -68,6 +69,7 @@ export default function App() {
 
     useEffect(() => {
         //getUpdatedUsers(dispatch);
+        loadReCaptcha();
         dispatch(loadUser(dispatch));
         // CODE NOT WORKING n1
     }, []);

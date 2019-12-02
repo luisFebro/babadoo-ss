@@ -2,6 +2,7 @@ import React, { useState, useEffect, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import ToggleVisibilityPassword from '../forms/fields/ToggleVisibilityPassword';
+import ReCaptchaInvisible from "../ReCaptcha";
 // Helpers
 import detectErrorField from '../../utils/validation/detectErrorField';
 import clearForm from '../../utils/form/use-state/clearForm';
@@ -30,8 +31,9 @@ export default function ModalRegister() {
         name: '',
         email: '',
         password: '',
+        reCaptchaToken: null
     });
-    const { name, email, password } = data;
+    const { name, email, password, reCaptchaToken } = data;
 
     // detecting field errors
     const [fieldError, setFieldError] = useState(null);
@@ -57,10 +59,8 @@ export default function ModalRegister() {
     // End Redux
 
     useEffect(() => {
-        if (isModalRegisterOpen) {
-            if (isUserAuthenticated) {
-                closeModal(dispatch, isModalRegisterOpen);
-            }
+        if (isModalRegisterOpen && isUserAuthenticated) {
+            closeModal(dispatch, isModalRegisterOpen);
         }
     }, [isUserAuthenticated, isModalRegisterOpen]);
 
@@ -91,7 +91,8 @@ export default function ModalRegister() {
         const newUser = {
             name,
             email,
-            password
+            password,
+            reCaptchaToken
         };
         // Attempt to register
         registerEmail(dispatch, newUser)
@@ -104,9 +105,11 @@ export default function ModalRegister() {
                 setFieldError(foundObjError);
                 return;
             }
+
             showSnackbar(dispatch, res.data.msg, 'success', 4000);
             sendEmail(res.data.authUserId);
             clearData();
+
         })
 
     };
@@ -139,6 +142,12 @@ export default function ModalRegister() {
     );
 
     // Form
+    const showReCaptcha = () => (
+        <div className="container-center mt-3">
+            <ReCaptchaInvisible setToken={setData} data={data} />
+        </div>
+    );
+
     const showActionButtons = () => (
         <div style={{ display: 'flex', justifyContent: 'center', margin: '5px 5px 15px' }}>
             <ButtonMulti
@@ -205,6 +214,7 @@ export default function ModalRegister() {
                 error={errorPass}
                 showForgotPass={false}
             />
+            {showReCaptcha()}
             {showActionButtons()}
         </form>
     );

@@ -1,15 +1,15 @@
-const User = require('../models/user');
+const User = require('../../models/user');
 const mailerSender = require('./mailerSender');
 const gridSender = require('./gridSender');
 const uuidv1 = require('uuid/v1');
-const { msgG } = require('./_msgs/globalMsgs');
-const { msg } = require('./_msgs/email');
+const { msgG } = require('../_msgs/globalMsgs');
+const { msg } = require('../_msgs/email');
 const {
     showConfirmTemplate,
     showBuyRequestTemplate,
     showNewPassLinkTemplate,
-} = require('../templates/email');
-const { CLIENT_URL } = require('../config');
+} = require('../../templates/email');
+const { CLIENT_URL } = require('../../config');
 
 // MIDDLEWARES
 exports.mwGetLinkChangePass = (req, res, next) => {

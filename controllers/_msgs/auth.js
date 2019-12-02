@@ -24,6 +24,7 @@ const msg = (typeAndMsgName, customized = 'NeedCustomWord', options) => {
     error.noEmail = 'Por favor, insira o seu email';
     error.noEmailOrName = 'Por favor, insira o seu email ou nome';
     error.noPassword = 'Por favor, insira uma senha';
+    error.noReCaptchaToken = "Último passo. Clique na caixa do Google ReCaptcha"
     error.notFound = "Sem registro. O usuário ou email não foi encontrado";
     error.notEnoughCharacters = 'Sua senha deve conter pelo menos 6 dígitos';
     error.invalidEmail = "Email Inválido. Tente outro.";

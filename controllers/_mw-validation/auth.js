@@ -5,7 +5,7 @@ const { msg } = require('../_msgs/auth');
 const { msgG } = require('../_msgs/globalMsgs');
 
 exports.mwValidateRegister = (req, res, next) => {
-    const { name, email, password } = req.body;
+    const { name, email, password, reCaptchaToken } = req.body;
 
     User.findOne({ $or: [{ email }, { name }] })
     .then(user => {
@@ -15,9 +15,10 @@ exports.mwValidateRegister = (req, res, next) => {
         if(!email) return res.status(400).json(msg('error.noEmail'));
         if(!password) return res.status(400).json(msg('error.noPassword'));
         if(!name && !email && !password ) return res.status(400).json(msg('error.anyFieldFilled'));
-        if(!validateEmail(email)) return res.status(400).json(msg('error.invalidEmail'))
-        if(password.length < 6) return res.status(400).json(msg('error.notEnoughCharacters'))
-        if(!validatePassword(password)) return res.status(400).json(msg('error.noDigitFound'))
+        if(!validateEmail(email)) return res.status(400).json(msg('error.invalidEmail'));
+        if(password.length < 6) return res.status(400).json(msg('error.notEnoughCharacters'));
+        if(!validatePassword(password)) return res.status(400).json(msg('error.noDigitFound'));
+        if(!reCaptchaToken) return res.status(400).json(msg('error.noReCaptchaToken'));
         next();
     })
     .catch(err => msgG('error.systemError', err.toString()));
