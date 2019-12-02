@@ -13,7 +13,7 @@ const msg = (typeAndMsgName, customized = 'NeedCustomWord', options) => {
     ok.userConfirmed = `Bem vindo(a) à bordo, ${customized.cap()}! Sua conta foi registrada com sucesso.`;
     error.notFound = "O usuário não foi encontrado";
     error.userAlreadyConfirmed = "O usuário já foi cadastrado com esse link";
-    error.notFoundConfirmation = "Esse link não é válido ou o usuário não está registrado";
+    error.notFoundConfirmation = "Esse link não é válido.";
     // END MESSAGES
 
     foundMsg = userMsgs[type][msgName];
