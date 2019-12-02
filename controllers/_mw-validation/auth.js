@@ -21,7 +21,7 @@ exports.mwValidateRegister = (req, res, next) => {
         if(!reCaptchaToken) return res.status(400).json(msg('error.noReCaptchaToken'));
         next();
     })
-    .catch(err => msgG('error.systemError', err.toString()));
+    .catch(err => msgG('error.systemError', err));
 }
 
 exports.mwValidateLogin = (req, res, next) => {
@@ -38,7 +38,7 @@ exports.mwValidateLogin = (req, res, next) => {
         req.profile = user;
         next();
     })
-    .catch(err => msgG('error.systemError', err.toString()));
+    .catch(err => msgG('error.systemError', err));
 }
 
 exports.mwValidatePassword = (req, res, next) => {

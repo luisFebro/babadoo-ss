@@ -26,7 +26,7 @@ exports.read = (req, res) => {
 exports.update = (req, res) => {
     User.findOneAndUpdate({ _id: req.profile._id }, { $set: req.body }, { new: true }) // real time updated! this send the most recently updated response/doc from database to app
     .exec((err, user) => {
-        if(err) return res.status(400).json(msgG('error.systemError', err.toString()));
+        if(err) return res.status(400).json(msgG('error.systemError', err));
         user.hashed_password = undefined;
         user.salt = undefined;
         res.json(user);
@@ -36,7 +36,7 @@ exports.update = (req, res) => {
 exports.remove = (req, res) => { //needs to put auth as middleware
     const user = req.profile;
     user.remove((err, data) => {
-        if(err) return res.status(400).json(msgG('error.systemError', err.toString()));
+        if(err) return res.status(400).json(msgG('error.systemError', err));
         res.json(msg('ok.userDeleted', data.name.toUpperCase()));
     });
 
@@ -46,7 +46,7 @@ exports.getList = (req, res) => {
     User.find({})
         .select("-password")
         .exec((err, data) => {
-            if(err) return res.status(400).json(msgG('error.systemError', err.toString()));
+            if(err) return res.status(400).json(msgG('error.systemError', err));
             res.json(data);
         });
 }
@@ -56,14 +56,14 @@ exports.confirmUserAccount = (req, res) => {
     User.findById(authUserId)
     .exec((err, user) => {
         if(!user) return res.status(404).json(msg('error.notFoundConfirmation'))
-        if(err) return res.status(400).json(msgG('error.systemError', err.toString()));
+        if(err) return res.status(400).json(msgG('error.systemError', err));
 
         const { isUserConfirmed, name } = user;
 
         if(user && !isUserConfirmed) {
             User.findByIdAndUpdate(authUserId, { isUserConfirmed: true })
             .exec(err => {
-                if(err) return res.status(400).json(msgG('error.systemError', err.toString()));
+                if(err) return res.status(400).json(msgG('error.systemError', err));
                 res.json(msg('ok.userConfirmed', name));
             })
         }

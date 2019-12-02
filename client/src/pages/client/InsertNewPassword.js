@@ -10,7 +10,7 @@ import { showSnackbar } from '../../redux/actions/snackbarActions'
 import { showModalLogin } from '../../redux/actions/modalActions';
 // helpers
 import handleChange from '../../utils/form/use-state/handleChange';
-import getFirstQueryValue from '../../utils/urls/getFirstQueryValue';
+import getFirstQueryValue from '../../utils/string/getFirstQueryValue';
 
 // material-ui
 import ToggleVisibilityPassword from '../../components/forms/fields/ToggleVisibilityPassword';

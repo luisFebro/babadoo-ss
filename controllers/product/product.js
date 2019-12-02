@@ -4,24 +4,8 @@ const ProductInfo = require('../../models/product/ProductInfo');
 const { mwAuth } = require('../../controllers/auth');
 const formidable = require('formidable');
 const fs = require('fs');
-
-// MESSAGES
-const ok = {
-    deleted: "O produto foi deletado com sucesso!",
-}
-const error = {
-    allFieldsRequired: "Preencha todos os campos",
-    photoRequired: "Você precisa de, pelo menos, uma foto do produto",
-    largeImg: "A imagem deve ser menos de 1mb de tamanho",
-    alreadyPosted: "O produto já foi postado.",
-    notStored: "A imagem não pôde ser armazenada. Tente novamente!",
-    notUpdated: "O produto não pôde ser atualizado.",
-    notFound: "O produto não foi encontrado ou já foi deletado",
-    noCategories: "Não foram encontradas a lista de categorias",
-    systemError: "Ocorreu o seguinte erro: "
-}
-const msg = (text, systemError = "") => ({ msg: text + systemError});
-// END MESSAGES
+const { msg } = require('../_msgs/product');
+const { msgG } = require('../_msgs/globalMsgs');
 
 // MIDDLEWARES
 exports.mwPhoto = (req, res, next) => {
@@ -32,11 +16,14 @@ exports.mwPhoto = (req, res, next) => {
     next();
 };
 
-exports.mwProductId = (req, res, next, id) => {
-    Product.findById(id)
+exports.mwProductId = (req, res, next, idOrLink) => {
+    let _id, link;
+    _id = link = idOrLink;
+
+    Product.findOne({ $or: [{ _id }, { link }] })
     .populate("category info")
     .exec((err, product) => {
-        if (err || !product) return res.status(400).json(msg(error.notFound));
+        if (err || !product) return res.status(400).json(msg('error.notFound'));
 
         req.product = product;
         next();
@@ -53,7 +40,7 @@ exports.mwBackup = (req, res, next) => {
     let backup = new BackupProduct(data);
 
     backup.save((err => {
-        if(err) return res.status(400).json(msg(error.systemError, err.toString()));
+        if(err) return res.status(400).json(msgG('error.systemError', err));
         console.log(`Realizado o backup do produto: ${title.toUpperCase()}`)
     }))
 
@@ -67,18 +54,18 @@ exports.create = (req, res) => { // n3 - needs mwAuth
 
     form.keepExtensions = true;
     form.parse(req, (err, fields, files) => { // fields from doc
-        if (err) return res.status(400).json(msg(error.notStored));
+        if (err) return res.status(400).json(msg('error.notStored'));
 
-        const { category, title, price, quantity } = fields
+        const { category, title, price } = fields
 
         Product.findOne({ title })
         .exec((err, user) => {
-            if(err) return res.status(400).json(msg(error.systemError, err))
-            if(user) return res.status(400).json(msg(error.alreadyPosted))
+            if(err) return res.status(400).json(msgG('error.systemError', err))
+            if(user) return res.status(400).json(msg('error.alreadyPosted'))
 
-            if (!category || !title || !price || !quantity) {
-                return res.status(400).json(msg(error.allFieldsRequired))
-            }
+            if (!category) return res.status(400).json(msgG('error.noCategory'))
+            if (!title) return res.status(400).json(msgG('error.noTitle'))
+            if (!price) return res.status(400).json(msgG('error.noPrice'))
 
             let product = new Product(fields);
 
@@ -87,17 +74,15 @@ exports.create = (req, res) => { // n3 - needs mwAuth
             // 1mb = 1.000.000
 
             if (files.photo) {
-                if (files.photo > 1000000) {
-                    return res.status(400).json(msg(error.largeImg))
-                }
+                if (files.photo > 1000000) return res.status(400).json(msg('error.largePhoto'))
                 product.photo.data = fs.readFileSync(files.photo.path); // provide media info
                 product.photo.contentType = files.photo.type;
             } else {
-                return res.status(400).json(msg(error.photoRequired))
+                return res.status(400).json(msg('error.noPhoto'))
             }
 
             product.save((err, result) => {
-                if (err) return res.status(400).json(msg(error.systemError, err));
+                if (err) return res.status(400).json(msgG('error.systemError', err));
                 res.json(result);
             });
         })
@@ -115,24 +100,21 @@ exports.update = (req, res) => {
     let form = new formidable.IncomingForm();
     form.keepExtensions = true;
     form.parse(req, (err, fields, files) => {
-        if (err) return res.status(400).json(msg(error.notUpdated));
+        if (err) return res.status(400).json(msg('error.notUpdated'));
         let product = req.product;
         // merging new fields with the current  product
         product = Object.assign(product, fields);
-        console.log(product);
         // 1kb = 1000
         // 1mb = 1000000
 
         if (files.photo) {
-            if (files.photo.size > 1000000) {
-                return res.status(400).json(msg(error.largeImg));
-            }
+            if (files.photo.size > 1000000) return res.status(400).json(msg('error.largePhoto'));
             product.photo.data = fs.readFileSync(files.photo.path);
             product.photo.contentType = files.photo.type;
         }
 
         product.save((err, result) => {
-            if (err) return res.status(400).json(msg(error.systemError, err));
+            if (err) return res.status(400).json(msgG('error.systemError', err));
             res.json(result);
         });
     });
@@ -140,14 +122,14 @@ exports.update = (req, res) => {
 
 exports.remove = (req, res) => { // needs mwAuth
     Product.findById(req.product._id)
-    .then(product => {
-        if(!product) return res.status(404).json(msg(error.notFound));
+    .exec((err, product) => {
+        if(err) return res.status(404).json(msgG('error.systemError', err));
+        if(!product) return res.status(404).json(msg('error.notFound'));
         product.remove((err, deleted) => {
-            if(err) return res.status(404).json(msg(error.systemError, err));
-            res.json(msg(ok.deleted));
+            if(err) return res.status(404).json(msgG('error.systemError', err));
+            res.json(msg('ok.deleted', product.title));
         })
     })
-    .catch(err => res.status(404).json(msg(error.systemError, err)));
 }
 // END CRUD
 
@@ -167,7 +149,7 @@ exports.updateProductInfo = (req, res) => {
             { $set: infoKey },
             { new: true }, // n4
             (err, product) => {
-                if (err) return res.status(400).json(msg(error.systemError, err));
+                if (err) return res.status(400).json(msgG('error.systemError', err));
             }
         )
     }
@@ -177,7 +159,7 @@ exports.updateProductInfo = (req, res) => {
         { $set: req.body },
         { strict: false, new: true, upsert: true }, // n4
         (err, productInfo) => {
-            if (err) return res.status(400).json(msg(error.systemError, err));
+            if (err) return res.status(400).json(msgG('error.systemError', err));
             res.json(productInfo);
         }
     );
@@ -191,12 +173,12 @@ exports.getList = (req, res) => { // n2
     let limit = req.query.limit ? parseInt(req.query.limit) : 12; // default
 
     Product.find()
-        .select("-photo")
+        .select("-photo -isReadyToPopulate")
         .populate("category")
         .sort([[sortBy, order]])
         .limit(limit)
         .exec((err, products) => {
-            if (err) return res.status(400).json(msg(error.notFound));
+            if (err) return res.status(400).json(msg('error.notFound'));
             res.json(products);
         });
 };
@@ -214,9 +196,8 @@ exports.getListRelated = (req, res) => {
     .limit(limit)
     .select('-photo') // activate this for better readability in postman
     .populate("category", "_id name")
-    .populate("info")
     .exec((err, products) => {
-        if (err) return res.status(400).json(msg(error.notFound));
+        if (err) return res.status(400).json(msg('error.notFound'));
         res.json(products);
     });
 };
@@ -224,7 +205,7 @@ exports.getListRelated = (req, res) => {
 // unique categories created for all products
 exports.getListCategory = (req, res) => {
     Product.distinct("category", {}, (err, categories) => { // n2
-        if (err) return res.status(400).json(msg(error.noCategories));
+        if (err) return res.status(400).json(msg('error.noCategoryList'));
         res.json(categories);
     });
 };

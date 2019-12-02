@@ -1,4 +1,4 @@
-import removeDashes from './urls/removeDashes';
+import removeDashes from './string/removeDashes';
 
 /**
  * get an obj with subdir's names and links to navigate

@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const collectionName = "products";
+const collectionName = "products"
+const addDashesToString = require('../../utils/string/addDashesToString');
 
 const data = {
     category: {
@@ -29,11 +30,14 @@ const data = {
     },
     quantity: {
         type: Number,
-        default: 0
+        default: 1
     },
     sold: {
         type: Number,
         default: 0
+    },
+    link: {
+        type: String,
     },
     isReadyToPopulate: {
         type: Boolean,
@@ -41,7 +45,12 @@ const data = {
     }
 }
 
+
 const productSchema = new Schema(data, { timestamps: true });
+productSchema.pre('save', function(next) {
+    this.link = addDashesToString(this.title);
+    next();
+});
 module.exports = mongoose.model('Product', productSchema, collectionName);
 
 

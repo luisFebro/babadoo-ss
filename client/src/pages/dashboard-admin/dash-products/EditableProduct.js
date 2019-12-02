@@ -14,7 +14,7 @@ import { animateHinge } from '../../../redux/actions/animationActions';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import truncateWords from '../../../utils/truncateWords';
+import truncateWords from '../../../utils/string/truncateWords';
 import MultiIconButton from '../../../components/buttons/MultiIconButton';
 // SpeedDial Buttons and Icons
 import SpeedDialButton from '../../../components/buttons/SpeedDialButton';

@@ -11,7 +11,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { ProductConsumer } from '../../data/contexts/mainContext';
 import PropTypes from 'prop-types';
-import truncateWords from '../../utils/truncateWords';
+import truncateWords from '../../utils/string/truncateWords';
 
 ProductFavorite.propTypes = {
     product: PropTypes.shape({

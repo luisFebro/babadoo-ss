@@ -72,7 +72,7 @@ exports.sendWelcomeConfirmEmail = (req, res) => {
     const mainTitle = `Seja Bem Vindo(a) a ${bizName}`;
     sendEmail(email, mainTitle, showConfirmTemplate(req.email, req.body))
     .then(() => res.json(msg('ok.confirm')))
-    .catch(err => res.json(msgG('error.systemError', err.toString())))
+    .catch(err => res.json(msgG('error.systemError', err)))
 }
 
 exports.sendBuyRequestEmail = (req, res) => {
@@ -81,7 +81,7 @@ exports.sendBuyRequestEmail = (req, res) => {
     const mainTitle = `${bizName} - Pedidos de Compra`;
     sendEmail(toEmail, mainTitle, showBuyRequestTemplate(req.body))
     .then(() => res.json(msg('ok.successBuyRequest')))
-    .catch(err => res.json(msgG('error.systemError', err.toString())))
+    .catch(err => res.json(msgG('error.systemError', err)))
 }
 
 exports.sendNewPasswordEmail = (req, res) => {
@@ -90,7 +90,7 @@ exports.sendNewPasswordEmail = (req, res) => {
 
     sendEmail(email, mainTitle, showNewPassLinkTemplate(req.email, req.body))
     .then(() => res.json(msg('ok.sentNewPassLinkEmail')))
-    .catch(err => res.json(msgG('error.systemError', err.toString())))
+    .catch(err => res.json(msgG('error.systemError', err)))
 }
 
 

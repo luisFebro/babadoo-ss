@@ -11,7 +11,7 @@ import { showModalUnderConstruction } from '../../../../redux/actions/modalActio
 // End Redux
 // Utils
 import isRealObj from '../../../../utils/isRealObj';
-import truncateWords from '../../../../utils/truncateWords';
+import truncateWords from '../../../../utils/string/truncateWords';
 // End Utils
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';

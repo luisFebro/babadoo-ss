@@ -12,7 +12,8 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { ProductConsumer } from '../../../data/contexts/mainContext';
 import PropTypes from 'prop-types';
-import truncateWords from '../../../utils/truncateWords';
+// helpers
+import truncateWords from '../../../utils/string/truncateWords';
 
 Product.propTypes = {
     product: PropTypes.shape({
@@ -39,7 +40,7 @@ export default function Product({ product, isFav }) {
     const toggleFav = () => {
         setIsFavChanged(!isFavChanged);
     };
-    const { _id, title, price, inCart } = product;
+    const { _id, title, price, link, inCart } = product;
 
     const bodyToSendFavorite = (AllProds, _id) => {
         const obj = getItem(AllProds, _id);
@@ -48,7 +49,7 @@ export default function Product({ product, isFav }) {
     const bodyFavorite = bodyToSendFavorite(allProductsList, _id);
 
     const showImage = () => (
-        <Link to="/produto/:dashed-name">
+        <Link to={`/produto/${link}`}>
             <ShowImgOrSkeleton
                 id={_id}
                 url="product"
@@ -159,9 +160,6 @@ export default function Product({ product, isFav }) {
             <div className="card">
                 <div
                     className="img-container p-1 p-sm-3"
-                    onClick={() => {
-                        console.log('value.handleDetail(_id)');
-                    }}
                 >
                     {showImage()}
                     {handleFavButton()}

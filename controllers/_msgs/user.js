@@ -3,7 +3,11 @@ const { ok, error } = userMsgs;
 
 const msg = (typeAndMsgName, customized = 'NeedCustomWord', options) => {
     const isOnlyMsg = `${customized}${options}`.includes("onlyMsg");
-    customized = customized.cap();
+
+    const checkIfNotString = typeof customized !== 'string';
+    checkIfNotString
+    ? customized = JSON.stringify(customized).cap()
+    : customized = customized.cap()
 
     const [type, msgName] = typeAndMsgName.split(".");
     let foundMsg;

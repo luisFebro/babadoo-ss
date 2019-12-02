@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';// n3
 import PropTypes from 'prop-types';
 // helpers
 import getBreadCrumbData from '../../../utils/getBreadCrumbData';
-import truncateWords from '../../../utils/truncateWords';
+import truncateWords from '../../../utils/string/truncateWords';
 
 BreadCrumbs.propTypes = {
     currentPath: PropTypes.object,
