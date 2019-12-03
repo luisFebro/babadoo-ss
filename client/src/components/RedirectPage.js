@@ -12,11 +12,7 @@ export default function RedirectPage({ activated = false, to = "/", waitSec = 0 
     const [redirect, setRedirect] = useState(false);
 
     useEffect(() => {
-        let unmounted = false; // n1
-        if(!unmounted) {
-            timeToRedirect();
-        }
-        return () => { unmounted = true }
+        timeToRedirect();
     }, [])
 
     const timeToRedirect = () => {
@@ -38,5 +34,16 @@ export default function RedirectPage({ activated = false, to = "/", waitSec = 0 
 
 
 /* COMMENTS
-n1: https://stackoverflow.com/questions/58038008/how-to-stop-memory-leak-in-useeffect-hook-react
+n1: references:
+before
+useEffect(() => {
+    let unmounted = false; // n1
+    if(!unmounted) {
+        timeToRedirect();
+    }
+    return () => { unmounted = true }
+}, [])
+this was not necessary. The error was because I was rendering timeToRedirect(). Instead, used useEffect
+https://www.robinwieruch.de/react-warning-cant-call-setstate-on-an-unmounted-component
+https://stackoverflow.com/questions/58038008/how-to-stop-memory-leak-in-useeffect-hook-react
 */

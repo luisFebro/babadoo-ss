@@ -22,7 +22,7 @@ export default function ConfirmAccount({ match }) {
                 showSnackbar(dispatch, res.data.msg, 'error');
                 return;
             }
-            setTimeout(() => setRedirect(true), 3000);
+            setRedirect(true);
             showSnackbar(dispatch, res.data.msg, 'success', 7000);
         })
 
@@ -31,7 +31,7 @@ export default function ConfirmAccount({ match }) {
     return (
         <div>
             <Title title="Confirmando sua conta..."/>
-            <RedirectPage to={"/"} activated={redirect} />
+            <RedirectPage activated={redirect} waitSec={3} />
         </div>
     );
 }
