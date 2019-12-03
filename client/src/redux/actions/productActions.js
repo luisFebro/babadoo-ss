@@ -24,6 +24,14 @@ export const addProduct = product => async (dispatch, getState) => {
     }
 };
 
+export const readProduct = async (dispatch, idOrDashedTitle) => {
+    try {
+        return axios.get(`/api/product/${idOrDashedTitle}`, configTypeJson)
+    } catch(err) {
+        return err.response;
+    }
+}
+
 // keyToUpdate = { key: value }
 export const updateProduct = async (dispatch, keyToUpdate, _idProduct) => {
     // Switching obj keys dynamically to update in Reducer
@@ -72,13 +80,6 @@ export const getAllProducts = async dispatch => {
     }
 };
 // END LISTS
-
-export const handleDetail = id => {
-    // const product = this.getItem(id);
-    // this.setState(() => {
-    //     return { detailProduct: product };
-    // });
-};
 
 export const addToCart = id => {
     const { products, cart } = this.state;

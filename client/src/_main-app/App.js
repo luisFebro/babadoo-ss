@@ -31,9 +31,9 @@ import Cart from '../pages/cart/Cart';
 import ChangePassword from '../pages/client/ChangePassword';
 import InsertNewPassword from '../pages/client/InsertNewPassword';
 import ConfirmAccount from '../pages/client/ConfirmAccount';
-// end client
+// product
+import ProductDetails from '../pages/product';
 import CheckoutLocal from '../pages/checkout/CheckoutLocal';
-import Details from '../pages/Details';
 import Default from '../pages/Default';
 import Favorites from '../pages/favorites';
 import Dashboard from '../pages/dashboard-admin';
@@ -91,7 +91,7 @@ export default function App() {
                     <Route path="/cliente/confirmacao-conta/:authUserId" exact component={ConfirmAccount} />
                     {/*End Client*/}
                     <Route path="/loja" exact component={Store} />
-                    <Route path="/produto/:dashed-name" exact component={Details} />
+                    <Route path="/produto/:dashedName" exact component={ProductDetails} />
                     <Route path="/seu-carrinho" exact component={Cart} />
                     <Route path="/finalizar-compra" exact component={CheckoutLocal} />
                     <Route path="/favoritos" exact component={Favorites} />

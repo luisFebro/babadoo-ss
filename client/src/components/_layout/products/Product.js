@@ -40,8 +40,9 @@ export default function Product({ product, isFav }) {
     const toggleFav = () => {
         setIsFavChanged(!isFavChanged);
     };
-    const { _id, title, price, link, inCart } = product;
-
+    const { _id, title, price, link  } = product;
+    // need to include inCart here added from client
+    const inCart = false;
     const bodyToSendFavorite = (AllProds, _id) => {
         const obj = getItem(AllProds, _id);
         return { favoriteList: obj };

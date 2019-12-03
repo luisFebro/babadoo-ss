@@ -4,6 +4,7 @@ const ProductInfo = require('../../models/product/ProductInfo');
 const { mwAuth } = require('../../controllers/auth');
 const formidable = require('formidable');
 const fs = require('fs');
+const mongoose = require('mongoose');
 const { msg } = require('../_msgs/product');
 const { msgG } = require('../_msgs/globalMsgs');
 
@@ -17,13 +18,18 @@ exports.mwPhoto = (req, res, next) => {
 };
 
 exports.mwProductId = (req, res, next, idOrLink) => {
+    const isValidId = mongoose.Types.ObjectId.isValid(idOrLink);  // n6
     let _id, link;
-    _id = link = idOrLink;
+    !isValidId ? _id = undefined : _id = idOrLink;
 
-    Product.findOne({ $or: [{ _id }, { link }] })
+    link = idOrLink
+
+    Product.findOne({ $or: [{ _id }, { link }]})
     .populate("category info")
     .exec((err, product) => {
-        if (err || !product) return res.status(400).json(msg('error.notFound'));
+        console.log(err)
+        console.log(product)
+        if (!product) return res.status(400).json(msg('error.notFound'));
 
         req.product = product;
         next();
@@ -247,4 +253,5 @@ exports.create = (req, res) => { //needs to put mwAuth as middleware
 
 n4: strict=false is necessary to avoid mongoDB error because the id does not exist in this Collection.
 n5: $ne - not included operator (because we do not want to return the targeted selected id product)
+n6: This structure was necessary due to: CastError: Cast to ObjectId failed for value "oleo-impactus-para-massagem-em-spray" at path "_id" for model "Product"
 */

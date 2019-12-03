@@ -50,7 +50,6 @@ exports.showConfirmTemplate = (reqEmail, reqBody) => {
             <h4><a href=${authLink}>CONFIRMAR SEU EMAIL</a></h4>
             <h4>Ou acesse pelo link: <a href=${authLink}>${authLink}</a></h4>
             <ul>
-              <li><h4>Embalagens Discretas</h4></li>
               <li><h4>Entregamos por toda a cidade</h4></li>
               <li><h4>Variedades de Acessórios</h4></li>
             </ul>
