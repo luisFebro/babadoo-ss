@@ -18,7 +18,7 @@ export default function Default({ location }) {
                     </h3>
                 </div>
             </div>
-            <RedirectPage activated={true} waitSec={3} />
+            <RedirectPage activated={true} waitSec={10} />
         </div>
     );
 }
