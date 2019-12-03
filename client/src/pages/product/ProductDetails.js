@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useStoreDispatch, useStoreState } from 'easy-peasy';
+import { useStoreDispatch } from 'easy-peasy';
 import { Link } from 'react-router-dom';
 import { readProduct } from '../../redux/actions/productActions';
 import { showSnackbar } from '../../redux/actions/snackbarActions';
@@ -29,12 +29,6 @@ export default function ProductDetails({ match }) {
         let dashedTitle = match.params.dashedName;
         loadSingleProduct(dashedTitle)
     }, [match])
-
-    const { allProducts } = useStoreState(state => ({
-        allProducts: state.productReducer.cases.allProductsList
-    }))
-
-
 
     const showActionButtons = () => (
         <div className="d-flex flex-row mr-2">
