@@ -5,10 +5,8 @@ const collectionName = "product-info";
 // PRODUCT INFO
 // colors: {mainColor: String, options: Array}
 const dataProductInfo = {
-    mainDescription: String,
     company: String,
     colors: Object,
-    refCode: String,
     howToUse: String,
     weight: Number,
     sizeOrDimmension: Number,

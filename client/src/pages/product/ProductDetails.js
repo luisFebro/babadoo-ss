@@ -11,8 +11,10 @@ import {
     ButtonContainerPressedEffectYellow as YellowBtn
 } from '../../components/buttons/Default';
 import Skeleton from '@material-ui/lab/Skeleton';
+import removeDashes from '../../utils/string/removeDashes';
 
 export default function ProductDetails({ match }) {
+    let dashedTitle = match.params.dashedName;
     const [data, setData] = useState("");
     const { _id, title, info } = data;
     // need tohandle refCOde
@@ -30,7 +32,6 @@ export default function ProductDetails({ match }) {
     }
 
     useEffect(() => {
-        let dashedTitle = match.params.dashedName;
         loadSingleProduct(dashedTitle)
     }, [match])
 
@@ -53,13 +54,13 @@ export default function ProductDetails({ match }) {
 
     return (
         <div className="container py-5">
-            <Fragment>
+            <div>
                 {data
                 ? <Title title={titleWithRefCode} color="black" />
                 : <Skeleton variant="text" height={30} />}
-            </Fragment>
+            </div>
             <div className="row">
-                <ProductImgGallery _id={_id} title={title} />
+                <ProductImgGallery _id={_id} title={title} thisUrl={dashedTitle} />
                 <ProductInfos data={data} />
             </div>
             {showActionButtons()}

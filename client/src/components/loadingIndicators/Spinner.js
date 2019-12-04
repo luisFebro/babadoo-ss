@@ -1,10 +1,33 @@
-import React from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
 import styled from 'styled-components';
 import { spin } from '../../keyframes/spin';
+import PropTypes from 'prop-types';
 
-export default function Spinner() {
-    return (
+Spinner.propTypes = {
+    expireSec: PropTypes.number,
+}
+
+export default function Spinner({ expireSec }) {
+    const [run, setRun] = useState(true);
+
+    useEffect(() => {
+        stopSpinnerAfter();
+    }, [])
+
+    const stopSpinnerAfter = () => {
+        const milisecs = expireSec * 1000;
+        setTimeout(() => setRun(false), milisecs);
+    }
+
+    const showSpinner = isRunning => (
+        isRunning &&
         <SpinnerInner />
+    );
+
+    return (
+        <Fragment>
+            {showSpinner(run)}
+        </Fragment>
     );
 }
 

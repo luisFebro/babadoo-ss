@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const collectionName = "products"
 const addDashesToString = require('../../utils/string/addDashesToString');
+const generateRefCode = require('../../utils/string/generateRefCode');
 
 const data = {
     category: {
@@ -15,6 +16,11 @@ const data = {
         unique: true,
         trim: true,
     },
+    refCode: {
+        type: String,
+        default: "CRE12"
+    },
+    link: String,
     mainDescription: {
         type: String,
         required: true,
@@ -42,9 +48,6 @@ const data = {
         type: Number,
         default: 0
     },
-    link: {
-        type: String,
-    },
     isReadyToPopulate: {
         type: Boolean,
         default: false
@@ -55,6 +58,7 @@ const data = {
 const productSchema = new Schema(data, { timestamps: true });
 productSchema.pre('save', function(next) {
     this.link = addDashesToString(this.title);
+    this.refCode = generateRefCode(this.title);
     next();
 });
 module.exports = mongoose.model('Product', productSchema, collectionName);

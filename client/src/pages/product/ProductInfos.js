@@ -51,44 +51,44 @@ export default function ProductInfos({ data }) {
         );
     }
 
-    const additionalInfo = status => {
+    const additionalInfo = gotInfoProp => {
         const getColors = () => {
             // need to change colors to a singlearray of strings
             const colors = data && info.colors.moreOptions.map(color => `${color}, `);
             return colors;
         }
-        return !status ? (
-            <Spinner />
+        return !gotInfoProp ? (
+            <Spinner expireSec={10} />
         ) : (
             <Fragment>
                 {(data && info.company) &&
                 <h5 className="font-weight-bold mt-3 mb-0">
-                    marca: <span className="text-muted lead">{data && info.company}</span>
+                    marca: <span className="text-muted lead">{info.company.cap()}</span>
                 </h5>}
 
                 {(data && info.howToUse) &&
                 <h5 className="font-weight-bold mt-3 mb-0">
-                    Como usar: <span className="text-muted lead">{data && info.howToUse}</span>
+                    Como usar: <span className="text-muted lead">{info.howToUse.cap()}</span>
                 </h5>}
 
                 {(data && info.colors) &&
                 <h5 className="font-weight-bold mt-3 mb-0">
-                    Cores Disponíveis: <span className="text-muted lead">{data && getColors()}</span>
+                    Cores Disponíveis: <span className="text-muted lead">{getColors()}</span>
                 </h5>}
 
                 {(data && info.weight) &&
                 <h5 className="font-weight-bold mt-3 mb-0">
-                    Peso: <span className="text-muted lead">{data && info.weight}</span>
+                    Peso: <span className="text-muted lead">{info.weight}</span>
                 </h5>}
 
                 {(data && info.sizeOrDimmension) &&
                 <h5 className="font-weight-bold mt-3 mb-0">
-                    Dimensão: <span className="text-muted lead">{data && info.sizeOrDimmension}</span>
+                    Dimensão: <span className="text-muted lead">{info.sizeOrDimmension}</span>
                 </h5>}
 
                 {(data && info.unitsPerPackage) &&
                 <h5 className="font-weight-bold mt-3 mb-0">
-                    Unidades por Pacote: <span className="text-muted lead">{data && info.unitsPerPackage}</span>
+                    Unidades por Pacote: <span className="text-muted lead">{info.unitsPerPackage}</span>
                 </h5>}
             </Fragment>
         );
