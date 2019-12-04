@@ -5,20 +5,25 @@ import PropTypes from 'prop-types';
 
 ShowImgOrSkeleton.propTypes = {
     url: PropTypes.string.isRequired,
-    id: PropTypes.string.isRequired,
+    id: PropTypes.string,
     setStatus: PropTypes.func.isRequired,
     status: PropTypes.bool,
     skeletonOpt: PropTypes.shape({
         variant: PropTypes.oneOf(['text', 'rect', 'circle']),
         width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
         height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-        style: PropTypes.object
-    }).isRequired
+    }).isRequired,
+    imgOpt: PropTypes.shape({
+        style: PropTypes.object,
+        className: PropTypes.string,
+        alt: PropTypes.string,
+    })
 }
 
-export default function ShowImgOrSkeleton({ id, url, setStatus, status, skeletonOpt }) {
+export default function ShowImgOrSkeleton({ id, url, setStatus, status, skeletonOpt, imgOpt }) {
     const imageUrl = `${CLIENT_URL}/api/${url}/photo/${id}`;
-    const { variant, width, height, style } = skeletonOpt;
+    const { variant, width, height } = skeletonOpt;
+    const { style, className, alt } = imgOpt;
 
     return(
         <Fragment>
@@ -27,9 +32,9 @@ export default function ShowImgOrSkeleton({ id, url, setStatus, status, skeleton
             </div>
             <div style={{ display: status ? 'none' : 'block'}}>
                 <img
-                    className="card-img-top"
+                    className={className}
                     src={imageUrl}
-                    alt="product"
+                    alt={alt}
                     onLoad={() => setStatus(false)}
                 />
             </div>

@@ -5,7 +5,6 @@ import { setLoadingProgress, setErrorOn } from './globalActions';
 import { getRandomArray } from '../../utils/getRandomArray';
 import { getBodyRequest } from '../../utils/server/getBodyRequest';
 import { configTypeJson } from '../../utils/server/configTypeJson';
-
 // get an obj with all infos of a item from a specific id
 export const getItem = (allProductsList, _id) => {
     const product = allProductsList.find(item => item._id === _id);
@@ -25,9 +24,13 @@ export const addProduct = product => async (dispatch, getState) => {
 };
 
 export const readProduct = async (dispatch, idOrDashedTitle) => {
+    setLoadingProgress(dispatch, true);
     try {
-        return axios.get(`/api/product/${idOrDashedTitle}`, configTypeJson)
+        const res = axios.get(`/api/product/${idOrDashedTitle}`, configTypeJson)
+        setLoadingProgress(dispatch, false);
+        return res;
     } catch(err) {
+        setLoadingProgress(dispatch, false);
         return err.response;
     }
 }

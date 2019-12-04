@@ -10,19 +10,12 @@ import { closeModal } from '../../redux/actions/modalActions';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { ProductConsumer } from '../../data/contexts/mainContext';
-import PropTypes from 'prop-types';
 import truncateWords from '../../utils/string/truncateWords';
+import { productType } from '../../types';
 
 ProductFavorite.propTypes = {
-    product: PropTypes.shape({
-        id: PropTypes.string,
-        img: PropTypes.string,
-        title: PropTypes.string,
-        price: PropTypes.number,
-        inCart: PropTypes.bool
-    }).isRequired,
-    allProductsList: PropTypes.arrayOf(PropTypes.object)
-};
+    product: productType,
+}
 
 export default function ProductFavorite({ product }) {
     const animateRef = useRef(null);

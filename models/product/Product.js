@@ -15,6 +15,12 @@ const data = {
         unique: true,
         trim: true,
     },
+    mainDescription: {
+        type: String,
+        required: true,
+        maxlength: 2000,
+        default: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta, odio dignissimos voluptate consequatur quos molestias necessitatibus nisi sit optio eius maiores qui quo incidunt",
+    },
     photo: {
         data: Buffer,
         contentType: String

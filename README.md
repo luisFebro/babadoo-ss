@@ -3,7 +3,7 @@
 ## DESCRIPTION
 ### A Full Stack MERN Ecommerce build with Bootstrap, Material-UI, Semantic-UI and Redux
 
-## Especial Thanks to these Invaluable RESOURCES that did a Meaningful Difference in this Project:
+## Helpful Resources which made the difference in this project:
 - [Easy Peasy React State Management - Traversy Media](https://www.youtube.com/watch?v=cSUt8b2qapM)
 - [Send Emails with React - Shakhor Smith](https://www.youtube.com/watch?v=EPnBO8HgyRU)
 - [Building a React Ecommerce - John Smilga (FreeCodeCamp)](https://www.youtube.com/watch?v=wPQ1-33teR4)
@@ -23,8 +23,8 @@
 - [Improving loading time with cron-job to prevent Heroku App to idle - Mahdhi Rezvi](https://medium.com/@mahdhirezvi/keeping-my-heroku-app-alive-b19f3a8c3a82)
 - [Simple explanation for middleware - Jamis Charles](https://medium.com/@jamischarles/what-is-middleware-a-simple-explanation-bb22d6b41d01)
 - [Making request like a pro with axios - Faraz Kelhini](https://blog.logrocket.com/how-to-make-http-requests-like-a-pro-with-axios/)
-- [Skeleton Loading Pages with React - Anthony Panagi
-](https://medium.com/octopus-wealth/skeleton-loading-pages-with-react-5a931f12677b)
-
+- [Skeleton Loading Pages with React - Anthony Panagi](https://medium.com/octopus-wealth/skeleton-loading-pages-with-react-5a931f12677b)
+- [mounting and unmounting react components - Learn.co](https://learn.co/lessons/react-component-mounting-and-unmounting)
+- [Centralized PropTypes - Cory House](https://www.freecodecamp.org/news/react-pattern-centralized-proptypes-f981ff672f3b/)
 
 ## Author: Luis Febro.

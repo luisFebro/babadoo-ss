@@ -21,6 +21,7 @@ const msg = (typeAndMsgName, customized = 'NeedCustomWord', options) => {
     error.noPhoto = "Você precisa de, pelo menos, uma foto do produto";
     error.noTitle = "Insira o título do produto";
     error.noPrice = "Insira o preço do produto";
+    error.noDescription = "Insira uma descrição para o produto";
     error.notStored = "A imagem não pôde ser armazenada. Tente novamente!";
     error.notUpdated = "O produto não pôde ser atualizado.";
     error.notFound = "O produto não foi encontrado ou já foi deletado";

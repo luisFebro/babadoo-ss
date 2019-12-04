@@ -1,6 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export default function Title({ name = '', title, subTitle }) {
+Title.propTypes = {
+    title: PropTypes.oneOfType([PropTypes.string.isRequired, PropTypes.object]),
+    subTitle: PropTypes.string,
+    color: PropTypes.string,
+}
+
+export default function Title({ title, subTitle, color }) {
     //Render
     const showSubTitle = subTitle => (
         subTitle &&
@@ -8,11 +15,16 @@ export default function Title({ name = '', title, subTitle }) {
             {subTitle}
         </h4>
     );
+
     return (
         <div id="inicio" style={{ marginTop: '40px' }} className="row">
             <div className="col-10 mx-auto my-2 text-center text-title">
-                <h1 className="text-title text-red font-weight-bold">
-                    {name} <strong>{title.cap()}</strong>
+                <h1 className="text-title font-weight-bold">
+                    <strong
+                        style={{color: (color ? color : "var(--mainRed)")}}
+                    >
+                        {title && typeof title === 'string' ? title.cap() : null}
+                    </strong>
                 </h1>
                 {showSubTitle(subTitle)}
             </div>

@@ -5,7 +5,7 @@ import { useStoreState } from 'easy-peasy';
 
 export default function LinearProgress() {
     const [completed, setCompleted] = useState(0);
-    const isLoading = useStoreState(state => state.globalReducer.cases.isLoadingLinearProgress);
+    const isLoading = useStoreState(state => state.globalReducer.cases.isLinearPLoading);
 
     const showLinearProgress = isLoading => {
         return(

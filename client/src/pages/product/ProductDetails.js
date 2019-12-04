@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
+import Title from '../../components/Title';
 import { useStoreDispatch } from 'easy-peasy';
 import { Link } from 'react-router-dom';
 import { readProduct } from '../../redux/actions/productActions';
@@ -9,12 +10,15 @@ import {
     ButtonContainerPressedEffectDark as DarkBtn,
     ButtonContainerPressedEffectYellow as YellowBtn
 } from '../../components/buttons/Default';
+import Skeleton from '@material-ui/lab/Skeleton';
 
 export default function ProductDetails({ match }) {
-    const [data, setData] = useState({});
-    const _id = data && data._id;
+    const [data, setData] = useState("");
+    const { _id, title, info } = data;
+    // need tohandle refCOde
+    const titleWithRefCode = `${title} (${data && 'info.refCode'})`;
     const inCart = false;
-    const title = 'Something';
+
     const dispatch = useStoreDispatch();
 
     const loadSingleProduct = dashedName => {
@@ -31,16 +35,14 @@ export default function ProductDetails({ match }) {
     }, [match])
 
     const showActionButtons = () => (
-        <div className="d-flex flex-row mr-2">
-            <Link to="finalizar-compra">
+        <div className="container-center mt-5">
+            <Link to="">
                 <DarkBtn>Vitrine</DarkBtn>
                 <YellowBtn
                     cart
-                    className="mt-3"
                     disabled={inCart ? true : false}
                     onClick={() => {
                         // value.addToCart(id);
-                        // value.openModal(id);
                     }}
                 >
                     {inCart ? 'No carrinho adicionado' : 'adicionar no carrinho'}
@@ -51,19 +53,16 @@ export default function ProductDetails({ match }) {
 
     return (
         <div className="container py-5">
+            <Fragment>
+                {data
+                ? <Title title={titleWithRefCode} color="black" />
+                : <Skeleton variant="text" height={30} />}
+            </Fragment>
             <div className="row">
-                <div className="col-10 mx-auto text-center text-slanted my-3">
-                    <h2>
-                        <strong>{title}</strong>
-                    </h2>
-                </div>
-            </div>
-            <ProductImgGallery _id={_id} />
-            <div className="row">
+                <ProductImgGallery _id={_id} title={title} />
                 <ProductInfos data={data} />
-                {showActionButtons()}
-                {JSON.stringify(data)}
             </div>
+            {showActionButtons()}
         </div>
     );
 }

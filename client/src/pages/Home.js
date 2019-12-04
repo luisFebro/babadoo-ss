@@ -19,7 +19,7 @@ export default class Home extends Component {
         return (
             <Fragment>
                 {/*<ServiceList />*/}
-                <Title name="Nossa" title="Vitrine" />
+                <Title title="Nossa Vitrine" />
                 <ProductList />
                 {/*Testing updates only*/}
                 <h1 style={{ display: 'inline-block', background: '#000', color: '#fff' }}>{null}</h1>

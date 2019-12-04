@@ -13,9 +13,9 @@ import { animateHinge } from '../../../redux/actions/animationActions';
 // End Redux
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import truncateWords from '../../../utils/string/truncateWords';
 import MultiIconButton from '../../../components/buttons/MultiIconButton';
+import { productType } from '../../../types';
 // SpeedDial Buttons and Icons
 import SpeedDialButton from '../../../components/buttons/SpeedDialButton';
 import EditIcon from '@material-ui/icons/Edit';
@@ -27,6 +27,7 @@ import FormatListNumberedIcon from '@material-ui/icons/FormatListNumbered';
 // End SpeedDial Buttons and Icons
 import DeleteButton from '../../../components/buttons/DeleteButton';
 import EditButton from '../../../components/buttons/EditButton';
+import PropTypes from 'prop-types';
 
 // Functions to get modals
 const showModalForTitle = (dispatch, allProductsList, _id) => {
@@ -64,14 +65,9 @@ const showModalForDeleteProd = (dispatch, allProductsList, _id, animateRef) => {
 // End Functions to get modal
 
 EditableProduct.propTypes = {
-    product: PropTypes.shape({
-        id: PropTypes.string,
-        img: PropTypes.string,
-        title: PropTypes.string,
-        price: PropTypes.number,
-        inCart: PropTypes.bool
-    }).isRequired
-};
+    product: productType,
+    isFav: PropTypes.bool
+}
 
 export default function EditableProduct({ product, isFav }) {
     const animateRef = useRef(null);

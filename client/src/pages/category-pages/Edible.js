@@ -25,7 +25,7 @@ const pageData = {
 export default function Edible() {
     return (
         <React.Fragment>
-            <Title name="" title="Comestíveis" />
+            <Title title="Comestíveis" />
             <div className="py-2">
                 <div className="container">
                     <div className="row">

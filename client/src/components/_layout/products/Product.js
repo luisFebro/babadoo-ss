@@ -7,23 +7,19 @@ import { addFieldUser, deleteFieldUser } from '../../../redux/actions/userAction
 import { getItem } from '../../../redux/actions/productActions';
 import { showSnackbar } from '../../../redux/actions/snackbarActions';
 import { showModalRegister } from '../../../redux/actions/modalActions';
+import { productType } from '../../../types';
+
 // End Redux
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { ProductConsumer } from '../../../data/contexts/mainContext';
-import PropTypes from 'prop-types';
 // helpers
 import truncateWords from '../../../utils/string/truncateWords';
+import PropTypes from 'prop-types';
 
 Product.propTypes = {
-    product: PropTypes.shape({
-        id: PropTypes.string,
-        img: PropTypes.string,
-        title: PropTypes.string,
-        price: PropTypes.number,
-        inCart: PropTypes.bool
-    }).isRequired
-};
+    product: productType,
+    isFav: PropTypes.bool
+}
 
 export default function Product({ product, isFav }) {
     const [isFavChanged, setIsFavChanged] = useState(false);
@@ -59,7 +55,11 @@ export default function Product({ product, isFav }) {
                 skeletonOpt={{
                     variant: 'rect',
                     width: 191,
-                    height: 191
+                    height: 191,
+                }}
+                imgOpt={{
+                    className: "card-img-top",
+                    alt: title
                 }}
             />
         </Link>

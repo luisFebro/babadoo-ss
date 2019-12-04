@@ -27,8 +27,6 @@ exports.mwProductId = (req, res, next, idOrLink) => {
     Product.findOne({ $or: [{ _id }, { link }]})
     .populate("category info")
     .exec((err, product) => {
-        console.log(err)
-        console.log(product)
         if (!product) return res.status(400).json(msg('error.notFound'));
 
         req.product = product;
@@ -62,16 +60,17 @@ exports.create = (req, res) => { // n3 - needs mwAuth
     form.parse(req, (err, fields, files) => { // fields from doc
         if (err) return res.status(400).json(msg('error.notStored'));
 
-        const { category, title, price } = fields
+        const { category, title, price, mainDescription } = fields
 
         Product.findOne({ title })
         .exec((err, user) => {
             if(err) return res.status(400).json(msgG('error.systemError', err))
             if(user) return res.status(400).json(msg('error.alreadyPosted'))
 
-            if (!category) return res.status(400).json(msgG('error.noCategory'))
-            if (!title) return res.status(400).json(msgG('error.noTitle'))
-            if (!price) return res.status(400).json(msgG('error.noPrice'))
+            if (!category) return res.status(400).json(msg('error.noCategory'))
+            if (!title) return res.status(400).json(msg('error.noTitle'))
+            if (!price) return res.status(400).json(msg('error.noPrice'))
+            if (!mainDescription) return res.status(400).json(msg('error.noDescription'))
 
             let product = new Product(fields);
 
@@ -120,7 +119,7 @@ exports.update = (req, res) => {
         }
 
         product.save((err, result) => {
-            if (err) return res.status(400).json(msgG('error.systemError', err));
+            if(err) return res.status(400).json(msgG('error.systemError', err));
             res.json(result);
         });
     });
