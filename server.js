@@ -35,7 +35,6 @@ app.use(cors()); //n2
 // routes
 app.use('/api/email', require('./routes/email'));
 app.use('/api/user', require('./routes/user'));
-app.use('/api/favorite', require('./routes/user/favorite'));
 app.use('/api/product', require('./routes/product'));
 app.use('/api/category', require('./routes/product/category'));
 app.use('/api/auth', require('./routes/auth'));

@@ -9,20 +9,29 @@ import { showModalRegister } from '../../../redux/actions/modalActions';
 import { addElemArrayUser, removeElemArrayUser } from '../../../redux/actions/userActions';
 
 FavBtn.propTypes = {
-    isFav: PropTypes.bool,
     isActivated: PropTypes.bool,
     showSkeleton: PropTypes.bool,
     productId: PropTypes.string,
 }
 
-export default function FavBtn({ productId, isFav, isActivated = true, showSkeleton }) {
+export default function FavBtn({ productId, isActivated = true, showSkeleton }) {
     const [toggle, setToggle] = useState(false);
 
-    const { isUserAuthenticated, _idUser } = useStoreState(state => ({
+    const { isUserAuthenticated, _idUser, favItemIds } = useStoreState(state => ({
         isUserAuthenticated: state.authReducer.cases.isUserAuthenticated,
-        _idUser: state.userReducer.cases.currentUser['_id']
+        _idUser: state.userReducer.cases.currentUser['_id'],
+        favItemIds: state.userReducer.cases.currentUser.favoriteList,
     }));
     const dispatch = useStoreDispatch();
+
+    const isFavItem = (favItemIds, productId) => {
+        let isThisFav;
+        favItemIds
+        ? (favItemIds.includes(productId) ? isThisFav = true : isThisFav = false)
+        : isThisFav = false
+
+        return isThisFav;
+    }
 
     const toggleFav = () => {
         setToggle(!toggle);
@@ -85,7 +94,7 @@ export default function FavBtn({ productId, isFav, isActivated = true, showSkele
             isActivated &&
             <button className="cart-fav" onClick={() => toggleFav()}>
                 {isUserAuthenticated ? (
-                    (toggle || isFav)
+                    (toggle || isFavItem(favItemIds, productId))
                     ? handleFavOn()
                     : handleFavOff()
                 ) : (

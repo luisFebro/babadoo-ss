@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 // Redux
 import { useStoreState } from 'easy-peasy';
 // End Redux
@@ -10,19 +10,21 @@ import { ButtonContainerPressedEffectDark as Dark } from '../../components/butto
 import ShareSocialMediaButtons from '../../components/buttons/ShareSocialMediaButtons';
 import { HashLink } from 'react-router-hash-link';
 import LoadingThreeDots from '../../components/loadingIndicators/LoadingThreeDots';
-import PropTypes from 'prop-types';
-
-Favorites.propTypes = {
-    name: PropTypes.string,
-    allFavProductsList: PropTypes.arrayOf(PropTypes.object)
-};
 
 export default function Favorites() {
     const { name, allFavProductsList, isLoading } = useStoreState(state => ({
         name: state.userReducer.cases.currentUser.name,
-        allFavProductsList: state.userReducer.cases.allFavProductsList,
+        allFavProductsList: state.userReducer.cases.currentUser.favoriteList,
         isLoading: state.globalReducer.cases.isLoading
     }));
+
+    const loadFavoriteList = () => {
+
+    }
+
+    useEffect(() => {
+        loadFavoriteList();
+    }, [])
 
     const favProducts = allFavProductsList.map(product => {
         return <ProductFavorite key={product._id} product={product} />;

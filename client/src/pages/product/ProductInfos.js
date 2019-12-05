@@ -15,7 +15,7 @@ export default function ProductInfos({ data }) {
         <h2
             className="text-uppercase text-muted mt-3 mb-2"
         >
-            { category && `categoria: ${category.name.cap()}` || <Skeleton variant="text" width={'55%'} /> }
+            { category ? `categoria: ${category.name.cap()}` : <Skeleton variant="text" width={'55%'} /> }
         </h2>
     );
 
@@ -39,7 +39,7 @@ export default function ProductInfos({ data }) {
 
         return(
             <div className="text-default lead mx-auto text-justify">
-                {mainDescription && getDesc() || (
+                {mainDescription && getDesc() && (
                     <Fragment>
                         <Skeleton variant="text" width={'35%'} />
                         <Skeleton variant="text" />

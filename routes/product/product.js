@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-
 const {
     create,
     read,
@@ -8,12 +7,14 @@ const {
     update,
     updateProductInfo,
     getList,
-    getListRelated,
-    getListCategory,
+    getCategoryList,
+    getRelatedList,
+    getFavoriteList,
     mwPhoto,
     mwProductId,
     mwBackup
 } = require('../../controllers/product');
+const { mwUserId } = require('../../controllers/user');
 
 // @routes  api/product...
 
@@ -29,11 +30,13 @@ router.put("/:productId/product-info/update", updateProductInfo);
 
 // LISTS
 router.get("/list/all", getList);
-router.get("/list/related/:productId", getListRelated);
-router.get("/list/category", getListCategory);
+router.get("/list/related/:productId", getRelatedList);
+router.get("/list/category", getCategoryList);
+router.get("/:userId/list/favorite", getFavoriteList);
 // END LISTS
 
 router.param('productId', mwProductId); // n1
+router.param('userId', mwUserId);
 
 module.exports = router;
 

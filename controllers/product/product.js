@@ -206,7 +206,7 @@ exports.getList = (req, res) => { // n2
  * it will find the products based on the req product category
  * other products that has the same category, will be returned
  */
-exports.getListRelated = (req, res) => {
+exports.getRelatedList = (req, res) => {
     const selectedProduct = req.product;
     let limit = req.query.limit ? parseInt(req.query.limit) : 8;
     // find this current category from the selected product but not include itself
@@ -221,12 +221,24 @@ exports.getListRelated = (req, res) => {
 };
 
 // unique categories created for all products
-exports.getListCategory = (req, res) => {
+exports.getCategoryList = (req, res) => {
     Product.distinct("category", {}, (err, categories) => { // n2
         if (err) return res.status(400).json(msg('error.noCategoryList'));
         res.json(categories);
     });
 };
+
+exports.getFavoriteList = (req, res) => {
+    const favArrayIds = req.profile.favoriteList;
+    Product.find()
+    .where('_id')
+    .in(favArrayIds)
+    .select('-photo -quantity -sold -isReadyToPopulate -info -link')
+    .exec((err, records) => {
+        if(err) return res.status(500).json(msgG('error.systemError', err));
+        res.json(records);
+    });
+}
 // END LISTS
 
 

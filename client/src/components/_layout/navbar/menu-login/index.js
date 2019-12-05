@@ -1,5 +1,4 @@
 import React, { Fragment, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import NotifDropDown from './notification/NotifDropDown';
 import Badge from '@material-ui/core/Badge';
 import { withStyles } from '@material-ui/core/styles';
@@ -17,12 +16,6 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { bizWhatsapp } from '../../../../data/dataBiz';
 
-MenuLogin.propTypes = {
-    isUserAuthenticated: PropTypes.bool,
-    picture: PropTypes.string,
-    name: PropTypes.string
-};
-
 const BorderedBadge = withStyles(theme => ({
     badge: {
         right: 1,
@@ -35,12 +28,12 @@ const BorderedBadge = withStyles(theme => ({
 
 export default function MenuLogin() {
     // Redux
-    const { isUserAuthenticated, name, picture, allFavProductsList } = useStoreState(state => ({
+    const { isUserAuthenticated, currUser } = useStoreState(state => ({
         isUserAuthenticated: state.authReducer.cases.isUserAuthenticated,
-        name: state.userReducer.cases.currentUser.name,
-        picture: state.userReducer.cases.currentUser.picture,
-        allFavProductsList: state.userReducer.cases.allFavProductsList
+        currUser: state.userReducer.cases.currentUser,
     }));
+    const { name, picture, favoriteList } = currUser;
+
     const dispatch = useStoreDispatch();
     // End Redux
     const animateZoomOut = () => {
@@ -120,7 +113,7 @@ export default function MenuLogin() {
                                     <span style={{ position: 'relative' }}>
                                         <BorderedBadge
                                             className="animated bounce slow"
-                                            badgeContent={allFavProductsList.length}
+                                            badgeContent={favoriteList && favoriteList.length}
                                         >
                                             <i className="fas fa-heart animated bounce slow"></i>
                                         </BorderedBadge>

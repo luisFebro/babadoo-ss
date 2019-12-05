@@ -14,10 +14,9 @@ import PropTypes from 'prop-types';
 
 Product.propTypes = {
     product: productType,
-    isFav: PropTypes.bool
 }
 
-export default function Product({ product, isFav }) {
+export default function Product({ product }) {
     const [showSkeleton, setShowSkeleton] = useState(true);
 
     const { _id, title, price, link  } = product;
@@ -98,7 +97,6 @@ export default function Product({ product, isFav }) {
                 >
                     {showImage()}
                     <FavBtn
-                        isFav={isFav}
                         showSkeleton={showSkeleton}
                         productId={_id}
                     />

@@ -25,6 +25,7 @@ router.get("/confirm-account/:authUserId", confirmUserAccount);
 router.get("/list/all", getList);
 
 // FIELDS
+// Array Fields handled: favoriteList,
 router.put('/field/array/push/:id', addElementArray);
 router.put('/field/array/pull/:id', removeElementArray);
 
