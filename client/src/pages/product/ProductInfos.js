@@ -15,7 +15,7 @@ export default function ProductInfos({ data }) {
         <h2
             className="text-uppercase text-muted mt-3 mb-2"
         >
-            { data && `categoria: ${category.name.cap()}` || <Skeleton variant="text" width={'55%'} /> }
+            { category && `categoria: ${category.name.cap()}` || <Skeleton variant="text" width={'55%'} /> }
         </h2>
     );
 
@@ -38,8 +38,8 @@ export default function ProductInfos({ data }) {
         );
 
         return(
-            <h4 className="text-default lead mx-auto text-justify">
-                {data && getDesc() || (
+            <div className="text-default lead mx-auto text-justify">
+                {mainDescription && getDesc() || (
                     <Fragment>
                         <Skeleton variant="text" width={'35%'} />
                         <Skeleton variant="text" />
@@ -47,46 +47,47 @@ export default function ProductInfos({ data }) {
                         <Skeleton variant="text" />
                     </Fragment>
                 )}
-            </h4>
+            </div>
         );
     }
 
     const additionalInfo = gotInfoProp => {
         const getColors = () => {
             // need to change colors to a singlearray of strings
-            const colors = data && info.colors.moreOptions.map(color => `${color}, `);
+            const colors = info.colors.map(color => `${color}, `);
             return colors;
         }
+
         return !gotInfoProp ? (
-            <Spinner expireSec={10} />
+            <Spinner expireSec={8} />
         ) : (
             <Fragment>
-                {(data && info.company) &&
+                {info.company &&
                 <h5 className="font-weight-bold mt-3 mb-0">
                     marca: <span className="text-muted lead">{info.company.cap()}</span>
                 </h5>}
 
-                {(data && info.howToUse) &&
+                {info.howToUse &&
                 <h5 className="font-weight-bold mt-3 mb-0">
                     Como usar: <span className="text-muted lead">{info.howToUse.cap()}</span>
                 </h5>}
 
-                {(data && info.colors) &&
+                {info.colors &&
                 <h5 className="font-weight-bold mt-3 mb-0">
                     Cores Disponíveis: <span className="text-muted lead">{getColors()}</span>
                 </h5>}
 
-                {(data && info.weight) &&
+                {info.weight &&
                 <h5 className="font-weight-bold mt-3 mb-0">
                     Peso: <span className="text-muted lead">{info.weight}</span>
                 </h5>}
 
-                {(data && info.sizeOrDimmension) &&
+                {info.sizeOrDimmension &&
                 <h5 className="font-weight-bold mt-3 mb-0">
                     Dimensão: <span className="text-muted lead">{info.sizeOrDimmension}</span>
                 </h5>}
 
-                {(data && info.unitsPerPackage) &&
+                {info.unitsPerPackage &&
                 <h5 className="font-weight-bold mt-3 mb-0">
                     Unidades por Pacote: <span className="text-muted lead">{info.unitsPerPackage}</span>
                 </h5>}

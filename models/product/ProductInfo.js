@@ -6,7 +6,7 @@ const collectionName = "product-info";
 // colors: {mainColor: String, options: Array}
 const dataProductInfo = {
     company: String,
-    colors: Object,
+    colors: Array,
     howToUse: String,
     weight: Number,
     sizeOrDimmension: Number,

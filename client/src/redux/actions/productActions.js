@@ -44,8 +44,7 @@ export const updateProduct = async (dispatch, keyToUpdate, _idProduct) => {
         [`${targetKey}`]: keyToUpdate[targetKey]
     };
     try {
-        const body = getBodyRequest(keyToUpdate);
-        const res = axios.put(`/api/product/${_idProduct}`, body, configTypeJson);
+        const res = axios.put(`/api/product/${_idProduct}`, keyToUpdate, configTypeJson);
         console.log('==CHANGING PRODUCT==');
         dispatch({ type: 'CHANGE_PRODUCT', payload: dataToUpdate }); // dataToUpdate
     } catch (e) {
@@ -71,18 +70,30 @@ export const deleteProduct = async (dispatch, _idProduct) => {
 // LISTS
 export const getAllProducts = async dispatch => {
     setLoadingProgress(dispatch, true);
-    // let didCancel = false; //n1
     try {
         const res = await axios.get('/api/product/list/all');
         console.log('==GOT ALL PRODUCTS==');
-        const randomOrder = getRandomArray(res.data);
-        dispatch({ type: 'GET_ALL_PRODUCTS', payload: randomOrder });
+        dispatch({ type: 'GET_ALL_PRODUCTS', payload: res.data });
         setLoadingProgress(dispatch, false);
     } catch (err) {
+        setLoadingProgress(dispatch, false);
         console.log('getAllProductsError', err);
     }
 };
+
+export const loadRelatedProducts = async (dispatch, productData) => {
+    try {
+        const { id, limit } = productData;
+        const res = await axios.get(`/api/product/list/related/${id}?limit=${limit}`)
+        const randomOrder = getRandomArray(res.data);
+        return randomOrder;
+    } catch(err) {
+        return err.response;
+    }
+}
 // END LISTS
+
+
 
 export const addToCart = id => {
     const { products, cart } = this.state;

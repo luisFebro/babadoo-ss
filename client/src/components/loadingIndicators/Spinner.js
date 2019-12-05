@@ -16,7 +16,7 @@ export default function Spinner({ expireSec }) {
 
     const stopSpinnerAfter = () => {
         const milisecs = expireSec * 1000;
-        setTimeout(() => setRun(false), milisecs);
+        expireSec && setTimeout(() => setRun(false), milisecs);
     }
 
     const showSpinner = isRunning => (

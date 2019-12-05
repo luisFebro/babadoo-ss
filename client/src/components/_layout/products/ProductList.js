@@ -20,17 +20,17 @@ export default function ProductList() {
     const dispatch = useStoreDispatch();
     // End Redux
 
-    //Comparing the id from Favorite list with id of main store's showcase
-    const idsFromFavList = allFavProductsList.map(fav => {
-        return fav._id;
-    });
 
     useEffect(() => {
         getAllProducts(dispatch);
     }, []);
 
+    //Comparing the id from Favorite list with id of main store's showcase
+    const idsFromFavList = allFavProductsList.map(fav => {
+        return fav._id;
+    });
+
     const mapAllProductsList = allProductsList.map(product => {
-        // Check if the product was added as favorite
         let isAddedFav = false;
         if (idsFromFavList) {
             if (idsFromFavList.includes(product._id)) {
@@ -43,7 +43,7 @@ export default function ProductList() {
     return (
         <div className="py-5">
             <div className="container">
-                <div className="row text-center">
+                <div className="row">
                     {mapAllProductsList}
                 </div>
             </div>

@@ -1,12 +1,8 @@
 import React, { useState, Fragment } from 'react';
+import FavBtn from '../../buttons/product/FavBtn';
 import Skeleton from '@material-ui/lab/Skeleton';
 import ShowImgOrSkeleton from '../../ShowImgOrSkeleton';
 // Redux
-import { useStoreState, useStoreDispatch } from 'easy-peasy';
-import { addFieldUser, deleteFieldUser } from '../../../redux/actions/userActions';
-import { getItem } from '../../../redux/actions/productActions';
-import { showSnackbar } from '../../../redux/actions/snackbarActions';
-import { showModalRegister } from '../../../redux/actions/modalActions';
 import { productType } from '../../../types';
 
 // End Redux
@@ -22,28 +18,11 @@ Product.propTypes = {
 }
 
 export default function Product({ product, isFav }) {
-    const [isFavChanged, setIsFavChanged] = useState(false);
     const [showSkeleton, setShowSkeleton] = useState(true);
-    // const [isAddedAsFav, setIsAddedAsFav] = useState(isFav);
 
-    const { allProductsList, isUserAuthenticated, _idUser } = useStoreState(state => ({
-        allProductsList: state.productReducer.cases.allProductsList,
-        isUserAuthenticated: state.authReducer.cases.isUserAuthenticated,
-        _idUser: state.userReducer.cases.currentUser['_id']
-    }));
-    const dispatch = useStoreDispatch();
-    // console.log("isAuth", isUserAuthenticated); //Check this behavior: auth is running multiple 11 times
-    const toggleFav = () => {
-        setIsFavChanged(!isFavChanged);
-    };
     const { _id, title, price, link  } = product;
     // need to include inCart here added from client
     const inCart = false;
-    const bodyToSendFavorite = (AllProds, _id) => {
-        const obj = getItem(AllProds, _id);
-        return { favoriteList: obj };
-    };
-    const bodyFavorite = bodyToSendFavorite(allProductsList, _id);
 
     const showImage = () => (
         <Link to={`/produto/${link}`}>
@@ -63,51 +42,6 @@ export default function Product({ product, isFav }) {
                 }}
             />
         </Link>
-    );
-
-    const handleFavButton = () => (
-        <button className="cart-fav" onClick={() => toggleFav()}>
-            {isUserAuthenticated ? (
-                isFavChanged || isFav ? (
-                    <i
-                        className="filledHeart fas fa-heart animated heartBeat fast"
-                        onClick={() => {
-                            deleteFieldUser(dispatch, bodyFavorite, _idUser);
-                            showSnackbar(dispatch, 'Removido dos seus favoritos!');
-                        }}
-                        style={{
-                            animationIterationCount: 3
-                        }}
-                    ></i>
-                ) : (
-                    <Fragment>
-                        {showSkeleton
-                        ? <Skeleton variant="circle" width={30} height={30} />
-                        : (
-                            <i
-                            className="emptyHeart far fa-heart"
-                            onClick={() => {
-                                addFieldUser(dispatch, bodyFavorite, _idUser);
-                                showSnackbar(dispatch, 'Adicionado aos Seus Favoritos', 'success');
-                                // value.openModalFavorite(_id);
-                            }}
-                            ></i>
-                        )}
-                    </Fragment>
-                )
-            ) : (
-                <i
-                    className="emptyHeart far fa-heart"
-                    onClick={() => {
-                        showModalRegister(dispatch);
-                        showSnackbar(
-                            dispatch,
-                            'Faça seu acesso para adicionar aos favoritos!'
-                        );
-                    }}
-                ></i>
-            )}
-        </button>
     );
 
     const handleCartButton = () => (
@@ -163,7 +97,11 @@ export default function Product({ product, isFav }) {
                     className="img-container p-1 p-sm-3"
                 >
                     {showImage()}
-                    {handleFavButton()}
+                    <FavBtn
+                        isFav={isFav}
+                        showSkeleton={showSkeleton}
+                        productId={_id}
+                    />
                     {handleCartButton()}
                 </div>
                 <div className="text-product-title p-1 card-footer d-flex flex-column text-center justify-content-between">
@@ -221,34 +159,6 @@ const ProductWrapper = styled.div`
         border-radius: .5rem 0 0 0;
         transform: translate(0, 0); /*translate(100%, 100%)*/
         transition: all 1s linear;
-    }
-
-    .cart-fav {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        background: transparent;
-        border: none;
-    }
-
-    .cart-fav i {
-        color: var(--mainRed);
-        font-size: 1.7rem;
-        transition: .5s;
-    }
-
-    .cart-fav .emptyHeart {
-        opacity: .3;
-    }
-
-    .cart-fav .filledHeart {
-        opacity: 1;
-        transform: scale(1.1);
-    }
-
-    .cart-fav .emptyHeart:hover {
-        opacity: 1;
-        transform: scale(1.1);
     }
 
     .cart-btn:hover {

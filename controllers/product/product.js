@@ -193,13 +193,12 @@ exports.getList = (req, res) => { // n2
  * other products that has the same category, will be returned
  */
 exports.getListRelated = (req, res) => {
-    console.log("getList Related req product", req.product)
     const selectedProduct = req.product;
-    let limit = req.query.limit ? parseInt(req.query.limit) : 2; // 6 by default
+    let limit = req.query.limit ? parseInt(req.query.limit) : 8;
     // find this current category from the selected product but not include itself
     Product.find({ _id: { $ne: selectedProduct }, category: selectedProduct.category }) //n1
     .limit(limit)
-    .select('-photo') // activate this for better readability in postman
+    .select('-photo -isReadyToPopulate -sold') // activate this for better readability in postman
     .populate("category", "_id name")
     .exec((err, products) => {
         if (err) return res.status(400).json(msg('error.notFound'));

@@ -11,14 +11,14 @@ import {
 } from 'prop-types';
 
 export const productType = shape({
-    _id: string.isRequired,
+    _id: string,
     category: shape({
         _id: string,
         name: string,
     }),
-    title: string.isRequired,
-    mainDescription: string.isRequired,
-    price: number.isRequired,
+    title: string,
+    mainDescription: string,
+    price: number,
     link: string,
     quantity: number,
     sold: number,

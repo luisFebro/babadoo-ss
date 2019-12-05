@@ -89,29 +89,24 @@ export const changeFieldUser = async (dispatch, objToSend, _idUser) => {
 
 // Add An obj inside an Array-like data from user
 export const addFieldUser = async (dispatch, objToSend, _idUser) => {
-    const body = getBodyRequest(objToSend);
     try {
-        const res = await axios.post(`/api/user/lists/add-field-array/${_idUser}`, body, configTypeJson);
-        console.log('UPDATE_CURRENT_USER from addFieldUser', res.data);
+        const res = await axios.post(`/api/user/field/array/push/${_idUser}`, objToSend, configTypeJson);
         dispatch({ type: 'UPDATE_CURRENT_USER', payload: res.data });
-        updateCurrentUser(dispatch, _idUser);
-    } catch (e) {
-        console.log('addFieldUserERROR: ' + e);
+    } catch (err) {
+        return err;
     }
 };
 
 // Delete An obj inside an Array-like data from user
 export const deleteFieldUser = async (dispatch, objToSend, _idUser) => {
-    const body = getBodyRequest(objToSend);
     try {
-        const res = await axios.put(`/api/user/lists/delete-field-array/${_idUser}`, body, configTypeJson);
+        const res = await axios.put(`/api/user/lists/delete-field-array/${_idUser}`, objToSend, configTypeJson);
         dispatch({ type: 'UPDATE_CURRENT_USER', payload: res.data });
-        console.log('===FIELD DELETED===');
-        updateCurrentUser(dispatch, _idUser);
         // This updates the products to display the favorites and card infos properly
         getAllProducts(dispatch);
-    } catch (e) {
-        console.log('ERRORdeleteFieldUser: ' + e);
+        return res;
+    } catch (err) {
+        return err;
     }
 };
 // END HANDLING A USER FIELDS
