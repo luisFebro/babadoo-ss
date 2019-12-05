@@ -53,7 +53,31 @@ export const deleteUser = async (dispatch, _idUser) => {
     dispatch({ type: 'USER_DELETED', payload: _idUser });
 };
 
-// HANDLING A USER FIELDS
+// FIELDS
+export const addElemArrayUser = async (dispatch, objToSend) => {
+    try {
+        const { userId, changeField } = objToSend;
+        const res = await axios.post(`/api/user/field/array/push/${userId}`, changeField, configTypeJson);
+        dispatch({ type: 'UPDATE_CURRENT_USER', payload: res.data });
+    } catch (err) {
+        return err;
+    }
+};
+
+// Delete An obj inside an Array-like data from user
+export const removeElemArrayUser = async (dispatch, objToSend) => {
+    try {
+        const { userId, changeField } = objToSend;
+        const res = await axios.put(`/api/user/field/array/push/${userId}`, changeField, configTypeJson);
+        dispatch({ type: 'UPDATE_CURRENT_USER', payload: res.data });
+        // This updates the products to display the favorites and card infos properly
+        getAllProducts(dispatch);
+        return res;
+    } catch (err) {
+        return err;
+    }
+};
+
 // Send a notification to admin or client
 export const sendNotification = async (dispatch, objToSend, _idClient) => {
     // if the sender is not the admin, then get his/her id and send to it
@@ -84,29 +108,6 @@ export const changeFieldUser = async (dispatch, objToSend, _idUser) => {
         updateCurrentUser(dispatch, _idUser);
     } catch (e) {
         console.log('changeFieldUserERROR: ' + e);
-    }
-};
-
-// Add An obj inside an Array-like data from user
-export const addFieldUser = async (dispatch, objToSend, _idUser) => {
-    try {
-        const res = await axios.post(`/api/user/field/array/push/${_idUser}`, objToSend, configTypeJson);
-        dispatch({ type: 'UPDATE_CURRENT_USER', payload: res.data });
-    } catch (err) {
-        return err;
-    }
-};
-
-// Delete An obj inside an Array-like data from user
-export const deleteFieldUser = async (dispatch, objToSend, _idUser) => {
-    try {
-        const res = await axios.put(`/api/user/lists/delete-field-array/${_idUser}`, objToSend, configTypeJson);
-        dispatch({ type: 'UPDATE_CURRENT_USER', payload: res.data });
-        // This updates the products to display the favorites and card infos properly
-        getAllProducts(dispatch);
-        return res;
-    } catch (err) {
-        return err;
     }
 };
 // END HANDLING A USER FIELDS

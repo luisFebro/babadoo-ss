@@ -1,7 +1,7 @@
 import React, { useState, useRef, Fragment } from 'react';
 // Redux
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
-// import { addFieldUser, deleteFieldUser } from '../../../redux/actions/userActions';
+// import { addElemArrayUser, removeElemArrayUser } from '../../../redux/actions/userActions';
 import { findAnItem } from '../../../redux/actions/globalActions';
 import {
     showModalConfTitle,
@@ -155,7 +155,7 @@ export default function EditableProduct({ product, isFav }) {
                                 <i
                                     className="filledHeart fas fa-heart animated heartBeat fast"
                                     onClick={() => {
-                                        /*deleteFieldUser(dispatch, bodyFavorite, _idUser);
+                                        /*removeElemArrayUser(dispatch, bodyFavorite, _idUser);
                                         showSnackbar(dispatch, "Removido dos seus favoritos!");*/
                                     }}
                                     style={{
@@ -166,7 +166,7 @@ export default function EditableProduct({ product, isFav }) {
                                 <i
                                     className="emptyHeart far fa-heart"
                                     onClick={() => {
-                                        /*addFieldUser(dispatch, bodyFavorite, _idUser);
+                                        /*addElemArrayUser(dispatch, bodyFavorite, _idUser);
                                             showSnackbar(dispatch, "Adicionado aos seus favoritos!")*/
                                         // value.openModalFavorite(_id);
                                     }}

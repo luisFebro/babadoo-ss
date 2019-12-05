@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 // Redux
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
-import { addFieldUser, deleteFieldUser } from '../../redux/actions/userActions';
+import { addElemArrayUser, removeElemArrayUser } from '../../redux/actions/userActions';
 import { getItem } from '../../redux/actions/productActions';
 import { showSnackbar } from '../../redux/actions/snackbarActions';
 import { animateHinge } from '../../redux/actions/animationActions';
@@ -64,7 +64,7 @@ export default function ProductFavorite({ product }) {
                                                 e.preventDefault();
                                                 animateHinge(animateRef);
                                                 setTimeout(
-                                                    () => deleteFieldUser(dispatch, bodyFavorite, _idUser),
+                                                    () => removeElemArrayUser(dispatch, bodyFavorite, _idUser),
                                                     3000
                                                 );
                                                 showSnackbar(dispatch, 'Removido dos seus favoritos!');
@@ -77,7 +77,7 @@ export default function ProductFavorite({ product }) {
                                         <i
                                             className="emptyHeart far fa-heart"
                                             onClick={() => {
-                                                addFieldUser(dispatch, bodyFavorite, _idUser);
+                                                addElemArrayUser(dispatch, bodyFavorite, _idUser);
                                                 showSnackbar(dispatch, 'Adicionado aos seus favoritos!', 'success');
                                                 // value.openModalFavorite(_id);
                                             }}

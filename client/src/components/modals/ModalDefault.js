@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 // Redux
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { closeModal } from '../../redux/actions/modalActions';
-import { addFieldUser } from '../../redux/actions/userActions';
+import { addElemArrayUser } from '../../redux/actions/userActions';
 // End Redux
 import { Link } from 'react-router-dom';
 import { showSnackbar } from '../../redux/actions/snackbarActions';
@@ -46,7 +46,7 @@ export default function ModalDefault({ propTitle, propMsg, propTxtBtn, objToSend
 
     const setObjToSend = () => {
         let data = objToSend;
-        addFieldUser(dispatch, data, _idUser);
+        addElemArrayUser(dispatch, data, _idUser);
     };
 
     const classes = useStyles();

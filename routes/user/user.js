@@ -8,6 +8,8 @@ const {
     mwUserId,
     getList,
     confirmUserAccount,
+    addElementArray,
+    removeElementArray
 } = require("../../controllers/user");
 
 // @route  api/user
@@ -19,53 +21,14 @@ router.delete('/:userId', remove);
 
 router.get("/confirm-account/:authUserId", confirmUserAccount);
 
-
-router.param("userId", mwUserId); // n1
-
-
 // LISTS
 router.get("/list/all", getList);
 
 // FIELDS
+router.put('/field/array/push/:id', addElementArray);
+router.put('/field/array/pull/:id', removeElementArray);
 
-
-router.post('/field/array/push/:id', (req, res) => {
-    const objToChange = req.body; // n2
-    const _id = req.params.id;
-    User.findByIdAndUpdate(_id, { $push: objToChange }, { new: true })
-    .exec((err, data) => {
-        if (err) return res.status(500).json({error: "unsuccessful. not added"})
-        // data.save();
-        res.json(data);
-    });
-});
-
-// @route   UPDATE (Delete) an array element from a field api/users/lists/delete-field-array/:id
-// @desc    Find a User(doc) and field and delete an array element || put is needed to fetch the body, with delete, it returns an empty obj.
-// @access  Private
-// eg. req.body = { couponsList: { type: "10% desconto qualquer produto" }};
-router.put('/lists/delete-field-array/:id', (req, res) => {
-    User.findByIdAndUpdate(req.params.id, { $pull: req.body }, (err, data) => {
-        if (err) {
-            return res
-                .status(500)
-                .json({error: "unsuccessful. not deleted"})
-        };
-        data.save();
-        res.json(data);
-    })
-});
-
-
-
-
-
-
-
-
-
-
-
+router.param("userId", mwUserId); // n1
 
 
 // NOTIFICATION SYSTEM

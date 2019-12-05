@@ -85,8 +85,8 @@ export const loadRelatedProducts = async (dispatch, productData) => {
     try {
         const { id, limit } = productData;
         const res = await axios.get(`/api/product/list/related/${id}?limit=${limit}`)
-        const randomOrder = getRandomArray(res.data);
-        return randomOrder;
+        res.data = getRandomArray(res.data);
+        return res;
     } catch(err) {
         return err.response;
     }

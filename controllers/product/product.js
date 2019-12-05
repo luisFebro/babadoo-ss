@@ -8,6 +8,20 @@ const mongoose = require('mongoose');
 const { msg } = require('../_msgs/product');
 const { msgG } = require('../_msgs/globalMsgs');
 
+// Adapt and add this as mwRandom
+// Model.count().exec(function(err, count){
+
+//   var random = Math.floor(Math.random() * count);
+
+//   Model.findOne().skip(random).exec(
+//     function (err, result) {
+
+//       // result is random
+
+//   });
+
+// });
+
 // MIDDLEWARES
 exports.mwPhoto = (req, res, next) => {
     if (req.product.photo.data) {
@@ -44,7 +58,7 @@ exports.mwBackup = (req, res, next) => {
     let backup = new BackupProduct(data);
 
     backup.save((err => {
-        if(err) return res.status(400).json(msgG('error.systemError', err));
+        if(err) return res.status(500).json(msgG('error.systemError', err));
         console.log(`Realizado o backup do produto: ${title.toUpperCase()}`)
     }))
 
@@ -64,7 +78,7 @@ exports.create = (req, res) => { // n3 - needs mwAuth
 
         Product.findOne({ title })
         .exec((err, user) => {
-            if(err) return res.status(400).json(msgG('error.systemError', err))
+            if(err) return res.status(500).json(msgG('error.systemError', err))
             if(user) return res.status(400).json(msg('error.alreadyPosted'))
 
             if (!category) return res.status(400).json(msg('error.noCategory'))
@@ -87,7 +101,7 @@ exports.create = (req, res) => { // n3 - needs mwAuth
             }
 
             product.save((err, result) => {
-                if (err) return res.status(400).json(msgG('error.systemError', err));
+                if (err) return res.status(500).json(msgG('error.systemError', err));
                 res.json(result);
             });
         })
@@ -119,7 +133,7 @@ exports.update = (req, res) => {
         }
 
         product.save((err, result) => {
-            if(err) return res.status(400).json(msgG('error.systemError', err));
+            if(err) return res.status(500).json(msgG('error.systemError', err));
             res.json(result);
         });
     });
@@ -154,7 +168,7 @@ exports.updateProductInfo = (req, res) => {
             { $set: infoKey },
             { new: true }, // n4
             (err, product) => {
-                if (err) return res.status(400).json(msgG('error.systemError', err));
+                if (err) return res.status(500).json(msgG('error.systemError', err));
             }
         )
     }
@@ -164,7 +178,7 @@ exports.updateProductInfo = (req, res) => {
         { $set: req.body },
         { strict: false, new: true, upsert: true }, // n4
         (err, productInfo) => {
-            if (err) return res.status(400).json(msgG('error.systemError', err));
+            if (err) return res.status(500).json(msgG('error.systemError', err));
             res.json(productInfo);
         }
     );

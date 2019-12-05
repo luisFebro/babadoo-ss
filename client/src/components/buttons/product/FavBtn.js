@@ -4,10 +4,9 @@ import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import PropTypes from 'prop-types';
 import Skeleton from '@material-ui/lab/Skeleton';
 // Redux
-import { getItem } from '../../../redux/actions/productActions';
 import { showSnackbar } from '../../../redux/actions/snackbarActions';
 import { showModalRegister } from '../../../redux/actions/modalActions';
-import { addFieldUser, deleteFieldUser } from '../../../redux/actions/userActions';
+import { addElemArrayUser, removeElemArrayUser } from '../../../redux/actions/userActions';
 
 FavBtn.propTypes = {
     isFav: PropTypes.bool,
@@ -16,27 +15,24 @@ FavBtn.propTypes = {
     productId: PropTypes.string,
 }
 
-export default function FavBtn({ isFav, isActivated = true, showSkeleton, productId }) {
+export default function FavBtn({ productId, isFav, isActivated = true, showSkeleton }) {
     const [toggle, setToggle] = useState(false);
 
-    const { allProductsList, isUserAuthenticated, _idUser } = useStoreState(state => ({
-        allProductsList: state.productReducer.cases.allProductsList,
+    const { isUserAuthenticated, _idUser } = useStoreState(state => ({
         isUserAuthenticated: state.authReducer.cases.isUserAuthenticated,
         _idUser: state.userReducer.cases.currentUser['_id']
     }));
     const dispatch = useStoreDispatch();
-
-    const handleFieldToChange = (AllProds, productId) => {
-        const obj = getItem(AllProds, productId);
-        return { favoriteList: obj };
-    };
-    const bodyFavorite = handleFieldToChange(allProductsList, productId);
 
     const toggleFav = () => {
         setToggle(!toggle);
     };
 
     const showFavBtn = isActivated => {
+        const bodyFavorite = {
+            userId: _idUser,
+            changeField: { favoriteList: productId }
+        }
         const handleFavOn = () => (
             <Fragment>
                 {showSkeleton
@@ -45,7 +41,7 @@ export default function FavBtn({ isFav, isActivated = true, showSkeleton, produc
                     <i
                         className="filledHeart fas fa-heart animated heartBeat fast"
                         onClick={() => {
-                            deleteFieldUser(dispatch, bodyFavorite, _idUser);
+                            removeElemArrayUser(dispatch, bodyFavorite);
                             showSnackbar(dispatch, 'Removido dos seus favoritos!');
                         }}
                         style={{
@@ -64,9 +60,8 @@ export default function FavBtn({ isFav, isActivated = true, showSkeleton, produc
                     <i
                     className="emptyHeart far fa-heart"
                     onClick={() => {
-                        addFieldUser(dispatch, bodyFavorite, _idUser);
+                        addElemArrayUser(dispatch, bodyFavorite);
                         showSnackbar(dispatch, 'Adicionado aos Seus Favoritos', 'success');
-                        // value.openModalFavorite(_id);
                     }}
                     ></i>
                 )}
