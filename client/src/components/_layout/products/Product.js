@@ -67,7 +67,7 @@ export default function Product({ product }) {
 
     // Footer
     const showTitle = () => (
-        <p style={{ height: '4em', overflow: 'hidden' }} className="mb-0 text-capitalize">
+        <div style={{ height: '4em', overflow: 'hidden' }}>
             {showSkeleton
             ? (
                 <Fragment>
@@ -75,8 +75,12 @@ export default function Product({ product }) {
                     <Skeleton variant="text" style={{marginLeft: '130px'}} />
                 </Fragment>
             )
-            : truncateWords(title, 40)}
-        </p>
+            : (
+                <p className="mb-0 text-default">
+                    {truncateWords(title.cap(), 40)}
+                </p>
+            )}
+        </div>
     );
 
     const showPrice = () => (

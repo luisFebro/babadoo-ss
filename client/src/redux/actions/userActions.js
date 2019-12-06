@@ -57,8 +57,9 @@ export const deleteUser = async (dispatch, _idUser) => {
 export const addElemArrayUser = async (dispatch, objToSend) => {
     try {
         const { userId, changeField } = objToSend;
-        const res = await axios.post(`/api/user/field/array/push/${userId}`, changeField, configTypeJson);
-        dispatch({ type: 'UPDATE_CURRENT_USER', payload: res.data });
+        const res = await axios.put(`/api/user/field/array/push/${userId}`, changeField, configTypeJson);
+        dispatch({ type: 'UPDATE_CURRENT_USER', payload: res.data.user });
+        return res;
     } catch (err) {
         return err;
     }
@@ -68,10 +69,8 @@ export const addElemArrayUser = async (dispatch, objToSend) => {
 export const removeElemArrayUser = async (dispatch, objToSend) => {
     try {
         const { userId, changeField } = objToSend;
-        const res = await axios.put(`/api/user/field/array/push/${userId}`, changeField, configTypeJson);
-        dispatch({ type: 'UPDATE_CURRENT_USER', payload: res.data });
-        // This updates the products to display the favorites and card infos properly
-        getAllProducts(dispatch);
+        const res = await axios.put(`/api/user/field/array/pull/${userId}`, changeField, configTypeJson);
+        dispatch({ type: 'UPDATE_CURRENT_USER', payload: res.data.user });
         return res;
     } catch (err) {
         return err;

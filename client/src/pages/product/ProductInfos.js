@@ -1,11 +1,11 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { productType } from '../../types';
+import { productInfoType } from '../../types';
 import Skeleton from '@material-ui/lab/Skeleton';
 import Spinner from '../../components/loadingIndicators/Spinner';
 
 ProductInfos.propTypes = {
-    data: productType
+    data: productInfoType
 }
 
 export default function ProductInfos({ data }) {

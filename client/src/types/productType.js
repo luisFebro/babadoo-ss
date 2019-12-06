@@ -23,18 +23,18 @@ export const productType = shape({
     quantity: number,
     sold: number,
     inCart: bool,
-    info: shape({
-        company: string,
-        colors: shape({
-            main: string,
-            moreOptions: arrayOf(string)
-        }),
-        company: string,
-        howToUse: string,
-        refCode: string,
-        sizeOrDimmension: number,
-        "unitsPerPackage": number,
-
-    })
+    info: oneOfType([string, object]),
 })
 
+export const productInfoType = shape({
+    company: string,
+    colors: shape({
+        main: string,
+        moreOptions: arrayOf(string)
+    }),
+    company: string,
+    howToUse: string,
+    refCode: string,
+    sizeOrDimmension: number,
+    "unitsPerPackage": number,
+});

@@ -9,7 +9,6 @@ import PrivateRouteAdm from '../components/auth/PrivateRouteAdm';
 import { readAdmin } from '../redux/actions/adminActions';
 import { useStoreDispatch } from 'easy-peasy'; // useStoreState
 import { getUpdatedUsers, updateCurrentUser } from '../redux/actions/userActions';
-import { getAllProducts } from '../redux/actions/productActions';
 // End Redux
 import { loadUser, tokenConfig } from '../redux/actions/authActions';
 import './App.css';
@@ -65,7 +64,6 @@ export default function App() {
 
     const dispatch = useStoreDispatch();
     readAdmin(dispatch);
-    getAllProducts(dispatch);
 
     useEffect(() => {
         //getUpdatedUsers(dispatch);

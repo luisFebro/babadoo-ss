@@ -5,18 +5,20 @@ import PropTypes from 'prop-types';
 
 Spinner.propTypes = {
     expireSec: PropTypes.number,
+    alignment: PropTypes.oneOf(['center', 'left', 'right']),
 }
 
-export default function Spinner({ expireSec }) {
+export default function Spinner({ expireSec, alignment = 'none' }) {
     const [run, setRun] = useState(true);
 
     useEffect(() => {
-        stopSpinnerAfter();
+        const timer = stopSpinnerAfter();
+        return(() => clearTimeout(timer))
     }, [])
 
     const stopSpinnerAfter = () => {
         const milisecs = expireSec * 1000;
-        expireSec && setTimeout(() => setRun(false), milisecs);
+        return expireSec && setTimeout(() => setRun(false), milisecs);
     }
 
     const showSpinner = isRunning => (
@@ -24,10 +26,17 @@ export default function Spinner({ expireSec }) {
         <SpinnerInner />
     );
 
+    let config = {
+        center: 'container-center',
+        left: '?',
+        right: '?',
+        none: ''
+    }
+
     return (
-        <Fragment>
+        <div className={config[alignment]}>
             {showSpinner(run)}
-        </Fragment>
+        </div>
     );
 }
 

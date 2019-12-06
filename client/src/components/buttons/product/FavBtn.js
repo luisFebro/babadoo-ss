@@ -4,6 +4,7 @@ import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import PropTypes from 'prop-types';
 import Skeleton from '@material-ui/lab/Skeleton';
 // Redux
+import customMsg from '../../../utils/customMsg';
 import { showSnackbar } from '../../../redux/actions/snackbarActions';
 import { showModalRegister } from '../../../redux/actions/modalActions';
 import { addElemArrayUser, removeElemArrayUser } from '../../../redux/actions/userActions';
@@ -17,9 +18,10 @@ FavBtn.propTypes = {
 export default function FavBtn({ productId, isActivated = true, showSkeleton }) {
     const [toggle, setToggle] = useState(false);
 
-    const { isUserAuthenticated, _idUser, favItemIds } = useStoreState(state => ({
+    const { isUserAuthenticated, _idUser, favItemIds, name } = useStoreState(state => ({
         isUserAuthenticated: state.authReducer.cases.isUserAuthenticated,
         _idUser: state.userReducer.cases.currentUser['_id'],
+        name: state.userReducer.cases.currentUser.name,
         favItemIds: state.userReducer.cases.currentUser.favoriteList,
     }));
     const dispatch = useStoreDispatch();
@@ -38,10 +40,13 @@ export default function FavBtn({ productId, isActivated = true, showSkeleton }) 
     };
 
     const showFavBtn = isActivated => {
+        if(!isActivated) return null;
+
         const bodyFavorite = {
             userId: _idUser,
             changeField: { favoriteList: productId }
         }
+
         const handleFavOn = () => (
             <Fragment>
                 {showSkeleton
@@ -50,8 +55,12 @@ export default function FavBtn({ productId, isActivated = true, showSkeleton }) 
                     <i
                         className="filledHeart fas fa-heart animated heartBeat fast"
                         onClick={() => {
-                            removeElemArrayUser(dispatch, bodyFavorite);
-                            showSnackbar(dispatch, 'Removido dos seus favoritos!');
+                            showSnackbar(dispatch, "Removendo...");
+                            removeElemArrayUser(dispatch, bodyFavorite)
+                            .then(res => {
+                                if(res.status !== 200) return showSnackbar(dispatch, res.data.msg, 'error')
+                                showSnackbar(dispatch, `${res.data.msg} dos seus Favoritos`);
+                            })
                         }}
                         style={{
                             animationIterationCount: 3
@@ -69,8 +78,12 @@ export default function FavBtn({ productId, isActivated = true, showSkeleton }) 
                     <i
                     className="emptyHeart far fa-heart"
                     onClick={() => {
-                        addElemArrayUser(dispatch, bodyFavorite);
-                        showSnackbar(dispatch, 'Adicionado aos Seus Favoritos', 'success');
+                        showSnackbar(dispatch, "Adicionando...");
+                        addElemArrayUser(dispatch, bodyFavorite) //n2
+                        .then(res => {
+                            if(res.status !== 200) return showSnackbar(dispatch, res.data.msg, 'error')
+                            showSnackbar(dispatch, customMsg(`Adicionado aos seus Favoritos`, name), 'success');
+                        })
                     }}
                     ></i>
                 )}
@@ -90,11 +103,18 @@ export default function FavBtn({ productId, isActivated = true, showSkeleton }) 
             ></i>
         );
 
+        const getsyncData = isFavItem => { // n1
+            if(isFavItem(favItemIds, productId)) {
+                return toggle || isFavItem(favItemIds, productId)
+            } else {
+                return toggle && isFavItem(favItemIds, productId)
+            }
+        }
+
         return(
-            isActivated &&
             <button className="cart-fav" onClick={() => toggleFav()}>
                 {isUserAuthenticated ? (
-                    (toggle || isFavItem(favItemIds, productId))
+                    (getsyncData(isFavItem))
                     ? handleFavOn()
                     : handleFavOff()
                 ) : (
@@ -141,3 +161,11 @@ const FavWrapper = styled.div`
     }
 
 `;
+
+/* COMMENTS
+n1:
+This logic allows us to toggle quickly and update in the database in the same time. toggle && function part forces to deactivate the option even if it is "true" in the database.
+Another advantage is that the update getAllProducts(dispatch) method is no longer required.
+this also garantees the button is toggled off properly.
+n2: run and display to add as soon as possible
+*/

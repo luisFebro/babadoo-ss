@@ -15,6 +15,8 @@ const msgG = (typeAndMsgName, customized = 'NeedCustomWord', options) => {
 
     // MESSAGES
     ok.success = "Esta operação foi executada com sucesso";
+    ok.added = "Adicionado";
+    ok.removed = "Removido";
     error.noFields = "Preencha todos os campos";
     error.notFound = `${customized} não foi encontrado`;
     error.systemError = `Ocorreu o seguinte erro: ${customized}`;

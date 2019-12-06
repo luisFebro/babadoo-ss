@@ -75,18 +75,24 @@ exports.addElementArray = (req, res) => {
     const objToChange = req.body; // n2
     const _id = req.params.id;
     User.findByIdAndUpdate(_id, { $push: objToChange }, { new: true })
-    .exec((err, data) => {
+    .exec((err, user) => {
         if (err) return res.status(500).json(msgG('error.systemError', err)) // NEED CREATE
-        res.json(data);
+        res.json({
+            user,
+            msg: msgG('ok.added', 'onlyMsg')
+        });
     });
 }
 
 exports.removeElementArray = (req, res) => {
-    const objToChange = req.body; // n2
+    const objToChange = req.body;
     const _id = req.params.id;
     User.findByIdAndUpdate(_id, { $pull: objToChange }, { new: true })
-    .exec((err, data) => {
+    .exec((err, user) => {
         if (err) return res.status(500).json(msgG('error.systemError', err)) // NEED CREATE
-        res.json(data);
+        res.json({
+            user,
+            msg: msgG('ok.removed', 'onlyMsg')
+        });
     });
 }

@@ -84,9 +84,17 @@ export const getAllProducts = async dispatch => {
 export const loadRelatedProducts = async (dispatch, productData) => {
     try {
         const { id, limit } = productData;
-        const res = await axios.get(`/api/product/list/related/${id}?limit=${limit}`)
+        const res = await axios.get(`/api/product/list/related/${id}?limit=${limit}`, configTypeJson)
         res.data = getRandomArray(res.data);
         return res;
+    } catch(err) {
+        return err.response;
+    }
+}
+
+export const loadFavoriteProducts = async (userId) => {
+    try {
+        return await axios.get(`/api/product/${userId}/list/favorite`, configTypeJson)
     } catch(err) {
         return err.response;
     }
