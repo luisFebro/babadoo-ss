@@ -59,7 +59,7 @@ export default function FavBtn({ productId, isActivated = true, showSkeleton }) 
                             removeElemArrayUser(dispatch, bodyFavorite)
                             .then(res => {
                                 if(res.status !== 200) return showSnackbar(dispatch, res.data.msg, 'error')
-                                showSnackbar(dispatch, `${res.data.msg} dos seus Favoritos`);
+                                showSnackbar(dispatch, customMsg(`${res.data.msg} dos seus Favoritos`, name, 'removed'))
                             })
                         }}
                         style={{

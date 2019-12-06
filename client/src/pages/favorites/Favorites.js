@@ -4,7 +4,7 @@ import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { loadFavoriteProducts } from '../../redux/actions/productActions';
 import { showSnackbar } from '../../redux/actions/snackbarActions';
 // End Redux
-import ProductFavorite from './ProductFavorite';
+import Product from '../../components/_layout/products/Product';
 import Title from '../../components/Title';
 import parse from 'html-react-parser';
 import EmptyContent from '../../components/EmptyContent';
@@ -48,7 +48,7 @@ export default function Favorites() {
 
     const showFavProducts = () => {
         const favList = favProducts.map(product => {
-            return <ProductFavorite key={product._id} product={product} />;
+            return <Product key={product._id} product={product} />;
         })
 
         return(
