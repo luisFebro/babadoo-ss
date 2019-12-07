@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { ButtonContainerPressedEffectDark as Dark } from '../../components/buttons/Default';
 import Title from '../../components/Title';
 import parse from 'html-react-parser';
-import EmptyContent from '../../components/EmptyContent';
+import Illustration from '../../components/Illustration';
 import { HashLink } from 'react-router-hash-link';
 
 export default function EmptyCart() {
@@ -13,7 +13,7 @@ export default function EmptyCart() {
     return (
         <div className="text-center">
             <Title title={name !== null ? `Nada aqui, ${name}` : `Nada aqui, visitante!`} />
-            <EmptyContent text={'Seu carrinho está vazio...'} img={'img/illustrations/empty-cart.png'} />
+            <Illustration title={'Seu carrinho está vazio...'} img={'img/illustrations/empty-cart.svg'} />
             <h4 className="text-sub-title mt-5">
                 {parse(`Assim que tiver pelo menos um item adicionado, pode voltar novamente!<br/>
                         Clique no ícone do carrinho para adicionar um item`)}

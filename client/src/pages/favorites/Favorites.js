@@ -7,17 +7,19 @@ import { showSnackbar } from '../../redux/actions/snackbarActions';
 import Product from '../../components/_layout/products/Product';
 import Title from '../../components/Title';
 import parse from 'html-react-parser';
-import EmptyContent from '../../components/EmptyContent';
+import Illustration from '../../components/Illustration';
 import ShareSocialMediaButtons from '../../components/buttons/ShareSocialMediaButtons';
-import Spinner from '../../components/loadingIndicators/Spinner';
 
 export default function Favorites() {
     const [favProducts, setFavProducts] = useState([]);
+    const [run, setRun] = useState(false);
+    console.log(run);
 
-    const { name, userId, isLoading } = useStoreState(state => ({
+    const { name, userId, isLoading, favCount } = useStoreState(state => ({
         name: state.userReducer.cases.currentUser.name,
         userId: state.userReducer.cases.currentUser['_id'],
-        isLoading: state.globalReducer.cases.isLoading
+        favCount: state.userReducer.cases.currentUser.favoriteList,
+        isLoading: state.globalReducer.cases.isLoading,
     }));
     const dispatch = useStoreDispatch();
 
@@ -30,32 +32,41 @@ export default function Favorites() {
     }
 
     useEffect(() => {
-        if(userId) {
+        let unmounted = false;
+        if(userId && !unmounted) {
+            console.log("LOADING FGUCKING FAVLIST");
             loadFavoriteList(userId);
         }
-    }, [userId])
+
+        return () => { unmounted = true; };
+    }, [userId, run])
 
     const showEmptyContent = () => (
-        <EmptyContent
-            text={'Sua Galeria está vazia...'}
-            img={'img/illustrations/empty-content.png'}
+        <Illustration
+            title='Sua Galeria está vazia...'
+            img='img/illustrations/empty-content.svg'
             actionButton={{
                 btnName: "dark",
-                title: "Escolher seus favoritos",
+                txt: "Escolher seus favoritos",
             }}
         />
     );
 
     const showFavProducts = () => {
+        console.log(favProducts)
         const favList = favProducts.map(product => {
-            return <Product key={product._id} product={product} />;
+            return <Product
+                        key={product._id}
+                        product={product}
+                        isFromFavPage={true}
+                        setRun={setRun}
+                    />;
         })
 
         return(
             <Fragment>
-                {favProducts.length === 0 || !name
-                ? showEmptyContent()
-                : (
+                {favCount.length !== 0
+                ? (
                     <div className="py-2">
                         <div className="container">
                             <div className="row">
@@ -63,7 +74,9 @@ export default function Favorites() {
                             </div>
                         </div>
                     </div>
-                )}
+                )
+                : showEmptyContent()
+                }
             </Fragment>
 
         );
@@ -72,7 +85,7 @@ export default function Favorites() {
     const userAuthenticatedContent = () => (
         <Fragment>
             <Title title={`Seus Favaritos, ${name}`} />
-            {isLoading ? <Spinner alignment="center" /> : showFavProducts()}
+            {showFavProducts()}
         </Fragment>
     );
 

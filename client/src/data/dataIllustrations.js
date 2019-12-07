@@ -5,19 +5,19 @@ export const underConstruction = {
 
 const greetings = {
     earlyHours: {
-        img: 'img/illustrations/greetings/early-hours.png',
+        img: 'img/illustrations/greetings/early-hours.svg',
         alt: 'ilustração da loja na madrugada'
     },
     morning: {
-        img: 'img/illustrations/greetings/good-morning.png',
+        img: 'img/illustrations/greetings/good-morning.svg',
         alt: 'ilustração da loja pela manhã'
     },
     afternoon: {
-        img: 'img/illustrations/greetings/good-afternoon.png',
+        img: 'img/illustrations/greetings/good-afternoon.svg',
         alt: 'ilustração da loja pela tarde'
     },
     night: {
-        img: 'img/illustrations/greetings/good-night.png',
+        img: 'img/illustrations/greetings/good-night.svg',
         alt: 'ilustração da loja pela noite'
     }
 };

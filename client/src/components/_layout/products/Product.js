@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState, Fragment, useRef } from 'react';
 import FavBtn from '../../buttons/product/FavBtn';
 import Skeleton from '@material-ui/lab/Skeleton';
 import ShowImgOrSkeleton from '../../ShowImgOrSkeleton';
@@ -14,9 +14,17 @@ import PropTypes from 'prop-types';
 
 Product.propTypes = {
     product: productType,
+    setRun: PropTypes.func,
+    isFavBtnOn: PropTypes.bool,
+    isFromFavPage: PropTypes.bool,
 }
 
-export default function Product({ product }) {
+export default function Product({
+    product,
+    setRun,
+    isFavBtnOn,
+    isFromFavPage }) {
+    const animateRef = useRef(null);
     const [showSkeleton, setShowSkeleton] = useState(true);
 
     const { _id, title, price, link  } = product;
@@ -94,7 +102,7 @@ export default function Product({ product }) {
     );
 
     return (
-        <ProductWrapper className="col-6 col-md-4 col-lg-3 mx-auto my-2">
+        <ProductWrapper ref={animateRef} className="animated jackInTheBox slow col-6 col-md-4 col-lg-3 mx-auto my-2">
             <div className="card">
                 <div
                     className="img-container p-1 p-sm-3"
@@ -103,6 +111,10 @@ export default function Product({ product }) {
                     <FavBtn
                         showSkeleton={showSkeleton}
                         productId={_id}
+                        animationRef={animateRef.current}
+                        isFavBtnOn={isFavBtnOn}
+                        isFromFavPage={isFromFavPage}
+                        setRun={setRun}
                     />
                     {handleCartButton()}
                 </div>

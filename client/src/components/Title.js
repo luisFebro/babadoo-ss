@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 Title.propTypes = {
     title: PropTypes.oneOfType([PropTypes.string.isRequired, PropTypes.object]),
-    subTitle: PropTypes.string,
+    subTitle: PropTypes.oneOfType([PropTypes.string, PropTypes.node]), // n1
     color: PropTypes.string,
 }
 
@@ -31,3 +31,7 @@ export default function Title({ title, subTitle, color }) {
         </div>
     );
 }
+
+/* COMMENTS
+n1: node because it may be a string, but also an array with parse-html-react.
+*/

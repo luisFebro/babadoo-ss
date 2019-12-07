@@ -16,9 +16,8 @@ function checkCoupons(payload) {
 
 // REDUCERS
 const initialState = {
-   currentUser: {},
+    currentUser: {},
     allUsers: [],
-    allFavProductsList: [],
     allMessagesList: [],
     gotCoupons: false
 };
@@ -36,7 +35,6 @@ export const userReducer = {
                 return {
                     ...state,
                     currentUser: action.payload,
-                    allFavProductsList: action.payload.favoriteList,
                     allMessagesList: action.payload.messageList,
                     gotCoupons: checkCoupons(action.payload.couponsList)
                 };

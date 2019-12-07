@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import PropTypes from 'prop-types';
 import Skeleton from '@material-ui/lab/Skeleton';
+import animateCSS from '../../../utils/animateCSS';
 // Redux
 import customMsg from '../../../utils/customMsg';
 import { showSnackbar } from '../../../redux/actions/snackbarActions';
@@ -10,12 +11,22 @@ import { showModalRegister } from '../../../redux/actions/modalActions';
 import { addElemArrayUser, removeElemArrayUser } from '../../../redux/actions/userActions';
 
 FavBtn.propTypes = {
-    isActivated: PropTypes.bool,
+    isFavBtnOn: PropTypes.bool,
     showSkeleton: PropTypes.bool,
     productId: PropTypes.string,
+    setRun: PropTypes.func,
+    run: PropTypes.bool,
+    animationRef: PropTypes.object,
+
 }
 
-export default function FavBtn({ productId, isActivated = true, showSkeleton }) {
+export default function FavBtn({
+        productId,
+        isFromFavPage = false,
+        isFavBtnOn = true,
+        showSkeleton,
+        setRun = f => f,
+        animationRef }) {
     const [toggle, setToggle] = useState(false);
 
     const { isUserAuthenticated, _idUser, favItemIds, name } = useStoreState(state => ({
@@ -39,8 +50,8 @@ export default function FavBtn({ productId, isActivated = true, showSkeleton }) 
         setToggle(!toggle);
     };
 
-    const showFavBtn = isActivated => {
-        if(!isActivated) return null;
+    const showFavBtn = isFavBtnOn => {
+        if(!isFavBtnOn) return null;
 
         const bodyFavorite = {
             userId: _idUser,
@@ -54,16 +65,17 @@ export default function FavBtn({ productId, isActivated = true, showSkeleton }) 
                 : (
                     <i
                         className="filledHeart fas fa-heart animated heartBeat fast"
+                        style={{
+                            animationIterationCount: 3
+                        }}
                         onClick={() => {
                             showSnackbar(dispatch, "Removendo...");
                             removeElemArrayUser(dispatch, bodyFavorite)
                             .then(res => {
                                 if(res.status !== 200) return showSnackbar(dispatch, res.data.msg, 'error')
                                 showSnackbar(dispatch, customMsg(`${res.data.msg} dos seus Favoritos`, name, 'removed'))
+                                isFromFavPage && animateCSS(animationRef, 'zoomOut', 'slower', setRun(true));
                             })
-                        }}
-                        style={{
-                            animationIterationCount: 3
                         }}
                     ></i>
                 )}
@@ -126,7 +138,7 @@ export default function FavBtn({ productId, isActivated = true, showSkeleton }) 
 
     return (
         <FavWrapper>
-            {showFavBtn(isActivated)}
+            {showFavBtn(isFavBtnOn)}
         </FavWrapper>
     );
 }

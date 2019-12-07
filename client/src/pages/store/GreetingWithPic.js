@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import getPeriodOfDayWithPic from '../../utils/getPeriodOfDayWithPic';
 import { useStoreState } from 'easy-peasy';
-
+import Illustration from '../../components/Illustration';
 export default function GetPeriodOfDay() {
     const userLoggedIn = useStoreState(state => state.userReducer.cases.currentUser.name);
 
@@ -10,14 +10,24 @@ export default function GetPeriodOfDay() {
     const { img, alt, color } = getData.illustration;
 
     return (
-        <DivWrapper className="container">
-            <img className="shadow-elevation" src={img} alt={alt} />
-            <p style={{ color }} className="text-main-container top-centered text-nowrap border-white">
-                <strong>{getData.greeting}</strong>
-            </p>
-        </DivWrapper>
+        <Illustration
+            img={img}
+            alt={alt}
+            txtImgConfig = {{
+                txt: getData.greeting,
+                txtStyle: "text-title",
+                txtColor: color,
+                txtBorder: "border-white",
+            }}
+        />
     );
 }
+
+/*
+<p style={{ color }} className="text-main-container top-centered text-nowrap ">
+    <strong>{getData.greeting}</strong>
+</p>
+ */
 
 const DivWrapper = styled.div`
     position: relative;

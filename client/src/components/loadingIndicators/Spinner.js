@@ -8,12 +8,12 @@ Spinner.propTypes = {
     alignment: PropTypes.oneOf(['center', 'left', 'right']),
 }
 
-export default function Spinner({ expireSec, alignment = 'none' }) {
+export default function Spinner({ expireSec, alignment = 'center' }) {
     const [run, setRun] = useState(true);
 
     useEffect(() => {
         const timer = stopSpinnerAfter();
-        return(() => clearTimeout(timer))
+        return () => { clearTimeout(timer) }
     }, [])
 
     const stopSpinnerAfter = () => {

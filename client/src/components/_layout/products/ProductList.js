@@ -7,7 +7,6 @@ import { getAllProducts } from '../../../redux/actions/productActions';
 import LoadingThreeDots from '../../loadingIndicators/LoadingThreeDots';
 import Product from './Product';
 import { ProductConsumer } from '../../../data/contexts/mainContext';
-import PropTypes from 'prop-types';
 
 export default function ProductList() {
     // Redux
