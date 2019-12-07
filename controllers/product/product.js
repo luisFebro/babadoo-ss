@@ -8,20 +8,6 @@ const mongoose = require('mongoose');
 const { msg } = require('../_msgs/product');
 const { msgG } = require('../_msgs/globalMsgs');
 
-// Adapt and add this as mwRandom
-// Model.count().exec(function(err, count){
-
-//   var random = Math.floor(Math.random() * count);
-
-//   Model.findOne().skip(random).exec(
-//     function (err, result) {
-
-//       // result is random
-
-//   });
-
-// });
-
 // MIDDLEWARES
 exports.mwPhoto = (req, res, next) => {
     if (req.product.photo.data) {
@@ -206,18 +192,37 @@ exports.getList = (req, res) => { // n2
  * it will find the products based on the req product category
  * other products that has the same category, will be returned
  */
+
+
+//
+
+//   Model.findOne().skip(random).exec(
+//     function (err, result) {
+
+//       // result is random
+
+//   });
+
+// });
 exports.getRelatedList = (req, res) => {
     const selectedProduct = req.product;
-    let limit = req.query.limit ? parseInt(req.query.limit) : 8;
-    // find this current category from the selected product but not include itself
-    Product.find({ _id: { $ne: selectedProduct }, category: selectedProduct.category }) //n1
-    .limit(limit)
-    .select('-photo -isReadyToPopulate -sold') // activate this for better readability in postman
-    .populate("category", "_id name")
-    .exec((err, products) => {
-        if (err) return res.status(400).json(msg('error.notFound'));
-        res.json(products);
-    });
+    const limit = req.query.limit ? parseInt(req.query.limit) : 8;
+
+    Product.countDocuments()
+    .exec((err, quantity) => {
+        const random = Math.floor(Math.random() * quantity);
+        // find this current category from the selected product but not include itself
+        Product.find({ _id: { $ne: selectedProduct }, category: selectedProduct.category }) //n1
+        .skip(random)
+        .limit(limit)
+        .select('-photo -isReadyToPopulate -sold') // activate this for better readability in postman
+        .populate("category", "_id name")
+        .exec((err, products) => {
+            if (err) return res.status(400).json(msg('error.notFound'));
+            res.json(products);
+        });
+    })
+
 };
 
 // unique categories created for all products

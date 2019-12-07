@@ -109,7 +109,7 @@ export default function MenuLogin() {
                         </ul>
                         <ul className="navbar-nav ml-3">
                             <li className="nav-item">
-                                <Link to="/favoritos" className="nav-link">
+                                <Link to="/favoritos/:dashedName" className="nav-link">
                                     <span style={{ position: 'relative' }}>
                                         <BorderedBadge
                                             className="animated bounce slow"

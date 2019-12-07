@@ -56,11 +56,13 @@ const data = {
 
 
 const productSchema = new Schema(data, { timestamps: true });
+
 productSchema.pre('save', function(next) {
     this.link = addDashesToString(this.title);
     this.refCode = generateRefCode(this.title);
     next();
 });
+
 module.exports = mongoose.model('Product', productSchema, collectionName);
 
 

@@ -2,7 +2,6 @@
 import axios from 'axios';
 import { tokenConfig } from './authActions';
 import { setLoadingProgress, setErrorOn } from './globalActions';
-import { getRandomArray } from '../../utils/getRandomArray';
 import { getBodyRequest } from '../../utils/server/getBodyRequest';
 import { configTypeJson } from '../../utils/server/configTypeJson';
 // get an obj with all infos of a item from a specific id
@@ -84,9 +83,7 @@ export const getAllProducts = async dispatch => {
 export const loadRelatedProducts = async (dispatch, productData) => {
     try {
         const { id, limit } = productData;
-        const res = await axios.get(`/api/product/list/related/${id}?limit=${limit}`, configTypeJson)
-        res.data = getRandomArray(res.data);
-        return res;
+        return await axios.get(`/api/product/list/related/${id}?limit=${limit}`, configTypeJson);
     } catch(err) {
         return err.response;
     }

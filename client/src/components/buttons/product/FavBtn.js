@@ -4,6 +4,7 @@ import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import PropTypes from 'prop-types';
 import Skeleton from '@material-ui/lab/Skeleton';
 import animateCSS from '../../../utils/animateCSS';
+import uuidv1 from 'uuid/v1';
 // Redux
 import customMsg from '../../../utils/customMsg';
 import { showSnackbar } from '../../../redux/actions/snackbarActions';
@@ -17,7 +18,6 @@ FavBtn.propTypes = {
     setRun: PropTypes.func,
     run: PropTypes.bool,
     animationRef: PropTypes.object,
-
 }
 
 export default function FavBtn({
@@ -74,7 +74,7 @@ export default function FavBtn({
                             .then(res => {
                                 if(res.status !== 200) return showSnackbar(dispatch, res.data.msg, 'error')
                                 showSnackbar(dispatch, customMsg(`${res.data.msg} dos seus Favoritos`, name, 'removed'))
-                                isFromFavPage && animateCSS(animationRef, 'zoomOut', 'slower', setRun(true));
+                                isFromFavPage && animateCSS(animationRef, 'zoomOut', 'slower', setRun(uuidv1()));
                             })
                         }}
                     ></i>

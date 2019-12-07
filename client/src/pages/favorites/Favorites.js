@@ -10,10 +10,10 @@ import parse from 'html-react-parser';
 import Illustration from '../../components/Illustration';
 import ShareSocialMediaButtons from '../../components/buttons/ShareSocialMediaButtons';
 
-export default function Favorites() {
+export default function Favorites({ location }) {
+    console.log(location)
     const [favProducts, setFavProducts] = useState([]);
-    const [run, setRun] = useState(false);
-    console.log(run);
+    const [run, setRun] = useState(""); // n1
 
     const { name, userId, isLoading, favCount } = useStoreState(state => ({
         name: state.userReducer.cases.currentUser.name,
@@ -34,7 +34,6 @@ export default function Favorites() {
     useEffect(() => {
         let unmounted = false;
         if(userId && !unmounted) {
-            console.log("LOADING FGUCKING FAVLIST");
             loadFavoriteList(userId);
         }
 
@@ -53,7 +52,6 @@ export default function Favorites() {
     );
 
     const showFavProducts = () => {
-        console.log(favProducts)
         const favList = favProducts.map(product => {
             return <Product
                         key={product._id}
@@ -109,3 +107,6 @@ export default function Favorites() {
     );
 }
 
+/* COMMENTS
+n1: LESSON: do not use a static value like true for run state. This will update only once the useEffece since it is not changed. I used uuid to generate different Ids instead.
+*/
