@@ -88,7 +88,7 @@ export default function App() {
                     <Route path="/produto/:dashedName" exact component={ProductDetails} />
                     <Route path="/seu-carrinho" exact component={Cart} />
                     <Route path="/finalizar-compra" exact component={CheckoutLocal} />
-                    <Route path="/favoritos/:dashedName" exact component={Favorites} />
+                    <Route path="/favoritos" exact component={Favorites} />
                     <PrivateRouteAdm path="/painel-controle-admin" exact component={Dashboard} />
                     <Route component={Default} />
                 </Switch>

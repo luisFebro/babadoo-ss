@@ -74,7 +74,7 @@ export default function FavBtn({
                             .then(res => {
                                 if(res.status !== 200) return showSnackbar(dispatch, res.data.msg, 'error')
                                 showSnackbar(dispatch, customMsg(`${res.data.msg} dos seus Favoritos`, name, 'removed'))
-                                isFromFavPage && animateCSS(animationRef, 'zoomOut', 'slower', setRun(uuidv1()));
+                                isFromFavPage && animateCSS(animationRef, 'zoomOutUp', 'slow', setRun(uuidv1()));
                             })
                         }}
                     ></i>

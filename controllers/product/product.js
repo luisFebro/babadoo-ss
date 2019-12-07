@@ -236,7 +236,7 @@ exports.getCategoryList = (req, res) => {
 exports.getFavoriteList = (req, res) => {
     const favArrayIds = req.profile.favoriteList;
     Product.find({'_id': {$in: favArrayIds }})
-    .select('-photo -quantity -sold -isReadyToPopulate -info -link')
+    .select('-photo -quantity -sold -isReadyToPopulate -info')
     .exec((err, records) => {
         if(err) return res.status(500).json(msgG('error.systemError', err));
         res.json(records);

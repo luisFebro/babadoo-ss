@@ -15,6 +15,8 @@ console.log("env", ENVIRONMENT);
 
 // DATABASE
 const options = {
+    autoReconnect: true,
+    bufferMaxEntries: 0, // To have multiple retries without request blocking while retrying
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true, //Applied after DeprecationWarning and goal: new Server Discover and Monitoring engine || // comment this out when this error occurs: MongoTimeoutError: Server selection timed out after 30000 ms || || But be aware that things can not work properly

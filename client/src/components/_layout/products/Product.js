@@ -2,6 +2,7 @@ import React, { useState, Fragment, useRef } from 'react';
 import FavBtn from '../../buttons/product/FavBtn';
 import Skeleton from '@material-ui/lab/Skeleton';
 import ShowImgOrSkeleton from '../../ShowImgOrSkeleton';
+import { CLIENT_URL } from '../../../config/clientUrl';
 // Redux
 import { productType } from '../../../types';
 

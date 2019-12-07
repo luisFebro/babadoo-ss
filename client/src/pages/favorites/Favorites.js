@@ -10,8 +10,7 @@ import parse from 'html-react-parser';
 import Illustration from '../../components/Illustration';
 import ShareSocialMediaButtons from '../../components/buttons/ShareSocialMediaButtons';
 
-export default function Favorites({ location }) {
-    console.log(location)
+export default function Favorites() {
     const [favProducts, setFavProducts] = useState([]);
     const [run, setRun] = useState(""); // n1
 
