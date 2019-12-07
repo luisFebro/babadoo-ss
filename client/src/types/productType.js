@@ -1,21 +1,23 @@
 import {
-    shape,
+    array,
     number,
     string,
     bool,
     func,
     object,
     arrayOf,
+    node, // n1
+    symbol,
+    element,
+    elementType, // n2
+    shape,
     oneOf,
     oneOfType,
 } from 'prop-types';
 
 export const productType = shape({
     _id: string,
-    category: shape({
-        _id: string,
-        name: string,
-    }),
+    category: oneOfType([string, object]),
     title: string,
     mainDescription: string,
     price: number,
@@ -38,3 +40,10 @@ export const productInfoType = shape({
     sizeOrDimmension: number,
     "unitsPerPackage": number,
 });
+
+
+/* COMMENTS
+n1: Anything that can be rendered: numbers, strings, elements or an array
+ (or fragment) containing these types.
+n2: element for native React components, elementType for your own components (MyComponent)
+*/

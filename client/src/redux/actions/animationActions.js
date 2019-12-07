@@ -13,8 +13,9 @@ export const animateAnotherComponent = dispatch => {
  */
 export const animateHinge = (animateRef, cssText = null) => {
     const currElem = animateRef.current;
-    currElem.className += ' animated hinge slower';
+    currElem.className = "";
+    currElem.classList.add('animated', 'hinge', 'slower');
     // it is required to reinsert the style of the container after applying animation. Otherwise, all style is gone
     // Try not using any at first.If no stylying issues happens, you can ignore it.
-    currElem.style.cssText = cssText;
+    currElem.style.animationFillMode= "inherit";
 };

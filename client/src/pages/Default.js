@@ -1,25 +1,19 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import RedirectPage from '../components/RedirectPage';
+import Illustration from '../components/Illustration';
+import { CLIENT_URL } from '../config/clientUrl';
 
 export default function Default({ location }) {
     return(
-        <div className="container">
-            <div className="row">
-                <div className="col-10 mx-auto text-center text-title text-uppercase pt-5">
-                    <h1 className="display-3">404</h1>
-                    <h1>error</h1>
-                    <h1>Oops! Página não encontrada!</h1>
-                    <h3>
-                        O pedido para a
-                        <br />
-                        <span className="text-danger">URL{location.pathname}</span>
-                        <br />
-                        não foi encontrado!
-                    </h3>
-                </div>
-            </div>
-            <RedirectPage activated={true} waitSec={3} />
-        </div>
+        <Fragment>
+            <Illustration
+                title='Oops! Essa página não foi encontrada.'
+                img='img/illustrations/page-not-found.svg'
+                alt="Página não encontrada."
+            />
+            <RedirectPage activated={true} waitSec={10} />
+            <p className="text-default text-center mt-4">A página <span className="text-red">{CLIENT_URL}{location.pathname}</span> não foi encontrada!</p>
+        </Fragment>
     );
 }
 

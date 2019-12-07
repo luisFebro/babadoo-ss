@@ -1,13 +1,12 @@
 import React, { useEffect, useState, Fragment } from 'react';
 import Title from '../../components/Title';
+import RelatedProducts from './RelatedProducts';
 import { useStoreDispatch } from 'easy-peasy';
 import { Link } from 'react-router-dom';
 import { readProduct, loadRelatedProducts } from '../../redux/actions/productActions';
 import { showSnackbar } from '../../redux/actions/snackbarActions';
 import ProductImgGallery from './ProductImgGallery';
 import ProductInfos from './ProductInfos';
-import Product from '../../components/_layout/products/Product';
-import Spinner from '../../components/loadingIndicators/Spinner';
 import {
     ButtonContainerPressedEffectDark as DarkBtn,
     ButtonContainerPressedEffectYellow as YellowBtn
@@ -40,7 +39,12 @@ export default function ProductDetails({ match }) {
     }
 
     useEffect(() => {
-        loadProducts(dashedTitle)
+        let unmounted = false;
+        if(!unmounted) {
+            loadProducts(dashedTitle)
+        }
+
+        return () => { unmounted = true; }
     }, [])
 
     const showTitle = () => (
@@ -68,30 +72,6 @@ export default function ProductDetails({ match }) {
         </div>
     );
 
-    const showRelatedProducts = relatedProducts => {
-        const listWithComponent = relatedProducts.map(relatedOne => {
-            return <Product key={relatedOne._id} product={relatedOne} />
-        })
-
-        return (
-            <div style={{paddingTop: '50px'}}>
-                <p className='text-left text-container mb-5'>Você também pode gostar:</p>
-                {listWithComponent.length === 0
-                ? (
-                    <span className="container-center">
-                        <Spinner />
-                    </span>
-                ) : (
-                    <div className="container">
-                        <div className="row">
-                            {listWithComponent}
-                        </div>
-                    </div>
-                )}
-            </div>
-        );
-    }
-
     return (
         <div className="container py-5">
             {showTitle()}
@@ -100,7 +80,7 @@ export default function ProductDetails({ match }) {
                 <ProductInfos data={data} />
             </div>
             {showActionButtons()}
-            {showRelatedProducts(relatedProducts)}
+            <RelatedProducts relatedProds={relatedProducts}/>
         </div>
     );
 }

@@ -8,7 +8,7 @@ import PrivateRouteAdm from '../components/auth/PrivateRouteAdm';
 // Redux
 import { readAdmin } from '../redux/actions/adminActions';
 import { useStoreDispatch } from 'easy-peasy'; // useStoreState
-import { getUpdatedUsers, updateCurrentUser } from '../redux/actions/userActions';
+import { getAllProducts } from '../redux/actions/productActions';
 // End Redux
 import { loadUser, tokenConfig } from '../redux/actions/authActions';
 import './App.css';
@@ -58,15 +58,11 @@ import SnackbarMulti from '../components/Snackbar';
 import WhatsappIcon from '../components/buttons/WhatsappIcon';
 // END BUTTONS
 export default function App() {
-    // const { isUserAuthenticated } = useStoreState(state => ({
-    //     isUserAuthenticated: state.authReducer.cases.isUserAuthenticated
-    // }));
-
     const dispatch = useStoreDispatch();
     readAdmin(dispatch);
+    getAllProducts(dispatch); // n2
 
     useEffect(() => {
-        //getUpdatedUsers(dispatch);
         loadReCaptcha();
         dispatch(loadUser(dispatch));
         // CODE NOT WORKING n1
@@ -108,13 +104,16 @@ export default function App() {
     );
 }
 
-// n1 Every time the user clicks on the screen,he/she is updated
+/* n1 Every time the user clicks on the screen,he/she is updated
 // if(isUserAuthenticated) {
 //     window.addEventListener('click', () => {
 //         console.log("clicked");
 //         updateCurrentUser(dispatch)
 //     });
 // }
+n2: this loads in the first run because it faces a fetching issue if the user loads a page other than home.
+*/
+
 
 /*
 <CustomPreloader>

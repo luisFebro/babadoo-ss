@@ -155,17 +155,6 @@ footer {
 }
 /*END IMAGES*/
 
-/*SHADOWS*/
-.shadow-elevation {
-    box-shadow: 0 19px 38px rgba(0, 0, 0, 0.20), 0 15px 12px rgba(0, 0, 0, 0.12);
-}
-.shadow-elevation-soft {
-    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.20), 0 10px 8px rgba(0, 0, 0, 0.12);
-}
-/*END SHADOWS*/
-
-
-
 /*CART BUTTON*/
 .btn-black {
     background: transparent;
@@ -219,6 +208,14 @@ footer {
 }
 
 /*MAIN SHADOW AND HOVER*/
+.shadow-elevation {
+    box-shadow: 0 19px 38px rgba(0, 0, 0, 0.20), 0 15px 12px rgba(0, 0, 0, 0.12);
+}
+.shadow-elevation-soft {
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.20), 0 10px 8px rgba(0, 0, 0, 0.12);
+}
+
+.tranparent-img-shadow,
 .main-letters-shadow {
     font-size: 1.9rem;
     filter: drop-shadow(.001em .1em .1em var(--mainDark));

@@ -28,6 +28,7 @@ export default function ProductInfos({ data }) {
     );
 
     const showMainDesc = () => {
+
         const getDesc = () => (
             <Fragment>
                 <h5 className="font-weight-bold mt-3 mb-0">
@@ -39,7 +40,7 @@ export default function ProductInfos({ data }) {
 
         return(
             <div className="text-default lead mx-auto text-justify">
-                {mainDescription && getDesc() && (
+                {mainDescription ? getDesc() : (
                     <Fragment>
                         <Skeleton variant="text" width={'35%'} />
                         <Skeleton variant="text" />
