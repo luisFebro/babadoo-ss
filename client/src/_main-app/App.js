@@ -57,7 +57,7 @@ import SnackbarMulti from '../components/Snackbar';
 // BUTTONS
 import WhatsappIcon from '../components/buttons/WhatsappIcon';
 // END BUTTONS
-export default function App() {
+function App() {
     const dispatch = useStoreDispatch();
     readAdmin(dispatch);
     getAllProducts(dispatch); // n2
@@ -103,6 +103,8 @@ export default function App() {
         </BrowserRouter>
     );
 }
+
+export default React.memo(App);
 
 /* n1 Every time the user clicks on the screen,he/she is updated
 // if(isUserAuthenticated) {

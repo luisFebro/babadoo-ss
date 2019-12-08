@@ -1,6 +1,5 @@
 const express = require('express');
 const path = require('path');
-// const changeStreamUser = require('./models/change-streams/changeStreamUser');
 const cors = require('cors');
 const mongoose = require('mongoose');
 require('dotenv').config(); // n4
@@ -49,6 +48,8 @@ app.get('/*', (req, res) => { //n3
   })
 })
 
+process.on('warning', e => console.warn(e.stack)) // n5
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`);
@@ -75,4 +76,5 @@ app.listen(PORT, () => {
 //     res.sendFile(path.join(__dirname + 'client/build/index.html')) // the "not found" issue may be occured becase of this path. client requires a slash before.
 // })
 n4: environment varibles works everywhere with dotenv, including controllers
+n5: https://stackoverflow.com/questions/9768444/possible-eventemitter-memory-leak-detected
 */
