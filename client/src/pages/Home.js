@@ -24,9 +24,13 @@ export default class Home extends Component {
                 {/*Testing updates only*/}
                 <h1 style={{ display: 'inline-block', background: '#000', color: '#fff' }}>{null}</h1>
                 {/*End Testing updates only*/}
-                <ShareSocialMediaButtons data={pageData} />
                 <ButtonCart />
             </Fragment>
         );
     }
 }
+
+
+/*
+<ShareSocialMediaButtons data={pageData} />
+ */

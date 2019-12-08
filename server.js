@@ -15,8 +15,6 @@ console.log("env", ENVIRONMENT);
 
 // DATABASE
 const options = {
-    autoReconnect: true,
-    bufferMaxEntries: 0, // To have multiple retries without request blocking while retrying
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true, //Applied after DeprecationWarning and goal: new Server Discover and Monitoring engine || // comment this out when this error occurs: MongoTimeoutError: Server selection timed out after 30000 ms || || But be aware that things can not work properly
@@ -26,9 +24,6 @@ mongoose
     .connect(process.env.MONGO_KEY, options)
     .then(() => console.log(`MongoDB Connected...`))
     .catch(err => console.log(err));
-// collection changeStreams
-// changeStreamUser();
-// Endcollection changeStreams
 // END DATABASE
 
 // MIDDLEWARES

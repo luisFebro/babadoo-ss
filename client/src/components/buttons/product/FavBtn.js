@@ -12,12 +12,15 @@ import { showModalRegister } from '../../../redux/actions/modalActions';
 import { addElemArrayUser, removeElemArrayUser } from '../../../redux/actions/userActions';
 
 FavBtn.propTypes = {
+    productId: PropTypes.string.isRequired,
     isFavBtnOn: PropTypes.bool,
     showSkeleton: PropTypes.bool,
-    productId: PropTypes.string,
     setRun: PropTypes.func,
     run: PropTypes.bool,
     animationRef: PropTypes.object,
+    btnConfig: PropTypes.shape({
+        size: PropTypes.string
+    })
 }
 
 export default function FavBtn({
@@ -26,8 +29,10 @@ export default function FavBtn({
         isFavBtnOn = true,
         showSkeleton,
         setRun = f => f,
-        animationRef }) {
+        animationRef,
+        btnConfig = {} }) {
     const [toggle, setToggle] = useState(false);
+    const { size } = btnConfig;
 
     const { isUserAuthenticated, _idUser, favItemIds, name } = useStoreState(state => ({
         isUserAuthenticated: state.authReducer.cases.isUserAuthenticated,
@@ -66,7 +71,8 @@ export default function FavBtn({
                     <i
                         className="filledHeart fas fa-heart animated heartBeat fast"
                         style={{
-                            animationIterationCount: 3
+                            animationIterationCount: 3,
+                            fontSize: size || "1.7rem",
                         }}
                         onClick={() => {
                             showSnackbar(dispatch, "Removendo...");
@@ -89,6 +95,7 @@ export default function FavBtn({
                 : (
                     <i
                     className="emptyHeart far fa-heart"
+                    style={{ fontSize: size || "1.7rem" }}
                     onClick={() => {
                         showSnackbar(dispatch, "Adicionando...");
                         addElemArrayUser(dispatch, bodyFavorite) //n2
@@ -124,7 +131,7 @@ export default function FavBtn({
         }
 
         return(
-            <button className="cart-fav" onClick={() => toggleFav()}>
+            <button style={{outline: "none"}} className="cart-fav" onClick={() => toggleFav()}>
                 {isUserAuthenticated ? (
                     (getsyncData(isFavItem))
                     ? handleFavOn()

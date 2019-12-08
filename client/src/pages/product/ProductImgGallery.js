@@ -1,19 +1,23 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import FavBtn from '../../components/buttons/product/FavBtn';
+import Skeleton from '@material-ui/lab/Skeleton';
 import ShowImgOrSkeleton from '../../components/ShowImgOrSkeleton';
 import ShareSocialMediaButtons from '../../components/buttons/ShareSocialMediaButtons';
 ProductImgGallery.propTypes = {
     _id: PropTypes.string,
-    title: PropTypes.string
+    title: PropTypes.string,
+    thisUrl: PropTypes.string
 }
 
-export default function ProductImgGallery({ _id, title }) {
+export default function ProductImgGallery({ _id, title, thisUrl }) {
     const [showSkeleton, setShowSkeleton] = useState(true);
 
-const dataThisPage = {
+    const dataThisPage = {
         name: 'removeDashes(dashedTitle)',
-        urlName: 'dashedTitle'
+        urlName: !showSkeleton && thisUrl
     };
+
     const shareBtnData = {
         titleShare: "Compartilhar:",
         pageURL: `https://babadoo.herokuapp.com/${dataThisPage.urlName}`,
@@ -26,7 +30,7 @@ const dataThisPage = {
 
     return (
         <div className="d-flex justify-content-center align-items-center col-12 mx-auto col-md-6 my-3 text-title">
-            <div className="flex-column">
+            <div className="flex-column" style={{ position: 'relative'}}>
                 <ShowImgOrSkeleton
                     id={_id}
                     url="product"
@@ -52,7 +56,23 @@ const dataThisPage = {
                         titleShareSize: '20px'
                     }}
                 />
-                </div>
+                {showSkeleton
+                ? <Skeleton
+                    variant="circle"
+                    width={60}
+                    height={60}
+                    style={{ position: 'absolute', top: '10px', right: '10px' }}
+                  />
+                : (
+                    <FavBtn
+                        productId={_id}
+                        btnConfig={{
+                            size: '4rem',
+                        }}
+                    />
+                )
+                }
+            </div>
         </div>
     );
 }

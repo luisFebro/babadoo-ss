@@ -103,7 +103,7 @@ export default function Product({
     );
 
     return (
-        <ProductWrapper ref={animateRef} className="animated jackInTheBox slow col-6 col-md-4 col-lg-3 mx-auto my-2">
+        <ProductWrapper ref={animateRef} className="animated zoomInDown slow col-6 col-md-4 col-lg-3 mx-auto my-2">
             <div className="card">
                 <div
                     className="img-container p-1 p-sm-3"
