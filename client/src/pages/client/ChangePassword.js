@@ -1,6 +1,4 @@
-import React, { useState, Fragment } from 'react';
-import { Redirect } from 'react-router-dom';
-import { useStyles, makeStyles } from '@material-ui/core/styles'
+import React, { useState } from 'react';
 import Title from '../../components/Title';
 import RedirectPage from '../../components/RedirectPage';
 import parse from 'html-react-parser';

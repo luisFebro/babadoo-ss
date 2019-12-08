@@ -5,8 +5,6 @@ import { withStyles } from '@material-ui/core/styles';
 // Redux
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { logout } from '../../../../redux/actions/authActions';
-import { showSnackbar } from '../../../../redux/actions/snackbarActions';
-import { showModalUnderConstruction } from '../../../../redux/actions/modalActions';
 // End Redux
 // Utils
 import isRealObj from '../../../../utils/isRealObj';

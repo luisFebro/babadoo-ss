@@ -1,6 +1,4 @@
 import React, { useState, useEffect, Fragment } from 'react';
-import PropTypes from 'prop-types';
-import axios from 'axios';
 import ToggleVisibilityPassword from '../forms/fields/ToggleVisibilityPassword';
 import ReCaptchaInvisible from "../ReCaptcha";
 // Helpers
@@ -12,7 +10,7 @@ import ButtonMulti from '../buttons/material-ui/ButtonMulti';
 // Redux
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { showSnackbar } from '../../redux/actions/snackbarActions';
-import { showModalLogin, showModalUnderConstruction, closeModal } from '../../redux/actions/modalActions';
+import { showModalLogin, closeModal } from '../../redux/actions/modalActions';
 import { getUpdatedUsers } from '../../redux/actions/userActions';
 import { sendWelcomeConfirmEmail } from '../../redux/actions/emailActions';
 import { registerEmail } from '../../redux/actions/authActions';
@@ -21,7 +19,6 @@ import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import EmailIcon from '@material-ui/icons/Email';
 import Dialog from '@material-ui/core/Dialog';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 // End Material UI
@@ -62,7 +59,7 @@ export default function ModalRegister() {
         if (isModalRegisterOpen && isUserAuthenticated) {
             closeModal(dispatch, isModalRegisterOpen);
         }
-    }, [isUserAuthenticated, isModalRegisterOpen]);
+    }, [isUserAuthenticated, isModalRegisterOpen, dispatch]);
 
     const sendEmail = userId => {
         const dataEmail = {

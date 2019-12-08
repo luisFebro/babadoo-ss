@@ -1,12 +1,10 @@
-import React, { useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
 // Redux
 import { useStoreDispatch, useStoreState } from 'easy-peasy';
 import { showSnackbar } from '../../../../redux/actions/snackbarActions';
-import { registerGoogle, loginEmail, registerEmail } from '../../../../redux/actions/authActions';
+import { registerGoogle, loginEmail } from '../../../../redux/actions/authActions';
 // End Redux
 import GoogleLogin from 'react-google-login';
-import PropTypes from 'prop-types';
 // import parse from 'html-react-parser';
 
 export default function GoogleAuth() {

@@ -1,11 +1,11 @@
-import React from 'react';
 import isRealObj from './isRealObj';
 
 // GLOBAL PROTOTYPE METHODS n1
 // Typography
 // Need to be function syntax, otherwise this will return undefined.
 let brPreps = ["seu", "sua", "pela", "via", "por", "com", "no", "na", "da", "do", "das", "dos", "à", "de", "de"];
-String.prototype.cap = function() {
+// eslint-disable-next-line
+String.prototype.cap = function() {  // n2
     let capitalized = this.replace(/(?:^|\s)\S/g, a => a.toUpperCase());
     let splittedWords = capitalized.split(' ');
     let readyString = splittedWords.map(word => {
@@ -28,4 +28,5 @@ window.Helper.isRealObj = isRealObj;
 /* COMMENTS
 n1: These methods are global and they can be used everywhere and import globally
 prior: window.Helper.textCapi = textCapi;
+n2: String prototype is read only, properties should not be added  no-extend-native
 */

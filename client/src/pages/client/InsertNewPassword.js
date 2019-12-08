@@ -1,10 +1,8 @@
-import React, { useState, Fragment } from 'react';
-import { Link, Redirect } from 'react-router-dom';
-import { useStyles, makeStyles } from '@material-ui/core/styles'
+import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom';
 import Title from '../../components/Title';
-import parse from 'html-react-parser';
 // Redux
-import { useStoreDispatch, useStoreState } from 'easy-peasy';
+import { useStoreDispatch } from 'easy-peasy';
 import { changePassword } from '../../redux/actions/authActions';
 import { showSnackbar } from '../../redux/actions/snackbarActions'
 import { showModalLogin } from '../../redux/actions/modalActions';
@@ -15,7 +13,6 @@ import getFirstQueryValue from '../../utils/string/getFirstQueryValue';
 // material-ui
 import ToggleVisibilityPassword from '../../components/forms/fields/ToggleVisibilityPassword';
 import ButtonMulti from '../../components/buttons/material-ui/ButtonMulti';
-import TextField from '@material-ui/core/TextField';
 
 export default function InsertNewPassword({ location, match }) {
     const [data, setData] = useState({

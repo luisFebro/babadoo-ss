@@ -2,7 +2,6 @@ import axios from 'axios';
 import { getAuthUser } from './userActions';
 import { setLoadingProgress } from './globalActions';
 import { showSnackbar } from './snackbarActions';
-import { getBodyRequest } from '../../utils/server/getBodyRequest';
 import { configTypeJson } from '../../utils/server/configTypeJson';
 // naming structure: action > type > speficification e.g action: GET_MODAL_BLUE / func: getModalBlue
 // import { postDataWithJsonObj } from '../../utils/promises/postDataWithJsonObj.js'

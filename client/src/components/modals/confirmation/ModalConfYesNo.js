@@ -1,19 +1,16 @@
-import React, { Component, useState } from 'react';
+import React from 'react';
 // Redux
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { closeModal } from '../../../redux/actions/modalActions';
 import { showSnackbar } from '../../../redux/actions/snackbarActions';
-import { updateProduct } from '../../../redux/actions/productActions';
 import { deleteUser, getUpdatedUsers } from '../../../redux/actions/userActions';
-import { deleteProduct, getAllProducts } from '../../../redux/actions/productActions';
+import { deleteProduct } from '../../../redux/actions/productActions';
 // import { animateAnotherComponent } from '../../../redux/actions/animationActions';
 // End Redux
-import { Link } from 'react-router-dom';
 // Material UI
 import { makeStyles } from '@material-ui/core/styles';
 import { CardMedia } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
@@ -43,7 +40,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function ModalConfYesNo({ currItemFound }) {
-    const [newInfo, setNewInfo] = useState('');
+    // const [newInfo, setNewInfo] = useState('');
     const { isModalConfYesNoOpen } = useStoreState(state => ({
         isModalConfYesNoOpen: state.modalReducers.cases.isModalConfYesNoOpen
     }));
@@ -116,7 +113,6 @@ export default function ModalConfYesNo({ currItemFound }) {
                                             case 'Produto':
                                                 setTimeout(() => {
                                                     deleteProduct(dispatch, _idUser);
-                                                    getAllProducts(dispatch);
                                                 }, 8000);
                                                 break;
                                             default:

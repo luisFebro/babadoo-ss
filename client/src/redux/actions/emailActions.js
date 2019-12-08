@@ -1,7 +1,6 @@
 // naming structure: action > type > speficification e.g action: GET_MODAL_BLUE / func: getModalBlue
 import axios from 'axios';
 import { configTypeJson } from '../../utils/server/configTypeJson';
-import { getBodyRequest } from '../../utils/server/getBodyRequest';
 import { setLoadingProgress } from './globalActions';
 
 export const sendWelcomeConfirmEmail = async (bodyEmail, userId) => {

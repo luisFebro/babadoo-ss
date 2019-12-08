@@ -3,7 +3,7 @@ import ButtonCart from '../components/buttons/ButtonCart';
 import Title from '../components/Title';
 import ProductList from '../components/_layout/products/ProductList';
 // import ServiceList from './biz-services/ServiceList';
-import ShareSocialMediaButtons from '../components/buttons/ShareSocialMediaButtons';
+// import ShareSocialMediaButtons from '../components/buttons/ShareSocialMediaButtons';
 
 const pageData = {
     titleShare: 'Compartilhe a Vitrine Babadoo',

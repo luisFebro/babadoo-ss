@@ -1,7 +1,5 @@
 import React, { Fragment } from 'react';
-import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import detectErrorField from '../../utils/validation/detectErrorField';
 import { ButtonContainerPressedEffectDark as DarkBtn } from '../../components/buttons/Default';
 import ShoppingSummary from './ShoppingSummary';
 import FormCheckoutLocal from '../../components/forms/FormCheckoutLocal';

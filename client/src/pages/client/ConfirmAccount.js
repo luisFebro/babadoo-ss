@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Redirect } from 'react-router-dom';
 import Title from '../../components/Title';
 import RedirectPage from '../../components/RedirectPage';
 // Redux
@@ -26,7 +25,7 @@ export default function ConfirmAccount({ match }) {
             showSnackbar(dispatch, res.data.msg, 'success', 7000);
         })
 
-    }, []);
+    }, [match.params.authUserId, dispatch]);
 
     return (
         <div>

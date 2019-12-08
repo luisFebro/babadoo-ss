@@ -1,10 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 // Redux
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { closeModal } from '../../redux/actions/modalActions';
 // End Redux
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 import { underConstruction } from '../../data/dataIllustrations';
 import { ButtonContainerPressedEffectDark as DarkBtn } from '../buttons/Default';
 export default function UnderConstruction() {

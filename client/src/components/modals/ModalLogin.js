@@ -1,6 +1,4 @@
 import React, { useState, useEffect, Fragment } from 'react';
-import PropTypes from 'prop-types';
-import parse from 'html-react-parser';
 import ToggleVisibilityPassword from '../forms/fields/ToggleVisibilityPassword';
 import ButtonMulti from '../buttons/material-ui/ButtonMulti'
 // Helpers
@@ -17,7 +15,6 @@ import { loginEmail } from '../../redux/actions/authActions';
 // Material UI
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import AccountCircle from '@material-ui/icons/AccountCircle';
@@ -55,7 +52,7 @@ export default function ModalLogin() {
                 closeModal(dispatch);
             }
         }
-    }, [isModalLoginOpen, isUserAuthenticated]);
+    }, [isModalLoginOpen, isUserAuthenticated, dispatch]);
 
     const clearData = () => {
         clearForm(setData, data);

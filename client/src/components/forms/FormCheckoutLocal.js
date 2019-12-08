@@ -1,9 +1,8 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Redirect } from 'react-router-dom';
 import { showSnackbar } from '../../redux/actions/snackbarActions';
 import { sendBuyRequestEmail } from '../../redux/actions/emailActions';
-import { setErrorOff } from '../../redux/actions/globalActions';
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 // helpers
 import clearForm from '../../utils/form/use-state/clearForm';

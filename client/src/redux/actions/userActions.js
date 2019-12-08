@@ -1,10 +1,8 @@
 // naming structure: action > type > speficification e.g action: GET_MODAL_BLUE / func: getModalBlue
 import axios from 'axios';
-import { tokenConfig } from './authActions';
-import { getAllProducts } from './productActions';
+// import { tokenConfig } from './authActions';
 import { setErrorOn } from './globalActions';
 import { showSnackbar } from './snackbarActions';
-import { logout } from './authActions';
 import { getBodyRequest } from '../../utils/server/getBodyRequest';
 import { configTypeJson } from '../../utils/server/configTypeJson';
 
@@ -49,7 +47,7 @@ export const deleteUser = async (dispatch, _idUser) => {
     // Warning: Do not delete users directly from database without logout
     // This does not work!!!
     // logout(dispatch);
-    const res = await axios.delete(`/api/user/${_idUser}`, configTypeJson);
+    await axios.delete(`/api/user/${_idUser}`, configTypeJson);
     dispatch({ type: 'USER_DELETED', payload: _idUser });
 };
 

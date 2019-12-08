@@ -7,7 +7,6 @@ import uuidv1 from 'uuid/v1';
 import ButtonMulti from '../../../../buttons/material-ui/ButtonMulti';
 // Redux
 import {useStoreState, useStoreDispatch} from 'easy-peasy';
-import {Link} from 'react-router-dom';
 import {findAnItem} from '../../../../../redux/actions/globalActions';
 import {showModalTextField} from '../../../../../redux/actions/modalActions';
 import MessagesList from './MessagesList';
@@ -16,7 +15,6 @@ import MessagesList from './MessagesList';
 // menu composition
 import {withStyles} from '@material-ui/core/styles';
 import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
 // badges
 import Badge from '@material-ui/core/Badge';
 // icons
@@ -48,16 +46,17 @@ const StyledMenu = withStyles({
     />
 ));
 
-const StyledMenuItem = withStyles(theme => ({
-    root: {
-        '&:focus': {
-            backgroundColor: theme.palette.primary.main,
-            '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
-                color: theme.palette.common.white
-            }
-        }
-    }
-}))(MenuItem);
+// const StyledMenuItem = withStyles(theme => ({
+//     root: {
+//         '&:focus': {
+//             backgroundColor: theme.palette.primary.main,
+//             '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
+//                 color: theme.palette.common.white
+//             }
+//         }
+//     }
+// }))(MenuItem);
+
 const BorderedBadge = withStyles(theme => ({
     badge: {
         right: -3, //14

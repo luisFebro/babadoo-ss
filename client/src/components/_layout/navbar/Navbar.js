@@ -1,6 +1,6 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment, useState } from 'react';
 import { withRouter } from 'react-router-dom';
-import { useStoreState, useStoreDispatch } from 'easy-peasy';
+import { useStoreState } from 'easy-peasy';
 import BreadCrumbs from './BreadCrumbs';
 import CategorySlider from './CategorySlider';
 import { Link } from 'react-router-dom';
@@ -16,7 +16,6 @@ const isStoreOpen = dataWorkingHour[1];
 function Navbar({ history }) {
     const [isSearchOpen, setSearchOpen] = useState(false);
     const { isUserAuthenticated } = useStoreState(state => state.authReducer.cases);
-    const dispatch = useStoreDispatch();
 
     const addZoomout = () => {
         const icon = document.getElementById('searchIcon');

@@ -1,10 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 // Redux
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { closeModal } from '../../redux/actions/modalActions';
 import { addElemArrayUser } from '../../redux/actions/userActions';
 // End Redux
-import { Link } from 'react-router-dom';
 import { showSnackbar } from '../../redux/actions/snackbarActions';
 // Material UI
 import { makeStyles } from '@material-ui/core/styles';

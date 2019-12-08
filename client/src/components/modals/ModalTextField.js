@@ -1,10 +1,8 @@
-import React, { Component, useState } from 'react';
+import React, { useState } from 'react';
 // Redux
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { closeModal } from '../../redux/actions/modalActions';
 import { sendNotification } from '../../redux/actions/userActions';
-// End Redux
-import { Link } from 'react-router-dom';
 // Material UI
 import { makeStyles } from '@material-ui/core/styles';
 import { CardMedia } from '@material-ui/core';

@@ -1,6 +1,5 @@
 import React from 'react';
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
-import { Link } from 'react-router-dom';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 // MENU COMPOSITION
 import Menu from '@material-ui/core/Menu';

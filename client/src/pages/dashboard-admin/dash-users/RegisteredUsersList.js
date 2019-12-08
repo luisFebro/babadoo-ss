@@ -2,7 +2,6 @@ import React, { useState, useEffect, Fragment } from 'react';
 // Redux
 import { useStoreState } from 'easy-peasy';
 // End Redux
-import axios from 'axios';
 import RegisteredUser from './RegisteredUser';
 import LoadingThreeDots from '../../../components/loadingIndicators/LoadingThreeDots';
 
@@ -35,7 +34,7 @@ export default function RegisteredUsersList() {
     };
 
     useEffect(() => {
-        let tot = getTotals(allUsers);
+        getTotals(allUsers);
     }, [allUsers]);
 
     const registeredUserList = allUsers.map(user => <RegisteredUser key={user._id} data={user} />);

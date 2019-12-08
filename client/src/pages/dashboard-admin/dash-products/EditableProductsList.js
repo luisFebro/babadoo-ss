@@ -1,12 +1,9 @@
-import React, { useEffect, useState, Fragment } from 'react';
+import React, { Fragment } from 'react';
 import EditableProduct from './EditableProduct';
 
 // Redux
-import { useStoreState, useStoreDispatch } from 'easy-peasy';
-import { getAllProducts } from '../../../redux/actions/productActions';
-// End Redux
+import { useStoreState } from 'easy-peasy';
 import LoadingThreeDots from '../../../components/loadingIndicators/LoadingThreeDots.js';
-import DashSectionTitle from '../DashSectionTitle';
 import PropTypes from 'prop-types';
 
 ProductList.propTypes = {
@@ -21,12 +18,7 @@ export default function ProductList() {
         isLoading: state.globalReducer.cases.isLoading,
         allProductsList: state.productReducer.cases.allProductsList
     }));
-    const dispatch = useStoreDispatch();
     // End Redux
-
-    useEffect(() => {
-        getAllProducts(dispatch);
-    }, []);
 
     return (
         <Fragment>

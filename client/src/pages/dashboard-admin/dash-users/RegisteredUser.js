@@ -13,9 +13,7 @@ import DeleteButton from '../../../components/buttons/DeleteButton';
 import MessageButton from '../../../components/buttons/MessageButton';
 import PropTypes from 'prop-types';
 // Material UI
-import { makeStyles } from '@material-ui/core/styles';
-import IconButton from '@material-ui/core/IconButton';
-// End Material UI
+// import { makeStyles } from '@material-ui/core/styles';
 
 RegisteredUser.propTypes = {
     data: PropTypes.shape({
@@ -27,25 +25,23 @@ RegisteredUser.propTypes = {
     }).isRequired
 };
 
-const useStyles = makeStyles(theme => ({
-    button: {
-        margin: theme.spacing(1),
-        color: 'var(--mainWhite)',
-        fontSize: '1.9rem'
-    },
-    input: {
-        display: 'none'
-    }
-}));
+// const useStyles = makeStyles(theme => ({
+//     button: {
+//         margin: theme.spacing(1),
+//         color: 'var(--mainWhite)',
+//         fontSize: '1.9rem'
+//     },
+//     input: {
+//         display: 'none'
+//     }
+// }));
 
 export default function RegisteredUser({ data }) {
     const animateRef = useRef(null);
-    let { allUsers, setAnimationTimer, userName } = useStoreState(state => ({
+    let { allUsers, userName } = useStoreState(state => ({
         allUsers: state.userReducer.cases.allUsers,
-        setAnimationTimer: state.animationReducer.cases.setAnimationTimer,
         userName: state.userReducer.cases.currentUser.name
     }));
-    const classes = useStyles();
     const dispatch = useStoreDispatch();
     const { _id, name, email, favoriteList, inCartList, registerDate } = data;
     moment.locale('pt-BR');

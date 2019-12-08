@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 // import parse from 'html-react-parser';
 // Redux
 import {useStoreState, useStoreDispatch} from 'easy-peasy';
@@ -9,7 +9,7 @@ import {ButtonContainerPressedEffectYellow as BtnYellow} from './buttons/Default
 import styled from 'styled-components';
 
 export default function AnimationBizPromo() {
-    const [isClosed, setIsClosed] = useState(false);
+    // const [isClosed, setIsClosed] = useState(false);
 
     const {isAuthenticated, name, gotCoupons, isFirstBuyCouponOn} = useStoreState(state => ({
         isAuthenticated: state.authReducer.cases.isUserAuthenticated,
@@ -38,7 +38,7 @@ export default function AnimationBizPromo() {
             />
             {isAuthenticated ? (
                 // Pass if admin allow, the modal is not closed and the user does not have a coupon
-                isFirstBuyCouponOn && !isClosed && !gotCoupons ? (
+                isFirstBuyCouponOn && !gotCoupons ? ( // && !isClosed
                     <section
                         id="main-section"
                         className="animated slideInRight slower"

@@ -37,7 +37,7 @@ export default function detectErrorField(msg = "", fields) {
     // detect if the message got a name key, if so then assign true, else all fields got a problem.
     let foundAnError = false;
     let keyBrPt = "";
-    let foundKey = keys.forEach(key => {
+    keys.forEach(key => {
         keyBrPt = findAndConvertFieldNameToPtBr(key);
         if(msg.includes(keyBrPt)) {
             errorFoundIn[key] = true

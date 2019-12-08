@@ -1,10 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 // Redux
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { closeSnackbar } from '../redux/actions/snackbarActions';
 // End Redux
-import { amber, green, blueGrey } from '@material-ui/core/colors';
+import { green, blueGrey } from '@material-ui/core/colors';
 import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import Snackbar from '@material-ui/core/Snackbar';

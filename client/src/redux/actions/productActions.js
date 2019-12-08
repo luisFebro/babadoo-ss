@@ -2,7 +2,6 @@
 import axios from 'axios';
 import { tokenConfig } from './authActions';
 import { setLoadingProgress, setErrorOn } from './globalActions';
-import { getBodyRequest } from '../../utils/server/getBodyRequest';
 import { configTypeJson } from '../../utils/server/configTypeJson';
 // get an obj with all infos of a item from a specific id
 export const getItem = (allProductsList, _id) => {
@@ -43,7 +42,7 @@ export const updateProduct = async (dispatch, keyToUpdate, _idProduct) => {
         [`${targetKey}`]: keyToUpdate[targetKey]
     };
     try {
-        const res = axios.put(`/api/product/${_idProduct}`, keyToUpdate, configTypeJson);
+        await axios.put(`/api/product/${_idProduct}`, keyToUpdate, configTypeJson);
         console.log('==CHANGING PRODUCT==');
         dispatch({ type: 'CHANGE_PRODUCT', payload: dataToUpdate }); // dataToUpdate
     } catch (e) {
@@ -54,7 +53,7 @@ export const updateProduct = async (dispatch, keyToUpdate, _idProduct) => {
 
 export const deleteProduct = async (dispatch, _idProduct) => {
     try {
-        const res = await axios.delete(`/api/product/${_idProduct}`, configTypeJson);
+        await axios.delete(`/api/product/${_idProduct}`, configTypeJson);
         console.log('==PRODUCT DELETED==');
         dispatch({ type: 'DELETE_PRODUCT', payload: _idProduct });
         // update

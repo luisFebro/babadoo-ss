@@ -60,9 +60,11 @@ export const modalReducers = {
             // CLOSE
             case 'CLOSE_ALL_MODALS':
                 //Change all the keys to false
-                for (let key in state) {
+                let key;
+                for(key in state) {
                     state[key] = false;
                 }
+                break;
             default:
                 return state;
         }

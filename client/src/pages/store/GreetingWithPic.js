@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 import getPeriodOfDayWithPic from '../../utils/getPeriodOfDayWithPic';
 import { useStoreState } from 'easy-peasy';
 import Illustration from '../../components/Illustration';
@@ -28,32 +27,3 @@ export default function GetPeriodOfDay() {
     <strong>{getData.greeting}</strong>
 </p>
  */
-
-const DivWrapper = styled.div`
-    position: relative;
-    text-align: center;
-    width: 100%;
-    margin: auto;
-
-    & img {
-        width: 100%;
-    }
-
-    .top-centered {
-        font-size: 1.3em;
-        position: absolute;
-        top: 5%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
-
-    .border-white {
-        //border in the font
-        text-shadow: -2px 0 #fff, 0 2px #fff, 2px 0 #fff, 0 -2px #fff;
-    }
-
-    /*MOBILE FIRST RESPONSIVE MEDIA QUERIES*/
-    @media only screen and (min-width: 500px) {
-        width: 80%;
-    }
-`;

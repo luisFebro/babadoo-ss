@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Fragment } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import Title from '../../components/Title';
 import RelatedProducts from './RelatedProducts';
 import { useStoreDispatch } from 'easy-peasy';
@@ -12,7 +12,6 @@ import {
     ButtonContainerPressedEffectYellow as YellowBtn
 } from '../../components/buttons/Default';
 import Skeleton from '@material-ui/lab/Skeleton';
-import removeDashes from '../../utils/string/removeDashes';
 
 export default function ProductDetails({ match }) {
     let dashedTitle = match.params.dashedName;
@@ -23,7 +22,7 @@ export default function ProductDetails({ match }) {
 
     const dispatch = useStoreDispatch();
 
-    const loadProducts = dashedName => {
+    const loadProducts = useCallback(dashedName => {
         readProduct(dispatch, dashedName)
         .then(res => {
             if(res.status !== 200) return showSnackbar(dispatch, res.data.msg, 'error');
@@ -36,7 +35,7 @@ export default function ProductDetails({ match }) {
             })
 
         })
-    }
+    }, [dispatch])
 
     useEffect(() => {
         let unmounted = false;
@@ -45,7 +44,7 @@ export default function ProductDetails({ match }) {
         }
 
         return () => { unmounted = true; }
-    }, [])
+    }, [loadProducts, dashedTitle])
 
     const showTitle = () => (
         <div>

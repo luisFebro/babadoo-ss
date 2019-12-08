@@ -1,24 +1,16 @@
-import React, { useEffect, Fragment } from 'react';
+import React from 'react';
 // Redux
-import { useStoreState, useStoreDispatch } from 'easy-peasy';
-import { getAllProducts } from '../../../redux/actions/productActions';
+import { useStoreState } from 'easy-peasy';
+// import { getAllProducts } from '../../../redux/actions/productActions';
 // import { checkForServerError } from '../../redux/actions/errorActions';
 // End Redux
-import LoadingThreeDots from '../../loadingIndicators/LoadingThreeDots';
 import Product from './Product';
-import { ProductConsumer } from '../../../data/contexts/mainContext';
 
 export default function ProductList() {
     // Redux
     const { allProductsList } = useStoreState(state => ({
         allProductsList: state.productReducer.cases.allProductsList,
     }));
-    const dispatch = useStoreDispatch();
-    // End Redux
-
-    useEffect(() => {
-        getAllProducts(dispatch);
-    }, []);
 
     const list = allProductsList.map(product => {
         return <Product key={product._id} product={product} />;

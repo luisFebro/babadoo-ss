@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
 import { productInfoType } from '../../types';
 import Skeleton from '@material-ui/lab/Skeleton';
 import Spinner from '../../components/loadingIndicators/Spinner';
@@ -9,7 +8,7 @@ ProductInfos.propTypes = {
 }
 
 export default function ProductInfos({ data }) {
-    const { title, price, info, category, mainDescription } = data;
+    const { price, info, category, mainDescription } = data;
 
     const showCategory = () => (
         <h2

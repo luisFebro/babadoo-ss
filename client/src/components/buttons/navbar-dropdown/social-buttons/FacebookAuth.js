@@ -2,10 +2,11 @@ import React from 'react';
 // Redux
 import { useStoreDispatch, useStoreState } from 'easy-peasy';
 import { showSnackbar } from '../../../../redux/actions/snackbarActions';
-import { loginEmail } from '../../../../redux/actions/authActions';
+import { loginEmail, registerFacebook } from '../../../../redux/actions/authActions';
 // End Redux
 
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
+
 export default function FacebookAuth() {
     //REDUX
     const { userList } = useStoreState(state => ({
@@ -39,7 +40,7 @@ export default function FacebookAuth() {
                 registeredBy: 'facebook'
             };
 
-            // registerFacebook(dispatch, newUser);
+            registerFacebook(dispatch, newUser);
             showSnackbar(dispatch, 'Conta Babadoo criada via Facebook!');
         }
 

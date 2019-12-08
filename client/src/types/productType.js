@@ -1,17 +1,28 @@
+/*
+Reference:
+array,
+number,
+string,
+bool,
+func,
+object,
+arrayOf,
+node, // n1
+symbol,
+element,
+elementType, // n2
+shape,
+oneOf,
+oneOfType,
+ */
+
 import {
-    array,
     number,
     string,
     bool,
-    func,
     object,
     arrayOf,
-    node, // n1
-    symbol,
-    element,
-    elementType, // n2
     shape,
-    oneOf,
     oneOfType,
 } from 'prop-types';
 
@@ -29,7 +40,6 @@ export const productType = shape({
 })
 
 export const productInfoType = shape({
-    company: string,
     colors: shape({
         main: string,
         moreOptions: arrayOf(string)

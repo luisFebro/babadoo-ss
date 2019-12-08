@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import ScrollToTop from 'react-router-scroll-top';
 import LinearProgress from '../components/loadingIndicators/LinearProgress';
@@ -10,12 +10,10 @@ import { readAdmin } from '../redux/actions/adminActions';
 import { useStoreDispatch } from 'easy-peasy'; // useStoreState
 import { getAllProducts } from '../redux/actions/productActions';
 // End Redux
-import { loadUser, tokenConfig } from '../redux/actions/authActions';
+import { loadUser } from '../redux/actions/authActions';
 import './App.css';
 import '../utils/globalHelpers';
-import UserProvider from '../data/contexts/UserProvider';
 //GENERAL COMPONENTS
-import { CustomPreloader } from 'react-preloaders';
 import AnimationBizPromo from '../components/AnimationBizPromo';
 // import StoreMap from '../components/StoreMap';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -23,7 +21,8 @@ import 'animate.css/animate.min.css';
 //END GENERAL COMPONENTS
 
 // PAGES
-import Preloader from '../pages/Preloader';
+// import Preloader from '../pages/Preloader';
+// import { CustomPreloader } from 'react-preloaders';
 import Store from '../pages/store';
 import Cart from '../pages/cart/Cart';
 // client
@@ -66,7 +65,7 @@ function App() {
         loadReCaptcha();
         dispatch(loadUser(dispatch));
         // CODE NOT WORKING n1
-    }, []);
+    }, [dispatch]);
 
     return (
         <BrowserRouter>

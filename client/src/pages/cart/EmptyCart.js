@@ -1,6 +1,5 @@
 import React from 'react';
 import { useStoreState } from 'easy-peasy';
-import { Link } from 'react-router-dom';
 import { ButtonContainerPressedEffectDark as Dark } from '../../components/buttons/Default';
 import Title from '../../components/Title';
 import parse from 'html-react-parser';

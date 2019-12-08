@@ -1,26 +1,22 @@
 import React, { Fragment, useEffect, useState } from 'react';
 // Redux
-import { useStoreState, useStoreDispatch } from 'easy-peasy';
+import { useStoreState } from 'easy-peasy';
 import { loadFavoriteProducts } from '../../redux/actions/productActions';
-import { showSnackbar } from '../../redux/actions/snackbarActions';
 // End Redux
 import Product from '../../components/_layout/products/Product';
 import Title from '../../components/Title';
 import parse from 'html-react-parser';
 import Illustration from '../../components/Illustration';
-import ShareSocialMediaButtons from '../../components/buttons/ShareSocialMediaButtons';
 
 export default function Favorites() {
     const [favProducts, setFavProducts] = useState([]);
     const [run, setRun] = useState(""); // n1
 
-    const { name, userId, isLoading, favCount } = useStoreState(state => ({
+    const { name, userId, favCount } = useStoreState(state => ({
         name: state.userReducer.cases.currentUser.name,
         userId: state.userReducer.cases.currentUser['_id'],
         favCount: state.userReducer.cases.currentUser.favoriteList,
-        isLoading: state.globalReducer.cases.isLoading,
     }));
-    const dispatch = useStoreDispatch();
 
     const loadFavoriteList = userId => {
         loadFavoriteProducts(userId)

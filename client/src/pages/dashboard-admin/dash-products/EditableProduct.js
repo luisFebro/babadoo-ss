@@ -1,4 +1,4 @@
-import React, { useState, useRef, Fragment } from 'react';
+import React, { useRef, Fragment } from 'react';
 // Redux
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 // import { addElemArrayUser, removeElemArrayUser } from '../../../redux/actions/userActions';
@@ -18,15 +18,12 @@ import MultiIconButton from '../../../components/buttons/MultiIconButton';
 import { productType } from '../../../types';
 // SpeedDial Buttons and Icons
 import SpeedDialButton from '../../../components/buttons/SpeedDialButton';
-import EditIcon from '@material-ui/icons/Edit';
 import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 import TitleIcon from '@material-ui/icons/Title';
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FormatListNumberedIcon from '@material-ui/icons/FormatListNumbered';
 // End SpeedDial Buttons and Icons
-import DeleteButton from '../../../components/buttons/DeleteButton';
-import EditButton from '../../../components/buttons/EditButton';
 import PropTypes from 'prop-types';
 
 // Functions to get modals
@@ -71,14 +68,11 @@ EditableProduct.propTypes = {
 
 export default function EditableProduct({ product, isFav }) {
     const animateRef = useRef(null);
-    const [isFavChanged, setIsFavChanged] = useState(false);
     // const [isAddedAsFav, setIsAddedAsFav] = useState(isFav);
 
-    const { allProductsList, isUserAuthenticated, _idUser, modalConfProps } = useStoreState(state => ({
+    const { allProductsList, isUserAuthenticated } = useStoreState(state => ({
         allProductsList: state.productReducer.cases.allProductsList,
         isUserAuthenticated: state.authReducer.cases.isUserAuthenticated,
-        _idUser: state.userReducer.cases.currentUser['_id'],
-        modalConfProps: state.modalReducers.cases.modalConfProps
     }));
     const dispatch = useStoreDispatch();
     // console.log("isAuth", isUserAuthenticated); //Check this behavior: auth is running multiple 11 times
@@ -151,7 +145,7 @@ export default function EditableProduct({ product, isFav }) {
                         // onClick={() => toggleFav()}
                     >
                         {isUserAuthenticated ? (
-                            isFavChanged || isFav ? (
+                            isFav ? (
                                 <i
                                     className="filledHeart fas fa-heart animated heartBeat fast"
                                     onClick={() => {

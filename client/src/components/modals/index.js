@@ -23,8 +23,7 @@ export default function AllModals() {
     // Checkingthe right places to send data to confirmation modals
     let itemsYesNo = null,
         itemsField = null,
-        textField = null,
-        checkCondition = null;
+        textField = null;
     if (currentItemFound) {
         switch (currentItemFound.mainSubject) {
             case 'Preço':
