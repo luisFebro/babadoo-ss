@@ -2,8 +2,8 @@ import React, { Component, Fragment } from 'react';
 import ButtonCart from '../components/buttons/ButtonCart';
 import Title from '../components/Title';
 import ProductList from '../components/_layout/products/ProductList';
+import ShareSocialMediaButtons from '../components/buttons/ShareSocialMediaButtons';
 // import ServiceList from './biz-services/ServiceList';
-// import ShareSocialMediaButtons from '../components/buttons/ShareSocialMediaButtons';
 
 const pageData = {
     titleShare: 'Compartilhe a Vitrine Babadoo',
@@ -24,13 +24,9 @@ export default class Home extends Component {
                 {/*Testing updates only*/}
                 <h1 style={{ display: 'inline-block', background: '#000', color: '#fff' }}>{null}</h1>
                 {/*End Testing updates only*/}
+                <ShareSocialMediaButtons data={pageData} />
                 <ButtonCart />
             </Fragment>
         );
     }
 }
-
-
-/*
-<ShareSocialMediaButtons data={pageData} />
- */

@@ -95,7 +95,7 @@ export default function ModalRegister() {
         registerEmail(dispatch, newUser)
         .then(res => {
             if(res.status !== 200) {
-                showSnackbar(dispatch, res.data.msg, 'error');
+                showSnackbar(dispatch, res.data.msg, 'error', 6000);
                 // detect field errors
                 const thisModalFields = Object.keys(data);
                 const foundObjError = detectErrorField(res.data.msg, thisModalFields);

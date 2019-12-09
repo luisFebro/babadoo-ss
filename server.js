@@ -40,6 +40,7 @@ app.use('/api/database', require('./routes/database'));
 isProduction && app.use(express.static(path.join(__dirname, 'client/build')))
 // END MIDDLEWARES
 
+require("./utils/debug/debugEventEmitter");
 // This solves the "Not found" issue when loading an URL other than index.html.
 isProduction &&
 app.get('/*', (req, res) => { //n3

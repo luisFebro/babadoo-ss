@@ -26,9 +26,10 @@ Spinner.propTypes = {
 
 export default function Spinner({ expireSec, alignment = 'center' }) {
     const [run, setRun] = useState(true);
-
+    // Not working with callback
     const stopSpinnerAfter = useCallback(() => {
         const milisecs = expireSec * 1000;
+        console.log(milisecs)
         return expireSec && setTimeout(() => setRun(false), milisecs);
     }, [expireSec])
 

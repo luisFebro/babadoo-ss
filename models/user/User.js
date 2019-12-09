@@ -75,7 +75,7 @@ const data = {
 
 const userSchema = new Schema(data, { timestamps: true }); //n1
 //n1
-module.exports = mongoose.models.User || mongoose.model('User', userSchema, collectionName);
+module.exports = mongoose.model('User', userSchema, collectionName);
 
 
 /* COMMENTS

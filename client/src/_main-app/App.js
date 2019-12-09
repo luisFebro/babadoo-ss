@@ -59,11 +59,11 @@ import WhatsappIcon from '../components/buttons/WhatsappIcon';
 function App() {
     const dispatch = useStoreDispatch();
     readAdmin(dispatch);
-    getAllProducts(dispatch); // n2
 
     useEffect(() => {
         loadReCaptcha();
         dispatch(loadUser(dispatch));
+        getAllProducts(dispatch); // n2
         // CODE NOT WORKING n1
     }, [dispatch]);
 
@@ -103,7 +103,7 @@ function App() {
     );
 }
 
-export default React.memo(App);
+export default App;
 
 /* n1 Every time the user clicks on the screen,he/she is updated
 // if(isUserAuthenticated) {
