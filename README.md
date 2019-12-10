@@ -27,4 +27,6 @@
 - [mounting and unmounting react components - Learn.co](https://learn.co/lessons/react-component-mounting-and-unmounting)
 - [Centralized PropTypes - Cory House](https://www.freecodecamp.org/news/react-pattern-centralized-proptypes-f981ff672f3b/)
 
-## Author: Luis Febro.
+## Developer: Luis Febro.
+
+## Note: This project will remain as open to the public. Although the final part will be finished in another private repository due to company's privacy matters.
