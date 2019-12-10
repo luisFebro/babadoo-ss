@@ -1,6 +1,6 @@
 import { reducer } from 'easy-peasy';
 // About: Reusable with many components, especially for true-false states
-//Reducer Naming Structure: (optional verb 'is') + main + state/desc
+//Reducer Naming Structure: type: MAIN/SUBJECT + PARTICIPLE VERB eg. USER_CLEARED
 
 // REDUCERS
 const initialState = {

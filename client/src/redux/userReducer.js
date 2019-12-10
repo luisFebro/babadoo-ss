@@ -1,7 +1,7 @@
 import { reducer } from 'easy-peasy';
 // You can use only one isntance of object like 'cases' for each object.
 // Check for mispellings in case of one action not being dispatched properly.
-// Reducer Naming Structure: (optional verb 'is') + main + state/desc
+// Reducer Naming Structure: type: MAIN/SUBJECT + PARTICIPLE VERB eg. USER_CLEARED
 
 // HELPERS
 function checkCoupons(payload) {
@@ -18,19 +18,14 @@ function checkCoupons(payload) {
 const initialState = {
     currentUser: {},
     allUsers: [],
-    allMessagesList: [],
-    gotCoupons: false
+    allMessagesList: [], // this will be deleted, all data will be fromm currentUser.
+    gotCoupons: false // // this will be deleted
 };
 
 export const userReducer = {
     cases: reducer((state = initialState, action) => {
         switch (action.type) {
-            case 'UPDATE_ALL_USERS':
-                return {
-                    ...state,
-                    allUsers: action.payload,
-                };
-            case 'UPDATE_CURRENT_USER':
+            case 'USER_READ':
                 //Check if user have coupons (If so, the maskot with discount will not appear when user log in)
                 return {
                     ...state,
@@ -42,6 +37,11 @@ export const userReducer = {
                 return {
                     ...state,
                     allUsers: state.allUsers.filter(user => user._id !== action.payload)
+                };
+            case 'USER_READ_LIST':
+                return {
+                    ...state,
+                    allUsers: action.payload,
                 };
             // CUSTOMIZED DATA HANDLING from social network
             case 'USER_GOOGLE_DATA':
@@ -64,7 +64,7 @@ export const userReducer = {
                         picture: action.payload.picture.data.url
                     }
                 }
-            case 'CLEAR_UPDATE_CURRENT_USER':
+            case 'USER_CLEARED':
                 return {
                     ...state,
                     currentUser: {}

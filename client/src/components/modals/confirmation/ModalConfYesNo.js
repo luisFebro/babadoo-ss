@@ -3,7 +3,7 @@ import React from 'react';
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { closeModal } from '../../../redux/actions/modalActions';
 import { showSnackbar } from '../../../redux/actions/snackbarActions';
-import { deleteUser, getUpdatedUsers } from '../../../redux/actions/userActions';
+import { deleteUser, readUserList } from '../../../redux/actions/userActions';
 import { deleteProduct } from '../../../redux/actions/productActions';
 // import { animateAnotherComponent } from '../../../redux/actions/animationActions';
 // End Redux
@@ -107,7 +107,7 @@ export default function ModalConfYesNo({ currItemFound }) {
                                             case 'Usuário':
                                                 setTimeout(() => {
                                                     deleteUser(dispatch, _idUser);
-                                                    getUpdatedUsers(dispatch);
+                                                    readUserList(dispatch);
                                                 }, 8000);
                                                 break;
                                             case 'Produto':

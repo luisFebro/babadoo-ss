@@ -41,14 +41,9 @@ const data = {
         type: String,
         default: ""
     },
-    // this will be replaced
     favoriteList: {
         type: Array,
         default: []
-    },
-    favoriteL: {
-        type: Schema.ObjectId,
-        ref: 'Favorite'
     },
     inCartList: {
         type: Array,
@@ -58,7 +53,7 @@ const data = {
         type: Array,
         default: []
     },
-    couponsList: {
+    couponList: {
         type: Array,
         default: []
     },
@@ -68,21 +63,12 @@ const data = {
     },
     isUserConfirmed: {
         type: Boolean,
-        default: false
+        default: false,
     },
     tempAuthUserToken: UserTokenSchema
 }
 
-const userSchema = new Schema(data, { timestamps: true }); //n1
-//n1
+const userSchema = new Schema(data, { timestamps: true });
 module.exports = mongoose.model('User', userSchema, collectionName);
 
 
-/* COMMENTS
-n1: checking if the model exists then use it, else create it.
-For this issue: OverwriteModelError: Cannot overwrite `User` model once compiled.
-itis used becauseI have models/user both for auth and user.
-*/
-
-
-// n1 : { strict: false }The strict option, (enabled by default), ensures that values passed to our model constructor that were not specified in our schema do not get saved to the db.

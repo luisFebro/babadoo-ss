@@ -17,6 +17,8 @@ const msgG = (typeAndMsgName, customized = 'NeedCustomWord', options) => {
     ok.success = "Esta operação foi executada com sucesso";
     ok.added = "Adicionado";
     ok.removed = "Removido";
+    ok.removedField = `O campo ${customized} foi removido com sucesso!`;
+    error.notRemovedField = `Erro! O campo ${customized} já foi removido.`;
     error.noFields = "Preencha todos os campos";
     error.notFound = `${customized} não foi encontrado`;
     error.systemError = `Ocorreu o seguinte erro: ${customized}`;

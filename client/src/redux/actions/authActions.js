@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getAuthUser } from './userActions';
+import { readUser } from './userActions';
 import { setLoadingProgress } from './globalActions';
 import { showSnackbar } from './snackbarActions';
 import { configTypeJson } from '../../utils/server/configTypeJson';
@@ -14,8 +14,8 @@ export const loadUser = () => (dispatch, getState) => {
     .then(res => {
        // from user reducer
         dispatch({ type: 'AUTHENTICATE_USER_ONLY' });
-        dispatch({ type: 'UPDATE_CURRENT_USER', payload: res.data.profile });
-        // getAuthUser(dispatch, res.data.profile);
+        dispatch({ type: 'USER_READ', payload: res.data.profile });
+        // readUser(dispatch, res.data.profile);
     })
     .catch(err => {
         return err.response;
@@ -29,7 +29,7 @@ export const loginEmail = async (dispatch, objToSend) => {
     try {
         const res = await axios.post('/api/auth/login', objToSend, configTypeJson);
         dispatch({ type: 'LOGIN_EMAIL', payload: res.data.token });
-        getAuthUser(dispatch, res.data.authUserId);
+        readUser(dispatch, res.data.authUserId);
         setLoadingProgress(dispatch, false);
         return res;
     } catch (err) {
@@ -48,7 +48,7 @@ export const registerEmail = async (dispatch, objToSend) => {
     try {
         const res = await axios.post('/api/auth/register', objToSend, configTypeJson);
         dispatch({ type: 'REGISTER_EMAIL', payload: res.data.token });
-        getAuthUser(dispatch, res.data.authUserId);
+        readUser(dispatch, res.data.authUserId);
         setLoadingProgress(dispatch, false);
         return res;
     } catch(err) {
@@ -66,7 +66,7 @@ export const registerGoogle = (dispatch, body, resGoogle) => {
     .then(res => {
         dispatch({ type: 'LOGIN_GOOGLE', payload: res.data.token })
         dispatch({ type: 'USER_GOOGLE_DATA', payload: resGoogle })
-        getAuthUser(dispatch, res.data.authUserId); // This will get the complementary data from user registered by social network
+        readUser(dispatch, res.data.authUserId); // This will get the complementary data from user registered by social network
     })
     .catch(err => {
         return err.response;
@@ -78,7 +78,7 @@ export const registerFacebook = (dispatch, body, resFacebook) => {
     .then(res => {
         dispatch({ type: 'LOGIN_FACEBOOK', payload: res.data.token })
         dispatch({ type: 'USER_FACEBOOK_DATA', payload: resFacebook })
-        getAuthUser(dispatch, res.data.authUserId); // This will get the complementary data from user registered by social network
+        readUser(dispatch, res.data.authUserId); // This will get the complementary data from user registered by social network
     })
     .catch(err => {
         return err.response;
@@ -88,7 +88,7 @@ export const registerFacebook = (dispatch, body, resFacebook) => {
 
 export const logout = dispatch => {
     dispatch({ type: 'LOGOUT_SUCCESS' });
-    dispatch({ type: 'CLEAR_UPDATE_CURRENT_USER' });
+    dispatch({ type: 'USER_CLEARED' });
     setTimeout(() => showSnackbar(dispatch, 'Sua sessão foi finalizada com sucesso. Volte Sempre!', 4000), 2000);
 };
 

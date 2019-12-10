@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-// const User = require('../../models/User');
 const {
     read,
     update,
@@ -9,13 +8,14 @@ const {
     getList,
     confirmUserAccount,
     addElementArray,
-    removeElementArray
+    removeElementArray,
+    removeField,
 } = require("../../controllers/user");
 
 // @route  api/user
 // RUD
 router.get("/:userId", read); // requireSignin, mwIsAuth
-router.put("/test/:userId", update); // requireSignin, mwIsAuth
+router.put("/:userId", update); // requireSignin, mwIsAuth
 router.delete('/:userId', remove);
 // END RUD
 
@@ -28,10 +28,11 @@ router.get("/list/all", getList);
 // Array Fields handled: favoriteList,
 router.put('/field/array/push/:id', addElementArray);
 router.put('/field/array/pull/:id', removeElementArray);
+router.put('/field/remove/:id', removeField);
 
 router.param("userId", mwUserId); // n1
 
-
+// THIS WILL REFACTORATED TO RECEIVE IDS LIKE I DID WITH FAVORITES AND UPDATE WITH FIELD ROUTES.
 // NOTIFICATION SYSTEM
 // @route   ADD (a primary field) api/users/lists/change-field/notifications/:id
 // @desc    Send/Add a notification (clients <==> admin)
@@ -66,36 +67,6 @@ router.param("userId", mwUserId); // n1
 // });
 // // END NOTIFICATION SYSTEM
 
-// // MODIFYING USER'S FIELDS
-// // @route   UPDATE (Change/Add a primary field) api/users/lists/change-field/:id
-// // @desc    Change/Add a primaryfield
-// // @access  Private
-// // req.body = { "couponsList": [{"type": "30% desconto"}]}
-// router.put('/lists/change-field/:id', (req, res) => {
-//     User.findByIdAndUpdate(req.params.id, req.body, { strict: false, upsert:true }, (err, data) => {
-//         if (err) {
-//             return res
-//                 .status(500)
-//                 .json({error: "unsuccessful. not added"})
-//         }
-//         data.save();
-//         res.json( data );
-//     });
-// });
-
-// // @route   DELETE a Primary Field api/users/lists/delete-field/:id
-// // @desc    Find a User(doc) and field and delete a primary element
-// // @access  Private
-// // eg. req.body.fieldToBeDeleted = { "fieldToBeDeleted": "message" }
-// router.put('/lists/delete-field/:id', (req, res) => {
-//     let targetField = req.body.fieldToBeDeleted;
-//     User.findById(req.params.id, (err, selectedUser) => {
-//         selectedUser.set(targetField, undefined, {strict: false} );
-//         selectedUser.save(() => res.json({msg: `delete-field: the field ${targetField.toUpperCase()} was deleted succesfully`}))
-//     })
-// });
-// END MODIFYING USER'S FIELDS
-// END LISTS
 module.exports = router;
 
 
@@ -104,4 +75,6 @@ n1: // Everytime there is a userId, this router will run and make this user info
 n2:
 // eg. req.body = { "couponsList": {type: '30% de desconto'}}
 req.body = {sex: "male"} = add male as ind 0 from an array
+n3: LESSON: don't insert MongoDB Models twice like here (const User = require('../../models/User');) in routes and controllers
+because this causes deployment issue and this error: OverwriteModelError: Cannot overwrite `User` model once compiled.
 */

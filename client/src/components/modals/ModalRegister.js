@@ -11,7 +11,7 @@ import ButtonMulti from '../buttons/material-ui/ButtonMulti';
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { showSnackbar } from '../../redux/actions/snackbarActions';
 import { showModalLogin, closeModal } from '../../redux/actions/modalActions';
-import { getUpdatedUsers } from '../../redux/actions/userActions';
+import { readUserList } from '../../redux/actions/userActions';
 import { sendWelcomeConfirmEmail } from '../../redux/actions/emailActions';
 import { registerEmail } from '../../redux/actions/authActions';
 // Material UI
@@ -156,7 +156,7 @@ export default function ModalRegister() {
             <ButtonMulti
                 onClick={() => {
                     registerThisUser();
-                    setTimeout(() => getUpdatedUsers(dispatch), 3000);
+                    setTimeout(() => readUserList(dispatch), 3000);
                     showSnackbar(dispatch, 'Registrando...');
                 }}
                 iconFontAwesome='fas fa-paper-plane'

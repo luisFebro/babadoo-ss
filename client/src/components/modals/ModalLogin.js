@@ -10,7 +10,7 @@ import detectErrorField from '../../utils/validation/detectErrorField';
 import { useStoreState, useStoreDispatch } from 'easy-peasy';
 import { showSnackbar } from '../../redux/actions/snackbarActions';
 import { closeModal, showModalRegister } from '../../redux/actions/modalActions';
-import { getUpdatedUsers } from '../../redux/actions/userActions';
+import { readUserList } from '../../redux/actions/userActions';
 import { loginEmail } from '../../redux/actions/authActions';
 // Material UI
 import TextField from '@material-ui/core/TextField';
@@ -124,7 +124,7 @@ export default function ModalLogin() {
             <ButtonMulti
                 onClick={() => {
                     signInThisUser();
-                    setTimeout(() => getUpdatedUsers(dispatch), 3000);
+                    setTimeout(() => readUserList(dispatch), 3000);
                     showSnackbar(dispatch, "Acessando sua conta...");
                 }}
                 iconFontAwesome="fas fa-paper-plane"

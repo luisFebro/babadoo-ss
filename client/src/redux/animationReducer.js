@@ -1,6 +1,6 @@
 import { reducer } from 'easy-peasy';
 // About: manage Animation using setTimeout and useRef Hook
-//Reducer Naming Structure: (optional verb 'is') + main + state/desc
+//Reducer Naming Structure: type: MAIN/SUBJECT + PARTICIPLE VERB eg. USER_CLEARED
 
 // REDUCERS
 const initialState = {

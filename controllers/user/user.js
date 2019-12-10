@@ -21,7 +21,7 @@ exports.read = (req, res) => {
     return res.json(req.profile);
 };
 
-exports.update = (req, res) => {
+exports.update = (req, res) => { // n2
     User.findOneAndUpdate({ _id: req.profile._id }, { $set: req.body }, { new: true }) // real time updated! this send the most recently updated response/doc from database to app
     .exec((err, user) => {
         if(err) return res.status(500).json(msgG('error.systemError', err));
@@ -96,3 +96,22 @@ exports.removeElementArray = (req, res) => {
         });
     });
 }
+
+exports.removeField = (req, res) => { // n1
+    let targetField = req.body.fieldToBeDeleted;
+    User.findById(req.params.id)
+    .exec((err, selectedUser) => {
+        if(selectedUser[targetField] === "[]") return res.status(400).json(msgG("error.notRemovedField", targetField))
+
+        selectedUser.set(targetField, undefined, {strict: false} );
+        selectedUser.save(() => res.json(msgG("ok.removedField", targetField)))
+    })
+}
+
+
+
+/* COMMENTS
+n1: Only for objects with no default value. Need fix validation and it does not remove keys with default values.
+n2: only update one specific key in the document, including objects like "key.prop".targetField. If you update an element of array, all the rest will be gone, updated.
+In order to add/remove arrays use add/removeElementArray instead;
+*/

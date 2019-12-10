@@ -2,7 +2,7 @@ import { reducer } from 'easy-peasy';
 import updateKeyWithId from './helpers/updateKeyWithId'
 // You can use only one isntance of object like 'cases' for each object.
 // Check for mispellings in case of one action not being dispatched properly.
-// Reducer Naming Structure: (optional verb 'is') + main + state/desc
+// Reducer Naming Structure: type: MAIN/SUBJECT + PARTICIPLE VERB eg. USER_CLEARED
 
 
 // REDUCERS

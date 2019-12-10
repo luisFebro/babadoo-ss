@@ -109,7 +109,7 @@ export default App;
 // if(isUserAuthenticated) {
 //     window.addEventListener('click', () => {
 //         console.log("clicked");
-//         updateCurrentUser(dispatch)
+//         readUser(dispatch)
 //     });
 // }
 n2: this loads in the first run because it faces a fetching issue if the user loads a page other than home.
